@@ -1,0 +1,1597 @@
+﻿@using RASolarERP.Model;
+@model IEnumerable<RASolarERP.Model.UnitWiseCustomerRegisterReport>
+<script type="text/javascript">
+
+    var firstTime = true;
+    function OnDataBindingCustomerCollection(e) {
+
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function OnErrorCustomerCollection(e) {
+        e.preventDefault();
+    }
+</script>
+@{
+    ViewBag.Title = "Customer Register";
+
+
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfOpenDay" type="hidden"  value="@ViewBag.OpenDay"/>
+<input id="hfOpenBackDay" type="hidden"  value="@ViewBag.OpenBackDay"/>
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td align="left">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td align="left">Total Collection In This Month: @((string)ViewBag.TotalCollectionInCurrentMonth)
+                    </td>
+                    <td align="left">Total Advance: @((string)ViewBag.TotalAdvance)
+                    </td>
+                    <td align="left">Total Overdue: @((string)ViewBag.TotalOverdue)
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid(Model)
+                                      .Name("gvUnitWiseCustomerRegisterReport")
+                                      .DataKeys(keys => keys.Add(k => k.CustomerCode))
+                                      .Columns(column =>
+                                      {
+                                          column.Bound(c => c.CustomerCode).Template(@<a href="#" onclick="return ShowCustomerLedger('@item.CustomerCode')">@item.CustomerCode</a>).Title("Customer ID");
+                                          column.Bound(c => c.CustomerName).Width(150);
+                                          column.Bound(c => c.AgreementDate).Format("{0:dd-MMM-yyyy}");
+                                          column.Bound(c => c.CollectionInCurrentMonthWithoutDP).HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}").Title("Collection In Current Month");
+                                          column.Bound(c => c.OverdueOrAdvanceBalance).HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}").Title("Overdue or Advance");
+                                          column.Bound(c => c.OutstandingBalance).HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}");
+                                          column.Template(@<a href="#" class="CustomerCollectionFromUnit">Collection</a>);
+                                          column.Template(@<a href="#" class="CustomerTransferFromUnit">Transfer</a>);
+                                          column.Template(@<a href="@(@Url.Action("SystemReturnCustomer", "CustomerRegister") + "?customerCode=")@(item.CustomerCode)" target="_blank">System
+                                              Return</a>).Width(100);
+                                          column.Template(@<a href="#" class="FullPaidCustomerFromUnit">Full Paid</a>);
+                                          column.Template(@<a href="#" class="EditCustomerFromUnit">Edit</a>).Width(50);
+                                          column.Bound(c => c.EmployeeAsFPR).Hidden(true);
+                                          column.Bound(c => c.EmployeeName).Hidden(true);
+                                          column.Bound(c => c.PhoneNo).Hidden(true);
+                                          column.Bound(c => c.IsMobileNoMandatory).Hidden(true);
+
+                                      })
+                                                                        .Selectable()
+                                                                        .Pageable(pages => pages.PageSize(100))
+                                                                        .Scrollable(scroll => scroll.Height(300))
+                                                                        .ToolBar(commands =>
+                                                                        {
+                                                                            commands.Custom().HtmlAttributes(new { id = "exportCustomerRegisterToPdf", onclick = "return SetParamaterForPdfGenerationCustomerRegister();" }).Text("Export To PDF Customer Register").Action("ExportToPdfCustomerRegister", "CustomerRegister", new { page = 1, groupby = "~", orderby = "~", filter = "~" });
+                                                                            commands.Custom().HtmlAttributes(new { id = "exportCustomerLedgerToPdf", onclick = "return SetParamaterForPdfGenerationCustomerLedger();" }).Text("Export To PDF Customer Ledger").Action("ExportToPdfCustomerLedger", "CustomerRegister", new { page = 1, groupby = "~", orderby = "~", filter = "~", customerCode = "~" });
+                                                                            commands.Custom().HtmlAttributes(new { id = "exportAllCustomerLedgerToPdf", onclick = "return SetParamaterForPdfGenerationAllCustomerLedger();" }).Text("Export To PDF All Customer Ledger").Action("ExportToPdfAllCustomerLedger", "CustomerRegister", new { page = 1, groupby = "~", orderby = "~", filter = "~", customerCode = "~" });
+                                                                        })
+
+                                                          )
+            </div>
+        </td>
+    </tr>
+    <tr id="customerCollectionTr">
+        <td valign="top">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="width: 60%;" valign="top">
+                        <form id="frmCustomerCollection" method="post" action="SaveCustomerCollection">
+                            @Html.Hidden("hfCollectionSerials", "0")
+                            @Html.Hidden("hfCollectionSerialsDelete", "0")
+                            @Html.Hidden("hfCustomerCodeForCollection", "0")
+                            @Html.Hidden("hfCustomerFprPerson", "0")
+                             @Html.Hidden("hfIsMobileNoMandatory", "0")
+                            @Html.Hidden("hfCollectionAmountEditMode", "0")
+                            @Html.Hidden("btnColelctionSubmit")
+                            @Html.Hidden("hfCollectionDelete", "")
+                            <input id="hfOutstandingBalance" type="hidden" value="0" />
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left">Customer ID
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCustomerCode", "", new { @disabled = "disabled" })
+                                    </td>
+                                    <td align="left">Customer Name
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCustomerName", "", new { @disabled = "disabled" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Collection Date
+                                    </td>
+                                    <td align="left">
+                                        <span id="dtpCollectionDateDisable">@(Html.Telerik().DatePicker().Name("dtpCollectionDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(ViewBag.OpenDay))</span>
+                                    </td>
+                                    <td align="left">Memo Number
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtMemoNumber", "", new { @maxLength = "10" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Collection Amount
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCollectionAmount", "")
+                                    </td>
+                                    <td align="left">Collected By
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCustomerFprPerson", "", new { @readonly = true })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Customer Mobile Number
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCustomerMobileNumber", "", new { @maxLength = "11" })
+                                    </td>
+                                    <td align="left">
+                                    </td>
+                                    <td align="left">
+                                      
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4" align="left">
+                                        <input id="btnColelctionSubmit" class="button" type="submit" value="Save" onclick="return CustomerCollectionSave();" />
+                                        <input id="btnColelctionDelete" class="button" type="submit" value="Delete" onclick="return CustomerCollectionDelete();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                    <td style="width: 40%;" valign="top">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td align="left">
+                                    <input id="btnUpdateCollection" type="submit" value="Edit" onclick="return UpdateCustomerCollection();" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="showCollectionDetails">
+                                    @(Html.Telerik().Grid<RASolarERP.DomainModel.SalesModel.CustomerCollectionDetails>()
+                                        .Name("grvCustomerCollection")
+                                        .DataKeys(keys => keys.Add(k => k.SerialNo))
+                                        .Columns(column =>
+                                        {
+                                            column.Bound(c => c.SerialNo);
+                                            column.Bound(c => c.CollectionDate).Format("{0:dd-MMM-yyyy}");
+                                            column.Bound(c => c.RefMemoNo);
+                                            column.Bound(c => c.CollectionAmount).Format("{0:0}");
+                                            column.Bound(c => c.CollectedByEmployeeID).Hidden(true);
+                                            column.Bound(c => c.CollectedByEmployeeName).Hidden(true);
+                                        })
+                                        .DataBinding(dbBindings => dbBindings.Ajax().Select("__CutomerCollectionDetails", "CustomerRegister"))
+                                        .ClientEvents(events =>
+                                        {
+                                            events.OnRowSelect("grvCustomerCollection_RowSelect");
+                                            events.OnDataBinding("OnDataBindingCustomerCollection");
+                                            events.OnError("OnErrorCustomerCollection");
+
+                                        })
+                                        .Selectable()
+                                        .Footer(false)
+                                   )
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr id="fullPayment">
+                    <td>
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="customerTransferTr">
+        <td valign="top">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="width: 60%;" valign="top">
+                        <form id="frmCustomerTransfer" method="post" action="SaveCustomerTransferInfo">
+                            @Html.Hidden("hfCollectionSerials", "0")
+                            @Html.Hidden("hfCustomerCodeForTransfer", "0")
+                            @Html.Hidden("hfCustomerTransferLocationCode", "")
+                            @*<input id="hfOutstandingBalance" type="hidden" value="0" />*@
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left">Customer ID
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCTCustomerCode", "", new { @disabled = "disabled" })
+                                    </td>
+                                    <td align="left">Customer Name
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCTCustomerName", "", new { @disabled = "disabled" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Transfer Date
+                                    </td>
+                                    <td align="left">
+                                        @(Html.Telerik().DatePicker().Name("dtpTransferDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(ViewBag.OpenDay))
+                                    </td>
+                                    <td align="left">Transfer To Unit
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtToLocation", "", new { @class = "IRControl", @readonly = true })
+                                        @(Html.Telerik().Window().Name("dialogUnitSelection")
+                                          .Title("Select A Location For Transfer")
+                                          .Draggable(false)
+                                          .Resizable(resizing => resizing.Enabled(false)
+                                                                         .MinHeight(115)
+                                                                         .MinWidth(325)
+                                                                         .MaxHeight(500)
+                                                                         .MaxWidth(500)
+                                                                         )
+                                          .Modal(true)
+                                          .Buttons(b => b.Close())
+                                          .Content(@<text>
+                                        @Html.Partial("UnitSelection")
+                                        <input type="button" value="&nbsp;&nbsp;&nbsp;OK" class="OkButton" onclick="return CloseDialogWindow();" />
+                                        </text>
+                                                    )
+                                          .Visible(false)
+                                     )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Transfer Note
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextArea("txtTransferNotes", "")
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="left">
+                                        <input id="btnTransferInfoSubmit" type="submit" value="Save" onclick="return CustomerTransferSave();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="systemReturnContainer">
+        <td style="width: 100%">
+            @Html.Hidden("hfCustomerCodeForSystemReturn", "0")
+            <input id="hfSROutstandingBalance" type="hidden" value="0" />
+            <input id="hfSRCollectionInCurrentMonth" type="hidden" value="0" />
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left">Customer ID
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtSRCustomerCode", "", new { @disabled = "disabled" })
+                    </td>
+                    <td align="left">Customer Name
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtSRCustomerName", "", new { @disabled = "disabled" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="left">
+                        <input id="btnSystemReturn" type="submit" value="System Return" onclick="return SystemReturnSave();" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="fullPaidCustomerContainer">
+        <td style="width: 100%">
+            <fieldset>
+                <legend>Full Paid</legend>
+                <form id="frmCustomerFullPaid" method="post" action="SaveCustomerFullPaidInfo">
+                    @Html.Hidden("hfCustomerCodeForFullPayed", "0")
+                    @Html.Hidden("hfApprovalRequiredForFullPayed", "")
+                    @Html.Hidden("hfApprovalStatus", "")
+                    @Html.Hidden("hfClosedWithWaveOrNot", "0")
+                    <input id="hfFPOutstandingBalance" type="hidden" value="0" />
+                    <input id="hfFPCollectionInCurrentMonth" type="hidden" value="0" />
+                    <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                        <tr>
+                            <td style="width: 49%;">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Customer ID
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtFPCustomerCode", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Customer Name
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtFPCustomerName", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Total Principal Receivable
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTotalPrincipalReceivable", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Total Service Charge Received
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTotalServiceChargeReceived", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Total Service Charge Receivable (Up to current month)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTotalServiceChargeReceivable", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Remaining Principal Receivable (After Advance Adjustment)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtRemainingPrincipalReceivable", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Remaining Service Charge Receivable (After Advance Adjustment)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtRemainingServiceChargeReceivable", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 49%;">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Agreement Date
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtAgreementDate", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Total Due / Used Month
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTotalDue", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Agreement Closed Date
+                                        </td>
+                                        <td align="left">
+                                            <span id="dtpAgreementClosedDateDisable">@(Html.Telerik().DatePicker().Name("dtpAgreementClosedDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)))</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Trans Date
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTransDate", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Closed In
+                                        </td>
+                                        <td align="left">
+                                            @Html.DropDownList("ddlClosedIn", new List<SelectListItem> 
+                                        { 
+                                            new SelectListItem {Text="Current Month", Value="CurrentMonth", Selected = true},
+                                            new SelectListItem {Text="Last Month", Value="LastMonth"}
+                                         }, new { @style = "width: 150px" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Approval Number
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtApprovalNumber", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Advance Balance (After Adjustment)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtAdvanceBalance", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Closed with Waive
+                                        </td>
+                                        <td align="left">
+                                            @Html.DropDownList("ddlClosedWithWaive", new List<SelectListItem> 
+                                        { 
+                                            new SelectListItem { Text = "----------------------Select---------------------", Value = "0"},
+                                            new SelectListItem {Text="Close this customer with waiver approved by management", Value="1"},
+                                         }, new { @class = "IRDropDown", @style = "width: 456px;" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Approval Status In Details 
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtApprovalStatusInDetails", "", new { @readonly = "readonly", @style = "width: 450px;" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Note
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtNote", "", new { @style = "width: 450px;" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" align="left">
+                                <input id="btnFullPaid" type="submit" value="Save" onclick="return FullPayedCustomerSave();" />
+                                <input id="btnRequestForApproval" type="submit" value="Request For Approval" onclick="return FullPayedCustomerSave();" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </fieldset>
+        </td>
+    </tr>
+
+    <tr id="editCustomerInfoContainer">
+        <td valign="top">
+          <fieldset>
+                <legend>Edit Customer Info</legend>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="width: 60%;" valign="top">
+                        <form id="frmCustomerInfoUpdate" method="post" action="SaveCustomerTransferInfo">
+                            @Html.Hidden("hfCollectionSerials", "0")
+                            @Html.Hidden("hfCustomerCodeForTransfer", "0")
+                            @Html.Hidden("hfCustomerTransferLocationCode", "")
+
+                            @*<input id="hfOutstandingBalance" type="hidden" value="0" />*@
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left">Customer ID:
+                                    </td>
+                                    <td align="left">
+                                        <label for="a" id="lblEditCustomerCode"></label>
+                                    </td>
+                                    <td align="left">Customer Name
+                                    </td>
+                                    <td align="left">
+                                         <label for="a" id="lblEditCustomerName"></label>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                            @*  <tr>
+                                  <td align="left">Village:<label for="lblEditVillage" id="lblEditVillage"></label></td>
+                                  <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;Post Office:<label for="lblEditPostOffice" id="lblEditPostOffice"></label></td>
+                                  <td align="left">Union:<label for="lblEditUnionName" id="lblEditUnionName"></label></td>
+                                  <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;Upzilla:<label for="lblEditUpzillName" id="lblEditUpzillName"></label> </td>
+                                  <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;District:<label for="lblEditDistrictName" id="lblEditDistrictName"></label></td>
+                                  <td></td>
+                              </tr>*@
+
+                                <tr>
+                                    <td class="SalesAgreementCaptionMiddleColumn">Customer Name<font size="2" face="Tahoma" color="Red"><b>*</b></font></td>
+                                    <td>
+                                        @Html.TextBox("txtEditCustomerName", "", new {@class = "SalesAgreementControl"})
+                                    </td>
+                                    
+                                    <td class="SalesAgreementCaptionMiddleColumn">Father/Husband Name<font size="2" face="Tahoma" color="Red"><b>*</b></font></td>
+                                    <td>
+                                        @Html.TextBox("txtEditFatherHusbandName", "", new {@class = "SalesAgreementControl"})
+                                    </td>
+
+                                    <td class="SalesAgreementCaptionMiddleColumn">Village:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtEditVillage", "", new { @class = "SalesAgreementControl" })
+                                    </td>
+                                  
+                                </tr>
+                                   <tr>
+                                       <td class="SalesAgreementCaptionRightColumn">Post Office:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                       </td>
+                                      @* <td>
+                                           @Html.TextBox("txtEditPostOffice", "", new { @class = "SalesAgreementControl" })
+                                       </td>*@
+                                       <td>
+                                            @Html.DropDownList("txtEditPostOffice", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                        <td class="SalesAgreementCaptionRightColumn">Upazilla/Thana:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlEditUpazillaThana", new SelectList(@ViewBag.Upazilla, "UPAZ_CODE", "UPAZ_NAME"), "--Select--", new { @class = "SalesAgreementDropDown" })
+              
+                                        </td>
+                                        <td class="SalesAgreementCaptionRightColumn">Union:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+
+                                        <td>
+                                            @Html.DropDownList("ddlEditUnion", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "SalesAgreementDropDown" })
+                                        </td>
+
+                                    </tr>
+                                 <tr>
+                                      <td class="SalesAgreementCaptionRightColumn">District:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlEditDistrict", Enumerable.Empty<SelectListItem>(), new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                     <td class="SalesAgreementCaptionRightColumn">Mobile No.:
+                                     </td>
+                                     <td>
+                                           @Html.TextBox("txtEditMobileNo", "", new { @class = "SalesAgreementControl" })
+                                       </td>
+                                 </tr>
+                             
+                                <tr>
+                                    <td align="left">Remarks
+                                    </td>
+                                    <td colspan="3" align="left">
+                                        @Html.TextArea("txtRemarksNotes", "", new { @class = "", @style = "width:100%; height:60px;" })
+                                        
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+
+
+
+                                <tr>
+                                    <td colspan="4" align="left">
+                                        <input id="btnUpdateCustomerInfoSubmit" type="submit" value="Save" onclick="return CustomerInfoUpdate();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+          </fieldset>
+        </td>
+    </tr>
+
+    <tr>
+        <td id="CustomerLedgerContainer" style="width: 100%"></td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $('#customerCollectionTr').css('display', 'none');
+    $('#customerTransferTr').css('display', 'none');
+    $('#fullPayment').css('display', 'none');
+    $('#showCollectionDetails').css('display', 'none');
+    $('#systemReturnContainer').css('display', 'none');
+    $('#fullPaidCustomerContainer').css('display', 'none');
+    $('#editCustomerInfoContainer').css('display','none');
+    $('#hfCollectionDelete').val("");
+
+    $(document).ready(function () {
+
+        var customerFPRError = @Html.Raw(Json.Encode(ViewBag.CustomerFPRError))
+           customerFPRError;
+        if (customerFPRError != null)
+        {
+            alert(customerFPRError);
+        }
+             
+
+    
+
+        $('#btnColelctionDelete').hide();
+
+        $('#frmCustomerFullPaid').submit(function () {
+
+            var CustomerCode = $('#txtFPCustomerCode').val();
+            var TransDate = $('#txtTransDate').val();
+            var AgreementCloseDate = $('#dtpAgreementClosedDate').val();
+            var MonthUsed = $('#txtTotalDue').val();
+            var note = $('#txtNote').val();
+            var RemainingServiceChargeReceivable = $('#txtRemainingServiceChargeReceivable').val();
+            var RemainingPrincipalReceivable = $('#txtRemainingPrincipalReceivable').val();
+            var TotalPrincipalReceivableAsPerAgreement = $('#txtTotalPrincipalReceivable').val();
+            var TotalServiceChargeRecoveredAtTheEndOfClosedMonth = $('#txtTotalServiceChargeReceived').val();
+            var TotalServiceChargeReceivableConsideringDueNoOfInstallmentAtTheEndOfClosedMonth = $('#txtTotalServiceChargeReceivable').val();
+            var ApprovalNumber = $('#txtApprovalNumber').val();
+            var closedIn = $('#ddlClosedIn').val();
+            var approvalRequiredForFullPayed = $('#hfApprovalRequiredForFullPayed').val();
+            var ClosedWithWaive = false;
+
+            if ($('#hfClosedWithWaveOrNot').val() == "1")
+                ClosedWithWaive = true;
+
+            var fullPaiedCustomerRegister = {
+
+                CustomerCode: CustomerCode,
+                TransDate: TransDate,
+                AgreementClosedDate: AgreementCloseDate,
+                MonthUsage: MonthUsed,
+                IsClosedWithWaive: ClosedWithWaive,
+                RemainingPrincipalReceivableAtTheEndOfClosedMonth: RemainingPrincipalReceivable,
+                RemainingServiceChargeReceivableAtTheEndOfClosedMonth: RemainingServiceChargeReceivable,
+                TotalPrincipalReceivableAsPerAgreement: TotalPrincipalReceivableAsPerAgreement,
+                TotalServiceChargeRecoveredAtTheEndOfClosedMonth: TotalServiceChargeRecoveredAtTheEndOfClosedMonth,
+                TotalServiceChargeReceivableConsideringDueNoOfInstallmentAtTheEndOfClosedMonth: TotalServiceChargeReceivableConsideringDueNoOfInstallmentAtTheEndOfClosedMonth,
+                ApprovalNo: ApprovalNumber,
+                Remarks: note
+            };
+
+            $.ajax({
+                type: this.method,
+                url: this.action,
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ fullPaiedCustomerRegister: fullPaiedCustomerRegister, closedIn: closedIn, approvalRequiredForFullPayed: approvalRequiredForFullPayed }),
+                cache: false,
+                success: function (data) {
+                    if (data[0].messageCode == "success") {
+                        alert(data[0].message);
+                        $('#frmCustomerFullPaid')[0].reset();
+                        $('#fullPaidCustomerContainer').css('display', 'none');
+
+                        var href = $('.t-refresh').attr('href');
+                        window.location.href = href;
+                    }
+                    else {
+                        alert(data[0].message);
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+            return false;
+        });
+
+        $('#ddlClosedIn').change(function () {
+            var customerCode = $('#txtFPCustomerCode').val();
+            GetCustomerDataToCloseWithFullPaid(customerCode, $(this).val());
+        });
+
+        $('#txtToLocation').click(function () {
+            var detailWindow = $("#dialogUnitSelection").data("tWindow");
+            detailWindow.center().open();
+        });
+
+        $('#frmCustomerCollection').submit(function () {
+           
+
+            $.ajax({
+
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (data) {
+
+                    $.map(data, function (item) {
+                        if (item.messageCode == "success") {
+                            alert(item.message);
+
+                            if (parseInt($('#hfCollectionSerials').val()) != 0) {
+
+                                var tr = $("#grvCustomerCollection tbody tr:eq(" + (parseInt($('#hfCollectionSerials').val()) - 1) + ")");
+                                $(tr).find('td:eq(1)').text($('#dtpCollectionDate').val());
+                                $(tr).find('td:eq(2)').text($('#txtMemoNumber').val());
+                                $(tr).find('td:eq(3)').text($('#txtCollectionAmount').val());
+
+                                $('#hfCollectionSerials').val("0");
+                            }
+
+                            ClearCollectionControl();
+
+                        }
+                        else {
+                            alert(item.message);
+                        }
+                    });
+                },
+                error: function () { alert("Save Is Not Succeed. Please Try Again."); }
+            });
+
+            return false;
+        });
+
+        $('#txtCollectionAmount').change(function () {
+
+            var outstandingBalance = parseInt($('#hfOutstandingBalance').val());
+            var collectionAmount = parseInt($('#txtCollectionAmount').val());
+
+            if ($('#hfCollectionSerials').val() != "0") {
+                outstandingBalance = outstandingBalance + parseInt($('#hfCollectionAmountEditMode').val());
+            }
+
+            if (collectionAmount > (outstandingBalance + 1000)) {
+                alert("Collection Amount Cannot be Greater Than Outstanding Balance");
+                $('#txtCollectionAmount').val("0");
+            }
+
+        });
+
+        $('#ddlEditUpazillaThana').change(function () {
+
+            if ($('#ddlEditUpazillaThana').val() == "") {
+                return false;
+            }
+
+               LoadUnionDistrict(this.value,'')
+
+          });
+
+    });
+
+    function LoadUnionDistrict(upazillaCode, unionCode, PostOffice, CustomerCode) {
+    
+        //start  well working  don't erase it
+       @* $.ajax({
+            type: "POST",
+            url: '@Url.Action("CustomerPostOfficeInfoLoad", "SalesDept")',
+            //data: "{'customerID':'" + customerID +  "','transferToLocation':'" + transferNote + "'}",
+            data: "{'CustomerCode':'" + CustomerCode + "','PostOffice':'" + PostOffice + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#txtEditPostOffice').get(0).options.length = 0;
+                $('#txtEditPostOffice').get(0).options[0] = new Option("--Select--", "");
+
+                $.map(data, function (item) {
+                    $('#txtEditPostOffice').get(0).options[$('#txtEditPostOffice').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+
+                $('#txtEditPostOffice').val(PostOffice)
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });*@
+        //end  well working  don't erase it
+
+
+       @*$.ajax({
+            type: "POST",
+            url: '@Url.Action("PostOfficeInfoLoad", "SalesDept")',
+             //data: "{'customerID':'" + customerID +  "','transferToLocation':'" + transferNote + "'}",
+            data: "{'upazillaCode':'" + upazillaCode +  "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#txtEditPostOffice').get(0).options.length = 0;
+                $('#txtEditPostOffice').get(0).options[0] = new Option("--Select--", "");
+
+                $.map(data, function (item) {
+                    $('#txtEditPostOffice').get(0).options[$('#txtEditPostOffice').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+
+                $('#txtEditPostOffice').val(PostOffice)
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+         });*@
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PostOfficeInfoLoadForUnitCode", "SalesDept")',
+            //data: "{'customerID':'" + customerID +  "','transferToLocation':'" + transferNote + "'}",
+            data: "{'upazillaCode':'" + upazillaCode + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#txtEditPostOffice').get(0).options.length = 0;
+                $('#txtEditPostOffice').get(0).options[0] = new Option("--Select--", "");
+
+                $.map(data, function (item) {
+                    $('#txtEditPostOffice').get(0).options[$('#txtEditPostOffice').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+
+                $('#txtEditPostOffice').val(PostOffice)
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UnionInfoLoad", "SalesDept")',
+                data: "{'upazillaCode':'" + upazillaCode + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $('#ddlEditUnion').get(0).options.length = 0;
+                    $('#ddlEditUnion').get(0).options[0] = new Option("--Select--", "");
+
+                    $.map(data, function (item) {
+                        $('#ddlEditUnion').get(0).options[$('#ddlEditUnion').get(0).options.length] = new Option(item.Display, item.Value);
+                    });
+
+                    $('#ddlEditUnion').val(unionCode)
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+      });
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DistrictInfoLoad", "SalesDept")',
+                data: "{'upazillaCode':'" + upazillaCode + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $('#ddlEditDistrict').get(0).options.length = 0;
+                    //$('#ddlEditDistrict').get(0).options[0] = new Option("--Select--", "");
+
+                    $.map(data, function (item) {
+                        $('#ddlEditDistrict').get(0).options[$('#ddlEditDistrict').get(0).options.length] = new Option(item.Display, item.Value);
+                    });
+
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+
+    }
+
+    function grvCustomerCollection_RowSelect(e) {
+
+        var dataItem = $('#grvCustomerCollection').data('tGrid').dataItem(e.row);
+        $('#hfCollectionSerials').val(dataItem['SerialNo']);
+        $('#hfCollectionSerialsDelete').val(dataItem['SerialNo']);
+
+        $('#txtMemoNumber').val(e.row.cells[2].innerHTML);
+        $('#txtCollectionAmount').val(e.row.cells[3].innerHTML);
+        $('#hfCollectionAmountEditMode').val(e.row.cells[3].innerHTML);
+
+        $('#hfCustomerFprPerson').val(e.row.cells[4].innerHTML);
+        $('#txtCustomerFprPerson').val(e.row.cells[5].innerHTML);
+
+        $('#dtpCollectionDate').attr('readonly', true);
+        $('#dtpCollectionDateDisable > div > div .t-select').hide();
+
+        if (e.row.cells[1].innerHTML != "")
+            $('#dtpCollectionDate').val(e.row.cells[1].innerHTML);
+
+        $('#btnColelctionDelete').show();
+    }
+
+    function CustomerCollectionSave() {
+
+        var collectionDate = $('#dtpCollectionDate').val();
+        var memoNumber = $('#txtMemoNumber').val();
+        var customerMobileNumber = $('#txtCustomerMobileNumber').val().trim();
+        var collectionGivenAmount = $('#txtCollectionAmount').val();
+
+        var startDate = Helper.DateCange($('#hfOpenBackDay').val());
+        var endDate = Helper.DateCange($('#hfOpenDay').val());
+        var selectedDate = Helper.DateCange(collectionDate);
+
+
+        if (collectionDate == "") {
+            alert("Please Give Collection Date");
+            return false;
+        }
+        else if (selectedDate < startDate || selectedDate > endDate) {
+            Helper.AlertMessage("Alert", "Collection Date Should be in Current Month/Period");
+            return false;
+        }
+        else if (memoNumber == "") {
+            alert("Please Give Memo Number");
+            return false;
+        }
+        
+
+        else if (collectionGivenAmount == "") {
+            alert("Please Give Collection Amount");
+            return false;
+        }
+
+        else if ($('#hfIsMobileNoMandatory').val() == "1") {
+            if (customerMobileNumber == "") {
+                alert("Please Give Customer Mobile Number");
+                return false;
+            }
+        }
+
+        else if (collectionGivenAmount == "0") {
+            alert("Please Give Collection Amount");
+            return false;
+        }
+        else if (Helper.IsInt(collectionGivenAmount) == false) {
+            alert("Collection Amount Cannot be Negative/Character");
+            $('#txtCollectionAmount').val("");
+            return false;
+        }
+        else if ($.trim($('#txtCustomerFprPerson').val()) == "") {
+            alert("Customer FPR Is Not Set.");
+            $('#txtCustomerFprPerson').val("");
+            return false;
+        }
+
+
+        var outstandingBalance = parseInt($('#hfOutstandingBalance').val());
+        var collectionAmount = parseInt($('#txtCollectionAmount').val());
+
+        if ($('#hfCollectionSerials').val() != "0") {
+            outstandingBalance = outstandingBalance + parseInt($('#hfCollectionAmountEditMode').val());         
+        }
+        
+        if (collectionAmount >= (outstandingBalance + 1000)) {
+            alert("Collection Amount Cannot be Greater Than Outstanding Balance");
+            $('#txtCollectionAmount').val("0");
+            return false;
+        }
+
+        return true;
+    }
+
+    function CustomerCollectionDelete() {
+         
+        if (confirm("Are you want to delete?")) {
+            var customerCode = $('#txtCustomerCode').val();
+            $('#hfCollectionDelete').val(customerCode);
+            var deleteCustomerID = $('#hfCollectionDelete').val();
+
+            if (deleteCustomerID == "") {
+                alert("Please Select Customer.");
+                return false;
+            }
+            if (CustomerCollectionSave() == false) {
+                return false;
+            }
+            $("#grvCustomerCollection tbody tr").find("td:eq(0):contains('" + $('#hfCollectionSerialsDelete').val() + "')").parent().remove();
+            $('#hfCollectionSerialsDelete').val("0");
+            return true;
+        }
+        return false;
+    }
+
+    $("#gvUnitWiseCustomerRegisterReport").delegate("a.CustomerCollectionFromUnit", "click", function () {
+
+        var tr = $(this).parent().parent();
+
+        $('#CustomerLedgerContainer').html('');
+        $('#customerCollectionTr').css('display', '');
+        $('#customerTransferTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#editCustomerInfoContainer').css('display', 'none');
+        ClearCollectionControl();
+        $('#showCollectionDetails').css('display', 'none');
+        $('#btnColelctionDelete').hide();
+
+        var customerCode = "", customerName = "", outstandingBalance = "", fprPersonId = "", fprPersonName = "", phoneNumber = "", IsMobileNoMandatory=0;
+        customerCode = $(tr).find("td:eq(0)").find("a").text();
+        customerName = $(tr).find("td:eq(1)").text();
+        outstandingBalance = $(tr).find("td:eq(5)").text();
+        fprPersonId = $(tr).find("td:eq(11)").text();
+        fprPersonName = $(tr).find("td:eq(12)").text();
+        phoneNumber = $(tr).find("td:eq(13)").text();
+        //IsMobileNoMandatory = $(tr).find("td:eq(13)").find('input').val(); 
+        IsMobileNoMandatory = $(tr).find('td:eq(14)').find('input').attr('checked') ? 1 : 0;   //$(tr).find('td:eq(13)').find('input').attr('checked') ? 1 : 0
+
+        $('#txtCustomerCode').val(customerCode);
+        $('#txtCustomerName').val(customerName);
+        $('#txtCustomerMobileNumber').val(phoneNumber.trim());
+
+        if ($.trim(fprPersonId) != "")
+            $('#txtCustomerFprPerson').val(fprPersonName + " [" + fprPersonId + "]");
+
+        $('#hfCustomerFprPerson').val(fprPersonId);
+        $('#hfCollectionSerials').val("0");
+        $('#hfCustomerCodeForCollection').val(customerCode);
+        $('#hfIsMobileNoMandatory').val(IsMobileNoMandatory);
+
+        $('#hfOutstandingBalance').val(outstandingBalance);
+
+        // this for only collection edit part 
+        $('#dtpCollectionDate').attr('readonly', false);
+        $('#dtpCollectionDateDisable > div > div .t-select').show();
+
+    });
+
+    $("#gvUnitWiseCustomerRegisterReport").delegate("a.CustomerTransferFromUnit", "click", function () {
+
+        var tr = $(this).parent().parent();
+
+        $('#CustomerLedgerContainer').html('');
+        $('#customerTransferTr').css('display', '');
+        $('#customerCollectionTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#editCustomerInfoContainer').css('display', 'none');
+
+        var customerCode = "", customerName = "";
+
+        customerCode = $(tr).find("td:eq(0)").find("a").text();
+        customerName = $(tr).find("td:eq(1)").text();
+
+        $('#txtCTCustomerCode').val(customerCode);
+        $('#txtCTCustomerName').val(customerName);
+        $('#hfCollectionSerials').val("0");
+
+        $('#showCollectionDetails').css('display', 'none');
+    });
+
+    $("#gvUnitWiseCustomerRegisterReport").delegate("a.FullPaidCustomerFromUnit", "click", function () {
+
+        var tr = $(this).parent().parent();
+
+        $('#CustomerLedgerContainer').html('');
+        $('#fullPaidCustomerContainer').css('display', '');
+        $('#editCustomerInfoContainer').css('display', 'none');
+        $('#customerCollectionTr').css('display', 'none');
+        $('#customerTransferTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+
+        var customerCode = "", customerName = "", outstandingBalance = "", collectionInCurrentMonthWithoutDP = "";
+
+        customerCode = $(tr).find("td:eq(0)").find("a").text();
+        customerName = $(tr).find("td:eq(1)").text();
+        collectionInCurrentMonthWithoutDP = $(tr).find("td:eq(3)").text()
+        outstandingBalance = $(tr).find("td:eq(5)").text();
+
+        $('#hfCustomerCodeForFullPayed').val(customerCode);
+        $('#txtFPCustomerCode').val(customerCode);
+        $('#txtFPCustomerName').val(customerName);
+
+        $('#hfFPOutstandingBalance').val(outstandingBalance);
+        $('#hfFPCollectionInCurrentMonth').val(collectionInCurrentMonthWithoutDP);
+
+        $('#txtApprovalNumber').attr("disabled", true);
+
+        GetCustomerDataToCloseWithFullPaid(customerCode, 'CurrentMonth');
+
+    });
+
+    function GetCustomerDataToCloseWithFullPaid(customerCode, closedIn) {
+
+        $('#ddlClosedWithWaive').attr("disabled", true);
+        $('#frmCustomerFullPaid')[0].reset();
+        $('#ddlClosedIn').val(closedIn);
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetCustomerDataToCloseWithFullPaidOrWaive", "CustomerRegister")',
+            data: { customerCode: customerCode, closedIn: closedIn },
+            cache: false,
+            success: function (data) {
+                $('#txtFPCustomerCode').val(data.CustomerCode);
+                $('#txtAgreementDate').val(data.AgreementDateStringFormat);
+                $('#txtTransDate').val(data.TransDate);
+
+                if (data.AgreementClosedDate != null) {
+                    $('#dtpAgreementClosedDate').val(data.AgreementClosedDateFormat);
+                    $('#dtpAgreementClosedDate').attr('disabled', true);
+                    $('#dtpAgreementClosedDateDisable > div > div .t-select').hide();
+                }
+                else {
+                    $('#dtpAgreementClosedDate').attr('disabled', false);
+                    $('#dtpAgreementClosedDateDisable > div > div .t-select').show();
+                }
+
+                $('#txtFPCustomerName').val(data.CustomerName);
+                $('#txtTotalDue').val(data.MonthUsage);
+                $('#txtTotalPrincipalReceivable').val(data.TotalPrincipalReceivable);
+                $('#txtRemainingPrincipalReceivable').val(data.RemainingPrincipalReceivableAfterAdjustmentFromAdvance);
+                $('#txtTotalServiceChargeReceivable').val(data.TotalServiceChargeReceivableUpToDate);
+                $('#txtClosedWithWaive').val(data.AgreementDate);
+                $('#txtTotalServiceChargeReceived').val(data.TotalServiceChargeRecovered);
+                $('#txtRemainingServiceChargeReceivable').val(data.RemainingServiceChargeReceivableAfterAdjustmentFromAdvance);
+                $('#txtAdvanceBalance').val(data.OverdueOrAdvanceBalanceAfterAdjustment);
+                $('#hfApprovalRequiredForFullPayed').val(data.IsApprovalRequired);
+                $('#txtApprovalStatusInDetails').val(data.ApprovalStatusInDetails);
+                $('#hfApprovalStatus').val(data.ApprovalStatus);
+
+                if (data.IsApprovalRequired == true) {
+                    $('#btnFullPaid').attr("disabled", true);
+                    $('#btnRequestForApproval').attr("disabled", false);
+                }
+                else {
+
+                    $('#btnFullPaid').attr("disabled", false);
+                    $('#btnRequestForApproval').attr("disabled", true);
+                }
+
+                if (data.ApprovalStatus == "0") {
+                    $('#btnFullPaid').attr("disabled", false);
+                    $('#btnRequestForApproval').attr("disabled", true);
+                }
+                else if (data.ApprovalStatus == "60") {
+                    $('#btnFullPaid').attr("disabled", true);
+                    $('#btnRequestForApproval').attr("disabled", true);
+                }
+
+                if (data.IsClosedWithWaive == true) {
+                    $('#ddlClosedWithWaive').val("1");
+                    $('#hfClosedWithWaveOrNot').val("1");
+                }
+                else {
+                    $('#ddlClosedWithWaive').val("0");
+                    $('#hfClosedWithWaveOrNot').val("0");
+                }
+
+                $('#txtApprovalNumber').val(data.ApprovalNo);
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+    }
+
+    $("#gvUnitWiseCustomerRegisterReport").delegate("a.EditCustomerFromUnit", "click", function () {
+
+        var tr = $(this).parent().parent();
+
+        $('#CustomerLedgerContainer').html('');
+        $('#editCustomerInfoContainer').css('display', 'block');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#customerCollectionTr').css('display', 'none');
+        $('#customerTransferTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+
+        var customerCode = "", customerName = "", outstandingBalance = "", collectionInCurrentMonthWithoutDP = "";
+
+        customerCode = $(tr).find("td:eq(0)").find("a").text();
+        customerName = $(tr).find("td:eq(1)").text();
+        collectionInCurrentMonthWithoutDP = $(tr).find("td:eq(3)").text()
+        outstandingBalance = $(tr).find("td:eq(5)").text();
+
+        $('#hfCustomerCodeForFullPayed').val(customerCode);
+        $('#lblEditCustomerCode').text(customerCode);
+        $('#lblEditCustomerName').text(customerName);
+
+        $('#txtEditCustomerName').val(customerName);
+
+
+        GetCustomerDataToPersonalInformation(customerCode, 'CurrentMonth');
+
+    });
+
+    function GetCustomerDataToPersonalInformation(customerCode, closedIn) {
+
+        $('#ddlClosedWithWaive').attr("disabled", true);
+        $('#frmCustomerFullPaid')[0].reset();
+        $('#ddlClosedIn').val(closedIn);
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetCustomerDataPersonalInformation", "CustomerRegister")',
+            data: { customerCode: customerCode, closedIn: closedIn },
+            cache: false,
+            success: function (data) {
+
+                //$('#lblEditVillage').text(data.Village);
+                //$('#lblEditPostOffice').text(data.PostOffice);
+                //$('#lblEditUnionName').text(data.UnionName);
+                //$('#lblEditUpzillName').text(data.UpzillName);
+                //$('#lblEditDistrictName').text(data.DistrictName);
+                $('#txtEditFatherHusbandName').val(data.CustomerFatherHusbandName);
+                $('#txtEditVillage').val(data.Village);
+                //$('#txtEditPostOffice').val(data.PostOffice);
+                $('#txtEditMobileNo').val(data.MobileNumber);
+
+                LoadUnionDistrict(data.UpzillCode, data.UnionCode, data.PostOffice, data.CustomerCode);
+                $('#ddlEditUpazillaThana').val(data.UpzillCode);
+               // $('#ddlEditUnion').val(data.UnionCode);
+                // $('#ddlEditDistrict').val(data.DistrictCode);
+                //
+                //
+                
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+    }
+
+    function UpdateCustomerCollection() {
+        $('#showCollectionDetails').css('display', '');
+        LoadCutomerCollectionAndBindGrid();
+
+        return false;
+    }
+
+    function SystemReturnCustomer(customerCode, customerName, collectionInCurrentMonthWithoutDP, outstandingBalance) {
+
+        $('#systemReturnContainer').css('display', '');
+        $('#customerCollectionTr').css('display', 'none');
+        $('#customerTransferTr').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#CustomerLedgerContainer').html('');
+
+        $('#hfCustomerCodeForSystemReturn').val(customerCode);
+        $('#txtSRCustomerCode').val(customerCode);
+        $('#txtSRCustomerName').val(customerName);
+
+        $('#hfSROutstandingBalance').val(outstandingBalance);
+        $('#hfSRCollectionInCurrentMonth').val(collectionInCurrentMonthWithoutDP);
+
+
+        return false;
+    }
+
+    function SystemReturnSave() {
+
+        var outstandingBalance = $('#hfSROutstandingBalance').val();
+        var collectionInCurrentMonthWithoutDP = $('#hfSRCollectionInCurrentMonth').val();
+
+        var result = confirm("Do you want to System Return For This Customer?")
+        if (result) {
+            UpdateCustomerStatus($('#hfCustomerCodeForSystemReturn').val(), "SR");
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function UpdateCustomerStatus(customerCode, types) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateCustomerStatus", "CustomerRegister")',
+            data: "{'customerCode':'" + customerCode + "','type':'" + types + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                alert(data[0].message);
+                var href = $('.t-refresh').attr('href');
+                window.location.href = href;
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+    }
+
+    function FullPayedCustomerSave() {
+
+        if ($('#dtpAgreementClosedDate').val() == '') {
+            alert('Agreement Closed Date cannot be be null.');
+            return false;
+        }
+
+        var TransDate = Helper.DateCange($('#txtTransDate').val());
+        var AgreementClosedDate = Helper.DateCange($('#dtpAgreementClosedDate').val());
+
+        if (AgreementClosedDate > TransDate) {
+            alert('Agreement Closed Date cannot be greater than Trans Date.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function ShowCustomerLedger(customerCode) {
+        $('#customerCollectionTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#editCustomerInfoContainer').css('display','none')
+        $('#customerTransferTr').css('display', 'none');
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("CustomerLedger", "CustomerRegister")',
+            data: { customerCode: customerCode },
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#CustomerLedgerContainer').html(data);
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+    }
+
+    function CloseDialogWindow() {
+
+        var locationCode = "";
+        var locationText = "";
+
+        if ($('#ddlUnit').val() != "") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+        }
+        $('#hfCustomerTransferLocationCode').val(locationCode);
+        $('#txtToLocation').val(locationText + " [" + locationCode + "]");
+
+        var detailWindow = $("#dialogUnitSelection").data("tWindow");
+        detailWindow.center().close();
+
+        return false;
+    }
+
+    function LoadCutomerCollectionAndBindGrid() {
+
+        var params = {
+            customerCode: $('#txtCustomerCode').val()
+        };
+
+        var grid = $('#grvCustomerCollection').data('tGrid');
+        grid.dataSource._data = [];
+
+        grid.ajaxRequest(params);
+    }
+
+    function ClearCollectionControl() {
+
+        $('#dtpCollectionDate').val("");
+        $('#txtMemoNumber').val("");
+        $('#txtCollectionAmount').val("");
+        $('#txtCustomerFprPerson').val("");
+        $('#hfCollectionAmountEditMode').val("0");
+        $('#hfCollectionDelete').val("");
+        $('#txtCustMobileNumber').val("");
+        $('#hfCollectionSerials').val("0");
+    }
+
+    function CustomerTransferSave() {
+
+        var customerID = $('#txtCTCustomerCode').val();
+        var customerTransferDate = $('#dtpTransferDate').val();
+        var transferToLocation = $('#hfCustomerTransferLocationCode').val();
+        var transferNote = $('#txtTransferNotes').val();
+
+        var result = confirm("Do you want to Transfer This Customer?")
+        if (result) {
+            TransferCustomer(customerID, customerTransferDate, transferToLocation, transferNote);
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function TransferCustomer(customerID, customerTransferDate, transferToLocation, transferNote) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("TransferCustomer", "CustomerRegister")',
+            data: "{'customerID':'" + customerID + "','customerTransferDate':'" + customerTransferDate + "','transferToLocation':'" + transferToLocation + "','transferNote':'" + transferNote + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                alert(data[0].message);
+                var href = $('.t-refresh').attr('href');
+                window.location.href = href;
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+    }
+
+
+    function CustomerInfoUpdate() {
+
+        var customerID = $('#lblEditCustomerCode').text();
+        var customerName = $('#txtEditCustomerName').val();
+        var fatherHusbandName = $('#txtEditFatherHusbandName').val();
+        var villageName = $('#txtEditVillage').val();
+        var postOfficeName = $('#txtEditPostOffice').val();
+        var upzillCode = $('#ddlEditUpazillaThana').val();
+        var unionCode = $('#ddlEditUnion').val();
+        var districtCode = $('#ddlEditDistrict').val();
+        var mobileNumber = $('#txtEditMobileNo').val();
+        var remarksNotes = $('#txtRemarksNotes').val();
+
+
+        if (customerName == "") {
+            alert("Please Give Customer Name");
+            return false;
+        }
+        else if (fatherHusbandName == "")
+        {
+             alert("Please Give Father/Husband Name")
+        }
+
+        else if (villageName == "") {
+            alert("Please Give Village Name");
+            return false;
+        }
+
+        else if (postOfficeName == "") {
+            alert("Please Give Post Office Name");
+            return false;
+        }
+
+        else if (upzillCode == "") {
+            alert("Please Select Upzill");
+            return false;
+        }
+
+        else if (unionCode == "") {
+            alert("Please Select Union");
+            return false;
+        }
+
+
+        var result = confirm("Do you want to Update This Customer Info?")
+        if (result) {
+            UpdateCustomerInfo(customerID, customerName,fatherHusbandName, villageName, postOfficeName, upzillCode, unionCode, districtCode, mobileNumber, remarksNotes);
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function UpdateCustomerInfo(customerID, customerName, fatherHusbandName, villageName, postOfficeName, upzillCode, unionCode, districtCode, mobileNumber, remarksNotes) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateCustomerInfo", "CustomerRegister")',
+            data: "{'customerID':'" + customerID + "','customerName':'" + customerName + "', 'fatherHusbandName':'"+fatherHusbandName+"', 'villageName':'" + villageName + "','postOfficeName':'" + postOfficeName + "','upzillCode':'" + upzillCode + "','unionCode':'" + unionCode + "','districtCode':'" + districtCode + "', 'mobileNumber':'"+mobileNumber+"', 'remarksNotes':'" + remarksNotes + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                alert(data[0].message);
+                var href = $('.t-refresh').attr('href');
+                window.location.href = href;
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+    }
+
+
+    function SetParamaterForPdfGenerationCustomerRegister() {
+
+        var grid = $("#gvUnitWiseCustomerRegisterReport").data("tGrid");
+        var $exportToPdf = $('#exportCustomerRegisterToPdf');
+        var href = $exportToPdf.attr("href");
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'orderby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+
+        $exportToPdf.attr("href", href);
+
+        return true;
+    }
+
+    function SetParamaterForPdfGenerationCustomerLedger() {
+
+        var tr = $("#CustomerLedgerContainer > table tbody tr:eq(0) td:eq(0) > table tbody tr:eq(0)");
+        var customerCode = $.trim($(tr).find("td:eq(1)").text());
+
+        if (customerCode == "") {
+            alert("Please Click a Customer First");
+            return false;
+        }
+
+        var grid = $("#gvUnitWiseCustomerRegisterReport").data("tGrid");
+        var $exportToPdf = $('#exportCustomerLedgerToPdf');
+        var href = $exportToPdf.attr("href");
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'orderby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+        href = href.replace(/customerCode=([^&]*)/, 'customerCode=' + (customerCode || '~'));
+
+        $exportToPdf.attr("href", href);
+
+        return true;
+    }
+
+    function SetParamaterForPdfGenerationAllCustomerLedger() {
+
+        var grid = $("#gvUnitWiseCustomerRegisterReport").data("tGrid");
+        var $exportToPdf = $('#exportAllCustomerLedgerToPdf');
+        var href = $exportToPdf.attr("href");
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'orderby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+        href = href.replace(/customerCode=([^&]*)/, 'customerCode=' + (customerCode || '~'));
+
+        $exportToPdf.attr("href", href);
+
+        return true;
+
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

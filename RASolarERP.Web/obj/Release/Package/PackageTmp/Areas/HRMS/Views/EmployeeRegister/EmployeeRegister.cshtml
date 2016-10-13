@@ -1,0 +1,253 @@
+﻿@using RASolarERP.Model;
+@using RASolarHRMS.Model;
+@{
+    ViewBag.Title = "Employee Register";
+    Layout = "~/Areas/HRMS/Views/Shared/_HrmsLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }    
+    
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+@{
+    List<GetLocationWiseEmployeeForEmployeeRegister> lstGetLocationWiseEmployeeForEmployeeRegister = new List<GetLocationWiseEmployeeForEmployeeRegister>();
+    lstGetLocationWiseEmployeeForEmployeeRegister = (List<GetLocationWiseEmployeeForEmployeeRegister>)TempData["EmployeeRegister"];    
+}
+<input id="hfCurrentDay" type="hidden"  value="@ViewBag.CurrentDay"/>
+<input id="hfToLocation" type="hidden" value="" />
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid(lstGetLocationWiseEmployeeForEmployeeRegister)
+                    .Name("gvUnitWiseEmployeeRegister")
+                    .DataKeys(keys => keys.Add(k => k.EmployeeID))
+                    .Columns(column =>
+                    {
+                        column.Bound(c => c.EmployeeID).Title("Employee ID").Width(100);
+                        column.Bound(c => c.EmployeeName).Width(150).Title("Employee Name");
+                        column.Bound(c => c.Designation).Format("{0:dd-MMM-yyyy}").Title("Employee Designation");
+                        column.Template(@<a href="#" onclick="return EmployeeTransfer('@item.EmployeeID','@item.EmployeeName')">Transfer</a>).Title("Transfer Employee");
+                    })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(100))
+                    .Scrollable(scroll => scroll.Height(300))
+                    )
+            </div>
+        </td>
+    </tr>
+    <tr id="employeeTransferTr">
+        <td valign="top">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="width: 60%;" valign="top">
+                        <form id="frmEmployeeTransfer" method="post" action="SaveEmployeeTransferInfo">
+                        @Html.Hidden("hfCollectionSerials", "0")
+                        @Html.Hidden("hfEmployeeCodeForTransfer", "0")
+                        <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                            <tr>
+                                <td align="left">
+                                    Employee ID
+                                </td>
+                                <td align="left">
+                                    @Html.TextBox("txtETEmployeeCode", "", new { @disabled = "disabled" })
+                                </td>
+                                <td align="left">
+                                    Employee Name
+                                </td>
+                                <td align="left">
+                                    @Html.TextBox("txtETEmployeeName", "", new { @disabled = "disabled" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    Transfer Date
+                                </td>
+                                <td align="left">
+                                    @Html.Telerik().DatePicker().Name("dtpTransferDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(Convert.ToDateTime(ViewBag.CalenderDate))
+                                </td>
+                                <td align="left">
+                                    Transfer To Unit
+                                </td>
+                                <td align="left">
+                                    @Html.TextBox("txtToLocation", "", new { @class = "IRControl", @readonly = true })
+                                    @(Html.Telerik().Window().Name("dialogUnitSelection")
+                                          .Title("Select A Location For Transfer")
+                                          .Draggable(false)
+                                          .Resizable(resizing => resizing.Enabled(false)
+                                            .MinHeight(115)
+                                            .MinWidth(325)
+                                            .MaxHeight(500)
+                                            .MaxWidth(500)
+                                            )
+                                          .Modal(true)
+                                          .Buttons(b => b.Close())
+                                          .Content(@<text>
+                                    @Html.Partial("UnitSelection")
+                                    <input type="button" value="&nbsp;&nbsp;&nbsp;OK" class="OkButton" onclick="return CloseDialogWindow();" />
+                                    </text>
+                                                    )
+                                          .Visible(false)
+                                     )
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    Transfer Note
+                                </td>
+                                <td align="left">
+                                    @Html.TextArea("txtTransferNotes", "")
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" align="left">
+                                    <input id="btnTransferInfoSubmit" type="submit" value="Save" onclick="return EmployeeTransferSave();" />
+                                </td>
+                            </tr>
+                        </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td id="EmployeeTransferContainer" style="width: 100%">
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $('#EmployeeTransferContainer').css('display', 'none');
+
+    $(document).ready(function () {
+
+        $('#txtToLocation').click(function () {
+            var detailWindow = $("#dialogUnitSelection").data("tWindow");
+            detailWindow.center().open();
+        });
+
+    });
+
+    function CloseDialogWindow() {
+
+        var detailWindow = $("#dialogUnitSelection").data("tWindow");
+        detailWindow.center().close();
+
+        var locationCode = "";
+        var locationText = "";
+
+        if ($('#ddlUnit').val() != "") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+
+            $('#hfToLocation').val(locationCode);
+            $('#txtToLocation').val(locationText);
+        }
+
+        return false;
+    }
+
+    function EmployeeTransfer(employeeID, employeeName) {
+        $('#txtETEmployeeCode').val(employeeID);
+        $('#txtETEmployeeName').val(employeeName);
+    }
+
+    function EmployeeTransferSave() {
+
+        var employeeID = $('#txtETEmployeeCode').val();
+        var employeeTransferDate = $('#dtpTransferDate').val();
+        var transferToLocation = $('#hfToLocation').val();
+        var transferNote = $('#txtTransferNotes').val();
+
+        // $('#txtToLocation').val();
+
+        if (employeeID == "") {
+            alert("Please Select An Employee");
+            return false;
+        }
+        else if (employeeTransferDate == "") {
+            alert("Please Give A Date");
+            return false;
+        }
+        else if (transferToLocation == "") {
+            alert("Please Give A Location");
+            return false;
+        }
+
+        var result = confirm("Do you want to Transfer This Employee?")
+        if (result) {
+            TransferEmployee(employeeID, employeeTransferDate, transferToLocation, transferNote);
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function TransferEmployee(employeeID, employeeTransferDate, transferToLocation, transferNote) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("TransferEmployee", "EmployeeRegister")',
+            data: "{'employeeID':'" + employeeID + "','employeeTransferDate':'" + employeeTransferDate + "','transferToLocation':'" + transferToLocation + "','transferNote':'" + transferNote + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                alert(data[0].message);
+                ClearAllControl();
+                var href = $('.t-refresh').attr('href');
+                window.location.href = href;
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function ClearAllControl() {
+        $('#txtETEmployeeCode').val("");
+        $('#dtpTransferDate').val("");
+        $('#txtTransferNotes').val("");
+        $('#txtETEmployeeName').val("");
+        $('#txtToLocation').val("");
+        $('#hfToLocation').val("");
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

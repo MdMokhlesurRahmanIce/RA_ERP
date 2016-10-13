@@ -1,0 +1,940 @@
+﻿@model RASolarERP.DomainModel.SalesModel.CustomerNAgreementNItemDetails
+<form action="SalesAgreementAuditAdjustmentSave" method="post" id="frmSalesAuditAdjustmentSave">
+    @Html.Hidden("IsReSales", Model.IsResales)
+    <table id="salesAuditAdjustmentTable" class="TableData" cellpadding="0" cellspacing="0"
+        width="100%">
+        <colgroup>
+            <col style="width: 255px;" />
+            <col style="width: 390px;" />
+            <col style="width: 350px;" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Area of correction
+                </th>
+                <th>Previous data
+                </th>
+                <th>Inputted data
+                </th>
+                <th class="TdDisplayNone">ID</th>
+                <th class="TdDisplayNone">Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Customer Code
+                </td>
+                <td>
+                    @Model.CustomerCode
+                </td>
+                <td>
+                    @Html.Hidden("CustomerCode", Model.CustomerCode)
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+            <tr class="t-alt">
+                <td>Customer name
+                </td>
+                <td>
+                    @Model.CustomerName
+                </td>
+                <td>
+                    @Html.TextBox("CustomerName", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Resale
+                </td>
+                <td>
+                    @{
+                        string salesResales = "Sales";
+                        if (Model.IsResales == true)
+                        {
+                            salesResales = "Resales";
+                        }
+                    }
+                    @salesResales
+                </td>
+                <td>
+                    @Html.DropDownList("IsResales", new List<SelectListItem>{
+                   new SelectListItem {Text="Resale", Value="1" , Selected = Model.IsResales },
+                   new SelectListItem {Text="Sale", Value="2"  }
+               }, "--Select--", new { @style = "width:340px;" })
+
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Agreement date
+                </td>
+                <td>
+                    @(Convert.ToDateTime(Model.AgreementDate).ToString("dd-MMM-yyyy"))
+                </td>
+                <td>
+                    @(Html.Telerik().DatePicker()
+              .Name("AgreementDate")
+              .Max(new DateTime(2999, 12, 31))
+              .Value("")
+              .Format("dd-MMM-yyyy")
+             )
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Customer type
+                </td>
+                <td>
+                    @Model.CustomerTypeName
+                </td>
+                <td>
+                    @Html.DropDownList("CustomerType", new SelectList(ViewBag.CustomerType, "CustomerTypeID", "Description"), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Project Name</td>
+                <td>
+                    @Model.ProjectName
+                </td>
+                <td>
+                    @Html.DropDownList("ddlProject", new SelectList(@Model.ProjectInfo, "ProjectCode", "ProjectName"), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.ProjectCode</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Package Capacity
+                </td>
+                <td>
+                    @Model.PackageCapacity
+                </td>
+                <td>
+                    @Html.DropDownList("PackageCapacity", Enumerable.Empty<SelectListItem>(), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.Capacity</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Package light
+                </td>
+                <td>
+                    @Model.PackageLight
+                </td>
+                <td>
+                    @Html.DropDownList("PackageLight", Enumerable.Empty<SelectListItem>(), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.Light</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Package Code/name (Tube/CFL/LED)
+                </td>
+                <td>
+                    @Model.PackageName
+                </td>
+                <td>
+                    @Html.DropDownList("PackageCode", Enumerable.Empty<SelectListItem>(), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.PackageCode</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Panel</td>
+                <td>
+                    @Model.PanelName
+                </td>
+                <td>
+                    @Html.DropDownList("PanelItemCode", Enumerable.Empty<SelectListItem>(), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Panel Store Location
+                </td>
+                <td>
+                    @{
+                        string storeLocationForPanelName = "Old";
+                        if (Model.StoreLocationForBattery == 1)
+                        {
+                            storeLocationForPanelName = "New";
+                        }
+                    }
+                    @storeLocationForPanelName
+                </td>
+                <td>
+                    @Html.DropDownList("StoreLocationForPanel", new List<SelectListItem> { 
+                        new SelectListItem{Text="--Select--", Value="", Selected = true},     
+                        new SelectListItem{Text="New", Value="1"},
+                        new SelectListItem{Text ="Old", Value="0"}
+                      }, new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.StoreLocationForPanel</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Panel Sl no.
+                </td>
+                <td>
+                    @Model.PanelSerialNo
+                </td>
+                <td>
+                    @Html.DropDownList("PanelSerialNo", Enumerable.Empty<SelectListItem>(), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.PanelItemCode</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Battery</td>
+                <td>@Model.BatteryName</td>
+                <td>
+                    @Html.DropDownList("BatteryItemCode", new SelectList(Model.BatteryInfo, "ItemCode", "ItemName"), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.BatteryItemCode</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Battery Store Location
+                </td>
+                <td>
+                    @{
+                        string storeLocationForBatteryName = "Old";
+                        if (Model.StoreLocationForBattery == 1)
+                        {
+                            storeLocationForBatteryName = "New";
+                        }
+                    }
+                    @storeLocationForBatteryName
+                </td>
+                <td>
+                    @Html.DropDownList("StoreLocationForBattery", new List<SelectListItem> { 
+                        new SelectListItem{Text="--Select--", Value="", Selected = true},
+                        new SelectListItem{Text="New", Value="1"},
+                        new SelectListItem{Text ="Old", Value="0"}
+                      }, new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.StoreLocationForBattery</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Battery Sl no.
+                </td>
+                <td>
+                    @Model.BatterySerialNo
+                </td>
+                <td>
+                    @Html.DropDownList("BatterySerialNo", Enumerable.Empty<SelectListItem>(), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.BatterySerialNo</td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Mode of payment
+                </td>
+                <td>
+                    @Model.ModeOfPaymentName
+                </td>
+                <td>
+                    @Html.DropDownList("ModeOfPaymentID", new SelectList(@ViewBag.ModeOfPayment, "ModeOfPaymentID", "Description", ""), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Package price
+                </td>
+                <td>
+                    @(Convert.ToDecimal(Model.PackagePrice).ToString("0"))
+                </td>
+                <td>
+                    @Html.TextBox("PackagePrice", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Down Payment
+                </td>
+                <td>
+                    @(Convert.ToDecimal(Model.STDDownPaymentPercentage).ToString("0"))&nbsp;%
+                </td>
+                <td>
+                    @Html.DropDownList("DownPaymentID", new SelectList("", "ServiceChargeID", "Description", ""), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>DP Amount
+                </td>
+                <td>
+                    @(Convert.ToDecimal(Model.DownPaymentAmount).ToString("0"))
+                </td>
+                <td>
+                    @Html.TextBox("DownPaymentAmount", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Service Charge
+                </td>
+                <td>
+                    @(Convert.ToDecimal(Model.STDServiceChargePercentage).ToString("0"))&nbsp;%
+                </td>
+                <td>
+                    @Html.DropDownList("ServiceChargeID", new SelectList("", "ServiceChargeID", "Description", ""), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Memo no.
+                </td>
+                <td>
+                    @{
+                        string cashMemoNumber = string.Empty;
+                        if (!string.IsNullOrEmpty(Model.CashMemoNo))
+                        {
+                            cashMemoNumber = Model.CashMemoNo;
+                        }
+                        else
+                        {
+                            cashMemoNumber = Model.RefMemoNo;
+                        }                      
+                    }
+                    @cashMemoNumber
+                </td>
+                <td>
+                    @Html.TextBox("RefMemoNo", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Panel Structure
+                </td>
+                <td>
+                    @Model.PanelStructureName
+                </td>
+                <td>
+                    @Html.DropDownList("PanelStructureItemCode", new SelectList(@Model.PanelStructure, "ItemCode", "ItemName"), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone">@Model.PanelStructureItemCode </td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Holder
+                </td>
+                <td>
+                    @Model.HolderName
+                </td>
+                <td>
+                    @Html.DropDownList("HolderModelItemCode", new SelectList(@Model.Holder, "ItemCode", "ItemName"), "--Select--", new { @style = "width:340px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone">
+                    @Model.HolderItemCode
+                </td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Holder Qty
+                </td>
+                <td>
+                    @Model.HolderQty
+                </td>
+                <td>
+                    @Html.TextBox("HolderQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Tube Light Qty
+                </td>
+                <td>
+                    @Model.TubeLightQty
+                </td>
+                <td>
+                    @Html.TextBox("TubeLightQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>LED Tube Qty
+                </td>
+                <td>
+                    @Model.LEDTubeQty
+                </td>
+                <td>
+                    @Html.TextBox("LEDTubeQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>LED-2 Qty
+                </td>
+                <td>
+                    @Model.LED2Qty
+                </td>
+                <td>
+                    @Html.TextBox("LED2Qty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>LED-3 Qty
+                </td>
+                <td>
+                    @Model.LED3Qty
+                </td>
+                <td>
+                    @Html.TextBox("LED3Qty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>LED-5 Qty
+                </td>
+                <td>
+                    @Model.LED5Qty
+                </td>
+                <td>
+                    @Html.TextBox("LED5Qty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>CFL Qty
+                </td>
+                <td>
+                    @Model.CFLQty
+                </td>
+                <td>
+                    @Html.TextBox("CFLQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Lamp Shade Qty
+                </td>
+                <td>
+                    @Model.LampShadeQty
+                </td>
+                <td>
+                    @Html.TextBox("LampShadeQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Circuit Or Lamp Ckt Qty
+                </td>
+                <td>
+                    @Model.CircuitOrLampCktQty
+                </td>
+                <td>
+                    @Html.TextBox("CircuitOrLampCktQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Charge Controller (10 Amps) Qty
+                </td>
+                <td>
+                    @Model.ChargeController10AmpsQty
+                </td>
+                <td>
+                    @Html.TextBox("ChargeController10AmpsQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Charge Controller (6 Amps) Qty
+                </td>
+                <td>
+                    @Model.ChargeController6AmpsQty
+                </td>
+                <td>
+                    @Html.TextBox("ChargeController6AmpsQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Cable 70/76 Qty
+                </td>
+                <td>
+                    @Model.Cable70r76Qty
+                </td>
+                <td>
+                    @Html.TextBox("Cable70r76Qty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+
+            <tr class="t-alt">
+                <td>Cable 40/76 Qty
+                </td>
+                <td>
+                    @Model.Cable40r76Qty
+                </td>
+                <td>
+                    @Html.TextBox("Cable40r76Qty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+
+            <tr>
+                <td>Cable 23/76 Qty
+                </td>
+                <td>
+                    @Model.Cable23r76Qty
+                </td>
+                <td>
+                    @Html.TextBox("Cable23r76Qty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Cable 14/76 Qty
+                </td>
+                <td>
+                    @Model.Cable14r76Qty
+                </td>
+                <td>
+                    @Html.TextBox("Cable14r76Qty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Switch Qty
+                </td>
+                <td>
+                    @Model.SwitchQty
+                </td>
+                <td>
+                    @Html.TextBox("SwitchQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr class="t-alt">
+                <td>Switch Board Box Qty
+                </td>
+                <td>
+                    @Model.SwitchBoardBoxQty
+                </td>
+                <td>
+                    @Html.TextBox("SwitchBoardBoxQty", "", new { @style = "width:335px;" })
+                </td>
+                <td class="TdDisplayNone"></td>
+                <td class="TdDisplayNone"></td>
+            </tr>
+
+            <tr>
+                <td>Remarks
+                </td>
+                <td colspan="2">
+                    @Html.TextBox("Remarks", "", new { @style = "width:725px;", maxlength = 100 })
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="3" align="right">
+                    <input id="btnSubmitSalesAgreementAuditAdjustment" type="submit" value="Submit" onclick="return CheckValidationForSalesAgreementAdjustment();" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<script type="text/javascript">
+
+    $('#ModeOfPaymentID').val("");
+    $('#AgreementDate').val("");
+    $('#StoreLocationForPanel').val("")
+    $('#StoreLocationForBattery').val("")
+    $('#BatteryItemCode').val("")
+    $('#PanelStructureItemCode').val("")
+
+    $(document).ready(function () {
+
+        $("#frmSalesAuditAdjustmentSave").submit(function () {
+
+            if (!confirm("Are You Sure that You want to Save this Adjustment Entry")) {
+                return false;
+            }
+            var emptyInputCheck = 0, emptySelectChek = 0;
+
+            $('#salesAuditAdjustmentTable  input[type=text]').each(function () {
+                if ($(this).val() != '') {
+                    emptyInputCheck = 1;
+                }
+            });
+
+            $('#salesAuditAdjustmentTable select').each(function () {
+                if ($(this).val() != '') {
+                    emptySelectChek = 1;
+                }
+            });
+
+            if (emptyInputCheck == 0 && emptySelectChek == 0) {
+                alert("Please insert/select information properly.");
+                return false;
+            }
+
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                cache: false,
+                success: function (data) {
+
+                    if (data[0].messageCode == "success") {
+                        alert(data[0].message);
+                        ClearSalesAgreementAdjustmentControl();
+                    }
+                    else
+                        alert(data[0].message);
+
+                    return false;
+                },
+                error: function () {
+                    alert("Save Is Not Succeed. Please Try Again.");
+                }
+            });
+
+            return false;
+        });
+
+        $('#ddlProject').change(function () {
+            Loadcapacity($(this).val());
+        });
+
+        $('#PackageCapacity').change(function () {
+
+            var capacityId = $(this).val();
+
+            LoadLight(capacityId);
+            LoadPanel(capacityId);
+            $('#PackageLight').val();
+            ClearFunctionForLigthOrCapacityChange();
+        });
+
+        $('#PackageLight').change(function () {
+            LoadPackage($(this).val());
+            ClearFunctionForLigthOrCapacityChange();
+        });
+
+        $('#ModeOfPaymentID').change(function () {
+            ServiceChargePolicy();
+            DownPaymentPolicy();
+        });
+
+        $('#StoreLocationForPanel').change(function () {
+            LoadPanelSerial($(this).val());
+        });
+
+        $('#StoreLocationForBattery').change(function () {
+            LoadBatterySerial($(this).val());
+        });
+
+    });
+
+    function Loadcapacity(projectCode) {
+
+        var capacityId = $('#PackageCapacity').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PackageCapacity", "SalesAudit")',
+            data: "{'projectCode':'" + projectCode + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                $('#PackageCapacity').get(0).options.length = 0;
+                $('#PackageCapacity').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#PackageCapacity').get(0).options[$('#PackageCapacity').get(0).options.length] = new Option(item.CapacityDescription, item.ItemCapacityID);
+                });
+
+            },
+            error: function () {
+                alert("Failed to Load Package Light");
+            }
+        });
+    }
+
+
+    function LoadLight(capacityId) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PackageLight", "SalesAudit")',
+            data: "{'capacityId':'" + capacityId + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                $('#PackageLight').get(0).options.length = 0;
+                $('#PackageLight').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#PackageLight').get(0).options[$('#PackageLight').get(0).options.length] = new Option(item.LightDescription, item.LightID);
+                });
+
+            },
+            error: function () {
+                alert("Failed to Load Package Light");
+            }
+        });
+
+    }
+
+    function LoadPackage(lightId) {
+
+        var capacityId = $('#PackageCapacity').val();
+        var salesType = 1;
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PackageInfo", "SalesAudit")',
+            data: "{'capacityId':'" + capacityId + "','lightId':'" + lightId + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#PackageCode').get(0).options.length = 0;
+                $('#PackageCode').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#PackageCode').get(0).options[$('#PackageCode').get(0).options.length] = new Option(item.PackageDescription, item.PackageCode);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function LoadPanel(capacityId) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PanelInfo", "SalesAudit")',
+            data: { itemCapacity: capacityId },
+            cache: false,
+            success: function (data) {
+                $('#PanelItemCode').get(0).options.length = 0;
+                $('#PanelItemCode').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#PanelItemCode').get(0).options[$('#PanelItemCode').get(0).options.length] = new Option(item.ItemName, item.ItemCode);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function LoadPanelSerial(storeLocation) {
+
+        var itemCode = $('#PanelItemCode').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ItemSerialInfo", "SalesAudit")',
+            data: { storeLocation: storeLocation, itemCode: itemCode },
+            cache: false,
+            success: function (data) {
+                $('#PanelSerialNo').get(0).options.length = 0;
+                $('#PanelSerialNo').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#PanelSerialNo').get(0).options[$('#PanelSerialNo').get(0).options.length] = new Option(item.ItemSerialNo, item.ItemSerialNo);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function LoadBatterySerial(storeLocation) {
+
+        var itemCode = $('#BatteryItemCode').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ItemSerialInfo", "SalesAudit")',
+            data: { storeLocation: storeLocation, itemCode: itemCode },
+            cache: false,
+            success: function (data) {
+                $('#BatterySerialNo').get(0).options.length = 0;
+                $('#BatterySerialNo').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#BatterySerialNo').get(0).options[$('#BatterySerialNo').get(0).options.length] = new Option(item.ItemSerialNo, item.ItemSerialNo);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function ServiceChargePolicy() {
+
+        var customerType = "", modeOfPayment = "";
+
+        customerType = $('#CustomerType').val();
+        modeOfPayment = $('#ModeOfPaymentID').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ServiceChargePolicy", "SalesAudit")',
+            data: { customerType: customerType, modeOfPayment: modeOfPayment },
+            cache: false,
+            success: function (data) {
+                $('#ServiceChargeID').get(0).options.length = 0;
+                $('#ServiceChargeID').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#ServiceChargeID').get(0).options[$('#ServiceChargeID').get(0).options.length] = new Option(item.ServiceChargeDescription, item.ServiceChargeID);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function DownPaymentPolicy() {
+
+        var packageCode = "", modeOfPayment = "";
+
+        packageCode = $('#PackageCode').val();
+        modeOfPayment = $('#ModeOfPaymentID').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DownPaymentPolicy", "SalesAudit")',
+            data: { modeOfPayment: modeOfPayment, packageCode: packageCode },
+            cache: false,
+            success: function (data) {
+                $('#DownPaymentID').get(0).options.length = 0;
+                $('#DownPaymentID').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#DownPaymentID').get(0).options[$('#DownPaymentID').get(0).options.length] = new Option(item.DownPaymentDescription, item.DownPaymentID);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function CheckValidationForSalesAgreementAdjustment() {
+
+        var optionCounter = 0, textBoxCounter = 0;
+        $('#salesAuditAdjustmentTable tbody tr').each(function () {
+
+            if ($(this).find("td:eq(2)").find("select option:selected").val() == "") {
+                optionCounter++;
+            }
+            else if ($(this).find("td:eq(2)").find("input").val() == "") {
+                textBoxCounter++;
+            }
+        });
+
+        if ((optionCounter + textBoxCounter) == 15) {
+            alert("No Input Is Given.");
+            return false;
+        }
+
+        return true;
+    }
+
+    function ClearFunctionForLigthOrCapacityChange() {
+        $('#PackageCode').val('');
+        $('#PanelItemCode').val('');
+        $('#StoreLocationForPanel').val('');
+        $('#PanelSerialNo').val('');
+        $('#BatteryItemCode').val('');
+        $('#StoreLocationForBattery').val('');
+        $('#BatterySerialNo').val('');
+        $('#ModeOfPaymentID').val('');
+        $('#PackagePrice').val('');
+        $('#DownPaymentID').val('');
+        $('#ServiceChargeID').val('');
+        $('#RefMemoNo').val('');
+        $('#PanelStructureItemCode').val('');
+        $('#HolderModelItemCode').val('');
+        $('#Remarks').val('');
+    }
+
+    function ClearSalesAgreementAdjustmentControl() {
+        $('#salesAuditAdjustment').html("");
+    }
+
+</script>

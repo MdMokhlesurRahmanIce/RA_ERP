@@ -1,0 +1,174 @@
+﻿<script type="text/javascript">
+
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+    var errors;
+    function onError(e) {
+        errors = e;
+        e.preventDefault();
+        Helper.AlertMessage("", errors.XMLHttpRequest.responseText)
+    }
+
+ </script>
+
+@{
+    ViewBag.Title = "Region Manager";
+    
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section TopMenu
+{
+     @Html.Partial((String)ViewBag.TopMenu)
+}
+
+@section LoginInfo
+{
+     <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+}
+<input type="hidden" id="hfLocationType" value="@ViewBag.Location" />
+
+<table cellpadding="0" cellspacing="3" border="0" width="100%">
+  <tr>
+        <td>
+            <div id="DailyPerformanceMonitoringAccordion">
+
+                <h3>Daily Area Performance Report</h3>
+                <div>
+                    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <input type="submit" id="btnForSales" name="btnForSales" value="Show Data" onclick="return ShowSalesList('')" style="float: right;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="DataGridXScrollForAccordion">
+                                    @(Html.Telerik().Grid<RASolarERP.Model.DailyZonalPerformanceMonitoring>()
+                            .Name("gvDailyPerformanceMonitoringForCollection")
+                            .DataKeys(keys => keys.Add(k => k.LocationName))
+                            .Columns(column =>
+                               {
+                                   column.Bound(s => s.LocationName).ClientTemplate("<a href=\"javascript:void(0)\" onclick=\"return ShowSummaryOnDemand('<#=LocationName#>','<#=LocationName#>', 'DailyPerformanceMonitoringForSales');\"><#=LocationName#></a>").Title("Area Name");
+                                   column.Bound(s => s.Sales_Monthly_Target_Qty).Title("Sales Monthly Target(Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Sales_Monthly_Achievement_Percent).Title("Sales Monthly Achiev.(%)").Format("{0:0,.00}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Sales_UpToDate_Target_Qty).Title("Sales UpToDate Target(Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Sales_UpToDate_Achievement_Qty).Title("Sales UpToDate Achiev.(Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Sales_UpToDate_Achievement_Percent).Title("Sales UpToDate Achiev.(%)").Format("{0:0,.00}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Sales_OnTheDate_Target_Qty).Title("Sales OnTheDate Target (Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Sales_OnTheDate_Achievement_Qty).Title("Sales OnTheDate Achiev.(Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                   column.Bound(s => s.Collection_Monthly_CC_Receivable_InMillion).Title("Collection Monthly CC Receivable(In M").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Collection_Monthly_Total_Overdue_InMillion).Title("Collection Monthly Total Overdue(In M)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Collection_UpToDate_Target_CC_Receivable_InMillion).Title("Collection UpToDate Target CC Receivable(In M)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                   column.Bound(s => s.Collection_UpToDate_Target_Overdue_Receivable_InMillion).Title("Collection UpToDate Target OD Receivable(In M)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Collection_UpToDate_Achievement_CC_Recovered_InMillion).Title("Collection UpToDate Achievement CC Recovered(In M)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Collection_UpToDate_Achievement_Overdue_Recovered_InMillion).Title("Collection UpToDate Achievement OD Recovered(In M)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Collection_UpToDate_Achievement_CC_Plus_OD_Percent).Title("Collection UpToDate Achievement CC+OD Achiev.(%)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                   column.Bound(s => s.DRF_New_Qty).Title("DRF New(Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.DRF_Old_Qty).Title("DRF Old(Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.System_Return_UpToDate).Title("SR vs.Re-Sales System Return(Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.Resales_UpToDate).Title("SR vs.Re-Sales Re-sales(Qty)").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                               })
+
+                                .DataBinding(settings => settings.Ajax().Select("_DailyPerformanceMonitoringForSales", "RegionalOffice"))
+                                .ClientEvents(events =>
+                                   {
+                                       events.OnDataBinding("onDataBinding");
+                                       events.OnError("onError");
+                                   })
+                                 .Scrollable(scroll => scroll.Height(290))
+                                 .Selectable()
+                               )
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+               
+                @* <h3>Collection Monitoring</h3>
+                <div>
+                   
+                </div>*@
+                
+            </div>
+         </td>
+      </tr>
+ </table>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //start for change if it region
+        if ($("#hfLocationType").val() == "Region")
+        {
+            $('#btnForSales').hide();
+        }
+
+
+
+        $("#DailyPerformanceMonitoringAccordion").accordion({
+            autoHeight: false,
+            clearStyle: true,
+            animated: false,
+            active: 0,
+            navigation: false,
+            icons: { header: 'ui-icon-plus', headerSelected: 'ui-icon-minus' }
+        });
+    });
+
+
+    function ShowSalesList(locationCode) {
+
+        var reportType = 'RSFSUMMARY';
+
+
+
+        var params = {
+            reportOption: reportType,
+            locationCode: locationCode
+        };
+
+        var grid = $("#gvDailyPerformanceMonitoringForCollection").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        setTimeout("cssForLastRow('gvDailyPerformanceMonitoringForCollection')", 3000);
+        return false;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../", goFor));
+        return false;
+    }  
+         
+
+</script>

@@ -1,0 +1,180 @@
+﻿<fieldset class="sagGroupBox">
+    <legend>Serial Information</legend>
+    <table cellpadding="0" cellspacing="1" border="0" width="100%">
+
+        <tr>
+            <td align="left" style="width: 33%;">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td align="left">Serial No
+                        </td>
+                        <td align="left" id="SerialContainer">
+                            @Html.DropDownList("ddlChallanItemSerials", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "IRDropDown" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td align="left" style="width: 33%;">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td align="left">
+                             <input id="btnCopyBatchSerial" type="button" class="t-button" value="Copy Batch Serial" style="width: 110px;" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td align="left" style="width: 33%;">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td align="left">Total Serial Quantity
+                        </td>
+                        <td align="left">
+                            @Html.TextBox("txtTotalSerialQuantity", "", new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="height: 3px;"></td>
+        </tr>
+    </table>
+</fieldset>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td style="color: Red; padding: 5px; font-weight: bold; font-size: 13px;" id="serialMessage"></td>
+    </tr>
+    <tr>
+        <td width="100%">
+            <table class="TableData" cellpadding="0" cellspacing="0" id="serialGrid" width="100%">
+                <thead>
+                    <tr>
+                        <th align="center">Serial No
+                        </th>
+                        <th align="center">Status
+                        </th>
+                        <th align="center">Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $('#serialMessage').text("");
+
+    $(document).ready(function () {
+
+        $('#ddlChallanItemSerials').change(function () {
+            AddToSerialTable($(this).val());
+        });
+
+
+        $('#btnCopyBatchSerial').click(function () {
+            $('#ddlChallanItemSerials option').each(function () {
+                AddToSerialTable($(this).val());
+            });
+        });
+
+        function AddToSerialTable(serialNumber) {
+
+            if (serialNumber == "") {
+                return false;
+            }
+
+            var itemCode = $('#hfItemCode').val();
+
+            var duplicateSerials = "0";
+            var totalSerialQuantity = 1;
+            var alreadyScanQuantity = $('#txtTotalSerialQuantity').val();
+
+            var mrrGridTr = $("#gvMrrDetails tbody tr:contains('" + itemCode + "')");
+            var receivedQuantity = mrrGridTr.find("td:eq(7)").find('input').val();
+            var checkedDataOrNot = mrrGridTr.find("td:eq(0)").find('input');
+
+            if (checkedDataOrNot.is(':checked') == true) {
+                if ($.trim(receivedQuantity) == "") {
+                    alert("Please Give Receive Quantity For Item (" + itemCode + ")");
+                    return false;
+                }
+            }
+
+            $('#serialGrid tbody tr').each(function () {
+                var texto = $(this).find('td:eq(0)').text();
+
+                if (serialNumber == texto) {
+                    duplicateSerials = texto;
+                }
+                if ($(this).index() != 0)
+                    totalSerialQuantity = $(this).index() + 2;
+                else
+                    totalSerialQuantity = 2;
+            });
+
+            if (duplicateSerials != "0") {
+                $('#serialMessage').text("Duplicate Serial Not Allowed");
+                serialNumber = "";
+                return false;
+            }
+
+            if (parseInt(totalSerialQuantity) > parseInt(receivedQuantity)) {
+                $('#serialMessage').text("Number of Serial Cannot be Greater Than Received Quantity.");
+                return false;
+            }
+
+            $('#txtTotalSerialQuantity').val(totalSerialQuantity);
+
+            var serialCollectionGridLength = $("#SerialCollectionGrid tbody tr:contains(\"" + itemCode + "\")").length;
+
+            if (serialCollectionGridLength > parseInt(receivedQuantity)) {
+                alert("Already MAP Serial For This Item (" + itemCode + "). Please Edit Those Serials");
+                return false;
+            }
+
+            mrrGridTr.find('td:eq(7)').find('p').text(totalSerialQuantity);
+
+            var trNew = "";
+
+            if (totalSerialQuantity % 2 == 0)
+                trNew = "<tr class=\"t-alt\"> <td>" + serialNumber + "</td>";
+            else
+                trNew = "<tr> <td>" + serialNumber + "</td>";
+
+            trNew = trNew + "<td>&nbsp;</td>"; // damage
+
+            trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + serialNumber + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+
+            $('#serialGrid tbody').append(trNew);
+            serialNumber = "";
+            $('#serialMessage').text("");
+        }
+
+        $('#serialGrid').delegate('a.deleteSerialBtn', 'click', function () {
+
+            if (confirm("Do You Want To Delete Serial ?")) {
+
+                var itemCode = $('#hfItemCode').val();
+                var serialGridTr = $(this).parent().parent();
+                var serial = $.trim(serialGridTr.find('td:eq(0)').text());
+
+                var editSerial = $('#hfEditSerial').val();
+
+                if (editSerial != "0")
+                    $("#SerialCollectionGrid tbody tr:contains('" + serial + "')").remove();
+
+                $(this).parent().parent().fadeOut('slow').remove();
+                var totalSerial = parseInt($('#txtTotalSerialQuantity').val());
+                totalSerial = totalSerial - 1;
+
+                $('#txtTotalSerialQuantity').val(totalSerial);
+                var mrrGridTr = $("#gvMrrDetails tbody tr:contains('" + itemCode + "')");
+                mrrGridTr.find('td:eq(7)').find('p').text(totalSerial);
+            }
+            return false;
+        });
+    });
+
+</script>

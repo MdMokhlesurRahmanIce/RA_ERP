@@ -1,0 +1,184 @@
+﻿<script type="text/javascript">
+    var firstTimeEmployeeSearch = true;
+    function onDataBindingEmployeeSearch(e) {
+        if (firstTimeEmployeeSearch) {
+            e.preventDefault();
+            firstTimeEmployeeSearch = false;
+        }
+        else {
+            LocationCodeExtract();
+
+            e.data = {
+                employeeID: $('#txtEmployeeID').val(),
+                employeeName: $('#txtEmployeeName').val(),
+                designation: $('#ddlDesignation').val(),
+                locationCode: $('#hfEmployeeSearchLocation').val()
+            };
+        }
+    }
+
+    function onErrorEmployeeSearch(e) {
+        e.preventDefault();
+    }
+
+
+</script>
+<input id="hfEmployeeSearchLocation" type="hidden" value="" />
+<table cellpadding="0" cellspacing="0" border="0" width="900px">
+    <tr>
+        <td align="left" style="width: 50%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">Employee ID
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtEmployeeID", "", new { @class = "IRControl" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">Location Code
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtSearchLocationCode", "", new { @class = "IRControl" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">Employee Status
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlEmployeeStatus", new List<SelectListItem>()
+                           {
+                               new SelectListItem {Text="Active", Value="0", Selected=true},
+                               new SelectListItem{Text="Active-InTransit", Value="4"},
+                               new SelectListItem{ Text="In-Active", Value="1"},
+                               new SelectListItem{ Text="Resign Employee", Value="77"},
+                               new SelectListItem{ Text="Held up",Value="75"}
+                           }, new { @class = "IRDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="width: 50%; padding-top: 0px;">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">Employee Name
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtEmployeeName", "", new { @class = "IRControl" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">Designation
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlDesignation", new SelectList(ViewBag.Designation, "HDesignationID", "HDesignationName"), "--Select--", new { @class = "IRDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="2" style="padding-top: 8px;">
+            <input id="btnShowtemList" type="submit" value="Show" onclick="return ShowEmployeeList();"
+                style="width: 60px;" />
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="2" style="padding-top: 8px;">
+            @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.EmployeeDetailsInfo>()
+         .Name("gvEmployeeSearchDetails")
+         .DataKeys(keys => keys.Add(k => k.EmployeeID))
+         .Columns(column =>
+         {
+             column.Bound(s => s.EmployeeID).ClientTemplate("<a href=\"#\" onClick=\"OkCommandEmployeeSelectionWindow('<#=EmployeeID#>', '<#=EmployeeName#>')\"><#=EmployeeID#><a/>").Title("Employee ID").Width(100);
+             column.Bound(s => s.EmployeeName).Title("Employee Name").Width(200);
+             column.Bound(s => s.Department).Title("Department").Width(150);
+             column.Bound(s => s.Designation).Title("Designation").Width(200);
+             column.Bound(s => s.PresentLocation).Title("Present Location").Width(300);
+
+         })
+         .DataBinding(settings => settings.Ajax().Select("LoadEmployeeDetails", "EmployeeDept"))
+         .Scrollable(scorll => scorll.Height(250))
+         .ClientEvents(events =>
+         {
+             events.OnDataBinding("onDataBindingEmployeeSearch");
+             events.OnError("onErrorEmployeeSearch");
+         })
+         .Footer(true)
+         )
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#txtSearchLocationCode').click(function () {
+
+            $('#hfSearchOrTransferLocation').val("3");
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("EmployeeLocationSelectionPartial", "EmployeeRegister")',
+                dataType: 'html',
+                cache: false,
+                success: function (data) {
+                    $('#LoadEmployeeLocationSelectionWindow').html(data);
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+
+            var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+            detailWindow.center().open();
+
+        });
+
+    });
+
+    function ShowEmployeeList() {
+
+        LocationCodeExtract();
+
+        var params = {
+            employeeID: $('#txtEmployeeID').val(),
+            employeeName: $('#txtEmployeeName').val(),
+            designation: $('#ddlDesignation').val(),
+            locationCode: $('#hfEmployeeSearchLocation').val(),
+            employeeStatus: $('#ddlEmployeeStatus').val()
+
+        };
+
+        var grid = $('#gvEmployeeSearchDetails').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        ClearAllSearchControl();
+
+        return false;
+    }
+
+    function LocationCodeExtract() {
+
+        var locationName = "", locationCode = "";
+
+        if ($('#txtSearchLocationCode').val() != "") {
+
+            locationName = $('#txtSearchLocationCode').val();
+            locationCode = locationName.split(']');
+            locationCode = locationCode[0].replace("[", "");
+        }
+
+        $('#hfEmployeeSearchLocation').val(locationCode);
+    }
+
+    function ClearAllSearchControl() {
+        $('#hfEmployeeSearchLocation').val("");
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<RASolarERP.Model.UnitCollectionVsHeadOfficePhysicalCashMovement>
+@{
+    ViewBag.Title = "Unit Collection Vs Head Office Physical Cash Movement";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml"; 
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+@(Html.Telerik().Grid(Model)
+        .Name("gvUnitCollectionVsHeadOfficePhysicalCashMovement")
+        .DataKeys(keys => keys.Add(k => k.LocationCode))
+        .Columns(column =>
+        {
+            column.Bound(m => m.LocationCode).Title("Zone Code");
+            column.Bound(m => m.LocationName).Title("Zone Name")
+             .FooterTemplate(@<b id="LocationName">0</b>);
+
+            column.Bound(m => m.A_ODRecoveredBasedInSMS).Title("A. OD Recovered Based In SMS").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}")
+                 .FooterTemplate(@<b id="A_ODRecoveredBasedInSMS">0</b>);
+
+            column.Bound(m => m.B_ODRecoveredBasedInDailyEntry).Title("B. OD Recovered Based In Daily Entry").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}")
+                .FooterTemplate(@<b id="B_ODRecoveredBasedInDailyEntry">0</b>);
+
+            column.Bound(m => m.Difference__A_B_).Title("Difference (A -B)").HtmlAttributes(new { @class = "A. GridColumnRightAlign", @style = "color:red;" }).HeaderHtmlAttributes(new { @style = "color:red;" }).Format("{0:0}")
+                .FooterTemplate(@<b id="Difference__A_B_">0</b>).FooterHtmlAttributes(new { @style = "color:red;" });
+
+            column.Bound(m => m.C_OverallCollectionBaseInDailyEntry__OD_Regular_).Title("C. Overall Collection Base In Daily Entry (OD + Regular)").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}")
+                .FooterTemplate(@<b id="C_OverallCollectionBaseInDailyEntry__OD_Regular_">0</b>);
+
+            column.Bound(m => m.D_CollectionBasedInCustomerWiseEntry).Title("D. Collection Based In Customer Wise Entry").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}")
+                .FooterTemplate(@<b id="D_CollectionBasedInCustomerWiseEntry">0</b>);
+
+            column.Bound(m => m.Difference__C_D_).Title("Difference (C-D)").HtmlAttributes(new { @class = "A. GridColumnRightAlign", @style = "color:red;" }).HeaderHtmlAttributes(new { @style = "color:red;" }).Format("{0:0}")
+                .FooterTemplate(@<b id="Difference__C_D_">0</b>).FooterHtmlAttributes(new { @style = "color:red;" });
+
+            column.Bound(m => m.E_CollectionBasedInAccountingEntry).Title("E. Collection Based In Accounting Entry").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}")
+                .FooterTemplate(@<b id="E_CollectionBasedInAccountingEntry">0</b>);
+
+            column.Bound(m => m.F_CashTransferredReceivedFromUnit).Title("F. Cash Transferred Received From Unit").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}")
+                .FooterTemplate(@<b id="F_CashTransferredReceivedFromUnit">0</b>);
+
+            column.Bound(m => m.G_PhysicalCashReceivedAtHOBank).Title("G. Physical Cash Received At HO Bank").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}")
+                .FooterTemplate(@<b id="G_PhysicalCashReceivedAtHOBank">0</b>);
+
+            column.Bound(m => m.Difference__F_G_).Title("Difference (F-G)").HtmlAttributes(new { @class = "A. GridColumnRightAlign", @style = "color:red;" }).HeaderHtmlAttributes(new { @style = "color:red;" }).Format("{0:0}")
+                .FooterTemplate(@<b id="Difference__F_G_">0</b>).FooterHtmlAttributes(new { @style = "color:red;" });
+        })
+        .Selectable()
+)
+<script type="text/javascript">
+    var rowsCnt = 0;
+
+    var A_ODRecoveredBasedInSMS = 0;
+    var B_ODRecoveredBasedInDailyEntry = 0;
+    var Difference__A_B_ = 0;
+    var C_OverallCollectionBaseInDailyEntry__OD_Regular_ = 0;
+    var D_CollectionBasedInCustomerWiseEntry = 0;
+    var Difference__C_D_ = 0;
+    var E_CollectionBasedInAccountingEntry = 0;
+    var F_CashTransferredReceivedFromUnit = 0;
+    var G_PhysicalCashReceivedAtHOBank = 0;
+    var Difference__F_G_ = 0;
+
+    rowsCnt = $("#gvUnitCollectionVsHeadOfficePhysicalCashMovement tbody tr").length;
+
+    for (var i = 0; i < rowsCnt; i++) {
+
+        var tr = $("#gvUnitCollectionVsHeadOfficePhysicalCashMovement tbody tr:eq(" + i + ")");
+
+        A_ODRecoveredBasedInSMS = A_ODRecoveredBasedInSMS + parseInt($(tr).find('td:eq(2)').text());
+        B_ODRecoveredBasedInDailyEntry = B_ODRecoveredBasedInDailyEntry + parseInt($(tr).find('td:eq(3)').text());
+        Difference__A_B_ = Difference__A_B_ + parseInt($(tr).find('td:eq(4)').text());
+        C_OverallCollectionBaseInDailyEntry__OD_Regular_ = C_OverallCollectionBaseInDailyEntry__OD_Regular_ + parseInt($(tr).find('td:eq(5)').text());
+        D_CollectionBasedInCustomerWiseEntry = D_CollectionBasedInCustomerWiseEntry + parseInt($(tr).find('td:eq(6)').text());
+        Difference__C_D_ = Difference__C_D_ + parseInt($(tr).find('td:eq(7)').text());
+        E_CollectionBasedInAccountingEntry = E_CollectionBasedInAccountingEntry + parseInt($(tr).find('td:eq(8)').text());
+        F_CashTransferredReceivedFromUnit = F_CashTransferredReceivedFromUnit + parseInt($(tr).find('td:eq(9)').text());
+        G_PhysicalCashReceivedAtHOBank = G_PhysicalCashReceivedAtHOBank + parseInt($(tr).find('td:eq(10)').text());
+        Difference__F_G_ = Difference__F_G_ + parseInt($(tr).find('td:eq(11)').text());
+    }
+
+    var tr = $("#gvUnitCollectionVsHeadOfficePhysicalCashMovement tfoot tr");
+
+    $(tr).find('td:eq(1)').text("Total: ");
+    $(tr).find('td:eq(2)').text(A_ODRecoveredBasedInSMS);
+    $(tr).find('td:eq(3)').text(B_ODRecoveredBasedInDailyEntry);
+    $(tr).find('td:eq(4)').text(Difference__A_B_);
+    $(tr).find('td:eq(5)').text(C_OverallCollectionBaseInDailyEntry__OD_Regular_);
+    $(tr).find('td:eq(6)').text(D_CollectionBasedInCustomerWiseEntry);
+    $(tr).find('td:eq(7)').text(Difference__C_D_);
+    $(tr).find('td:eq(8)').text(E_CollectionBasedInAccountingEntry);
+    $(tr).find('td:eq(9)').text(F_CashTransferredReceivedFromUnit);
+    $(tr).find('td:eq(10)').text(G_PhysicalCashReceivedAtHOBank);
+    $(tr).find('td:eq(11)').text(Difference__F_G_);
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

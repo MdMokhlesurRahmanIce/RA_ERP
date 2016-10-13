@@ -1,0 +1,3069 @@
+﻿
+@using RASolarHelper;
+
+<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+</script>
+
+<style type="text/css">
+    .hideTdForPanelBatteryCode{
+        display:none;
+    }
+    #zoneName{
+        float: left;
+        width: 20%;
+        margin-left: 3%;
+        display: inline;
+    }
+	
+    #regionName{
+        float: left;
+        width: 20%;
+        margin-left: 3%;
+         display: inline;
+    }
+	
+    #unitName{
+        float: left;
+        width: 20%;
+        margin-left: 3%;
+        display: inline;
+    }
+    #openMothYear {
+        float: left;
+        width: 28%;
+        margin-left: 3%;
+        display: inline;
+    }
+
+    .search-table-outter {
+        border: 1px solid #A4D3DB;
+    }
+
+    .search-table {
+        table-layout: fixed;
+        margin: 40px auto 0px auto;
+    }
+
+    .search-table, td, th {
+        border-collapse: collapse;
+    }
+
+
+    .search-table-outter {
+        overflow-x: scroll;
+    }
+
+</style>
+
+@using RASolarERP.DomainModel.InventoryModel;
+@using RASolarERP.DomainModel.HRMSModel;
+@using RASolarERP.DomainModel.SalesModel;
+@{
+    ViewBag.Title = "Employee Wise Movement Plan Entry";
+    Layout = "~/Areas/Inventory/Views/Shared/_InventoryLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+
+@section LoginInfo
+{
+    <div style="border:0; text-align:left; width:100%;">
+       <div id="zoneName">
+            @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+       </div>
+       <div id="regionName">
+            @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+       </div>
+       <div id="unitName">
+            @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+       </div>
+       <div id="openMothYear">
+            @ViewBag.OpenMonthYear
+       </div>
+   </div>
+}
+<input id="hfChkDistribScheduleNo" type="hidden" value="@ViewBag.ChkDistribScheduleNo" />
+<input id="hfrootNameFromRootGrid" type="hidden" value=""/>
+<input id="hfPackageCode" type="hidden" value=""/>
+<input id="hfHeaderTag" type="hidden" value=""/>
+<input id="hfOpenDay" type="hidden" value="@ViewBag.OpenDay" />
+<input id="hfOpenBackDay" type="hidden" value="@ViewBag.OpenBackDay" />
+<input id="hfToLocation" type="hidden" value="" />
+<input id="hfMultipleToLocation" type="hidden" value="0" />
+<input id="hfIsInventoryImplemented" type="hidden" value="@ViewBag.IsInventoryImplemented" />
+<input id="hfIsChallanLocationNeeded" type="hidden" value="0" />
+<input id="hfIsItVendorRelated" type="hidden" value="0" />
+<input id="hfResponsibilityTakenOrHandover" type="hidden" value="" />
+<input id="hfLocation" type="hidden" value="@ViewBag.Location"/>
+<input id="hfCurrentLocation" type="hidden" />
+<input id="hfRegionLocation" type="hidden" />
+<input id="hfLocationText" type="hidden" value="@ViewBag.Location"/>
+<input id="hfSearchOrTransferLocation" type="hidden" value="" />
+<input id="hfEmployeeStatus" type="hidden" value="" />
+<input id="hfSearchLocationCode" type="hidden" value="" />
+<div>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td align="left" style="width: 33%;">
+               <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              
+                <tr>
+                       
+                    <td align="left">
+                        
+                    </td>
+                    <td align="left">
+                        Date
+                      @(Html.Telerik().DatePicker().Name("dtpDelivaryDate").Format("dd-MMM-yyyy").Value(DateTime.Now.Date).Max(new DateTime(2099, 12, 31)).Value(DateTime.Now))
+                    </td>
+                   
+                </tr>
+             
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" class="IRCaptionLeftColumn" style="margin-left: 0px;">
+             <fieldset class="sagGroupBox">
+                <legend>Employee Visit Plan</legend>
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <table width="100%">
+                                <tr>
+                        <td  align="right" width="30%">Employee Name
+                         
+                              @Html.DropDownList("ddlRouteCategory", new SelectList(ViewBag.RouteCategory, "EmployeeID", "EmployeeName"), "--Select--", new {@class="IRDropDown" })
+                        </td>
+                        <td align="right" width="30%">Location Part1 (District)
+                            @Html.DropDownList("ddlLocationPart1", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "IRDropDown" })
+                        </td>
+                           <td  align="right" width="30%">Location Part2 
+                         
+                              @Html.DropDownList("ddlLocationPart4", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "IRDropDown" })
+                        </td>
+                                    </tr>
+                                </table>
+                        </td>
+                    </tr>
+                       <tr>
+                        <td>
+                            <table width="100%">
+                                <tr>
+                      @*  <td  align="right" width="40%">Location Part2 (UpoZilla)
+                         
+                              @Html.DropDownList("ddlLocationPart2", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "IRDropDown" })
+                        </td>*@
+                        <td align="right" width="30%">
+                            Search :
+                           <input type='text' value='' id='txtSearch'  style='text-align:left; width:210px;'/> 
+                        </td>
+                          <td align="right" width="60%">
+                          
+                        </td>
+                       
+                                    </tr>
+                                </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        
+                        </td>
+                    </tr>
+                      <tr>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                       
+                        <td width="100%">
+                              <div style="width:100%;" id="telerikgrid">
+                             @(Html.Telerik().Grid<EmployeeVisit>()
+                            .Name("gvEmployeeVisit")
+                            .DataKeys(keys => keys.Add(k => k.TTLocationCode))
+                            .Columns(column =>
+                            {
+                                //column.Bound(m => m.).ClientTemplate("<input type='checkbox' value='' id='checkRecords' onchange='return CheckGridRecords();' />").Title("<input type='checkbox' id='checkBoxAll' onclick='checkAllRows();'>").HtmlAttributes(new { style = "text-align:center" });
+                                column.Bound(m => m.TTLocationCode).Hidden(true);
+                                column.Bound(m => m.TTLocationAddress).Title("Visit Location Name").Width(38);
+                                column.Bound(m => m.TTLocationCode).Title("No. of Customer Visit").ClientTemplate("<input type='text' value='' id='txtNoOfCustomerVisit' onblur='return checkNoOfCustomerVisit();' style='text-align:right; width:50px;' />").HtmlAttributes(new { @class = "GridColumnRightAlign" }).Width(10);
+                                column.Bound(m => m.TTLocationCode).Title("Purpose").ClientTemplate("<input type='text' value='' id='txtPurpose'  onblur='return checkPurpose();' style='text-align:left; width:360px;'/>").Width(39);
+                                column.Bound(m => m.TTLocationCode).Title("Duration (in hour)").ClientTemplate("<input type='text' value='' id='txtDuration' onblur='return checkDuration();' style='text-align:right; width:100px;' />").HtmlAttributes(new { @class = "GridColumnRightAlign" }).Width(15);
+                                //column.Bound(m => m.AssignedToEmployeeID).ClientTemplate("<input type='checkbox' value='' id='checkRecords' onchange='return CheckGridRecords();' />");
+                                 // column.Bound(e => e.LoadRequestForRSFServices).Title("RSF Service").Template(@<input type='text'  value='@(Convert.ToInt32(@item.LoadRequestForRSFServices).ToString())'  id="@("txtRSFService+" + @item.EmployeeID)" onblur="ChecktxtRSFService('txtRSFService+@item.EmployeeID.Trim()',this.value);" style="text-align:right; width:100px;" />).Width(20).Format("{0:N0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                            })
+                            .DataBinding(dbbindings => dbbindings.Ajax().Select("__EmployeeDetailsVisit", "SalesMonitoring"))
+                            .ClientEvents(events => events
+                            .OnDataBinding("onDataBinding")
+                            .OnError("onError")
+                            )
+                            .Selectable()
+                            //.Pageable(pages => pages.PageSize(300))
+                            .Scrollable(scroll => scroll.Height(200))
+                            .Footer(false)
+                            )
+                            </div>
+                            <div style="width:100%; display:none;" id="telerikgrid2">
+                             @(Html.Telerik().Grid<EmployeeVisit>()
+                            .Name("gvEmployeeVisit2")
+                            .DataKeys(keys => keys.Add(k => k.TTLocationCode))
+                            .Columns(column =>
+                            {
+                                //column.Bound(m => m.).ClientTemplate("<input type='checkbox' value='' id='checkRecords' onchange='return CheckGridRecords();' />").Title("<input type='checkbox' id='checkBoxAll' onclick='checkAllRows();'>").HtmlAttributes(new { style = "text-align:center" });
+                                column.Bound(m => m.TTLocationCode).Hidden(true);
+                                column.Bound(m => m.TTLocationAddress).Title("Visit Location Name").Width(38);
+                                column.Bound(m => m.TTLocationCode).Title("No. of Customer Visit").ClientTemplate("<input type='text' value='' id='txtNoOfCustomerVisit' onblur='return checkNoOfCustomerVisit();' style='text-align:right; width:50px;' />").HtmlAttributes(new { @class = "GridColumnRightAlign" }).Width(10);
+                                column.Bound(m => m.TTLocationCode).Title("Purpose").ClientTemplate("<input type='text' value='' id='txtPurpose'  onblur='return checkPurpose();' style='text-align:left; width:360px;'/>").Width(39);
+                                column.Bound(m => m.TTLocationCode).Title("Duration (in hour)").ClientTemplate("<input type='text' value='' id='txtDuration' onblur='return checkDuration();' style='text-align:right; width:100px;' />").HtmlAttributes(new { @class = "GridColumnRightAlign" }).Width(15);
+                                //column.Bound(m => m.AssignedToEmployeeID).ClientTemplate("<input type='checkbox' value='' id='checkRecords' onchange='return CheckGridRecords();' />");
+                                 // column.Bound(e => e.LoadRequestForRSFServices).Title("RSF Service").Template(@<input type='text'  value='@(Convert.ToInt32(@item.LoadRequestForRSFServices).ToString())'  id="@("txtRSFService+" + @item.EmployeeID)" onblur="ChecktxtRSFService('txtRSFService+@item.EmployeeID.Trim()',this.value);" style="text-align:right; width:100px;" />).Width(20).Format("{0:N0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                            })
+                            //.DataBinding(dbbindings => dbbindings.Ajax().Select("__EmployeeDetailsVisit", "SalesMonitoring"))
+                            .ClientEvents(events => events
+                            .OnDataBinding("onDataBinding")
+                            .OnError("onError")
+                            )
+                            .Selectable()
+                            //.Pageable(pages => pages.PageSize(300))
+                            .Scrollable(scroll => scroll.Height(200))
+                            .Footer(false)
+                            )
+                            </div> 
+                            <div style="display:none; height:300px; overflow:auto;" id="grid1">
+                          
+                                 <table class="TableData" cellpadding="0" cellspacing="0" id="visitLocationGrid" width="100%" >
+                                        <thead>
+                                            <tr>
+                                               <th style="display:none;"> 
+                                                   TTLocation
+                                                   </th>
+                                                <th align="center" width="45%">
+                                                   Visit Location Name
+                                                </th>
+                                                <th align="center" width="40%">
+                                                    Purpose
+                                                </th>
+                                                <th align="center" width="15%">
+                                                   Duration (in hour)
+                                                </th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </td>
+                    </tr>
+                 
+                  <tr>
+                         <td>
+                             <br />
+                         </td>
+                         </tr>
+                    <tr>
+                  
+                        <td align="right" style="width:100%">
+                            <input id="btnAddToFinalSelectedUnit" type="button" value="Add To Final List" onclick="return AddToFinal();" />
+                        </td>
+                       </tr>
+               
+                </table>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" style="width: 33%;" valign="top">
+            <fieldset class="sagGroupBox">
+             <legend>Selected  Visit Plan</legend>
+
+             <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                           
+                            <tr>
+                                <td width="100%">
+                                    <table class="TableData" cellpadding="0" cellspacing="0" id="serialGrid" width="100%">
+                                        <thead>
+                                            <tr>
+                                               <th style="display:none"> 
+                                                   ttLocation
+                                               </th>
+                                                <th align="center" style="width:280px">
+                                                   Visit Location Name
+                                                </th>
+                                                <th align="center" style="width:30px">
+                                                    No. of Customer Visit
+                                                </th>
+                                                <th align="center" style="width:230px">
+                                                    Purpose
+                                                </th>
+                                                <th align="center" style="width:70px">
+                                                    Duration (in hour)
+                                                </th>
+                                                 @*<th align="center" style="width:30px">
+                                                    Edit
+                                                </th>*@
+                                                <th align="center" style="width:30px">
+                                                    Delete
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>   
+                     </fieldset>
+        </td>
+    </tr>
+    
+   
+
+     
+  
+
+    </table>
+    </div>
+
+
+<div>
+    <table>
+        <tr>
+            <td style="float: right;">
+                <input id="btnSaveForEmployeeVisitPlan" type="button" value="Save" name="saveButton"/>
+            </td>
+           @* <td style="float: right; display:none;">
+                <input id="btnSave" type="button" value="Save" name="saveButton"  onclick="return SaveChecking();"/>
+            </td>*@
+        </tr>
+
+    </table>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $.extend($.expr[':'], {
+        'containsi': function (elem, i, match, array) {
+            return (elem.textContent || elem.innerText || '').toLowerCase()
+    .indexOf((match[3] || "").toLowerCase()) >= 0;
+        }
+    });
+
+
+    $(document).ready(function () {
+
+        @* if ('@ViewBag.ChkDistribScheduleNo' == 1)
+        { 
+            alert("This Delivery Schedule No. is Already Existed.");
+            $('#txtDeliveryScheduleNo').val(''); 
+        }
+
+        var lstDistributionMaster;
+        var lstDistributionDetails;*@
+
+
+        //$('#txtSearch').keyup(function () {
+        //    //alert("keyup");
+        //            var filterText = $.trim($(this).val());
+
+        //            $("#gvEmployeeVisit .t-grid-content > table tbody tr").each(function () {
+
+        //                if ($(this).find("td:eq(1):containsi('" + filterText + "')").length > 0) {
+        //                    $(this).show();
+        //                }
+        //                else {
+        //                    $(this).hide();
+        //                }
+        //            });
+        //  });
+
+        $('#txtSearch').keyup(function () {
+            //alert("keyup");
+            var filterText = $.trim($(this).val());
+
+            $("#gvEmployeeVisit .t-grid-content > table tbody tr").each(function () {
+
+                //var visitLocation = $(this).find('td:eq(1)').text();
+                //var arrayList = visitLocation.split(",");
+                ////for (var i = 0; i < arrayList.length; i++)
+                ////{
+                //    //alert(arrayList[i]);
+                 
+                //    if(("'"+arrayList[0]+"':containsi('" + filterText + "')").length > 0)
+                //    {
+                //        $(this).show();
+                //    }
+                //    else{
+
+                //        $(this).hide();
+                //    }
+                ////}
+
+                    
+                if ($(this).find("td:eq(1):containsi('" + filterText + "')").length > 0) {
+                    $(this).show();
+                }
+                else {
+                    $(this).hide();
+                }
+            });
+        });
+
+
+        $('#ddlRouteCategory').change(function () {
+            //LoadRoute();
+            if ($('#ddlRouteCategory').val()=="")
+            {
+                //alert($('#ddlRouteCategory').val());
+                return false;
+            }
+            
+
+            $('#ddlLocationPart1').val('');
+            $('#ddlLocationPart4').val('');
+            var option = "";
+            var ddlRouteCategory = $('#ddlRouteCategory').val();
+            //var ddlLocationPart1 = $('#ddlLocationPart1').val();
+            //var ddlLocationPart4 = $('#ddlLocationPart4').val();
+            var ddlLocationPart1 = '';
+            var ddlLocationPart4 = '';
+            
+            //alert(ddlLocationPart1 + "rrrrrrrrr" + ddlLocationPart4);
+
+            if (ddlLocationPart1 == "" && ddlLocationPart4 == "")
+            {
+                option = "EMPLOYEE_WISE_TTLOCATIONS";
+            }
+            else if (ddlLocationPart1 != "" && ddlLocationPart4 == "")
+            {
+                option = "LOCATIONPART1_WISE_TTLOCATIONS";
+            }
+            else if (ddlLocationPart1 != "" && ddlLocationPart4 != "")
+            {
+                option = "LOCATIONPART2_WISE_TTLOCATIONS";
+            }
+
+
+            var params = {
+                option:option,
+                empId: ddlRouteCategory,
+                ddlLocationPart1: ddlLocationPart1,
+                ddlLocationPart4: ddlLocationPart4
+
+            };
+            var grid = $('#gvEmployeeVisit').data('tGrid');
+            grid.dataSource._data = [];
+            grid.ajaxRequest(params);
+
+
+            $('#telerikgrid').show();
+
+            //alert(nameFromSerialGrid);
+            
+            $('#telerikgrid2').hide();
+            
+
+            var empWisePart1 = "EMPLOYEE_WISE_LOCATIONPART1";
+            var empID = $('#ddlRouteCategory').val();
+            $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("LocationPart1Load", "SalesMonitoring")',
+                //data: "{'routeCategory':'" + $('#ddlRouteCategory').val() + "'}",
+                data: "{'empWisePart1':'" + empWisePart1 + "','empID':'" + empID +"'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    //$('#ddlLocationPart1').get(0).options.length = 0;
+                    //$('#ddlLocationPart1').get(0).options[0] = new Option('--Select--', '');
+                    //$.map(data, function (item) {
+                    //    $('#ddlLocationPart1').get(0).options[$('#ddlLocationPart1').get(0).options.length] = new Option(item.Display, item.Value);
+                    //});
+
+
+
+                    if (data[0].messageCode!="error") {
+                        //Helper.AlertMessage("", data[0].message);
+                        $('#ddlLocationPart1').get(0).options.length = 0;
+                        $('#ddlLocationPart1').get(0).options[0] = new Option('--Select--', '');
+                        $.map(data, function (item) {
+                            $('#ddlLocationPart1').get(0).options[$('#ddlLocationPart1').get(0).options.length] = new Option(item.Display, item.Value);
+                        });
+                    }
+                    else if (data[0].messageCode == "error") {
+                        //$('#loadingImage').hide();
+                        $('#ddlLocationPart1').get(0).options.length = 0;
+                        $('#ddlLocationPart1').get(0).options[0] = new Option('--Select--', '');
+                        $('#ddlLocationPart4').get(0).options.length = 0;
+                        $('#ddlLocationPart4').get(0).options[0] = new Option('--Select--', '');
+                        //$('#gvEmployeeVisit tbody tr').each(function () {
+                        //    $(this).remove();
+                        //});
+
+                        //alert("MOasjfsdfds");
+
+                        $('#telerikgrid2').show();
+                        $('#telerikgrid').hide();
+
+                        //grid.dataSource._data = "";
+
+                        //$('#gvEmployeeVisit')
+                        //var params = {
+                        //    option: option,
+                        //    empId: ddlRouteCategory,
+                        //    ddlLocationPart1: ddlLocationPart1,
+                        //    ddlLocationPart4: ddlLocationPart4
+
+                        //};
+                        //var grid = $('#gvEmployeeVisit').data('tGrid');
+                        //grid.dataSource._data = [];
+                        //grid.ajaxRequest(params);
+                        //var grid = $('#gvEmployeeVisit').data('tGrid');
+                        //grid.dataSource._data = [];
+
+
+                        alert(data[0].message);
+
+                    }
+
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again.");
+                }
+             });
+
+        //    $("#gvEmployeeVisit").trigger("reloadGrid", [{ current: true }]);
+
+        //    $('#gvEmployeeVisit tbody ').find('tr:eq(0)').remove();
+
+        //    var gridLength = $('#gvEmployeeVisit tbody tr').length;
+        //   // alert(gridLength);
+        //    if (gridLength>0) {
+        //    $('#gvEmployeeVisit tbody tr').each(function () {
+        //        //var visitLocationName = $('#ddlRouteCategory').find('option:selected').text();
+        //        //var ValueVisitLocationName = $('#ddlRouteCategory').val();
+        //        var visitLocationName = $(this).find('td:eq(1)').text();
+        //        trNew = "<tr><td style=\"display:none\">" + $(this).find('td:eq(0)').text() + "</td>";
+        //        trNew = trNew + "<td>" + $(this).find('td:eq(1)').text() + "</td>";
+        //        trNew = trNew + "<td>" + "<input type='textbox' id='txtPurpose' style='width:300px; align:center;' onblur=\"return CheckNumeric(this.value,'" + visitLocationName + "');\" value='' />" + "</td>";
+        //        trNew = trNew + "<td>" + "<input type='textbox' id='txtDuration' style='width:300px; align:center;' onblur=\"return CheckNumeric(this.value,'" + visitLocationName + "');\" value='' />" + "</td>";
+
+        //        $('#visitLocationGrid tbody').append(trNew);
+        //    });
+        //}
+
+        });
+
+        
+        $('#ddlLocationPart1').change(function () {
+            //LoadRoute();
+
+            $('#ddlLocationPart4').val('');
+
+            if ($('#ddlLocationPart1').val() == "") {
+
+                return false;
+            }
+
+            var option = "";
+            var ddlRouteCategory = $('#ddlRouteCategory').val();
+            var ddlLocationPart1 = $('#ddlLocationPart1').val();
+            //var ddlLocationPart4 = $('#ddlLocationPart4').val();
+            var ddlLocationPart4 = '';
+          
+            //alert(ddlLocationPart1 + "rrrrrrrrr" + ddlLocationPart4);
+
+            if (ddlLocationPart1 == "" && ddlLocationPart4 == "") {
+                option = "EMPLOYEE_WISE_TTLOCATIONS";
+            }
+            else if (ddlLocationPart1 != "" && ddlLocationPart4 == "") {
+                option = "LOCATIONPART1_WISE_TTLOCATIONS";
+            }
+            else if (ddlLocationPart1 != "" && ddlLocationPart4 != "") {
+                option = "LOCATIONPART2_WISE_TTLOCATIONS";
+            }
+
+
+            var params = {
+                option: option,
+                empId: ddlRouteCategory,
+                ddlLocationPart1: ddlLocationPart1,
+                ddlLocationPart4: ddlLocationPart4
+
+            };
+            var grid = $('#gvEmployeeVisit').data('tGrid');
+            grid.dataSource._data = [];
+            grid.ajaxRequest(params);
+
+
+            $('#telerikgrid').show();
+
+            //alert(nameFromSerialGrid);
+
+            $('#grid1').hide();
+
+
+            var empWisePart2 = "EMPLOYEE_WISE_LOCATIONPART2";
+            var empID = $('#ddlRouteCategory').val();
+            var locationPart1 = $('#ddlLocationPart1').val();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("LocationPart2Load", "SalesMonitoring")',
+                //data: "{'routeCategory':'" + $('#ddlRouteCategory').val() + "'}",
+                data: "{'empWisePart2':'" + empWisePart2 + "','empID':'" + empID + "','locationPart1':'" + locationPart1 + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    cache: false,
+                    success: function (data) {
+                        $('#ddlLocationPart4').get(0).options.length = 0;
+                        $('#ddlLocationPart4').get(0).options[0] = new Option('--Select--', '');
+                        $.map(data, function (item) {
+                            $('#ddlLocationPart4').get(0).options[$('#ddlLocationPart4').get(0).options.length] = new Option(item.Display, item.Value);
+                        });
+                    },
+                    error: function () {
+                        alert("Connection Failed. Please Try Again.");
+                    }
+            });
+        });
+
+        $('#ddlLocationPart4').change(function () {
+            //LoadRoute();
+            if ($('#ddlLocationPart4').val() == "") {
+
+                return false;
+            }
+            var option = "";
+            var ddlRouteCategory = $('#ddlRouteCategory').val();
+            var ddlLocationPart1 = $('#ddlLocationPart1').val();
+            var ddlLocationPart4 = $('#ddlLocationPart4').val();
+
+            //alert(ddlLocationPart1 + "rrrrrrrrr" + ddlLocationPart4);
+            
+
+            if (ddlLocationPart1 == "" && ddlLocationPart4 == "") {
+                option = "EMPLOYEE_WISE_TTLOCATIONS";
+            }
+            else if (ddlLocationPart1 != "" && ddlLocationPart4 == "") {
+                option = "LOCATIONPART1_WISE_TTLOCATIONS";
+            }
+            else if (ddlLocationPart1 != "" && ddlLocationPart4 != "") {
+                option = "LOCATIONPART2_WISE_TTLOCATIONS";
+            }
+
+
+            var params = {
+                option: option,
+                empId: ddlRouteCategory,
+                ddlLocationPart1: ddlLocationPart1,
+                ddlLocationPart4: ddlLocationPart4
+
+            };
+            var grid = $('#gvEmployeeVisit').data('tGrid');
+            grid.dataSource._data = [];
+            grid.ajaxRequest(params);
+
+
+            $('#telerikgrid').show();
+
+            //alert(nameFromSerialGrid);
+
+            $('#grid1').hide();
+        });
+
+        $('#serialGrid').delegate("a.editSerialBtn", "click", function () {
+
+            var nameFromSerialGrid = $(this).attr("id").trim();
+            //$('#gvEmployeeVisit tbody tr').each(function () {
+
+            //    $(this).remove();
+            //});
+
+            $('#telerikgrid').hide();
+
+            //alert(nameFromSerialGrid);
+
+            $('#grid1').show();
+
+            $('#serialGrid tbody tr').each(function () {
+                var ttLocationCode = $(this).find('td:eq(0)').text();
+                var visitLocationName = $(this).find('td:eq(1)').text();
+                var purpose = $(this).find('td:eq(2)').text();
+                var hours = $(this).find('td:eq(3)').text();
+                //var allVPH = visitLocationName + purpose + hours;
+                //var trNew=0;
+                if (nameFromSerialGrid == ttLocationCode) {
+
+                              var  trNew = "<tr><td style=\"display:none;\">" + ttLocationCode + "</td>";
+                                trNew = trNew + "<td>" + visitLocationName + "</td>";
+                                trNew = trNew + "<td>" + "<input type='text' id='txtPurpose' style='width:300px; text-align:left;' onblur=\"return checkPurpose();\" value='" + purpose + "' />" + "</td>";
+                                trNew = trNew + "<td>" + "<input type='text' id='txtDuration' style='width:100px; text-align:right;' onblur=\"return checkDuration();\" value='" + hours + "' />" + "</td></tr>";
+
+                                $(this).remove();
+
+                                $('#visitLocationGrid tbody').append(trNew);
+                      
+                }
+                
+            });
+
+            //............................................................................Start for set Cursor............................................................................//         
+
+            function setCursor() {
+                e.preventDefault();
+                $("body, html").animate({
+                    scrollTop: $($(this).attr('a.editSerialBtn')).offset().top
+                }, 'slow');
+            }
+             $('html,body').animate({ scrollTop: 1000 }, 'slow');
+            //.............................................................................end for set Cursor............................................................................//
+
+           
+        });
+    
+
+
+        $('#btnSaveForEmployeeVisitPlan').click(function () {
+            
+            var noOfCustomerVisit = "";
+            var purpose = "";
+            var hours = "";
+            $('#serialGrid tbody tr').each(function () {
+                var noOfCustomerVisit = $(this).find('td:eq(2)').find('input').val().trim();
+                var purpose = $(this).find('td:eq(3)').find('input').val().trim();
+                var hours = $(this).find('td:eq(4)').find('input').val().trim();
+                if (purpose == "" || hours == "" || noOfCustomerVisit == "") {
+                    alert("Please Enter No. of Customer visit, Purpose and Hour.");
+                    return fales;
+                }
+            })
+
+            var guaGridLength = $('#serialGrid tbody tr').length;
+            if (guaGridLength<=0)
+            {
+                alert('Please Add To Final List');
+                return false;
+            }
+            var empId = $('#ddlRouteCategory').val();
+            var movementDate = $('#dtpDelivaryDate').val();
+            var ttLocationCode = "";
+            var NoFcustomerVisit = "";
+            var purposeOfVisit = "";
+            var durationOfVisitInHour = "";
+           
+            var i = 0;
+            var saveSuccess = 0;
+            var notSave = 0;
+
+            for (i = 0; i < guaGridLength; i++) {
+                var tr = $("#serialGrid tbody tr:eq(" + i + ")");
+
+                ttLocationCode = tr.find('td:eq(0)').text().trim();
+                NoFcustomerVisit = tr.find('td:eq(2)').find('input').val().trim();
+                purposeOfVisit = tr.find('td:eq(3)').find('input').val().trim();
+                durationOfVisitInHour = tr.find('td:eq(4)').find('input').val().trim();
+                
+               // var countLength = i;
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("EntryEmployeeVisitPlan", "SalesMonitoring")',
+                        dataType: "json",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ prmEmployeeID: empId, prmMovementDate: movementDate, prmTTLocationCode: ttLocationCode, prmNoFcustomerVisit: NoFcustomerVisit, prmPurposeOfVisit: purposeOfVisit, prmDurationOfVisitInHours: durationOfVisitInHour, gridLength: guaGridLength }),
+                        cache: false,
+                        success: function (data) {
+
+                            if (data[0].messageCode == "successAdd") {
+                                saveSuccess = 1;
+                            }
+                            else if (data[0].messageCode == "success") {
+
+                                //$('#loadingImage').hide();
+                                alert("Save Is Succeed");
+
+                                ClearAllControlForEntryEmployeeVisitPlan();
+                            }
+                            else {
+                                alert(data[0].message);
+                                notSave=1;
+                            }
+
+                        },
+                        error: function () {
+                            Helper.AlertMessage("", "Connection Failed. Please Try Again");
+                            notSave = 1;
+                            //$('#loadingImage').hide();
+                        }
+                    });
+               }
+        });
+
+
+        function ClearAllControlForEntryEmployeeVisitPlan() {
+
+            //$('#gvEmployeeVisit tbody tr').each(function () {
+               
+            //    $(this).remove();
+            //});
+            $('#serialGrid tbody tr').each(function () {
+
+                $(this).remove();
+            });
+        }
+
+        //...........
+
+
+
+
+
+
+
+        $('#ddlRoute').change(function () {
+            LoadUnit();
+        });
+        $('#serialGrid').delegate("a.deleteSerialBtn", "click", function () {
+
+            //....................................................................................Start delete from finalDistributionSheetGridForUnitAmount Grid.........................................//
+            var locationCode = $(this).attr('id').trim();
+            var gridTr = $("#serialGrid tbody tr:contains('" + locationCode + "')");
+            var rootNameFromserialGrid = gridTr.find('td:eq(2)').text().trim();
+            var sustrRootNameFromserialGrid = rootNameFromserialGrid.substr(0, 4).toString();
+            //...................................................................................Start delete header and unit location from serialGridAddPackage.........................................// 
+            var locationnameFromserialGrid = gridTr.find('td:eq(1)').text().trim();
+            var lengthOfHeader = $('#serialGridAddPackage thead th').length;
+            //var lengthOftr = $('#serialGridAddPackage tbody tr').length;
+            //var headCount = $('#serialGridAddPackage thead th').length;
+            //var wdth =   $('#serialGridAddPackage').find("th:eq(" + count + ")").width();
+            //var reduceWidth = 0;
+           // var marLeft = 0;
+            //var setWidthToLebel = 0;
+            //var reduceWidthffff = 0;
+            //var headTotalWidthBeforDel = 0;
+            //var headTotalWidthAfterDel = 0;
+            var setWidth = 0;
+            var deleteHeadNColomn = 0;
+            if (lengthOfHeader > 0) {
+                for (var k = 0; k < lengthOfHeader; k++) {
+                    var headerOfSerialGridAddPackage = $("#serialGridAddPackage thead th:eq(" + k + ")").text();
+                    //headTotalWidthBeforDel =headTotalWidthBeforDel+ $('#serialGridAddPackage').find("th:eq(" + k + ")").width();
+                    //alert('total width:' + reduceWidthffff);
+                    if (locationnameFromserialGrid == headerOfSerialGridAddPackage) {
+                        deleteHeadNColomn = k;
+                        setWidth=1;
+                        //reduceWidth = 0;
+                        //marLeft = 0;
+                        //setWidthToLebel = 0;
+                        //alert(lengthOfHeader + "........" + lengthOftr + "........" + headerOfSerialGridAddPackage + "locationnameFromserialGrid" + locationnameFromserialGrid);
+                    }
+                    
+                }
+                if (lengthOfHeader > 0 && deleteHeadNColomn >0)
+                {
+                   // marLeft = parseInt($('#setLabel').css('margin-left'), 10)
+                    $("#serialGridAddPackage thead th:eq(" + deleteHeadNColomn + ")").remove();
+                    $("#serialGridAddPackage tbody tr").find("td:eq(" + deleteHeadNColomn + ")").remove();
+                }
+                if (setWidth == 1) {
+                    var headCount = $('#serialGridAddPackage thead th').length;
+                    var countFromAllocatedHeadWidth = 0;
+                    var countFromAllocatedHeadWidthForRootSum = 0;
+                    var contentWidthTotal = 0;
+                    var setWidthToLebel = 0;
+                    var setWidthToLebelRootSum = 0;
+                    for (var count = 0; count < headCount; count++) {
+                        contentWidthTotal = contentWidthTotal + $('#serialGridAddPackage').find("th:eq(" + count + ")").width();
+                        if (count > 6) {
+                            countFromAllocatedHeadWidth = countFromAllocatedHeadWidth + $('#serialGridAddPackage').find("th:eq(" + count + ")").width();
+                        }
+                        if (count > (headCount - 3)) {
+                            countFromAllocatedHeadWidthForRootSum = countFromAllocatedHeadWidthForRootSum + $('#serialGridAddPackage').find("th:eq(" + count + ")").width();
+                        }
+                    }
+                    setWidthToLebel = contentWidthTotal - countFromAllocatedHeadWidth - 262;
+                    $("#setLabel").css('margin-left', setWidthToLebel + "px");
+                    document.getElementById('setLabel').style.display = "block";
+                    var setLabelRootSumw = $('#totalAllocatedQuantiy').width();
+                    var setLabelWidth = $('#setLabel').width();
+                    var div1 = $('#div1').width();
+                    var div2 = $('#div2').width();
+                    var div3 = $('#div3').width();
+                    if (headCount == 12)
+                        setWidthToLebelRootSum = contentWidthTotal - (countFromAllocatedHeadWidthForRootSum + div1 + div2) - 238;
+                    else
+                        setWidthToLebelRootSum = contentWidthTotal - (countFromAllocatedHeadWidthForRootSum + div1 + div2) - 223;
+                    $("#setLabelRootSum").css('margin-left', setWidthToLebelRootSum + "px");
+                    document.getElementById('setLabelRootSum').style.display = "block";
+                    //var delGridLength = $("#serialGridAddPackage thead th").length;
+                    //for (var m = 0; m < delGridLength; m++)
+                    //    {
+                    //        headTotalWidthAfterDel = headTotalWidthAfterDel + $('#serialGridAddPackage').find("th:eq(" + m + ")").width();
+                    //    }
+                    //    //reduceWidth = $('#serialGridAddPackage').find("th:eq(" + k + ")").width();
+                    //// marLeft = parseInt($('#setLabel').css('margin-left'), 10)
+                    //if (headTotalWidthBeforDel > headTotalWidthAfterDel)
+                    //{
+                    //    setWidthToLebel = marLeft-(headTotalWidthBeforDel - headTotalWidthAfterDel);
+                    //}
+                    //else {
+                    //    setWidthToLebel = marLeft+(headTotalWidthAfterDel - headTotalWidthBeforDel);
+                    //}
+                    
+                    //alert("marLeft:" + marLeft + "setWidthToLebel:" + setWidthToLebel + ":headTotalWidthBeforDel:" + headTotalWidthBeforDel + ":headTotalWidthAfterDel:" + headTotalWidthAfterDel);
+                    //$("#setLabel").css('margin-left', setWidthToLebel + "px");
+                    setWidth = 0;
+                    //marLeft = 0;
+                    deleteHeadNColomn = 0;
+                   // setWidthToLebel = 0;
+                    //headTotalWidthBeforDel = 0;
+                    //headTotalWidthAfterDel = 0;
+                }
+
+
+            }
+            //........................................................................end delete header and unit location from serialGridAddPackage.........................................// 
+
+            //....................................................................................start for delete route from route which is not content any unit in serialgrid..............................//
+            var countForDeleteRouteFromRouteGrid = 0;
+            $('#serialGrid tbody tr').each(function () {
+                var countrootNameFromserialGrid = $(this).find('td:eq(2)').text().trim();
+                if (countrootNameFromserialGrid == rootNameFromserialGrid)
+                {
+                    countForDeleteRouteFromRouteGrid = countForDeleteRouteFromRouteGrid + 1;
+                }
+            });
+            //.......................................................................................end for delete route from route which is not content any unit in serialgrid............//
+            var conditionalRootCodeFromFinalDistributionSheetGridForUnitAmount = "";
+            var packageOrItemCodeFromfinalDistributionSheetGridForUnitAmount = "";
+            var panelCodeFromfinalDistributionSheetGridForUnitAmount = "";
+            var batteryCodeFromfinalDistributionSheetGridForUnitAmount = "";
+            var packageOrItemSelectionFromfinalDistributionSheetGridForUnitAmount = "";
+            var unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount = 0;
+            $('#finalDistributionSheetGridForUnitAmount tbody tr').each(function () {
+                var rootCodeFromFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(0)').text().trim();
+                var locationCodeFromFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(1)').text().trim();
+                if (sustrRootNameFromserialGrid == rootCodeFromFinalDistributionSheetGridForUnitAmount && locationCode == locationCodeFromFinalDistributionSheetGridForUnitAmount) {
+                    conditionalRootCodeFromFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(0)').text().trim();
+                    packageOrItemCodeFromfinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(2)').text().trim();
+                    panelCodeFromfinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(3)').text().trim();
+                    batteryCodeFromfinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(4)').text().trim();
+                    packageOrItemSelectionFromfinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(5)').text().trim();
+                    unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(6)').text().trim();
+                    $('#distributionSheetGridForPackageCode tbody tr').each(function () {
+                        var packageCode = $(this).find('td:eq(0)').text().trim();
+                        var panelCode = $(this).find('td:eq(1)').text().trim();
+                        var batteryCode = $(this).find('td:eq(2)').text().trim();
+                        var totalDistributedQuantity = $(this).find('td:eq(4)').text().trim();
+                        var unDistributedQuantity = $(this).find('td:eq(5)').text().trim();
+                        if (totalDistributedQuantity>0 && packageOrItemCodeFromfinalDistributionSheetGridForUnitAmount == packageCode && panelCodeFromfinalDistributionSheetGridForUnitAmount == panelCode && batteryCodeFromfinalDistributionSheetGridForUnitAmount == batteryCode) {
+                            $(this).find('td:eq(4)').text(totalDistributedQuantity - unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount);
+                            $(this).find('td:eq(5)').text(parseInt(unDistributedQuantity, 10) + parseInt(unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount, 10));
+                        }
+                    });
+                    $('#finalDistributionSheetGrid tbody tr').each(function () {
+                        var routeCode = $(this).find('td:eq(0)').text().trim();
+                        var packageOrItemCode = $(this).find('td:eq(1)').text().trim();
+                        var panelCode = $(this).find('td:eq(4)').text().trim();
+                        var batteryCode = $(this).find('td:eq(6)').text().trim();
+                        var packageOrItemSelection = $(this).find('td:eq(7)').text().trim();
+                        var rootTotal = $(this).find('td:eq(9)').text().trim();
+                        var tatalDistributedQntty = $(this).find('td:eq(10)').text().trim();
+                        var unDistributedQuantity = $(this).find('td:eq(11)').text().trim();
+                        if (rootTotal>0 && conditionalRootCodeFromFinalDistributionSheetGridForUnitAmount == routeCode && packageOrItemCodeFromfinalDistributionSheetGridForUnitAmount == packageOrItemCode && panelCodeFromfinalDistributionSheetGridForUnitAmount == panelCode && batteryCodeFromfinalDistributionSheetGridForUnitAmount == batteryCode && packageOrItemSelectionFromfinalDistributionSheetGridForUnitAmount == packageOrItemSelection) {
+                            $(this).find('td:eq(9)').text(rootTotal - unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount);
+                            $(this).find('td:eq(10)').text(tatalDistributedQntty - unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount);
+                            $(this).find('td:eq(11)').text(parseInt(unDistributedQuantity, 10) + parseInt(unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount, 10));
+                        }
+                    });
+                    $('#serialGridAddPackage tbody tr').each(function () {
+                        var packageOrItemCode = $(this).find('td:eq(0)').text().trim();
+                        var panelCode = $(this).find('td:eq(3)').text().trim();
+                        var batteryCode = $(this).find('td:eq(5)').text().trim();
+                        var packageOrItemSelection = $(this).find('td:eq(6)').text().trim();
+                        var tdLength = $(this).children().length;
+                        var rootTotal = $(this).find("td:eq("+(tdLength-4)+")").text().trim();
+                        var tatalDistributedQntty = $(this).find("td:eq(" + (tdLength - 3) + ")").text().trim();
+                        var unDistributedQuantity = $(this).find("td:eq(" + (tdLength - 2) + ")").text().trim();
+                        if (rootTotal>0 && tatalDistributedQntty>0 && packageOrItemCodeFromfinalDistributionSheetGridForUnitAmount == packageOrItemCode && panelCodeFromfinalDistributionSheetGridForUnitAmount == panelCode && batteryCodeFromfinalDistributionSheetGridForUnitAmount == batteryCode && packageOrItemSelectionFromfinalDistributionSheetGridForUnitAmount == packageOrItemSelection) {
+                            $(this).find("td:eq(" + (tdLength - 4) + ")").text(rootTotal - unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount);
+                            $(this).find("td:eq(" + (tdLength - 3) + ")").text(tatalDistributedQntty - unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount);
+                            $(this).find("td:eq(" + (tdLength - 2) + ")").text(parseInt(unDistributedQuantity, 10) + parseInt(unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount, 10));
+
+                            //.................................................................Start for rootSum show only for delete unitcode...............................................................................................//
+                           
+                            var rootSum = 0;
+                            if (packageOrItemSelection == 'Package') {
+                                var rootQuantityInTextBox = $('#rootSum').text().trim();
+                                rootSum = parseInt(rootQuantityInTextBox, 10) - unitAssignQuantityFromfinalDistributionSheetGridForUnitAmount;
+                                $('#rootSum').text(rootSum);
+                                rootSum = 0;
+                            }
+                            //...................................................................End  for rootSum show only for delete unitcode...............................................................................................//
+                        }
+                        //.................................................................start for delete route from addpackagegrid which is not content any unit in serialgrid..........................................//
+                     
+                        $('#serialGridRootNo tbody tr').each(function () {
+                            var countrootNameFromSerialGridRootNo = $(this).find('td:eq(1)').text().trim();
+                            if (countrootNameFromSerialGridRootNo == rootNameFromserialGrid && countForDeleteRouteFromRouteGrid==1 ) {
+                                $(this).remove();
+                                $('#finalDistributionSheetGrid tbody tr').each(function () {
+                                    var routeFromFinalDistributionSheetGrid = $(this).find('td:eq(0)').text().trim();
+                                    if (routeFromFinalDistributionSheetGrid == sustrRootNameFromserialGrid) {
+                                        $(this).remove();
+                                    }
+                                });
+                            }
+                        });
+                        //....................................................................end for delete route from addpackagegrid which is not content any unit in serialgrid......................................//
+
+                    });
+                    $(this).remove();
+                }
+            });
+           
+
+            //.......................................................................End delete from finalDistributionSheetGridForUnitAmount Grid........................................................//
+          $(this).parent().parent().fadeOut("slow").remove();
+            $('#checkBoxAll').attr('checked', false);
+            $('#checkRecords').attr('checked', false);
+            return false;
+        });
+
+        $('#serialGridAddUnit').delegate("a.deleteSerialBtn", "click", function () {
+            $(this).parent().parent().fadeOut("slow").remove();
+            $('#checkBoxAll').attr('checked', false);
+            $('#checkRecords').attr('checked', false);
+            return false;
+        });
+
+        $('#serialGridAddPackage').delegate("a.deleteSerialBtn", "click", function () {
+            var gridLength = $("#serialGridAddPackage tbody tr").length;
+            var packageCode = $(this).attr("id").trim();
+            var currentRow = $(this).closest("tr");
+            var panelCode = currentRow.find("td:eq(3)").text().trim();
+            var batteryCode = currentRow.find("td:eq(5)").text().trim();
+            var thNew = "";
+            if (gridLength == 1) {
+                $('#serialGridAddPackage thead tr:eq(0)').remove();
+                thNew = "<tr> <th>" + "Package/Items Code" + "</th>";
+                thNew = thNew + "<th>" + "PackageName" + "</th>";
+                thNew = thNew + "<th>" + "Panel Model" + "</th>";
+                thNew = thNew + "<th class=\"hideTdForPanelBatteryCode\">" + "Panel Code" + "</th>";
+                thNew = thNew + "<th>" + "Battery Model" + "</th>";
+                thNew = thNew + "<th class=\"hideTdForPanelBatteryCode\">" + "Battery Code" + "</th>";
+                thNew = thNew + "<th>" + "Package/Item Selection" + "</th>";
+                thNew = thNew + "<th>" + "Quantity To Be Allocated" + "</th></tr>";
+                $('#serialGridAddPackage thead').append(thNew);
+            }
+//.............................................................................for delete package......................start........................................................//
+            if (panelCode.trim() != "" && batteryCode.trim() != "") {
+                var packageOrItemCodeFromFinalDistributionSheetGrid = "";
+                var rootTotalfinalDistributionSheetGrid = "";
+                var forDistributionSheetGridForPackageCode = "";
+                $('#finalDistributionSheetGrid tbody tr').each(function () {
+                    var packageCodeFinalDistributionSheetGrid = $(this).find('td:eq(1)').text().trim();
+                    var panelCodeFinalDistributionSheetGrid = $(this).find('td:eq(4)').text().trim();
+                    var batteryCodeFinalDistributionSheetGrid = $(this).find('td:eq(6)').text().trim();
+                    if (packageCodeFinalDistributionSheetGrid == packageCode && panelCodeFinalDistributionSheetGrid == panelCode && batteryCodeFinalDistributionSheetGrid == batteryCode) {
+                        packageOrItemCodeFromFinalDistributionSheetGrid = $(this).find('td:eq(1)').text().trim();
+                        rootTotalfinalDistributionSheetGrid = $(this).find('td:eq(9)').text().trim();
+                        $(this).remove();
+                        $('#distributionSheetGridForPackageCode tbody tr').each(function () {
+                            var packageCodeOrItemDistributionSheetGridForPackageCode = $(this).find('td:eq(0)').text().trim();
+                            var panelCodedistributionSheetGridForPackageCode = $(this).find('td:eq(1)').text().trim();
+                            var batteryCodedistributionSheetGridForPackageCode = $(this).find('td:eq(2)').text().trim();
+                            var tdqforthis = 0;
+                            var untdqforthis = 0;
+                            if (packageCodeOrItemDistributionSheetGridForPackageCode == packageOrItemCodeFromFinalDistributionSheetGrid && panelCodedistributionSheetGridForPackageCode == panelCodeFinalDistributionSheetGrid && batteryCodedistributionSheetGridForPackageCode == batteryCodeFinalDistributionSheetGrid) {
+                                $(this).remove();
+                            }
+                        });
+                    }
+                });
+
+                $('#finalDistributionSheetGridForUnitAmount tbody tr').each(function () {
+                    //var rootCodeForFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(0)').text().trim();
+                    var packageCodeFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(2)').text().trim();
+                    var panelCodeFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(3)').text().trim();
+                    var batteryCodeFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(4)').text().trim();
+
+                    if (packageCodeFinalDistributionSheetGridForUnitAmount == packageCode && panelCodeFinalDistributionSheetGridForUnitAmount == panelCode && batteryCodeFinalDistributionSheetGridForUnitAmount == batteryCode) {
+                        $(this).remove();
+                    }
+                });
+            }
+            else if (panelCode.trim() == "" && batteryCode.trim() == "") {
+                var packageOrItemCodeFromFinalDistributionSheetGrid = "";
+                var rootTotalfinalDistributionSheetGrid = "";
+                var forDistributionSheetGridForPackageCode = "";
+                $('#finalDistributionSheetGrid tbody tr').each(function () {
+                    var packageCodeFinalDistributionSheetGrid = $(this).find('td:eq(1)').text().trim();
+                    var panelCodeFinalDistributionSheetGrid = $(this).find('td:eq(4)').text().trim();
+                    var batteryCodeFinalDistributionSheetGrid = $(this).find('td:eq(6)').text().trim();
+
+                    if (packageCodeFinalDistributionSheetGrid == packageCode && panelCodeFinalDistributionSheetGrid == panelCode && batteryCodeFinalDistributionSheetGrid == batteryCode) {
+                        packageOrItemCodeFromFinalDistributionSheetGrid = $(this).find('td:eq(1)').text().trim();
+                        rootTotalfinalDistributionSheetGrid = $(this).find('td:eq(9)').text().trim();
+                        $(this).remove();
+                        $('#distributionSheetGridForPackageCode tbody tr').each(function () {
+                            var packageCodeOrItemDistributionSheetGridForPackageCode = $(this).find('td:eq(0)').text().trim();
+                            var panelCodedistributionSheetGridForPackageCode = $(this).find('td:eq(1)').text().trim();
+                            var batteryCodedistributionSheetGridForPackageCode = $(this).find('td:eq(2)').text().trim();
+                            var tdqforthis = 0;
+                            var untdqforthis = 0;
+                            if (packageCodeOrItemDistributionSheetGridForPackageCode == packageOrItemCodeFromFinalDistributionSheetGrid && panelCodedistributionSheetGridForPackageCode == panelCodeFinalDistributionSheetGrid && batteryCodedistributionSheetGridForPackageCode == batteryCodeFinalDistributionSheetGrid) {
+                                $(this).remove();
+                            }
+                        });
+                    }
+                });
+
+                $('#finalDistributionSheetGridForUnitAmount tbody tr').each(function () {
+                    //var rootCodeForFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(0)').text().trim();
+                    var packageCodeFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(2)').text().trim();
+                    var panelCodeFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(3)').text().trim();
+                    var batteryCodeFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(4)').text().trim();
+                    if (packageCodeFinalDistributionSheetGridForUnitAmount == packageCode && panelCodeFinalDistributionSheetGridForUnitAmount == panelCode && batteryCodeFinalDistributionSheetGridForUnitAmount == batteryCode) {
+                        $(this).remove();
+                    }
+                });
+            }
+
+//............................................................................for delete package......................end............................................................//
+
+            $(this).parent().parent().fadeOut("slow").remove();
+
+//..................................................................Start for blank serialGridAddPackage  all rootgrid rows are in selected mode...............................................//
+
+            var lengthOfserialGridAddPackageBlank = $('#serialGridAddPackage tbody tr').length;
+            if (lengthOfserialGridAddPackageBlank==0)
+            {
+                $('#serialGridRootNo tbody tr').each(function () {
+                    var  rootNameFromRootGrid = $(this).find('td:eq(0)').text().trim();
+                        $(this).find('td:eq(3)').html("<a href=\"#\" id=\"" + rootNameFromRootGrid+"\" class=\"selectSerialBtn\">Select</a>");
+                        $(this).find('td:eq(4)').text('Disabled');
+                });
+            }
+//.............................................................end for blank serialGridAddPackage  all rootgrid rows are in selected mode.............................................//
+          
+            return false;
+        });
+
+        $('#serialGridRootNo').delegate("a.deleteSerialBtn", "click", function () {
+            var rootNameFromRootGrid = $(this).attr("id").trim();
+            var rootNameFromserialGrid = "";
+            $('#serialGrid tbody tr').each(function () {
+                var rootNameFromserialGrid = $(this).find('td:eq(2)').text().trim();
+                var sustrRootNameFromserialGrid = rootNameFromserialGrid.substr(0, 4).toString();
+                if (rootNameFromRootGrid == sustrRootNameFromserialGrid) {
+                    $(this).remove();
+                }
+            });
+            var packageOrItemCodeFromFinalDistributionSheetGrid = "";
+            var rootTotalfinalDistributionSheetGrid = "";
+            var forDistributionSheetGridForPackageCode = "";
+            $('#finalDistributionSheetGrid tbody tr').each(function () {
+                var rootCode = $(this).find('td:eq(0)').text().trim();
+                var panelCodeFinalDistributionSheetGrid = $(this).find('td:eq(4)').text().trim();
+                var batteryCodeFinalDistributionSheetGrid = $(this).find('td:eq(6)').text().trim();
+                if (rootNameFromRootGrid == rootCode) {
+                    packageOrItemCodeFromFinalDistributionSheetGrid = $(this).find('td:eq(1)').text().trim();
+                    rootTotalfinalDistributionSheetGrid = $(this).find('td:eq(9)').text().trim();
+                    $(this).remove();
+                    $('#distributionSheetGridForPackageCode tbody tr').each(function () {
+                        var packageCodeOrItemDistributionSheetGridForPackageCode = $(this).find('td:eq(0)').text().trim();
+                        var panelCodedistributionSheetGridForPackageCode = $(this).find('td:eq(1)').text().trim();
+                        var batteryCodedistributionSheetGridForPackageCode = $(this).find('td:eq(2)').text().trim();
+                        var tdqforthis = 0;
+                        var untdqforthis = 0;
+                        if (packageCodeOrItemDistributionSheetGridForPackageCode == packageOrItemCodeFromFinalDistributionSheetGrid && panelCodedistributionSheetGridForPackageCode == panelCodeFinalDistributionSheetGrid && batteryCodedistributionSheetGridForPackageCode == batteryCodeFinalDistributionSheetGrid) {
+                            var totalDisQuan = $(this).find('td:eq(4)').text().trim();
+                            tdqforthis = totalDisQuan - rootTotalfinalDistributionSheetGrid;
+                            var qunToBAllowcated = $(this).find('td:eq(3)').text().trim();
+                            untdqforthis = qunToBAllowcated - tdqforthis;
+                            $(this).find('td:eq(4)').text(tdqforthis);
+                            $(this).find('td:eq(5)').text(untdqforthis);
+                        }
+                    });
+                }
+            });
+
+            $('#finalDistributionSheetGridForUnitAmount tbody tr').each(function () {
+                var rootCodeForFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(0)').text().trim();
+                if (rootNameFromRootGrid == rootCodeForFinalDistributionSheetGridForUnitAmount) {
+                    $(this).remove();
+                }
+            });
+            $(this).parent().parent().fadeOut("slow").remove();
+            return false;
+        });
+//..............................................................................................Start for editSerialBtn.................................................................//
+        $('#serialGridRootNo').delegate("a.editSerialBtn", "click", function () {
+           
+            var rootNameFromRootGrid = $(this).attr("id").trim();
+            $('#serialGrid tbody tr').each(function () {
+                var serialGridRowLength = $('#serialGrid tbody tr').length;
+                //alert('serialGridRowLength' + serialGridRowLength);
+
+                var rootNameFromSerialGrid = $(this).find('td:eq(2)').text();
+                var rootNameSubstr = rootNameFromSerialGrid.substr(0, 4).trim();
+                if (rootNameFromRootGrid == rootNameSubstr) {
+                    $(this).show();
+                }
+                else if (rootNameFromRootGrid != rootNameSubstr) {
+                    $(this).hide();
+                }
+            });
+//............................................................................Start for set Cursor............................................................................//         
+   
+            function setCursor() {
+                e.preventDefault();
+                $("body, html").animate({
+                    scrollTop: $($(this).attr('a.editSerialBtn')).offset().top
+                }, 'slow');
+            }
+            // $('html,body').animate({ scrollTop: 1000 }, 'slow');
+//.............................................................................end for set Cursor............................................................................//
+
+            return false;
+        });
+//............................                      .............................................End for editSerialBtn........................................................................//
+        $('#serialGridRootNo').delegate("a.selectSerialBtn", "click", function () {
+            var rootNameFromRootGrid = $(this).attr("id").trim();
+            var serialGridAddPackageLength = $('#serialGridAddPackage tbody tr').length;
+            if (serialGridAddPackageLength==0)
+            {
+                return false;
+            }
+            $('#btnSave').attr("disabled", true);
+//.............................................................................................Start for show location code rootwise after select from  rootgrid.................................//
+            $('#serialGrid tbody tr').each(function () {
+                var serialGridRowLength = $('#serialGrid tbody tr').length;
+                var rootNameFromSerialGrid = $(this).find('td:eq(2)').text();
+                var rootNameSubstr = rootNameFromSerialGrid.substr(0, 4).trim();
+                if (rootNameFromRootGrid == rootNameSubstr) {
+                    $(this).show();
+                    $(this).find('td:eq(4)').text('Disabled');
+                }
+                else if (rootNameFromRootGrid != rootNameSubstr)
+                {
+                    $(this).hide();
+                }
+            });
+
+//................................................................................................End for show location code rootwise after select from  rootgrid.................................//
+
+
+//................................................................................................Start for show rootSum......................................................//
+
+            var rootSum = 0;
+            $('#finalDistributionSheetGrid tbody tr').each(function () {
+                var rootCodeFromFinalDistributionSheetGrid = $(this).find('td:eq(0)').text().trim();
+                var packageFromFinalDistributionSheetGrid = $(this).find('td:eq(7)').text().trim();
+                if (rootNameFromRootGrid == rootCodeFromFinalDistributionSheetGrid && packageFromFinalDistributionSheetGrid == 'Package') {
+                    var rootQuantity = $(this).find('td:eq(9)').text().trim();
+                    rootSum = rootSum + parseInt(rootQuantity,10);
+                }
+            });
+            $('#rootSum').text(rootSum);
+//...............................................................................................End for show rootSum........................................................//
+
+            $('#hfrootNameFromRootGrid').val(rootNameFromRootGrid);
+            var gridTr = $("#serialGridRootNo tbody tr:contains('" + rootNameFromRootGrid + "')");
+            $('#serialGridRootNo tbody tr').each(function () {
+                var checkRowVal = $(this).find('td:eq(0)').text().trim();
+                if (rootNameFromRootGrid != checkRowVal) {
+                    $(this).find('td:eq(3)').text('Disabled');
+                    $(this).find('td:eq(4)').text('Disabled');
+                }
+                else if (rootNameFromRootGrid == checkRowVal) {
+                    $(this).find('td:eq(3)').text('Disabled');
+                    $(this).find('td:eq(4)').html("<a href=\"#\" id=\"" + rootNameFromRootGrid + "\" class=\"saveSerialBtn\" >Save</a>");
+                }
+            });
+            var countUnit = 0;
+            var arrayUnitName = [];
+            var arrayUnitCode = [];
+            $('#serialGrid tbody tr').each(function () {
+                var rootNameFromSerialGrid = $(this).find('td:eq(2)').text();
+                var rootNameSubstr = rootNameFromSerialGrid.substr(0, 4).trim();
+                var unitCode = $(this).find('td:eq(0)').text();
+                var unitName = $(this).find('td:eq(1)').text();
+                if (rootNameFromRootGrid == rootNameSubstr) {
+                    countUnit = countUnit + 1;
+                    arrayUnitCode.push(unitCode);
+                    arrayUnitName.push(unitName);
+                }
+            });
+            var lengthOfserialGridAddPackage = $('#serialGridAddPackage tbody tr').length;
+            var lenghtfinalDistributionSheetGrid = $('#finalDistributionSheetGrid tbody tr').length;
+            var countLength = 0;
+            var headerTag = 0;
+            var totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount = 0;
+            var differenceUnit = 0;
+            $('#serialGridAddPackage tbody tr').each(function () {
+                if (lengthOfserialGridAddPackage == countLength) {
+                    return false;
+                }
+                var thNew = "";
+                if (headerTag == 0) {
+                    $('#serialGridAddPackage thead tr:eq(0)').remove();
+                    thNew = "<tr> <th>" + "Package/Items Code" + "</th>";
+                    thNew = thNew + "<th>" + "PackageName" + "</th>";
+                    thNew = thNew + "<th>" + "Panel Model" + "</th>";
+                    thNew = thNew + "<th class=\"hideTdForPanelBatteryCode\">" + "Panel Code" + "</th>";
+                    thNew = thNew + "<th>" + "Battery Model" + "</th>";
+                    thNew = thNew + "<th class=\"hideTdForPanelBatteryCode\">" + "Battery Code" + "</th>";
+                    thNew = thNew + "<th>" + "Package/Item Selection" + "</th>";
+                    thNew = thNew + "<th>" + "Quantity To Be Allocated" + "</th>";
+                    for (var i = 0; i < arrayUnitName.length; i++) {
+                        thNew = thNew + "<th>" + arrayUnitName[i] + "</th>";
+                    }
+                    thNew = thNew + "<th>" + "Route Total" + "</th>";
+                    thNew = thNew + "<th>" + "Total Distributed Quantity" + "</th>";
+                    thNew = thNew + "<th>" + "UnDistributed Quantity" + "</th> </tr>";
+                    $('#serialGridAddPackage thead').append(thNew);
+                }
+                var txtPackageCode = $(this).find('td:eq(0)').text();
+                var ddlPackageName = $(this).find('td:eq(1)').text();
+                var ddlPanelModel = $(this).find('td:eq(2)').text();
+                var ddlPanelCode = $(this).find('td:eq(3)').text();
+                var ddlBatteryModel = $(this).find('td:eq(4)').text();
+                var ddlBatteryCode = $(this).find('td:eq(5)').text();
+                var piName = $(this).find('td:eq(6)').text();
+                var txtQuantityToBeAllocated = $(this).find('input').find('td:eq(7)').text();
+                trNew = "<tr> <td>" + txtPackageCode + "</td>";
+                trNew = trNew + "<td>" + ddlPackageName + "</td>";
+                trNew = trNew + "<td>" + ddlPanelModel + "</td>";
+                trNew = trNew + "<td style=\"display:none;\">" + ddlPanelCode + "</td>";
+                trNew = trNew + "<td>" + ddlBatteryModel + "</td>";
+                trNew = trNew + "<td style=\"display:none;\">" + ddlBatteryCode + "</td>";
+                trNew = trNew + "<td>" + piName + "</td>";
+                if (lenghtfinalDistributionSheetGrid != 0) {
+                    var checkDuplcateDistributionSheetGrid = 0;
+                    var checkDistributionExist = 0;
+                    $('#distributionSheetGridForPackageCode tbody tr').each(function () {
+                        var dpsPackageCode = $(this).find('td:eq(0)').text().trim();
+                        var dpsPanelCode = $(this).find('td:eq(1)').text().trim();
+                        var dpsBatteryCode = $(this).find('td:eq(2)').text().trim();
+                        if (dpsPackageCode == txtPackageCode && dpsPanelCode == ddlPanelCode && dpsBatteryCode == ddlBatteryCode) {
+                            trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "',  '" + dpsPanelCode + "' , '" + dpsBatteryCode + "');\" value='" + $(this).find('td:eq(3)').text().trim() + "' />" + "</td>";
+                            $('#finalDistributionSheetGrid tbody tr').each(function () {
+                                var rootCode = $(this).find('td:eq(0)').text().trim();
+                                var packageCode = $(this).find('td:eq(1)').text().trim();
+                                var panelCode = $(this).find('td:eq(4)').text().trim();
+                                var batteryCode = $(this).find('td:eq(6)').text().trim();
+                                if (rootCode == rootNameFromRootGrid && packageCode == txtPackageCode && panelCode == ddlPanelCode && batteryCode == ddlBatteryCode) {
+                                    checkDistributionExist = 1;
+                                    $('#finalDistributionSheetGridForUnitAmount tbody tr').each(function () {
+                                        for (var i = 0; i < arrayUnitCode.length; i++) {
+                                            var pRootCode = $(this).find('td:eq(0)').text().trim();
+                                            var pUintCode = $(this).find('td:eq(1)').text().trim();
+                                            var pPackageCode = $(this).find('td:eq(2)').text().trim();
+                                            var pPanelCode = $(this).find('td:eq(3)').text().trim();
+                                            var pBatteryCode = $(this).find('td:eq(4)').text().trim();
+                                            if (pRootCode == rootNameFromRootGrid && pUintCode == arrayUnitCode[i].trim() && pPackageCode == packageCode && pPanelCode == ddlPanelCode && pBatteryCode == ddlBatteryCode) {
+                                                trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>' style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + pRootCode + "', '" + pPackageCode + "','" + pPanelCode + "','" + pBatteryCode + "' );\" value='" + $(this).find('td:eq(6)').text().trim() + "' />" + "</td>";
+                                                headerTag = 1;
+                                                totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount = totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount + 1;
+                                            }
+                                        }
+                                    });
+
+//...................................................Start Additional Location Add after Package/Item Added for Distribution Plan..........................................//
+
+                                    differenceUnit = countUnit - totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount;
+                                    if (!(differenceUnit <= 0)) {
+                                        for (var k = 0; k < differenceUnit; k++) {
+                                            trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>' style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + rootNameFromRootGrid + "', '" + dpsPackageCode + "','" + dpsPanelCode + "','" + dpsBatteryCode + "' );\" value='0' />" + "</td>";
+                                        }
+                                    }
+//.....................................................End Additional Location Add after Package/Item Added for Distribution Plan........................................//
+
+                                    trNew = trNew + "<td>" + $(this).find('td:eq(9)').text().trim() + "</td>";
+                                    checkDuplcateDistributionSheetGrid = 1;
+                                    differenceUnit = 0;
+                                    totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount = 0;
+                                }
+                                else {
+                                    if (checkDuplcateDistributionSheetGrid != 1)
+                                        checkDuplcateDistributionSheetGrid = 0;
+                                }
+                            });
+                            if (checkDistributionExist == 1) {
+                                trNew = trNew + "<td>" + $(this).find('td:eq(4)').text().trim() + "</td>";
+                                trNew = trNew + "<td>" + $(this).find('td:eq(5)').text().trim() + "</td>";
+                            }
+                            else {
+                                var replaceTD = "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "',  '" + dpsPanelCode + "' , '" + dpsBatteryCode + "');\" value='" + $(this).find('td:eq(3)').text().trim() + "' />" + "</td>";
+                                trNew = trNew.replace(replaceTD, '');
+                            }
+                        }
+                        else if (dpsPackageCode == txtPackageCode && dpsPanelCode == "" && dpsBatteryCode == "") {
+                            trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "',  '" + dpsPanelCode + "' , '" + dpsBatteryCode + "');\" value='" + $(this).find('td:eq(3)').text().trim() + "' />" + "</td>";
+                            $('#finalDistributionSheetGrid tbody tr').each(function () {
+                                var rootCode = $(this).find('td:eq(0)').text().trim();
+                                var packageCode = $(this).find('td:eq(1)').text().trim();
+                                var panelCode = $(this).find('td:eq(4)').text().trim();
+                                var batteryCode = $(this).find('td:eq(6)').text().trim();
+                                if (rootCode == rootNameFromRootGrid && packageCode == txtPackageCode && panelCode == "" && batteryCode == "") {
+                                    checkDistributionExist = 1;
+                                    $('#finalDistributionSheetGridForUnitAmount tbody tr').each(function () {
+                                        for (var i = 0; i < arrayUnitCode.length; i++) {
+                                            var pRootCode = $(this).find('td:eq(0)').text().trim();
+                                            var pUintCode = $(this).find('td:eq(1)').text().trim();
+                                            var pPackageCode = $(this).find('td:eq(2)').text().trim();
+                                            var pPanelCode = $(this).find('td:eq(3)').text().trim();
+                                            var pBatteryCode = $(this).find('td:eq(4)').text().trim();
+                                            if (pRootCode == rootNameFromRootGrid && pUintCode == arrayUnitCode[i].trim() && pPackageCode == packageCode && pPanelCode == "" && pBatteryCode == "") {
+                                                trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>' style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + pRootCode + "', '" + pPackageCode + "','" + pPanelCode + "','" + pBatteryCode + "' );\" value='" + $(this).find('td:eq(6)').text().trim() + "' />" + "</td>";
+                                                headerTag = 1;
+                                                totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount = totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount + 1;
+                                            }
+                                        }
+                                    });
+
+//........................................................Start Additional Location Add after Package/Item Added for Distribution Plan.......................................//
+
+                                    differenceUnit = countUnit - totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount;
+                                    if (!(differenceUnit <= 0)) {
+                                        for (var k = 0; k < differenceUnit; k++) {
+                                            trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>' style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + rootNameFromRootGrid + "', '" + dpsPackageCode + "','" + dpsPanelCode + "','" + dpsBatteryCode + "' );\" value='0' />" + "</td>";
+                                        }
+                                    }
+//......................................................... End Additional Location Add after Package/Item Added for Distribution Plan.......................................//
+
+                                    trNew = trNew + "<td>" + $(this).find('td:eq(9)').text().trim() + "</td>";
+                                    checkDuplcateDistributionSheetGrid = 1;
+                                    differenceUnit = 0;
+                                    totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount = 0;
+                                }
+                                else {
+                                    if (checkDuplcateDistributionSheetGrid != 1)
+                                        checkDuplcateDistributionSheetGrid = 0;
+                                }
+                            });
+                            if (checkDistributionExist == 1) {
+                                trNew = trNew + "<td>" + $(this).find('td:eq(4)').text().trim() + "</td>";
+                                trNew = trNew + "<td>" + $(this).find('td:eq(5)').text().trim() + "</td>";
+                            }
+                            else {
+                                var replaceTD = "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "',  '" + dpsPanelCode + "' , '" + dpsBatteryCode + "');\" value='" + $(this).find('td:eq(3)').text().trim() + "' />" + "</td>";
+                                trNew = trNew.replace(replaceTD, ''); 
+                            }
+                        }
+                    });
+
+                    if (checkDuplcateDistributionSheetGrid == 0) {
+                        $('#distributionSheetGridForPackageCode tbody tr').each(function () {
+                            var dpsPackageCode = $(this).find('td:eq(0)').text().trim();
+                            var dpsPanelCode = $(this).find('td:eq(1)').text().trim();
+                            var dpsBatteryCode = $(this).find('td:eq(2)').text().trim();
+                            if (dpsPackageCode == txtPackageCode && dpsPanelCode == ddlPanelCode && dpsBatteryCode == ddlBatteryCode) {
+                                trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "', '" + dpsPanelCode + "' , '" + dpsBatteryCode + "');\" value='" + $(this).find('td:eq(3)').text().trim() + "' />" + "</td>";
+                                for (var i = 0; i < arrayUnitName.length; i++) {
+                                    trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>' style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + rootNameFromRootGrid + "', '" + dpsPackageCode + "', '" + dpsPanelCode + "','" + dpsBatteryCode + "');\" value='0' />" + "</td>";
+                                    headerTag = 1;
+                                }
+                                trNew = trNew + "<td>" + "0" + "</td>";
+                                trNew = trNew + "<td>" + $(this).find('td:eq(4)').text().trim() + "</td>";
+                                trNew = trNew + "<td>" + $(this).find('td:eq(5)').text().trim() + "</td>";
+                            }
+                            else if (dpsPackageCode == txtPackageCode && dpsPanelCode == "" && dpsBatteryCode == "") {
+                                trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "', '" + dpsPanelCode + "' , '" + dpsBatteryCode + "');\" value='" + $(this).find('td:eq(3)').text().trim() + "' />" + "</td>";
+                                for (var i = 0; i < arrayUnitName.length; i++) {
+                                    trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>' style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + rootNameFromRootGrid + "', '" + dpsPackageCode + "', '" + dpsPanelCode + "','" + dpsBatteryCode + "');\" value='0' />" + "</td>";
+                                    headerTag = 1;
+                                }
+                                trNew = trNew + "<td>" + "0" + "</td>";
+                                trNew = trNew + "<td>" + $(this).find('td:eq(4)').text().trim() + "</td>";
+                                trNew = trNew + "<td>" + $(this).find('td:eq(5)').text().trim() + "</td>";
+                            }
+                        });
+                    }
+                }
+
+                else {
+                    trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated'  style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "', '" + ddlPanelCode + "',  '" + ddlBatteryCode + "');\" value='0' />" + "</td>";
+                    for (var i = 0; i < arrayUnitName.length; i++) {
+                        trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>'  style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + rootNameFromRootGrid + "', '" + txtPackageCode + "', '" + ddlPanelCode + "','" + ddlBatteryCode + "');\" value='0' />" + "</td>";
+                        headerTag = 1;
+                    }
+                    trNew = trNew + "<td>" + "0" + "</td>";
+                    trNew = trNew + "<td>" + "0" + "</td>";
+                    trNew = trNew + "<td>" + "0" + "</td>";
+                }
+                trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + txtPackageCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                $('#serialGridAddPackage tbody').append(trNew);
+                $("#serialGridAddPackage tbody tr:eq(0)").remove();
+                countLength = countLength + 1;
+                totalUnitCodeMatchingFromfinalDistributionSheetGridForUnitAmount = 0;
+                differenceUnit = 0;
+            });
+            
+//.................................................................................Start for set Cursor............................................................................//         
+            function  setCursor(){
+                e.preventDefault();
+                $("body, html").animate({
+                    scrollTop: $($(this).attr('a.selectSerialBtn')).offset().top
+                }, 'slow');
+            }
+
+            // $('html,body').animate({ scrollTop: 1000 }, 'slow');
+//................................................................................End for set Cursor............................................................................//   
+
+//................................................................................Start for alignment Sum of Quantity_To_Be_Allocated..................................................//
+            var headCount = $('#serialGridAddPackage thead th').length;
+            var countFromAllocatedHeadWidth = 0;
+            var countFromAllocatedHeadWidthForRootSum = 0;
+            var contentWidthTotal = 0;
+            var setWidthToLebel = 0;
+            var setWidthToLebelRootSum = 0;
+            for (var count = 0; count < headCount; count++)
+            {
+                contentWidthTotal = contentWidthTotal + $('#serialGridAddPackage').find("th:eq(" + count + ")").width();
+                if (count>6)
+                {
+                    countFromAllocatedHeadWidth = countFromAllocatedHeadWidth + $('#serialGridAddPackage').find("th:eq(" + count + ")").width();
+                }
+                if (count > (headCount - 3))
+                {
+                    countFromAllocatedHeadWidthForRootSum = countFromAllocatedHeadWidthForRootSum + $('#serialGridAddPackage').find("th:eq(" + count + ")").width();
+                }
+            }
+            setWidthToLebel = contentWidthTotal - countFromAllocatedHeadWidth-262;
+            $("#setLabel").css('margin-left', setWidthToLebel + "px");
+            document.getElementById('setLabel').style.display = "block";
+            var setLabelRootSumw = $('#totalAllocatedQuantiy').width();
+            var setLabelWidth = $('#setLabel').width();
+            var div1 = $('#div1').width();
+            var div2 = $('#div2').width();
+            var div3 = $('#div3').width();
+            if (headCount==12)
+                setWidthToLebelRootSum = contentWidthTotal - (countFromAllocatedHeadWidthForRootSum + div1 + div2) - 238;
+            else
+            setWidthToLebelRootSum = contentWidthTotal - (countFromAllocatedHeadWidthForRootSum + div1 + div2)-223;
+            $("#setLabelRootSum").css('margin-left', setWidthToLebelRootSum + "px");
+            document.getElementById('setLabelRootSum').style.display = "block";
+           
+            //alert("headCount :" + (headCount - 4) + "div1" + div1 + "div2" + div2 + "countFromAllocatedHeadWidthForRootSum" + countFromAllocatedHeadWidthForRootSum + "contentWidthTotal" + contentWidthTotal);
+           // alert("headCount :" + (headCount - 4) + "setWidthToLebel" + setWidthToLebel + "setLabelWidth" + setLabelWidth + "div2" + div2 + "setWidthToLebelRootSum" + setWidthToLebelRootSum +"countFromAllocatedHeadWidthForRootSum"+countFromAllocatedHeadWidthForRootSum+ "contentWidthTotal" + contentWidthTotal);
+
+//.............................................................................End for alignment Sum of Quantity_To_Be_Allocated....................................................................//
+            return false;
+        });
+//..............................................................................start  for serialGridRootNo SAVE Button...................................................................//
+       
+        $('#serialGridRootNo').delegate("a.saveSerialBtn", "click", function () {
+            var rootCodeFromRootGrid = $(this).attr("id").trim();
+            $('#btnSave').attr("disabled", false);
+            //start 12.6.14
+            $('#serialGridRootNo tbody tr').each(function () {
+                var checkRowVal = $(this).find('td:eq(0)').text().trim();
+                $(this).find('td:eq(3)').html("<a href=\"#\" id=\"" + checkRowVal + "\" class=\"selectSerialBtn\" >Select</a>");
+                $(this).find('td:eq(4)').text('Disabled');
+            });
+
+            //end 12.6.14
+//...................................................................................start enable delete button after save....................................................//
+            $('#serialGrid tbody tr').each(function () {
+                var serialGridRowLength = $('#serialGrid tbody tr').length;
+                var locationCodeFromSerialGrid = $(this).find('td:eq(0)').text().trim();
+                $(this).find('td:eq(4)').html("<a href=\"#\" id=\"" + locationCodeFromSerialGrid + "\" class=\"deleteSerialBtn\">Delete</a>");
+                var rootNameFromSerialGrid = $(this).find('td:eq(2)').text();
+                var rootNameSubstr = rootNameFromSerialGrid.substr(0, 4).trim();
+                if (rootCodeFromRootGrid == rootNameSubstr) {
+                    $(this).show();
+                }
+                else if (rootCodeFromRootGrid != rootNameSubstr) {
+                    $(this).hide();
+                }
+            });
+//........................................................................................end enable delete button after save.......................................................//
+            var countUnit = 0;
+            var arrayUnitCode = [];
+            lstDistributionMaster = new Array();
+            lstDistributionDetails = new Array();
+            var lengthOfserialGridAddPackage = $('#serialGridAddPackage tbody tr').length;
+            var totalCells = 0;
+            var countLength = 0;
+            var headerTag = 0;
+            $('#serialGrid tbody tr').each(function () {
+                var rootNameFromSerialGrid = $(this).find('td:eq(2)').text();
+                var rootCodeSubstr = rootNameFromSerialGrid.substr(0, 4).trim();
+                var unitCode = $(this).find('td:eq(0)').text();
+                if (rootCodeFromRootGrid == rootCodeSubstr) {
+                    countUnit = countUnit + 1;
+                    arrayUnitCode.push(unitCode);
+                }
+            });
+            $('#distributionSheetGridForPackageCode tbody').html('');
+            $('#finalDistributionSheetGrid tbody tr').each(function () {
+                var rootCodeForFinalDistributionSheetGrid = $(this).find('td:eq(0)').text();
+                if (rootCodeForFinalDistributionSheetGrid == rootCodeFromRootGrid) {
+                    $(this).remove();
+                }
+            });
+            $('#finalDistributionSheetGridForUnitAmount tbody tr').each(function () {
+                var rootCodeForFinalDistributionSheetGridForUnitAmount = $(this).find('td:eq(0)').text();
+                if (rootCodeForFinalDistributionSheetGridForUnitAmount == rootCodeFromRootGrid) {
+                    $(this).remove();
+                }
+            });
+            var i = 0;
+            for (i = 0; i < lengthOfserialGridAddPackage; i++) {
+                var tr = $("#serialGridAddPackage tbody tr:eq(" + i + ")");
+                PackageOrItemCode = $.trim(tr.find("td:eq(0)").text());
+                var assignAssetGridTr = $("#serialGridAddPackage tbody tr:contains('" + PackageOrItemCode + "')");
+                var assignAssetGridTRIndex = $("#serialGridAddPackage tbody tr:contains('" + PackageOrItemCode + "')").index();
+                if (assignAssetGridTRIndex == 0) {
+                    totalCells = document.getElementById('serialGridAddPackage').rows[assignAssetGridTRIndex].cells.length + 1;
+                }
+                else {
+                    totalCells = document.getElementById('serialGridAddPackage').rows[assignAssetGridTRIndex].cells.length;
+                }
+                var countRootTotalCell = totalCells - 4;
+                var countTotalDistributedQuantity = totalCells - 3;
+                var countUnDistributedQuantity = totalCells - 2;
+                var trNewDistributionSheetGrid = "";
+                trNewDistributionSheetGrid = "<tr><td>" + rootCodeFromRootGrid + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(0)").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(1)").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(2)").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(3)").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(4)").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(5)").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(6)").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(7)").find('input').val()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(" + countRootTotalCell + ")").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(" + countTotalDistributedQuantity + ")").text()) + "</td>";
+                trNewDistributionSheetGrid = trNewDistributionSheetGrid + "<td>" + $.trim(tr.find("td:eq(" + countUnDistributedQuantity + ")").text()) + "</td> </tr>";
+                $('#finalDistributionSheetGrid tbody').append(trNewDistributionSheetGrid);
+                var trNewDistributionSheetGridforPackage = "";
+                trNewDistributionSheetGridforPackage = "<tr><td>" + $.trim(tr.find("td:eq(0)").text()) + "</td>";
+                trNewDistributionSheetGridforPackage = trNewDistributionSheetGridforPackage + "<td>" + $.trim(tr.find("td:eq(3)").text()) + "</td>";
+                trNewDistributionSheetGridforPackage = trNewDistributionSheetGridforPackage + "<td>" + $.trim(tr.find("td:eq(5)").text()) + "</td>";
+                trNewDistributionSheetGridforPackage = trNewDistributionSheetGridforPackage + "<td>" + $.trim(tr.find("td:eq(7)").find('input').val()) + "</td>";
+                trNewDistributionSheetGridforPackage = trNewDistributionSheetGridforPackage + "<td>" + $.trim(tr.find("td:eq(" + countTotalDistributedQuantity + ")").text()) + "</td>";
+                trNewDistributionSheetGridforPackage = trNewDistributionSheetGridforPackage + "<td>" + $.trim(tr.find("td:eq(" + countUnDistributedQuantity + ")").text()) + "</td> </tr>";
+                $('#distributionSheetGridForPackageCode tbody').append(trNewDistributionSheetGridforPackage);
+                var rootTotal = 0;
+                var totalDistributedQuantity = 0;
+                var unDistributedQuantity = 0;
+                for (var j = 8; j < totalCells - 4; j++) {
+                    var trNewForUnitAmount = "";
+                    trNewForUnitAmount = "<tr><td>" + rootCodeFromRootGrid + "</td>";
+                    trNewForUnitAmount = trNewForUnitAmount + "<td>" + arrayUnitCode[j - 8] + "</td>";
+                    trNewForUnitAmount = trNewForUnitAmount + "<td>" + $.trim(tr.find("td:eq(0)").text()) + "</td>";
+                    trNewForUnitAmount = trNewForUnitAmount + "<td>" + $.trim(tr.find("td:eq(3)").text()) + "</td>";
+                    trNewForUnitAmount = trNewForUnitAmount + "<td>" + $.trim(tr.find("td:eq(5)").text()) + "</td>";
+                    trNewForUnitAmount = trNewForUnitAmount + "<td>" + $.trim(tr.find("td:eq(6)").text()) + "</td>";
+                    trNewForUnitAmount = trNewForUnitAmount + "<td>" + $.trim(tr.find("td:eq(" + j + ")").find('input').val()) + "</td>";
+                    $('#finalDistributionSheetGridForUnitAmount tbody').append(trNewForUnitAmount);
+                }
+            }
+
+
+
+            //start for sorting finalDistributionSheetGridForUnitAmount
+            //$('#finalDistributionSheetGridForUnitAmount').sortable({
+            //    sortList: [[0, 0]],
+            //    headers: { 1: { sorter: true }}
+            //});
+
+            //$.each($rows, function (index, row) {
+            //    row.sortKey = findSortKey($(row).children('td').eq(column));
+            //});
+
+            //$('#finalDistributionSheetGridForUnitAmount').sortable();
+            //$('#finalDistributionSheetGridForUnitAmount').each(function (index, row) {
+
+            //    row.sortKey = $(this).find("td:eq(1)").text();
+            //    alert("done");
+            //});
+
+            //end for sorting finalDistributionSheetGridForUnitAmount
+
+
+
+//....................................................................................Start for set Cursor.....................................................................................//         
+            function setCursor() {
+                e.preventDefault();
+                $("body, html").animate({
+                    scrollTop: $($(this).attr('a.saveSerialBtn')).offset().top
+                }, 'slow');
+            }
+            // $('html,body').animate({ scrollTop: 1000 }, 'slow');
+           
+//.....................................................................................Start for set Cursor............................................................................//
+            return false;
+        });
+
+        $('#ddlPackageCapacity').change(function () {
+            LoadLight();
+            LoadPackage(0);
+            ShowModelInfo();
+        });
+
+        $('#ddlPackageLight').change(function () {
+            LoadPackage(1);
+            ShowModelInfo();
+        });
+
+        $('#ddlPackage').change(function () {
+            $('#txtPackageCode').val($('#ddlPackage').val());
+            loadPanelModel($('#ddlPackage').val());
+            loadBatteryModel($('#ddlPackage').val());
+        });
+
+        $('#btnSave').click(function () {
+            var txtDeliveryScheduleNoChknull = $('#txtDeliveryScheduleNo').val().trim();
+            if (txtDeliveryScheduleNoChknull == "") {
+                alert("Enter DeliveryScheduleNo.");
+                return false;
+            }
+            //var hfChkDistribScheduleNo = $('#hfChkDistribScheduleNo').val();
+            //if (hfChkDistribScheduleNo==1)
+            //{
+            //    alert("Date Already Exist.");
+            //    return false;
+            //}
+
+
+            var lstUnitWisePackageAmount = new Array();
+            var distribScheduleNo = $('#txtDeliveryScheduleNo').val();
+            var scheduleDate = $('#dtpDelivaryDate').val();
+            var scheduleNotes = $('#txtScheduleNotes').val();
+            var guaGridLength = $('#finalDistributionSheetGridForUnitAmount tbody tr').length;
+            var i = 0;
+            var saveSuccess = 0;
+            var notSave = 0;
+            for (i = 0; i < guaGridLength; i++) {
+                var tr = $("#finalDistributionSheetGridForUnitAmount tbody tr:eq(" + i + ")");
+                lstUnitWisePackageAmount.push({
+                    RootNo: $.trim(tr.find("td:eq(0)").text()),
+                    LocationCode: $.trim(tr.find("td:eq(1)").text()),
+                    PackageCode: $.trim(tr.find("td:eq(2)").text()),
+                    PanelCode: $.trim(tr.find("td:eq(3)").text()),
+                    BatteryCode: $.trim(tr.find("td:eq(4)").text()),
+                    PackageOrItemSelection: $.trim(tr.find("td:eq(5)").text()),
+                    PackageQuantity: $.trim(tr.find("td:eq(6)").text())
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveSHSDistributionPlan", "InventoryDept")',
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ lstUnitWisePackageAmount: lstUnitWisePackageAmount, gridLength: guaGridLength, distribScheduleNo: distribScheduleNo, scheduleDate: scheduleDate, scheduleNotes: scheduleNotes }),
+                    cache: false,
+                    success: function (data) {
+                        if (data[0].messageCode == "successAdd") {
+                            saveSuccess = 1;
+                        }
+                        else if (data[0].messageCode == "success") {
+                            //Helper.AlertMessage("", data[0].message);
+                            alert("Save Is Succeed");
+                            ClearAllControl();
+                        }
+                        else {
+                            Helper.AlertMessage("", data[0].message);
+                        }
+                    },
+                    error: function () {
+                        Helper.AlertMessage("", "Connection Failed. Please Try Again");
+                        notSave = 1;
+                    }
+                });
+                lstUnitWisePackageAmount.shift();
+            }
+         });
+   });
+//................................................................................... start for SaveChecking................................................................//
+    function SaveChecking() {
+        var deliverySchedule = $('#txtDeliveryScheduleNo').val().trim();
+        var lengthFinalDistributionSheetGridForUnitAmount = $('#finalDistributionSheetGridForUnitAmount tbody tr').length;
+        if ((lengthFinalDistributionSheetGridForUnitAmount < 1) && (deliverySchedule != ""))
+        {
+            alert("Item/Package not selected according to Route.");
+        }
+    }
+//................................................................................... end for SaveChecking................................................................//
+
+  @*  function OnChange(e) {
+        //RSF / SCH - 2014 - 0622
+        //6/23/2014
+        var d = new Date(e.date);
+        var StartDate = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+        var getMonth = (d.getMonth() + 1).toString();
+        var getDate = d.getDate().toString();
+        var getFullYear = d.getFullYear().toString();
+        var getMonth1 = "";
+        var getDate1 = "";
+        if (getMonth.length == 1) {
+            getMonth1 = "0" + getMonth.toString();
+        }
+        else {
+            getMonth1 = getMonth.toString();
+        }
+        if (getDate.length == 1) {
+            getDate1 = "0" + getDate.toString();
+        }
+
+        else {
+            getDate1 = getDate.toString();
+        }
+        var getDates = "RSF/SCH-" + getFullYear + "-" + getMonth1 + "" + getDate1 + "";
+        $('#txtDeliveryScheduleNo').val(getDates);
+//................................................................................start CheckDistributionSchedule................................................................//
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CheckDistributionSchedule", "InventoryDept")',
+            data: "{'scheduleDate':'" + $('#dtpDelivaryDate').val() + "', 'refScheduleNo': '" + getDates + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                if (data.Count > 0)
+                {
+                    
+                    alert("This Delivery Schedule No. is Already Existed.");
+                    $('#txtDeliveryScheduleNo').val('');
+                }
+
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again.");
+            }
+        });
+//...................................................................................end CheckDistributionSchedule...............................................................//
+    }*@
+
+    function CheckNumeric(allocatedQuantity, packageCode, panelCode, batteryCode) {
+
+//......................................................................................For total allocated quantity.........start..............................................................//
+
+        var totalAllocatedQuantity = 0;
+        var lenghtserialGridAddPackage = $('#serialGridAddPackage tbody tr').length;
+        var panelModelFromGrid = "";
+        var batteryModelFromGrid = "";
+        var assignAssetGridTr;
+        if (lenghtserialGridAddPackage > 0) {
+            $("#serialGridAddPackage tbody tr").each(function () {
+                var packageNameCheck = $(this).find('td:eq(6)').text().trim();
+                if (packageNameCheck == "Package")
+                {
+                    var rowWiseAllocatedQuantity = $(this).find('td:eq(7)').find('input').val().trim();
+                    totalAllocatedQuantity = totalAllocatedQuantity + parseInt(rowWiseAllocatedQuantity, 10);
+                }
+            }); 
+            $('#totalAllocatedQuantiy').text(totalAllocatedQuantity);
+
+            //nnnnnnnnn
+
+            //var totalTdLength = $('#serialGridAddPackage tbody tr td').length;
+            //var rowWiseTdLength = totalTdLength / lenghtserialGridAddPackage;
+            //var arrayShowAllUnit = [];
+            //var unitLocationTotal = rowWiseTdLength - 3;
+            //var gg1 = 0;
+            //var sumForRouteTotal = 0;
+            //for (var count = 8; count < unitLocationTotal-1; count++) {
+            //    $('#serialGridAddPackage tbody tr').each(function () {
+            //        var packageNameCheck = $(this).find('td:eq(6)').text().trim();
+            //        var gg = 0;
+            //        if (packageNameCheck == "Package") {
+            //            if (count != (unitLocationTotal - 1)) {
+            //                gg = $(this).find("td:eq(" + count + ")").find('input').val().trim();
+            //                gg1 = parseInt(gg1, 10) + parseInt(gg, 10);
+            //            }
+            //            //else if (count == (unitLocationTotal - 1)) {
+            //            //    //
+            //            //}
+            //        }
+            //    });
+            //    arrayShowAllUnit.push(gg1);
+            //    gg = 0;
+            //    gg1 = 0;
+            //}
+
+            //var arrAllUnitLength = arrayShowAllUnit.length;
+            //var allUnitIndValue ="   ";
+            //for (var k = 0; k < arrAllUnitLength; k++) {
+            //    sumForRouteTotal = sumForRouteTotal + arrayShowAllUnit[k];
+            //    allUnitIndValue = allUnitIndValue+"   "+arrayShowAllUnit[k]+" ";
+            //}
+            
+            //alert("   "+allUnitIndValue);//<label id="setLabel" style="color: black;padding: 4px; font-weight: bold; font-size: 11px; height:16px; display:none;">
+
+            //$('#totalAllocatedQuantiy').text(totalAllocatedQuantity +"  "+ allUnitIndValue + "   " + sumForRouteTotal);
+            //alert(totalAllocatedQuantity);
+            //mmmmmmmmm
+        }
+
+//.........................................................................................For total allocated quantity.........end.............................................................//
+
+        if (panelCode.trim() != "" && batteryCode.trim() != "") {
+            if (lenghtserialGridAddPackage > 0) {
+                $("#serialGridAddPackage tbody tr").each(function () {
+                    var packageCodeFromGrid = $(this).find('td:eq(0)').text().trim();
+                    var panelCodeFromGrid = $(this).find('td:eq(3)').text().trim();
+                    var batteryCodeFromGrid = $(this).find('td:eq(5)').text().trim();
+                    if (packageCodeFromGrid == packageCode && panelCodeFromGrid == panelCode && batteryCodeFromGrid == batteryCode) {
+                        panelModelFromGrid = $(this).find('td:eq(2)').text().trim();
+                        batteryModelFromGrid = $(this).find('td:eq(4)').text().trim();
+                    }
+                });
+            }
+            assignAssetGridTr = $('#serialGridAddPackage tbody tr').filter(function () {
+                var $cells = $(this).children('td');
+                return $cells.first().text() === packageCode
+                && $cells.eq(2).text() === panelModelFromGrid
+                && $cells.eq(4).text() === batteryModelFromGrid;
+            }).css('color', 'Green');
+        }
+        else {
+            assignAssetGridTr = $("#serialGridAddPackage tbody tr:contains('" + packageCode + "')").css('color', 'Green');
+        }
+        if (Helper.IsNumeric(allocatedQuantity) == false) {
+            alert("Allocated Quantity Cannot Be Character");
+            assignAssetGridTr.find('td:eq(7)').find('input').val("0");
+            return false;
+        }
+        else if (allocatedQuantity < 0) {
+            alert("Allocated Quantity Cannot Be Nagative");
+            assignAssetGridTr.find('td:eq(7)').find('input').val('0');
+            return false;
+        }
+        var totalDistQuantityCellNo = assignAssetGridTr.children().length - 3;
+        var unDistQuantityCellNo = totalDistQuantityCellNo + 1;
+        var totalDistQuantity = assignAssetGridTr.find("td:eq(" + totalDistQuantityCellNo + ")").text();
+        var unDistQuantity = allocatedQuantity - totalDistQuantity;
+        assignAssetGridTr.find("td:eq(" + unDistQuantityCellNo + ")").text(unDistQuantity);
+        return true;
+    }
+
+    function CheckAssignQuantity(assignQuantity, rootCode, packageCode, panelCode, batteryCode) {
+        var hfrootNameFromRootGrid = $('#hfrootNameFromRootGrid').val();
+        if (rootCode == "undefined") {
+            rootCode = hfrootNameFromRootGrid;
+        }
+        var assignAssetGridTr;
+        if (panelCode.trim() != "" && batteryCode.trim() != "") {
+            var lenghtserialGridAddPackage = $('#serialGridAddPackage tbody tr').length;
+            var panelModelFromGrid = "";
+            var batteryModelFromGrid = "";
+            if (lenghtserialGridAddPackage > 0) {
+                $("#serialGridAddPackage tbody tr").each(function () {
+                    var packageCodeFromGrid = $(this).find('td:eq(0)').text().trim();
+                    var panelCodeFromGrid = $(this).find('td:eq(3)').text().trim();
+                    var batteryCodeFromGrid = $(this).find('td:eq(5)').text().trim();
+                    if (packageCodeFromGrid == packageCode && panelCodeFromGrid == panelCode && batteryCodeFromGrid == batteryCode) {
+                        panelModelFromGrid = $(this).find('td:eq(2)').text().trim();
+                        batteryModelFromGrid = $(this).find('td:eq(4)').text().trim();
+                    }
+                });
+            }
+            assignAssetGridTr = $('#serialGridAddPackage tbody tr').filter(function () {
+                var $cells = $(this).children('td');
+                return $cells.first().text() === packageCode
+                && $cells.eq(2).text() === panelModelFromGrid
+                && $cells.eq(4).text() === batteryModelFromGrid;
+            }).css('color', 'red');
+        }
+        else {
+            assignAssetGridTr = $("#serialGridAddPackage tbody tr:contains('" + packageCode + "')").css('color', 'red');
+        }
+        if (Helper.IsNumeric(assignQuantity) == false) {
+            var column = "";
+            for (var i = 0; i < assignAssetGridTr.children().length; i++) {
+                if (assignAssetGridTr.find("td:eq(" + i + ")").find('input').val() == assignQuantity) {
+                    column = i;
+                    assignAssetGridTr.find("td:eq(" + column + ")").find('input').val("0");
+                    alert("Assign Quantity Can't Be Character");
+                    break;
+                }
+            }
+        }
+        if (assignQuantity < 0) {
+            var column = "";
+            for (var i = 0; i < assignAssetGridTr.children().length; i++) {
+                if (assignAssetGridTr.find("td:eq(" + i + ")").find('input').val() == assignQuantity) {
+                    column = i;
+                    assignAssetGridTr.find("td:eq(" + column + ")").find('input').val("0");
+                    alert("Assign Quantity Can't Be Nagetive");
+                    break;
+                }
+            }
+        }
+        var totalCells = 0;
+        var assignAssetGridTRIndex = assignAssetGridTr.index();
+        if (assignAssetGridTRIndex == 0) {
+            totalCells = document.getElementById('serialGridAddPackage').rows[assignAssetGridTRIndex].cells.length + 1;
+        }
+        else {
+            totalCells = document.getElementById('serialGridAddPackage').rows[assignAssetGridTRIndex].cells.length;
+        }
+        var rootTotal = 0;
+        var totalDistributedQuantity = 0;
+        var unDistributedQuantity = 0;
+        var rootTotalForAssignQuantity = 0;
+        var countTotalDistributedQuantityCellsNO = totalCells - 3;
+        var countUnDistributedQuantityCellsNo = totalCells - 2;
+        for (var i = 8; i < totalCells - 4; i++) {
+            rootTotal = rootTotal + parseInt(assignAssetGridTr.find("td:eq(" + i + ")").find('input').val());
+        }
+        var lenghtdistributionSheetGridForPackageCode = $('#distributionSheetGridForPackageCode tbody tr').length;
+        var notInOtherGridPackageCode = "";
+        if (lenghtdistributionSheetGridForPackageCode == 0) {
+            totalDistributedQuantity = rootTotal; 
+            unDistributedQuantity = parseInt(assignAssetGridTr.find("td:eq(7)").find('input').val(), 10) - totalDistributedQuantity;
+        }
+        else {
+            $('#distributionSheetGridForPackageCode tbody tr').each(function () {
+                var checkPackageCode = $(this).find('td:eq(0)').text().trim();
+                var checkPanelCode = $(this).find('td:eq(1)').text().trim();
+                var checkBatteryCode = $(this).find('td:eq(2)').text().trim();
+                $('#finalDistributionSheetGrid tbody tr').each(function () {
+                    var rootCodeForAssignQuantity = $(this).find('td:eq(0)').text();
+                    var packageCodeForAssignQuantity = $(this).find('td:eq(1)').text();
+                    var panelCodeForAssignQuantity = $(this).find('td:eq(4)').text();
+                    var batteryCodeForAssignQuantity = $(this).find('td:eq(6)').text();
+                    if (rootCodeForAssignQuantity == rootCode && packageCodeForAssignQuantity == packageCode && panelCodeForAssignQuantity == panelCode && batteryCodeForAssignQuantity == batteryCode) {
+                        rootTotalForAssignQuantity = parseInt($(this).find('td:eq(9)').text());
+                    }
+                });
+                if (checkPackageCode == packageCode.trim() && checkPanelCode == panelCode.trim() && checkBatteryCode == batteryCode.trim()) {
+                    totalDistributedQuantity = parseInt($(this).find('td:eq(4)').text().trim()) + rootTotal - rootTotalForAssignQuantity;
+                    unDistributedQuantity = parseInt(assignAssetGridTr.find("td:eq(7)").find('input').val()) - totalDistributedQuantity;
+                    notInOtherGridPackageCode = 1;
+                }
+            });
+        }
+        if (notInOtherGridPackageCode != 1 && lenghtdistributionSheetGridForPackageCode != 0) {
+            totalDistributedQuantity = rootTotal;
+            unDistributedQuantity = parseInt(assignAssetGridTr.find("td:eq(7)").find('input').val(), 10) - totalDistributedQuantity;
+        }
+        document.getElementById('serialGridAddPackage').rows[assignAssetGridTRIndex + 1].cells[totalCells - 4].innerHTML = rootTotal.toString();
+        document.getElementById('serialGridAddPackage').rows[assignAssetGridTRIndex + 1].cells[totalCells - 3].innerHTML = totalDistributedQuantity.toString();
+        document.getElementById('serialGridAddPackage').rows[assignAssetGridTRIndex + 1].cells[totalCells - 2].innerHTML = unDistributedQuantity.toString();
+
+//................................................................Start for rootSum show...............................................................................................//
+        var rootCell = totalCells - 4;
+        var rootSum = 0;
+        $('#serialGridAddPackage tbody tr').each(function () {
+            var PackageFromSerialGridAddPackage = $(this).find("td:eq(6)").text().trim();
+            if (PackageFromSerialGridAddPackage == 'Package') {
+                var rootQuantityInTextBox = $(this).find("td:eq(" + rootCell + ")").text().trim();
+                rootSum = rootSum + parseInt(rootQuantityInTextBox, 10);
+            }
+        });
+        $('#rootSum').text(rootSum);
+        rootSum = 0;
+        rootCell = 0;
+//...................................................................End for rootSum show...............................................................................................//
+
+    }
+
+    function LoadRoute() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("RouteList", "InventoryDept")',
+            data: "{'routeCategory':'" + $('#ddlRouteCategory').val() + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlRoute').get(0).options.length = 0;
+                $('#ddlRoute').get(0).options[0] = new Option('--Select--', '');
+                $.map(data, function (item) {
+                    $('#ddlRoute').get(0).options[$('#ddlRoute').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again.");
+            }
+        });
+    }
+
+    function LoadUnit() {
+        var params = {
+            routeId: $('#ddlRoute').val()
+        };
+        var grid = $('#gvLocationDetails').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+        $('#checkBoxAll').attr('checked', false);
+    }
+
+    function AddToFinalSelectedUnit() {
+
+        //var widthoftable = $('#gvLocationDetails').width();
+        //var heigtoftable = $('#gvLocationDetails').height();
+        //alert(widthoftable + "...." + heigtoftable);
+//.................................................................................................start for hide previous rows......................................................//
+        $('#serialGrid tbody tr').each(function () {
+            $(this).hide();
+        });
+//.................................................................................................end for hide previous rows..............................................................//
+        var returnForUnchecked = "";
+        $('#gvLocationDetails tbody tr').each(function () {
+            var chkedValue = $(this).find('td:eq(0)').find('input').val();
+            if (chkedValue == "1") {
+                returnForUnchecked = 1;
+                var defaultRoute = $('#ddlRoute').find('option:selected').text();
+                var routeCategory = $('#ddlRouteCategory').find('option:selected').text();
+                if (defaultRoute == '--Select--') {
+                    alert('Please Select Route');
+                    return false;
+                }
+                var trNew = "";
+                var lengthOfSerialGrid = $('#serialGrid tbody tr').length;
+                var unitCodeCheck = $(this).find('td:eq(0)').text();
+                var unitCode = $(this).find('td:eq(1)').text();
+                var unitName = $(this).find('td:eq(2)').text();
+                var dupl = "";
+                $('#serialGrid tbody tr').each(function () {
+                    var countUnitCode = $(this).find('td:eq(0)').text();
+                    if (unitCode != countUnitCode) {
+                        dupl = 0;
+                    }
+                    else if (unitCode == countUnitCode) {
+                        dupl = 1;
+                        return false;
+                    }
+                });
+                if (dupl == "0") {
+                    trNew = "<tr> <td>" + unitCode + "</td>";
+                    trNew = trNew + "<td>" + unitName + "</td>";
+                    trNew = trNew + "<td>" + defaultRoute + "</td>";
+                    trNew = trNew + "<td>" + routeCategory + "</td>";
+                    trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + unitCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                    $('#serialGrid tbody').append(trNew);
+                    $('#checkBoxAll').find('input').attr('checked', false);
+                    $(this).find('td:eq(0)').find('input').val('')
+                    $(this).find('td:eq(0)').find('input').attr('checked', false);
+                    $('#checkBoxAll').attr('checked', false);
+                    LoadRouteGrid();
+                    $('#gvLocationDetails tbody tr').each(function () {
+                        $(this).remove();
+                    });
+                }
+                else if (dupl == "1") {
+                    alert("Unit Code of : " + unitCode + " : already  exists..");
+                    // if want to send  with dup value and only save unique otherwise set return false... for any dup value
+                    return false;
+                }
+                if (lengthOfSerialGrid == 0) {
+                    trNew = "<tr> <td>" + unitCode + "</td>";
+                    trNew = trNew + "<td>" + unitName + "</td>";
+                    trNew = trNew + "<td>" + defaultRoute + "</td>";
+                    trNew = trNew + "<td>" + routeCategory + "</td>";
+                    trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + unitCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                    $('#serialGrid tbody').append(trNew);
+                    $('#checkBoxAll').find('input').attr('checked', false);
+                    $(this).find('td:eq(0)').find('input').val('')
+                    $(this).find('td:eq(0)').find('input').attr('checked', false);
+                    $('#checkBoxAll').attr('checked', false);
+                    LoadRouteGrid();
+                    $('#gvLocationDetails tbody tr').each(function () {
+                        $(this).remove();
+                    });
+                }
+            }
+        });
+        if (returnForUnchecked != '1') {
+            alert('Please Check one');
+        }
+    }
+
+    function LoadRouteGrid() {
+        var rootCode = $('#ddlRoute').find('option:selected').text();
+        var routeCodefirst = $('#ddlRoute').val().trim();
+        var ddlRouteCategory = $('#ddlRouteCategory').find('option:selected').text();
+        var trNew = "";
+        var lengthOfserialGridRootNo = $('#serialGridRootNo tbody tr').length;
+        if (lengthOfserialGridRootNo == '0') {
+            var trNewForRoute = "";
+            trNewForRoute = "<tr><td>" + routeCodefirst + "</td>";
+            trNewForRoute = trNewForRoute + "<td>" + rootCode + "</td>";
+            trNewForRoute = trNewForRoute + "<td>" + ddlRouteCategory + "</td>";
+            trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"selectSerialBtn\" >Select</a> </td>";
+            trNewForRoute = trNewForRoute + "<td align=\"center\"> Disabled </td>";
+            trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"editSerialBtn\" > Edit</a></td>";
+            trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"deleteSerialBtn\" >Delete</a> </td></tr>";
+            $('#serialGridRootNo tbody').append(trNewForRoute);
+        }
+        var duplcate = "";
+        $('#serialGridRootNo tbody tr').each(function () {
+            var CheckrouteCodefirst = $(this).find('td:eq(0)').text().trim();
+            if (routeCodefirst != CheckrouteCodefirst) {
+                duplcate = 0;
+            }
+            else if (routeCodefirst == CheckrouteCodefirst) {
+                duplcate = 1;
+                return false;
+            }
+        });
+
+        if (duplcate == "0") {
+            var trNewForRoute = "";
+            trNewForRoute = "<tr><td>" + routeCodefirst + "</td>";
+            trNewForRoute = trNewForRoute + "<td>" + rootCode + "</td>";
+            trNewForRoute = trNewForRoute + "<td>" + ddlRouteCategory + "</td>";
+            trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"selectSerialBtn\" >Select</a> </td>";
+            trNewForRoute = trNewForRoute + "<td align=\"center\"> Disabled </td>";
+            trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"editSerialBtn\" > Edit</a></td>";
+            trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"deleteSerialBtn\" >Delete</a> </td></tr>";
+            $('#serialGridRootNo tbody').append(trNewForRoute);
+        }
+    }
+
+    function checkAllRows() {
+        $("#gvLocationDetails tbody tr").each(function () {
+            if ($('#checkBoxAll').is(':checked') == true) {
+                $(this).find('td:eq(0)').find('input').attr('checked', true);
+                $(this).find('td:eq(0)').find('input').val("1");
+            }
+            else {
+                $(this).find('td:eq(0)').find('input').attr('checked', false);
+                $(this).find('td:eq(0)').find('input').val('');
+            }
+        });
+    }
+
+    function checkAllRowsForItems() {
+        $('#serialGridAddAdditoinalItem tbody tr').each(function () {
+            if ($('#checkBoxAllForItem').is(':checked') == true) {
+                $(this).find('td:eq(2)').find('input').attr('checked', true);
+                $(this).find('td:eq(2)').find('input').val('1');
+            }
+            else {
+                $(this).find('td:eq(2)').find('input').attr('checked', false);
+                $(this).find('td:eq(2)').find('input').val('');
+            }
+        });
+    }
+
+    function CheckGridRecords() {
+        $("#gvLocationDetails tbody tr").each(function () {
+            var myValue = $(this).find('td:eq(0)').find('input').attr('checked') ? 1 : 0
+            if (myValue == '1') {
+                $(this).find('td:eq(0)').find('input').val('1');
+            }
+            else {
+                $(this).find('td:eq(0)').find('input').attr('checked', false);
+                $(this).find('td:eq(0)').find('input').val('');
+            }
+        });
+    }
+
+    function checkAllRowsInItemGrid() {
+        $('#serialGridAddAdditoinalItem tbody tr').each(function () {
+            var itemCode = $(this).find('td:eq(2)').find('input').attr('checked') ? 1 : 0
+            if (itemCode == '1') {
+                $(this).find('td:eq(2)').find('input').val('1');
+            }
+            else {
+                $(this).find('td:eq(2)').find('input').attr('checked', false);
+                $(this).find('td:eq(2)').find('input').val('');
+            }
+        });
+    }
+
+    function LoadLight() {
+        var capacityId = $('#ddlPackageCapacity').val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LightList", "InventoryDept")',
+            data: "{'capacityId':'" + capacityId + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                $('#ddlPackageLight').get(0).options.length = 0;
+                $.map(data, function (item) {
+                    $('#ddlPackageLight').get(0).options[$('#ddlPackageLight').get(0).options.length] = new Option(item.LightID, item.LightID);
+                });
+            },
+            error: function () {
+                alert("Failed to Load Package Light");
+            }
+        });
+    }
+    function LoadPackage(check) {
+        var capacityId = $('#ddlPackageCapacity').val();
+        var lightId = $('#ddlPackageLight').val();
+        var txtPackageCodeToModel = $('#txtPackageCodeToModel').val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PackgeList", "InventoryDept")',
+            data: "{'capacityId':'" + capacityId + "','lightId':'" + lightId + "', 'check': '" + check + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlPackage').get(0).options.length = 0;
+                $('#hfPackageCode').val(data[0].Value);
+                $('#txtPackageCode').val(data[0].Value);
+                $.map(data, function (item) {
+                    $('#ddlPackage').get(0).options[$('#ddlPackage').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+
+                loadPanelModel(data[0].Value);
+                loadBatteryModel(data[0].Value);
+
+
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function ShowModelInfo() {
+        var ddlPackage = $('#ddlPackage').text().trim();
+        var ddlPackageCapacity = $('#ddlPackageCapacity').text().trim();
+        var ddlPackageLight = $('#ddlPackageLight').text().trim();
+        if (ddlPackage == '--Select--') {
+            alert('Please Enter Package Name');
+            return false;
+        }
+        //loadPanelModel();
+        //loadBatteryModel();
+    }
+
+    function loadPanelModel(packageCode) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PanelModelList","InventoryDept")',
+            data: "{'packageCode':'"+packageCode+"'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlPanelModel').get(0).options.length = 0;
+                //$('#ddlPanelModel').get(0).options[0] = new Option("--Select--", "0");
+                $.map(data, function (item) {
+                    $('#ddlPanelModel').get(0).options[$('#ddlPanelModel').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function loadBatteryModel(packageCode) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("BatteryModelList","InventoryDept")',
+            data: "{'packageCode':'" + packageCode + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlBatteryModel').get(0).options.length = 0;
+                //$('#ddlBatteryModel').get(0).options[0] = new Option("--Select--", "0");
+                $.map(data, function (item) {
+                    $('#ddlBatteryModel').get(0).options[$('#ddlBatteryModel').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    $('#txtAddAdditionalUnit').click(function () {
+        var issueTypeId = "";
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("LocationSelectionPartial", "InventoryDept")',
+            data: { issueTypeId: issueTypeId },
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#LoadLocationSelectionWindow').html(data);
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+        var detailWindow = $("#dialogLocationSelection").data("tWindow");
+        detailWindow.center().open();
+    });
+
+    function CloseDialogLocationSelection(e) {
+        $('#LoadLocationSelectionWindow').html('');
+    }
+
+    function CloseDialogWindow() {
+        var locationCode = "";
+        var locationText = "";
+        if ($('#ddlLocationTypeForSingleSelection').val() == "ho") {
+            locationText = "[9000] Head Office";
+            locationCode = "9000";
+        }
+        else if ($('#ddlLocationTypeForSingleSelection').val() == "zone") {
+            locationText = $('#ddlZone').find('option:selected').text();
+            locationCode = $('#ddlZone').val();
+        }
+        else if ($('#ddlLocationTypeForSingleSelection').val() == "unit") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+        }
+        $('#hfToLocation').val(locationCode);
+        $('#txtAddAdditionalUnit').val(locationText);
+        var detailWindow = $("#dialogLocationSelection").data("tWindow");
+        detailWindow.center().close();
+        $('#LoadLocationSelectionWindow').html('');
+        $('#serialMapForIssue').focus();
+        loadAdditionalUnitGrid();
+        return false;
+    }
+    $('#txtAddAdditionalUnit').change(function () {
+        loadAdditionalUnitGrid();
+    });
+
+    function loadAdditionalUnitGrid() {
+        var trNew = "";
+        var LocationCode = $('#hfToLocation').val();
+        var txtLocationCode = $('#txtAddAdditionalUnit').val();
+        var defaultRoute = $('#ddlRoute').find('option:selected').text();
+        if (defaultRoute != "--Select--") {
+            trNew = "<tr> <td>" + LocationCode + "</td>";
+            trNew = trNew + "<td>" + txtLocationCode + "</td>";
+            trNew = trNew + "<td>" + defaultRoute + "</td>";
+            trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + LocationCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+            $('#serialGridAddUnit tbody').append(trNew);
+            return false;
+        }
+        else if (defaultRoute == "--Select--") {
+            alert("Please Select Rute...");
+            $('#hfToLocation').val('');
+            $('#txtAddAdditionalUnit').val('');
+        }
+    }
+
+    function AddAdditionalToFinalSelectedUnit() {
+        var txtAddAdditionalUnit = $('#txtAddAdditionalUnit').val();
+        if (txtAddAdditionalUnit == "") {
+            alert("Please Enter Additional Location...");
+            return false;
+        }
+//.................................................................................start for hide previous rows of serialGrid.............................................................//
+        $('#serialGrid tbody tr').each(function () {
+            $(this).hide();
+        });
+//..................................................................................end for hide previous rows of serialGrid...........................................................//
+
+//...................................................................................start......for only additional unit..........................................................//
+
+            $('#serialGridAddUnit tbody tr').each(function () {
+                var routeCategory = $('#ddlRouteCategory').find('option:selected').text();
+                var trNew = "";
+                var unitCode = $(this).find('td:eq(0)').text();
+                var unitName = $(this).find('td:eq(1)').text();
+                var defaultRoute = $(this).find('td:eq(2)').text();
+                var rootCodeCheck = 0;
+                var serialGridRootNoLength = $('#serialGridRootNo tbody tr').length;
+                if (serialGridRootNoLength == 0) {
+                    var rootCode = $(this).find('td:eq(2)').text();
+                    var routeCodefirst = rootCode.substring(0, 4).toString();
+                    var ddlRouteCategory = $('#ddlRouteCategory').find('option:selected').text();
+                    var trNewForRoute = "";
+                    trNewForRoute = "<tr><td>" + routeCodefirst + "</td>";
+                    trNewForRoute = trNewForRoute + "<td>" + rootCode + "</td>";
+                    trNewForRoute = trNewForRoute + "<td>" + ddlRouteCategory + "</td>";
+                    trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"selectSerialBtn\" >Select</a> </td>";
+                    trNewForRoute = trNewForRoute + "<td align=\"center\"> Disabled </td>";
+                    trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"editSerialBtn\" > Edit</a></td>";
+                    trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"deleteSerialBtn\" >Delete</a> </td></tr>";
+                    $('#serialGridRootNo tbody').append(trNewForRoute);
+                }
+                if (serialGridRootNoLength > 0) {
+                    var rootCode = $(this).find('td:eq(2)').text();
+                    var routeCodefirst = rootCode.substring(0, 4).toString();
+                    //var rootCodeCheck =0;
+                    var ddlRouteCategory = $('#ddlRouteCategory').find('option:selected').text();
+                    $('#serialGridRootNo tbody tr').each(function () {
+                        var routeCodeFromSerialGridRootNo = $(this).find('td:eq(0)').text().trim();
+                        if (routeCodeFromSerialGridRootNo == routeCodefirst) {
+                            rootCodeCheck = 1;
+                            return true;
+                        }
+                    });
+                    if (rootCodeCheck == 0) {
+                    var trNewForRoute = "";
+                    trNewForRoute = "<tr><td>" + routeCodefirst + "</td>";
+                    trNewForRoute = trNewForRoute + "<td>" + rootCode + "</td>";
+                    trNewForRoute = trNewForRoute + "<td>" + ddlRouteCategory + "</td>";
+                    trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"selectSerialBtn\" >Select</a> </td>";
+                    trNewForRoute = trNewForRoute + "<td align=\"center\"> Disabled </td>";
+                    trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"editSerialBtn\" > Edit</a></td>";
+                    trNewForRoute = trNewForRoute + "<td align=\"center\"> <a href=\"#\" id=\"" + routeCodefirst + "\" class=\"deleteSerialBtn\" >Delete</a> </td></tr>";
+                    $('#serialGridRootNo tbody').append(trNewForRoute);
+                   }
+                }
+
+                if (rootCodeCheck == 0) {
+                    trNew = "<tr> <td>" + unitCode + "</td>";
+                    trNew = trNew + "<td>" + unitName + "</td>";
+                    trNew = trNew + "<td>" + defaultRoute + "</td>";
+                    trNew = trNew + "<td>" + routeCategory + "</td>";
+                    trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + unitCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                    $('#serialGrid tbody').append(trNew);
+                    $(this).remove();
+                }
+            });
+
+            
+       
+//.....................................................................................end......for only additional unit....................................................//
+
+        $('#serialGridAddUnit tbody tr').each(function () {
+            var defaultRoute = $('#ddlRoute').find('option:selected').text();
+            var routeCategory = $('#ddlRouteCategory').find('option:selected').text();
+            var trNew = "";
+            var lengthOfSerialGrid = $('#serialGrid tbody tr').length;
+            var unitCode = $(this).find('td:eq(0)').text();
+            var unitName = $(this).find('td:eq(1)').text();
+            var defaultRoute = $(this).find('td:eq(2)').text();
+            var dupl = "";
+            $('#serialGrid tbody tr').each(function () {
+                var countUnitCode = $(this).find('td:eq(0)').text();
+                if (unitCode != countUnitCode) {
+                    dupl = 0;
+                }
+                else if (unitCode == countUnitCode) {
+                    dupl = 1;
+                    return false;
+                }
+            });
+            if (dupl == "0") {
+                trNew = "<tr> <td>" + unitCode + "</td>";
+                trNew = trNew + "<td>" + unitName + "</td>";
+                trNew = trNew + "<td>" + defaultRoute + "</td>";
+                trNew = trNew + "<td>" + routeCategory + "</td>";
+                trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + unitCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                $('#serialGrid tbody').append(trNew);
+                $('#serialGridAddUnit tbody tr').each(function () {
+                    $(this).remove();
+                });
+                $('#txtAddAdditionalUnit').val('');
+            }
+            else if (dupl == "1") {
+                alert("Unit Code of : " + unitCode + " : already  exists..");
+                // if want to send  with dup value and only save unique otherwise set return false... for any dup value
+                return false;
+            }
+            if (lengthOfSerialGrid == 0) {
+                trNew = "<tr> <td>" + unitCode + "</td>";
+                trNew = trNew + "<td>" + unitName + "</td>";
+                trNew = trNew + "<td>" + defaultRoute + "</td>";
+                trNew = trNew + "<td>" + routeCategory + "</td>";
+                trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + unitCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                $('#serialGrid tbody').append(trNew);
+                $('#serialGridAddUnit tbody tr').each(function () {
+                    $(this).remove();
+                });
+                $('#txtAddAdditionalUnit').val('');
+            }
+        });
+    }
+
+    $('#txtItemCode').click(function () {
+        var itemCode = "";
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("ItemCodeSelectionPartial", "InventoryDept")',
+                data: { itemCode: itemCode },
+                dataType: 'html',
+                cache: false,
+                success: function (data) {
+                    $('#LoadItemSelection').html(data);
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+            var detailWindow = $("#dialogItemSelection").data("tWindow");
+            detailWindow.center().open();
+        });
+
+        function LoadEmployeeSearchWindow() {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("LoadItemDetails", "InventoryDept")',
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#LoadItemSelection').html(data);
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+        var detailWindow = $("#dialogItemSelection").data("tWindow");
+        detailWindow.center().open();
+    }
+
+    function CloseDialogEmployeeSelection(e) {
+        $('#LoadItemSelection').html('');
+    }
+
+    function ItemCodeNnameToSHSAddItemGrid(hfitemCode, hfitemName) {
+        var itemCode = hfitemCode;
+        var itemName = hfitemName;
+        $('#txtItemCode').val(itemCode);
+        var trNew = "";
+        var lengthOfSerialGrid = $('#serialGridAddAdditoinalItem tbody tr').length;
+        if (lengthOfSerialGrid == 0) {
+            trNew = "<tr> <td>" + itemCode + "</td>";
+            trNew = trNew + "<td>" + itemName + "</td>";
+            trNew = trNew + "<td align=\"center\"> <input type='checkbox' id='checkBoxinItemGrid' onclick='checkAllRowsInItemGrid();'></a> </td> </tr>";
+            $('#serialGridAddAdditoinalItem tbody').append(trNew);
+            return true;
+        }
+        $('#serialGridAddAdditoinalItem tbody tr').each(function () {
+            var countUnitCode = $(this).find('td:eq(0)').text();
+            if (itemCode != countUnitCode) {
+                dupl = 0;
+            }
+            else if (unitCode == countUnitCode) {
+                dupl = 1;
+                return false;
+            }
+        });
+        if (dupl == "0") {
+            trNew = "<tr> <td>" + itemCode + "</td>";
+            trNew = trNew + "<td>" + itemName + "</td>";
+            trNew = trNew + "<td align=\"center\"> <input type='checkbox' id='checkBoxinItemGrid' onclick='checkAllRowsInItemGrid();'></a> </td> </tr>";
+            $('#serialGridAddAdditoinalItem tbody').append(trNew);
+        }
+        else if (dupl == "1") {
+            alert("Item Code of : " + itemCode + " : already  exists..");
+            // if want to send  with dup value and only save unique otherwise set return false... for any dup value
+            return false;
+        }
+    }
+
+    function ItemCodeNnameToSHSAddItemGridForChecked(itemCodeFromItemDetailSearch, itemNameFromItemDetailSearch) {
+        var itemCode = itemCodeFromItemDetailSearch;
+        var itemName = itemNameFromItemDetailSearch;
+        var trNew = "";
+        var lengthOfSerialGrid = $('#serialGridAddAdditoinalItem tbody tr').length;
+        if (lengthOfSerialGrid == 0) {
+            trNew = "<tr> <td>" + itemCode + "</td>";
+            trNew = trNew + "<td>" + itemName + "</td>";
+            trNew = trNew + "<td align=\"center\"> <input type='checkbox' id='checkBoxinItemGrid' onclick='checkAllRowsInItemGrid();'></a> </td> </tr>";
+            $('#serialGridAddAdditoinalItem tbody').append(trNew);
+            return true;
+        }
+        $('#serialGridAddAdditoinalItem tbody tr').each(function () {
+            var countUnitCode = $(this).find('td:eq(0)').text();
+            if (itemCode != countUnitCode) {
+                dupl = 0;
+            }
+            else if (unitCode == countUnitCode) {
+                dupl = 1;
+                return false;
+            }
+        });
+        if (dupl == "0") {
+            trNew = "<tr> <td>" + itemCode + "</td>";
+            trNew = trNew + "<td>" + itemName + "</td>";
+            trNew = trNew + "<td align=\"center\"> <input type='checkbox' id='checkBoxinItemGrid' onclick='checkAllRowsInItemGrid();'></a> </td> </tr>";
+            $('#serialGridAddAdditoinalItem tbody').append(trNew);
+        }
+        else if (dupl == "1") {
+            alert("Item Code of : " + itemCode + " : already  exists..");
+            // if want to send  with dup value and only save unique otherwise set return false... for any dup value
+            return false;
+        }
+    }
+    function AddPackage() {
+        var txtPackageCode = $('#txtPackageCode').val();
+        var ddlPackageName = $('#ddlPackage').find('option:selected').text();
+        var serialGridLength = $('#serialGrid tbody tr').length;
+        if (txtPackageCode == "") {
+            alert("Please Enter Package Code..");
+            return false;
+        }
+        var ddlPanelModel = $('#ddlPanelModel').val();
+        if (ddlPanelModel == 0) {
+            alert('Please Enter Panel Model');
+            return false;
+        }
+        var ddlBatteryModel = $('#ddlBatteryModel').val();
+        if (ddlBatteryModel == 0) {
+            alert('Please Enter Battery Model');
+            return false;
+        }
+        var trNew = "";
+        var lengthOfSerialGrid = $('#serialGridAddPackage tbody tr').length;
+        var lengthForTd = 0;
+//......................................................................26-06-14........for packageCode,panelCode,batteryCode,....duplicate.......start....................................// 
+        $('#serialGridAddPackage tbody tr').each(function () {
+            var countPackage = $(this).find('td:eq(0)').text();
+            var countPanelCode = $(this).find('td:eq(3)').text();
+            var countBatteryCode = $(this).find('td:eq(5)').text();
+            if (txtPackageCode != countPackage || ddlPanelModel != countPanelCode || ddlBatteryModel != countBatteryCode) {
+                dupl = 0;
+                lengthFortr = $("#serialGridAddPackage tbody tr").length;
+                lengthTdAll = $("#serialGridAddPackage tbody tr td").length;
+                lengthForTd = lengthTdAll / lengthFortr;
+            }
+            else if (txtPackageCode == countPackage && ddlPanelModel == countPanelCode && ddlBatteryModel == countBatteryCode) {
+                dupl = 1;
+                alert("Package Code of : " + txtPackageCode + "; " + $('#ddlPanelModel').find('option:selected').text() + ";" + $('#ddlBatteryModel').find('option:selected').text() + " : already  exists..");
+                return false;
+            }
+        });
+
+//...........................................................26-06-14........for packageCode,panelCode,batteryCode,....duplicate.......end....................................// 
+
+        if (lengthOfSerialGrid == 0) {
+            trNew = "<tr> <td>" + txtPackageCode + "</td>";
+            trNew = trNew + "<td>" + ddlPackageName + "</td>";
+            trNew = trNew + "<td>" + $("#ddlPanelModel option:selected").text() + "</td>";
+            trNew = trNew + "<td style=\"display:none;\">" + ddlPanelModel + "</td>";
+            trNew = trNew + "<td>" + $('#ddlBatteryModel option:selected').text() + "</td>";
+            trNew = trNew + "<td style=\"display:none;\">" + ddlBatteryModel + "</td>";
+            trNew = trNew + "<td>" + "Package " + "</td>";
+            trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "',  '" + ddlPanelModel + "', '" + ddlBatteryModel + "');\" value='0'>" + "</td>";
+            trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + txtPackageCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+            $('#serialGridAddPackage tbody').append(trNew);
+            return true;
+        }
+
+        if (dupl == "0" && lengthForTd <= 12) {
+            trNew = "<tr> <td>" + txtPackageCode + "</td>";
+            trNew = trNew + "<td>" + ddlPackageName + "</td>";
+            trNew = trNew + "<td>" + $("#ddlPanelModel option:selected").text() + "</td>";
+            trNew = trNew + "<td style=\"display:none;\">" + ddlPanelModel + "</td>";
+            trNew = trNew + "<td>" + $('#ddlBatteryModel option:selected').text() + "</td>";
+            trNew = trNew + "<td style=\"display:none;\">" + ddlBatteryModel + "</td>";
+            trNew = trNew + "<td>" + "Package" + "</td>";
+            trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "', '" + ddlPanelModel + "', '" + ddlBatteryModel + "');\" value='0'>" + "</td>";
+            trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + txtPackageCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+            $('#serialGridAddPackage tbody').append(trNew);
+            lengthForTd = 0;
+        }
+        if (lengthForTd > 12 && dupl == "0") {
+            var hfrootNameFromRootGrid = $('#hfrootNameFromRootGrid').val();
+            trNew = "<tr> <td>" + txtPackageCode + "</td>";
+            trNew = trNew + "<td>" + ddlPackageName + "</td>";
+            trNew = trNew + "<td>" + $("#ddlPanelModel option:selected").text() + "</td>";
+            trNew = trNew + "<td style=\"display:none;\">" + ddlPanelModel + "</td>";
+            trNew = trNew + "<td>" + $('#ddlBatteryModel option:selected').text() + "</td>";
+            trNew = trNew + "<td style=\"display:none;\">" + ddlBatteryModel + "</td>";
+            trNew = trNew + "<td>" + "Package" + "</td>";
+            trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + txtPackageCode + "',  '" + ddlPanelModel + "' , '" + ddlBatteryModel + "');\" value='0'>" + "</td>";
+            for (var i = 12; i < lengthForTd; i++) {
+                trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>' style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + hfrootNameFromRootGrid + "', '" + txtPackageCode + "','" + ddlPanelModel + "','" + ddlBatteryModel + "');\" value='0' />" + "</td>";
+            }
+            trNew = trNew + "<td>" + "0" + "</td>";
+            trNew = trNew + "<td>" + "0" + "</td>";
+            trNew = trNew + "<td>" + "0" + "</td>";
+            trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + txtPackageCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+            $('#serialGridAddPackage tbody').append(trNew);
+            lengthForTd = 0;
+            $('#serialGridRootNo tbody tr').each(function () {
+                var rootNameFromRootGrid = $(this).find('td:eq(0)').text().trim();
+                if (hfrootNameFromRootGrid == rootNameFromRootGrid) {
+                    $(this).find('td:eq(3)').text('Disabled');
+                    $(this).find('td:eq(4)').html("<a href=\"#\" id=\"" + rootNameFromRootGrid + "\" class=\"saveSerialBtn\" >Save</a>");
+                }
+                else if (hfrootNameFromRootGrid != rootNameFromRootGrid) {
+                    $(this).find('td:eq(3)').text('Disabled');
+                    $(this).find('td:eq(4)').text('Disabled');
+                }
+            });
+        }
+        else if (dupl == "1") {
+            // if want to send  with dup value and only save unique otherwise set return false... for any dup value
+            return false;
+        }
+    }
+
+    function AdditionalItemToFinalList() {
+        var serialGridAddAdditoinalItemLength = $('#serialGridAddAdditoinalItem tbody tr').length;
+        var serialGridLength = $('#serialGrid tbody tr').length;
+        var returnForUnchecked = "";
+        $('#serialGridAddAdditoinalItem tbody tr').each(function () {
+            var chkedValue = $(this).find('td:eq(2)').find('input').val();
+            if (chkedValue == "1") {
+                returnForUnchecked = 1;
+                var defaultRoute = $('#ddlRoute').find('option:selected').text();
+                if (serialGridAddAdditoinalItemLength == 0) {
+                    alert('Please Add Additional Item');
+                    return false;
+                }
+                var trNew = "";
+                var lengthOfSerialGrid = $('#serialGridAddPackage tbody tr').length;
+                var unitCodeCheck = $(this).find('td:eq(2)').text();
+                var itemCode = $(this).find('td:eq(0)').text();
+                var itemName = $(this).find('td:eq(1)').text();
+                var dupl = "";
+                var lengthForTd = 0;
+                $('#serialGridAddPackage tbody tr').each(function () {
+                    var countUnitCode = $(this).find('td:eq(0)').text();
+                    if (itemCode != countUnitCode) {
+                        dupl = 0;
+                        var lengthFortr = $("#serialGridAddPackage tbody tr").length;
+                        var lengthTdAll = $("#serialGridAddPackage tbody tr td").length;
+                        lengthForTd = lengthTdAll / lengthFortr;
+                    }
+                    else if (itemCode == countUnitCode) {
+                        dupl = 1;
+                        return false;
+                    }
+                });
+                if (dupl == "0" && lengthForTd <= 12) {
+                    trNew = "<tr> <td>" + itemCode + "</td>";
+                    trNew = trNew + "<td>" + itemName + "</td>";
+                    trNew = trNew + "<td>" + " " + "</td>";
+                    trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+                    trNew = trNew + "<td>" + " " + "</td>";
+                    trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+                    trNew = trNew + "<td>" + "Item " + "</td>";
+                    trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + itemCode + "','','');\" value='0' >" + "</td>";
+                    trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + itemCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                    $('#serialGridAddPackage tbody').append(trNew);
+                    $(this).find('td:eq(2)').find('input').val('')
+                    $(this).find('td:eq(2)').find('input').attr('checked', false);
+                    $('#checkBoxAllForItem').attr('checked', false);
+                    $('#serialGridAddAdditoinalItem tbody tr').each(function () {
+                        $(this).remove();
+                    });
+                    $('#txtItemCode').val('');
+                    $('#checkBoxAllForItem').attr('checked', false);
+                }
+                if (lengthForTd > 12 && dupl == "0") {
+                    var hfrootNameFromRootGrid = $('#hfrootNameFromRootGrid').val();
+                    trNew = "<tr> <td>" + itemCode + "</td>";
+                    trNew = trNew + "<td>" + itemName + "</td>";
+                    trNew = trNew + "<td>" + " " + "</td>";
+                    trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+                    trNew = trNew + "<td>" + " " + "</td>";
+                    trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+                    trNew = trNew + "<td>" + "Item" + "</td>";
+                    trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + itemCode + "','','');\" value='0' >" + "</td>";
+                    for (var i = 12; i < lengthForTd; i++) {
+                        trNew = trNew + "<td>" + "<input type='text' id='assignQuantity<#=txtPackageCode#>' style='width:40px; align:center;' onblur=\"return CheckAssignQuantity(this.value, '" + hfrootNameFromRootGrid + "', '" + itemCode + "','','');\" value='0' />" + "</td>";
+                    }
+                    trNew = trNew + "<td>" + "0" + "</td>";
+                    trNew = trNew + "<td>" + "0" + "</td>";
+                    trNew = trNew + "<td>" + "0" + "</td>";
+                    trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + itemCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                    $('#serialGridAddPackage tbody').append(trNew);
+                    $('#serialGridAddAdditoinalItem tbody tr').each(function () {
+                        $(this).remove();
+                    });
+                    $('#txtItemCode').val('');
+                    $('#checkBoxAllForItem').attr('checked', false);
+                    $('#serialGridRootNo tbody tr').each(function () {
+                        var rootNameFromRootGrid = $(this).find('td:eq(0)').text().trim();
+                        if (hfrootNameFromRootGrid == rootNameFromRootGrid) {
+                            $(this).find('td:eq(3)').text('Disabled');
+                            $(this).find('td:eq(4)').html("<a href=\"#\" id=\"" + rootNameFromRootGrid + "\" class=\"saveSerialBtn\" >Save</a>");
+                        }
+                        else if (hfrootNameFromRootGrid != rootNameFromRootGrid) {
+                            $(this).find('td:eq(3)').text('Disabled');
+                            $(this).find('td:eq(4)').text('Disabled');
+                        }
+                    });
+                }
+                else if (dupl == "1") {
+                    alert("Item Code of : " + itemCode + " : already  exists..");
+                    // if want to send  with dup value and only save unique otherwise set return false... for any dup value
+                    return false;
+                }
+                if (lengthOfSerialGrid == 0) {
+                    trNew = "<tr> <td>" + itemCode + "</td>";
+                    trNew = trNew + "<td>" + itemName + "</td>";
+                    trNew = trNew + "<td>" + " " + "</td>";
+                    trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+                    trNew = trNew + "<td>" + " " + "</td>";
+                    trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+                    trNew = trNew + "<td>" + "Item " + "</td>";
+                    trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + itemCode + "','','');\" value='0'>" + "</td>";
+                    trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + itemCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                    $('#serialGridAddPackage tbody').append(trNew);
+                    $('#serialGridAddAdditoinalItem tbody tr').each(function () {
+                        $(this).remove();
+                    });
+                    $('#txtItemCode').val('');
+                    $(this).find('td:eq(2)').find('input').val('')
+                    $(this).find('td:eq(2)').find('input').attr('checked', false);
+                    $('#checkBoxAllForItem').attr('checked', false);
+                }
+            }
+        });
+        if (returnForUnchecked != '1') {
+            alert('Please Check one');
+        }
+    }
+        
+    function ClearAllControl() {
+        $("#serialGrid tbody").html('');
+        $("#serialGridAddPackage tbody").html('');
+        $("#serialGridRootNo tbody").html('');
+        $("#finalDistributionSheetGrid tbody").html('');
+        $("#finalDistributionSheetGridForUnitAmount tbody").html('');
+        $("#distributionSheetGridForPackageCode tbody").html('');
+    }
+
+    
+
+    function AddToFinal() {
+
+
+        //var gridLength = $('#gvEmployeeVisit tbody tr').length;
+        //if (gridLength == 1) {
+        //    $('#gvEmployeeVisit tbody tr').each(function () {
+        //        $(this).remove();
+        //    });
+        //}
+        var countGridLength = $('#gvEmployeeVisit tbody tr').length;
+        if (countGridLength == 1) {
+            var noData = $('#gvEmployeeVisit tbody tr').find('td:eq(0)').text();
+            //alert(noData);
+            if (noData == 'No records to display.') {
+
+                $('#gvEmployeeVisit tbody').find('tr:eq(0)').remove();
+                alert(noData);
+            }
+        }
+
+        //var trBlank = $('#gvEmployeeVisit tbody tr').find('td:eq(0)').text();
+
+        //if (trBlank=="")
+        //{
+        //    $('#gvEmployeeVisit tbody').find('tr:eq(0)').remove();
+        //}
+        //if ($('#visitLocationGrid tbody tr').length > 0)
+        //{
+        //    $('#visitLocationGrid tbody tr').each(function () {
+        //        var ttLocationCode = $(this).find('td:eq(0)').text().trim();
+        //        var ddlval = $(this).find('td:eq(1)').text().trim();
+        //        var purpose = $(this).find('td:eq(2)').find('input').val();
+        //        var hours = $(this).find('td:eq(3)').find('input').val();
+        //        if ((ddlval != "") && (purpose != "") && (hours != "")) {
+        //            //trNew = "<tr> <td>" + countGridLength + "</td>";
+        //            trNew = "<tr><td style=\"display:none;\">" + $(this).find('td:eq(0)').text() + "</td>";
+        //            trNew = trNew + "<td>" + $(this).find('td:eq(1)').text() + "</td>";
+        //            trNew = trNew + "<td>" + $(this).find('td:eq(2)').find('input').val() + "</td>";
+        //            trNew = trNew + "<td align=\"right\">" + $(this).find('td:eq(3)').find('input').val() + "</td>";
+        //            //trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+        //            //trNew = trNew + "<td>" + " " + "</td>";
+        //            //trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+        //            // trNew = trNew + "<td>" + "Item " + "</td>";
+        //            // trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + itemCode + "','','');\" value='0'>" + "</td>";
+        //            trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + ttLocationCode + "\" class=\"editSerialBtn\" >Edit</a> </td>";
+        //            trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + ttLocationCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+        //            $(this).remove();
+        //            $('#serialGrid tbody').append(trNew);
+        //        }
+
+        //        //countGridLength = countGridLength + 1;
+        //        // alert(ttLocationCode + "---" + ddlval + "---" + purpose + "---" + hours);
+        //    }
+        //);
+        //}
+
+
+        
+        //else if ($('#visitLocationGrid tbody tr').length <= 0)
+        // {
+        var showForBlank = 0;
+            $('#gvEmployeeVisit tbody tr').each(function () {
+                var ttLocationCode = $(this).find('td:eq(0)').text().trim();
+                var ddlval = $(this).find('td:eq(1)').text().trim();
+                var noOfCustomerVisit = $(this).find('td:eq(2)').find('input').val();
+                var purpose = $(this).find('td:eq(3)').find('input').val();
+                var hours = $(this).find('td:eq(4)').find('input').val();
+                if ((ddlval != "") && (noOfCustomerVisit >0) && (purpose != "") && (hours > 0)) {
+                    //trNew = "<tr> <td>" + countGridLength + "</td>";
+                    showForBlank = 1;
+                    trNew = "<tr><td style=\"display:none;\">" + $(this).find('td:eq(0)').text() + "</td>";
+                    trNew = trNew + "<td>" + $(this).find('td:eq(1)').text() + "</td>";
+                    //trNew = trNew + "<td>" + $(this).find('td:eq(2)').find('input').val() + "</td>";
+                    //trNew = trNew + "<td align=\"right\">" + $(this).find('td:eq(3)').find('input').val() + "</td>";
+                    trNew = trNew + "<td>" + "<input type='textbox' id='txtNoOfCustomerVisit' style='width:50px; text-align:right;' onblur=\"return CheckNumeric(this.value,'" + ttLocationCode + "');\" value='" + noOfCustomerVisit + "'>" + "</td>";
+                    trNew = trNew + "<td>" + "<input type='textbox' id='txtPurpose' style='width:400px; text-align:left;' onblur=\"return CheckNumeric(this.value,'" + ttLocationCode + "');\" value='" + purpose + "'>" + "</td>";
+                    trNew = trNew + "<td>" + "<input type='textbox' id='txtHours' style='width:100px; text-align:right;' onblur=\"return CheckNumeric(this.value,'" + ttLocationCode + "');\" value='" + hours + "'>" + "</td>";
+                    //trNew = trNew + "<td style=\"display:none;\">" + " " + "</td>";
+                    // trNew = trNew + "<td>" + "<input type='textbox' id='txtQuantityToBeAllocated' style='width:40px; align:center;' onblur=\"return CheckNumeric(this.value,'" + itemCode + "','','');\" value='0'>" + "</td>";
+                    //trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + ttLocationCode + "\" class=\"editSerialBtn\" >Edit</a> </td>";
+                    trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + ttLocationCode + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+                    $(this).remove();
+                    $('#serialGrid tbody').append(trNew);
+                }
+
+            }
+            );
+        // }
+            if (showForBlank=="0")
+            {
+                alert("Please Enter No. Of Customer Visit, Purpose and Duration.");
+            }
+    
+       
+    }
+
+    function SaveCheckingForEVP() {
+        var purpose = "";
+        var hours = "";
+        $('#serialGrid tbody tr').each(function () {
+            var purpose = $(this).find('td:eq(2)').find('input').val().trim();
+            var hours = $(this).find('td:eq(3)').find('input').val().trim();
+            if (purpose == "" && hours=="")
+            {
+                alert("Please Enter Purpose and Hour.");
+                return fales;
+            }
+        })
+
+       // alert("working");
+
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+</script>

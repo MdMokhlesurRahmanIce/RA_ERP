@@ -1,0 +1,549 @@
+﻿<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+
+</script>
+@using RASolarERP.Model
+@{
+    ViewBag.Title = "Customer Training Entry";
+    Layout = "~/Areas/Financial/Views/Shared/_AccountingLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.5.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>    
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfClickSummaryOrNot" type="hidden" value="0" />
+<input id="hfNoOfParticipantScheduled" type="hidden"  value="0" />
+<table cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td style="width: 50%;">
+            <table cellpadding="0" cellspacing="2" width="100%">
+                <tr>
+                    <td align="left" style="width: 50%;">Training Status
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        @Html.DropDownList("ddlTrainingStatus", new List<SelectListItem>{                               
+                            new SelectListItem{Text="--Select--",Value="" , Selected=  true},
+                            new SelectListItem{Text="Trained", Value="1"},
+                            new SelectListItem{Text="Non-Trained", Value="0"}
+                        })
+                        @Html.Hidden("hfTrainingStatus","")
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="width: 50%;">Training Date
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        @Html.DropDownList("ddlTrainingDate", new SelectList(@ViewBag.UnitWiseCustomerTrainingSchedule, "ScheduledDate", "ScheduledDateToShow"), "--Select--")
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="width: 50%;">Batch Number
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        @Html.DropDownList("ddlBatchNumber", Enumerable.Empty<SelectListItem>(), "--Select--")
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="width: 50%;">No Of Participant
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        @Html.TextBox("txtNoOfParticipant", "", new { @readonly = true })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" style="width:50%;">Trainer ID
+                    </td>
+                    <td align="left" style="width:50%;">
+                        @Html.TextBox("txtTrainerId", "", new {@onblur="CheckTrainer(this.value)" })
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+        <td style="width: 50%;">
+            <table cellpadding="0" cellspacing="2" width="100%">
+                <tr>
+                    <td align="left" style="width: 50%;">Training Allowance
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        @Html.TextBox("txtTrainingAllowance", "", new { @readonly = true })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="width: 50%;">Entertainment Expense
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        @Html.TextBox("txtEntertainmentExpence", "", new { @onblur = "CheckEntertainmentExpence(this.value)" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="width: 50%;">Total Payment
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        @Html.TextBox("txtTotalPayment", "", new { @readonly = true })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" style="width:50%;">Trainer Name
+                    </td>
+                    <td align="left" style="width:50%;">
+                         <label for="a" id="lblTrainerName"></label>
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="2" width="100%">
+                <tr>
+                    <td align="left" style="width: 50%;">
+                        <input type="button" value="Show" id="btnShow" onclick="return CustomerListShow();" />
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        <input type="button" value="Summary" id="btnSummary" onclick="return CustomerSummaryList();" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table cellpadding="0" cellspacing="2" width="100%">
+                <tr>
+                    <td align="left" style="width: 50%;">
+                        <input type="button" value="Back" id="btnBack" onclick="return ReloadCustomerList();" />
+                    </td>
+                    <td align="left" style="width: 50%;">
+                        <input type="button" value="Save" id="btnSave" onclick="return CustomerTrainingInformationSave();" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="2">
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid<CustomerTrainingInfo>()
+                .Name("gvUnitWiseCustomerForTraining")
+                .DataKeys(keys => keys.Add(k => k.CustomerCode))
+                .Columns(column =>
+                {
+                    column.Bound(c => c.CustomerCode).ClientTemplate("<#if(IsCustomerTrained==0){#> <input type=\"checkbox\" id=\"checkRecords<#= Helper.CustomerIdWithoutHiPen(CustomerCode)#>\" onclick=\"return CheckRecords('<#=CustomerCode#>')\" /> <#} else {#>&nbsp;<#}#>").Width(30).Title("");
+                    column.Bound(c => c.CustomerCode).Title("Customer ID").Width(100);
+                    column.Bound(c => c.CustomerName).Title("Customer Name").Width(150);
+                    column.Bound(c => c.CustomerTrainingDate).ClientTemplate("<#if(IsCustomerTrained == 1){#> <p style=\"margin:0; padding:0;\"> <#=Helper.DateFormat(CustomerTrainingDate)#> </p> <#} else {#>&nbsp;<#}#>").Title("Training Date");
+                    column.Bound(c => c.DistrictName).Format("{0:0}").Title("District");
+                    column.Bound(c => c.Village).Format("{0:0}");
+                    column.Bound(c => c.IsCustomerTrained).Format("{0:0}").Hidden(true);
+
+                })
+                .DataBinding(dbBindings => dbBindings.Ajax().Select("__CustomerTraining", "CustomerRegister"))
+                .ClientEvents(events =>
+                    events.OnDataBinding("onDataBinding")
+                        .OnError("onError")
+                    )
+                .Selectable()
+                .Scrollable(scroll => scroll.Height(300))
+                .Footer(false)
+
+                )
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#ddlTrainingStatus').change(function () {
+
+            if (this.value == "1") {
+                $('#hfTrainingStatus').val('Trained');
+                $('#ddlBatchNumber').get(0).options.length = 0;
+                $('#ddlBatchNumber').get(0).options[0] = new Option("--Select--", "");
+                $('#ddlTrainingDate').val("");
+                $('#ddlTrainingDate').attr("disabled", true);               
+                $('#ddlBatchNumber').attr("disabled", true);
+                $('#btnSummary').attr("disabled", true);
+                $('#btnBack').attr("disabled", true);
+                $('#btnSave').attr("disabled", true);
+            }
+            else {
+                $('#hfTrainingStatus').val('');
+                $('#ddlTrainingDate').attr("disabled", false);
+                $('#ddlBatchNumber').attr("disabled", false);
+                $('#btnSummary').attr("disabled", false);
+                $('#btnBack').attr("disabled", false);
+                $('#btnSave').attr("disabled", false);
+            }
+        });
+
+        $('#ddlTrainingDate').change(function () {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetBatchNumberForCustomerTraining", "CustomerRegister")',
+                data: "{'scheduledDate':'" + this.value + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $('#ddlBatchNumber').get(0).options.length = 0;
+                    $.map(data, function (item) {
+                        $('#ddlBatchNumber').get(0).options[$('#ddlBatchNumber').get(0).options.length] = new Option(item.Display, item.Value);
+                        $('#hfNoOfParticipantScheduled').val(item.noOfParticipantScheduled);
+                    });
+
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+        });
+
+
+
+    });
+
+    function CustomerListShow() {
+
+        $('#txtNoOfParticipant').val("");
+        $('#txtTrainingAllowance').val("");
+        $('#txtTotalPayment').val("");
+        $('#txtEntertainmentExpence').val("");
+
+        if ($('#ddlTrainingStatus').val() == "") {
+            alert("Please Select Training Status");
+            return false;
+        }
+
+        var params = {
+            trainingStatus: $('#ddlTrainingStatus').val(),
+            trainingDate: $('#ddlTrainingDate').val(),
+            trainingBatchNo: $('#ddlBatchNumber').val()
+        };
+
+        var grid = $('#gvUnitWiseCustomerForTraining').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        $('#hfClickSummaryOrNot').val("0");
+
+        return false;
+    }
+
+    function CheckRecords(customerCode) {
+
+        var txtNoOfParticipant = 0;
+        var customerCodeWithoutHipen = Helper.CustomerIdWithoutHiPen(customerCode);
+
+        if ($('#txtNoOfParticipant').val() != "") {
+            txtNoOfParticipant = parseInt($('#txtNoOfParticipant').val(), 10);
+        }
+
+        if ($("#checkRecords" + customerCodeWithoutHipen).is(":checked") == true) {
+            txtNoOfParticipant = txtNoOfParticipant + 1;
+        }
+        else if ($("#checkRecords" + customerCodeWithoutHipen).is(":checked") == false) {
+
+            if (txtNoOfParticipant != 0)
+                txtNoOfParticipant = txtNoOfParticipant - 1;
+        }
+
+
+        var noOfParticipantScheduled = $('#hfNoOfParticipantScheduled').val();
+        if (txtNoOfParticipant > noOfParticipantScheduled) {
+            alert("Selected Customer Cannot More Than " + noOfParticipantScheduled);
+            return false;
+        }
+
+        $('#txtNoOfParticipant').val(txtNoOfParticipant);
+
+        if (txtNoOfParticipant != 0) {
+            CalculateTrainingAllowance();
+        }
+        else {
+            $('#txtTrainingAllowance').val("");
+            $('#txtTotalPayment').val("");
+            $('#txtEntertainmentExpence').val("");
+        }
+    }
+
+    function CustomerSummaryList() {
+
+        if ($('#txtNoOfParticipant').val() == "") {
+            alert("Please Select Customer");
+            return false;
+        }
+        else if ($('#txtNoOfParticipant').val() == "0") {
+            alert("Please Select Customer");
+            return false;
+        }
+
+        $('.t-grid-content tbody tr').each(function () {
+            if ($(this).find("td:eq(0)").find("input").is(":checked") == false) {
+                $(this).hide();
+            }
+        });
+
+        $('#hfClickSummaryOrNot').val("1");
+    }
+
+    function ReloadCustomerList() {
+        $('.t-grid-content tbody tr').each(function () {
+            if ($(this).find("td:eq(0)").find("input").is(":checked") == false) {
+                $(this).show();
+            }
+        });
+
+        $('#txtEntertainmentExpence').val("");
+        $('#txtTotalPayment').val("");
+        $('#hfClickSummaryOrNot').val("0");
+    }
+
+    function CalculateTrainingAllowance() {
+
+        var trainingAllowance = 0;
+        var numberOfParticipant = $('#txtNoOfParticipant').val();
+        var entertainmentExpence = 0;
+        var totalPayment = 0;
+
+        if (numberOfParticipant == "") {
+            alert("Please Select Customer");
+            return false;
+        }
+        else if (numberOfParticipant == "0") {
+            alert("Please Select Customer");
+            return false;
+        }
+
+        trainingAllowance = parseInt(numberOfParticipant, 10) * 100;
+        $('#txtTrainingAllowance').val(trainingAllowance);
+    }
+
+    function CustomerTrainingInformationSave() {
+
+        if ($('#hfClickSummaryOrNot').val() == "0") {
+            alert("Please Click Summary, Check Properly Before Save");
+            return false;
+        }
+
+        var trainingStatus = "";
+        var trainingDate = "";
+        var numberOfParticipant = "";
+        var traineeId = "";
+        var entertainmentExpence = "";
+        var trainingAllowance = "";
+        var totalTrainingAllowance = "";
+        var selectedCustomerForTraining = "";
+        var trainingBatchNo = "";
+
+        trainingStatus = $('#ddlTrainingStatus').val();
+        trainingDate = $('#ddlTrainingDate').val();
+        numberOfParticipant = $('#txtNoOfParticipant').val();
+        traineeId = $('#txtTrainerId').val();
+        entertainmentExpence = $('#txtEntertainmentExpence').val();
+        totalTrainingAllowance = $('#txtTrainingAllowance').val();
+        trainingBatchNo = $('#ddlBatchNumber').val();
+
+        var entertainmentExpenceMax = parseInt(numberOfParticipant, 10) * 100;
+
+        if (numberOfParticipant == "") {
+            alert("Please Select Customer");
+            return false;
+        }
+        else if (numberOfParticipant == "0") {
+            alert("Please Select Customer");
+            return false;
+        }
+
+        else if (traineeId == "")
+        {
+            alert("Please Insert Trainee ID");
+            return false;
+        }
+
+        else if (entertainmentExpence == "") {
+            alert("Please Give Entertainment Expense");
+            return false;
+        }
+        else if (Helper.IsInt(entertainmentExpence) == false) {
+            alert("Entertainment Expense Cannot Be Negative/Character");
+            return false;
+        }
+        else if (parseInt(entertainmentExpence, 10) < 0 || parseInt(entertainmentExpence, 10) > entertainmentExpenceMax) {
+            alert("Entertainment Expenses Cannot Be Greater Than Total " + entertainmentExpenceMax);
+            return false;
+        }
+
+        $('#gvUnitWiseCustomerForTraining tbody tr').each(function () {
+
+            if ($(this).find("td:eq(0)").find("input").is(":checked") == true) {
+
+                if (selectedCustomerForTraining != "") {
+                    selectedCustomerForTraining = selectedCustomerForTraining + "#" + $(this).find("td:eq(1)").text();
+                }
+                else {
+                    selectedCustomerForTraining = selectedCustomerForTraining + $(this).find("td:eq(1)").text();
+                }
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("CustomerTrainingInformationSave", "CustomerRegister")',
+            data: "{'selectedCustomerForTraining':'" + selectedCustomerForTraining + "','trainingStatus':'" + trainingStatus + "','trainingDate':'" + trainingDate + "','numberOfParticipant':'" + numberOfParticipant + "', 'traineeId':'" + traineeId + "', 'entertainmentExpence':'" + entertainmentExpence + "','totalTrainingAllowance':'" + totalTrainingAllowance + "','trainingBatchNo':'" + trainingBatchNo + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+                    ClearAllControl();
+                }
+                else {
+                    alert(data[0].message);
+                }
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function CheckTrainer(trainerId)
+    {
+        //if (trainerId == "")
+        //{
+        //    alert("Please insert Trainer ID");
+        //    return false;
+        //}
+
+        $.ajax({
+
+            type: "POST",
+            url: '@Url.Action("CustomerTraineeInformation","CustomerRegister")',
+            data: "{'trainerId':'" + trainerId + "' }",
+            contentType: "application/json;charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                if (data.TraineeName != "") {
+                    $('#lblTrainerName').text(data.TraineeName);
+                }
+
+                else {
+
+                    alert("Trainer ID not found in the IDCOL staff trainer list");
+                    $('#txtTrainerId').val('');
+                    $('#lblTrainerName').text("");
+                }
+            },
+
+            error: function () {
+                alert("Failed to load Item")
+            }
+
+        });
+
+
+    }
+
+    function CheckEntertainmentExpence(entertainmentExpence) {
+
+        var numberOfParticipant = $('#txtNoOfParticipant').val();
+        var entertainmentExpenceMax = parseInt(numberOfParticipant, 10) * 100;
+
+        if (numberOfParticipant == "") {
+            alert("Please Select Customer");
+            $('#txtEntertainmentExpence').val("");
+            $('#txtTotalPayment').val("");
+            return false;
+        }
+        else if (numberOfParticipant == "0") {
+            alert("Please Select Customer");
+            $('#txtEntertainmentExpence').val("");
+            $('#txtTotalPayment').val("");
+            return false;
+        }
+        else if (entertainmentExpence == "") {
+            alert("Please Give Entertainment Expense");
+            return false;
+        }
+        else if (Helper.IsInt(entertainmentExpence) == false) {
+            alert("Entertainment Expense Cannot Be Negative/Character");
+            $('#txtEntertainmentExpence').val("");
+            $('#txtTotalPayment').val("");
+            return false;
+        }
+        else if (parseInt(entertainmentExpence, 10) < 0 || parseInt(entertainmentExpence, 10) > entertainmentExpenceMax) {
+            alert("Entertainment Expenses Cannot Be Greater/Less Than Total " + entertainmentExpenceMax);
+            $('#txtEntertainmentExpence').val("");
+            $('#txtTotalPayment').val("");
+            return false;
+        }
+
+        var trainingAllowance = parseInt($('#txtTrainingAllowance').val(), 10);
+        var totalPayment = trainingAllowance + parseInt($('#txtEntertainmentExpence').val());
+        $('#txtTotalPayment').val(totalPayment)
+    }
+
+    function ClearAllControl() {
+
+        $('#ddlTrainingStatus').val("");
+        $('#ddlTrainingDate').val("");
+        $('#txtNoOfParticipant').val("");
+        $('#txtTrainingAllowance').val("");
+        $('#txtEntertainmentExpence').val("");
+        $('#txtTotalPayment').val("");
+
+        $('#gvUnitWiseCustomerForTraining').data().tGrid.total = 0;
+        $('#gvUnitWiseCustomerForTraining').data().tGrid.dataBind([]);
+
+        location.reload();
+    }
+
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

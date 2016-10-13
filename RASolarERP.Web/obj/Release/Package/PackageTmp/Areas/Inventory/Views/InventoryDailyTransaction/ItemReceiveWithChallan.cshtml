@@ -1,0 +1,948 @@
+﻿<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+</script>
+@using RASolarERP.Model;
+@{
+    ViewBag.Title = "MRR (With Challan)";
+    Layout = "~/Areas/Inventory/Views/Shared/_InventoryLayout.cshtml";    
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfOpenDay" type="hidden"  value="@ViewBag.OpenDay"/>
+<input id="hfOpenBackDay" type="hidden"  value="@ViewBag.OpenBackDay"/>
+<input id="hfItemCode" type="hidden" value="0" />
+<input id="hfEditSerial" type="hidden" value="0" />
+<input id="hfValidItemTransTypeForMRR" type="hidden" value="0" />
+<input id="hfIsItForMultipleLocations" type="hidden" value="0" />
+<input id="hfFromStoreLocation" type="hidden" value="0" />
+@{   
+    bool InventoryStockUpdateFinishClosed = (bool)ViewBag.InventoryStockUpdateFinishClosed;
+}
+@if (InventoryStockUpdateFinishClosed == true)
+{
+    <table cellpadding="0" cellspacing="2" border="0" width="100%">
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td align="left" style="width: 33%;">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left" class="IRCaptionLeftColumn">
+                                        Item Type
+                                    </td>
+                                    <td align="left">
+                                        @Html.DropDownList("ddlItemType", new SelectList(ViewBag.ItemType, "ItemTypeID", "Description"), "--Select--", new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">
+                                        Challan Inbox
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlChallanInbox", new SelectList(ViewBag.ChallanInbox, "ChallanSeqNo", "ReceivedChallan"), "--Select--", new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IRCaptionLeftColumn">
+                                        Store Location
+                                    </td>
+                                    <td align="left">
+                                        @Html.DropDownList("ddlStoreLocation", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">
+                                        MRR Type
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlMrrType", Enumerable.Empty<SelectListItem>(), new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">
+                                        Particulars
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtParticulars", "", new { @class = "IRControl", @maxlength = 100 })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="left" style="width: 33%;" valign="top">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left" class="IRCaptionRightColumn">
+                                        From Location
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtChallanLocation", "", new { @class = "IRControl", @readonly = true })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IRCaptionRightColumn">
+                                        Challan Date
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtChallanDate", "", new { @class = "IRControl", @readonly = true })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Challan Sequence No
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtChallanSequenceNumber", "", new { @class = "IRControl", @readonly = true })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Ref. Challan No
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtRefChallanNumber", "", new { @class = "IRControl", @readonly = true })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="left" style="width: 33%;" valign="top">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left" class="IRCaptionMiddleColumn">
+                                        MRR Date
+                                    </td>
+                                    <td align="left">
+                                        @(Html.Telerik().DatePicker().Name("dtpMRRDate").Format("dd-MMM-yyyy").Value(DateTime.Now.Date).Max(new DateTime(2099, 12, 31)).Value(ViewBag.OpenDay))
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IRCaptionMiddleColumn">
+                                        MRR Sequence No.
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtMRRSequenceNumber", (string)ViewBag.ChallnSequenceNumberNew, new { @class = "IRControl", @readonly = true })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IRCaptionMiddleColumn">
+                                        MRR No.
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtMRRNumber", "", new { @class = "IRControl", @maxLength = 10 })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Item Condition
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlItemStatus", new List<SelectListItem> { 
+                                            new SelectListItem{Text="--Select--", Value="0", Selected=true},
+                                            new SelectListItem{Text="Saleable/Good", Value="20"},
+                                            //new SelectListItem{Text="Non-Saleable/Damage/Repairable", Value="21"}
+                                          }, new { @class = "IRDropDown" }
+                                        )
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="serialMapForMRR">
+            <td>
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td align="left" valign="top">
+                            @Html.Partial("ItemSerialChekGridMRR")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="padding-top: 2px;">
+                            <input id="btnAddSerialToList" type="button" value="Add Serial For Receive" style="width: 180px;" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="DataGridXScroll">
+                    @(Html.Telerik().Grid<MRRDetails>()
+                    .Name("gvMrrDetails")
+                    .DataKeys(keys => keys.Add(k => k.ItemCode))
+                    .Columns(column =>
+                    {
+                        column.Bound(m => m.ItemCode).ClientTemplate("<input type='checkbox' value='<#=ItemCode#>' id='checkRecords<#=ItemCode#>' onchange='return CheckGridRecords(<#=ItemCode#>);' />").Title("").HtmlAttributes(new { style = "text-align:center" });
+                        column.Bound(m => m.ItemCode);
+                        column.Bound(m => m.ItemName);
+                        column.Bound(m => m.ItemCapacity);
+                        column.Bound(m => m.ItemModel);
+                        column.Bound(m => m.ChallanQuantity).HtmlAttributes(new { @class = "A. GridColumnRightAlign" });
+                        column.Bound(m => m.AlreadyReceiveQuantity).HtmlAttributes(new { @class = "A. GridColumnRightAlign" });
+                        column.Bound(m => m.ItemCode).ClientTemplate("<input type=\"text\" id=\"mrrReceive<#=ItemCode#>\" maxlength='10' onblur=\"CheckReceiveQuantity('<#=ItemCode#>','<#=ChallanQuantity#>','<#=AlreadyReceiveQuantity#>', this.value);\" />").Title("Receive Quantity");
+                        column.Bound(m => m.ItemCode).ClientTemplate("<p id=\"mrrScanQuantity<#=ItemCode#>\" style=\"text-align:right;\" > </p>").Title("Scan Quantity");
+                        column.Bound(m => m.ItemCode).ClientTemplate("<#if(IsItASerializableItem == 1){#> <a href=\"#\" id=\"map<#=ItemCode#>\" onclick=\"return MapSerialForMRR(<#=ItemCode#>);\"> Map Serial <a/> <#} else {#> &nbsp; <#}#>").Title("");
+                        column.Bound(m => m.IsItASerializableItem).Title("").Hidden(true);
+                        column.Bound(m => m.RefChallanCompSeqNo).Title("").Hidden(true);
+                        column.Bound(m => m.FromStoreLocation).Title("").Hidden(true);
+                    })
+                    .DataBinding(dbbindings => dbbindings.Ajax().Select("__MRRDetailsList", "InventoryDailyTransaction"))
+                    .ClientEvents(events => events
+                        .OnDataBinding("onDataBinding")
+                        .OnError("onError")
+                    )
+                    .Selectable()
+                    .Footer(false)
+                )
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <input id="btnSubmit" type="button" value="Submit" onclick="return SaveMRRItem();" />
+            </td>
+        </tr>
+        <tr>
+            <td id="mrrItemSerials">
+                <table class="TableData" cellpadding="0" cellspacing="0" id="SerialCollectionGrid"
+                    width="100%">
+                    <thead>
+                        <tr>
+                            <th align="center">
+                                Item Code
+                            </th>
+                            <th align="center">
+                                Serial No
+                            </th>
+                            <th align="center">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr style="display: none;">
+            <td>
+                <input id="txtChalanLocationCode" type="text" value="0" />
+            </td>
+        </tr>
+    </table>
+    
+}
+else
+{ 
+    <p style="background: #ffff99; font-size: 15px; font-weight: bold;">
+        Please Update Store Position Before Receive
+    </p>
+}
+<script type="text/javascript">
+
+    $('#serialMapForMRR').css('display', 'none');
+    $('#mrrItemSerials').css('display', 'none');
+    $('#btnCopyBatchSerial').attr("disabled", true);
+
+    $(document).ready(function () {
+
+        $('#ddlItemType').change(function () {
+
+            if ($(this).val() == "CONSUMITEM") {
+                $("#ddlItemStatus").val("0");
+                $("#ddlItemStatus").attr("disabled", true);
+            }
+            else {
+                $("#ddlItemStatus").attr("disabled", false);
+            }
+            LoadChallanInbox();
+        });
+
+        $('#ddlChallanInbox').change(function () {
+
+            if ($('#ddlItemType').val() == "") {
+                alert("Please Select Item Type");
+                $('#ddlChallanInbox').val("");
+                return false;
+            }
+
+            if ($('#ddlChallanInbox').val() == "") {
+                return false;
+            }
+
+            $('#serialMapForMRR').css('display', 'none');
+            $('#SerialCollectionGrid tbody').html('');
+            $('#txtSerialNo').val("");
+
+            var challanSequenceAndFromLocation = $('#ddlChallanInbox').val();
+            var challanSeaquenceNumber = challanSequenceAndFromLocation.split('-')[0];
+            var fromLocation = challanSequenceAndFromLocation.split('-')[1];
+            var storeLocationId = "";
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ChallanDetailsForMRR", "InventoryDailyTransaction")',
+                data: "{'challanSeaquenceNumber':'" + challanSeaquenceNumber + "','fromLocation':'" + fromLocation + "'}",
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                cachce: false,
+                success: function (data) {
+
+                    $('#txtChallanLocation').val(data[0].ChallanLocation);
+                    $('#txtChalanLocationCode').val(data[0].ChallanLocationCode);
+                    $('#txtChallanDate').val(data[0].ChallanDate);
+                    $('#txtChallanSequenceNumber').val(data[0].ChallanSequenceNumber);
+                    $('#txtRefChallanNumber').val(data[0].RefChallanNumber);
+                    $('#hfValidItemTransTypeForMRR').val(data[0].ValidItemTransTypeForMRR);
+                    $('#hfIsItForMultipleLocations').val(data[0].IsItForMultipleLocations);
+                    $('#hfFromStoreLocation').val(data[0].FromLocationCode);
+
+                    var params = {
+                        challanSeaquenceNumber: challanSeaquenceNumber,
+                        isItForMultipleLocations: data[0].IsItForMultipleLocations,
+                        fromLocationCode: data[0].FromLocationCode
+                    };
+
+                    var grid = $('#gvMrrDetails').data('tGrid');
+                    grid.dataSource._data = [];
+                    //grid.rebind(params);
+                    grid.ajaxRequest(params);
+
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("StoreLocationListForMRRWithChallan", "InventoryDailyTransaction")',
+                        data: "{'storeLocationForMrrMaster':'" + data[0].FromStoreLocation + "','itemTypeId':'" + $('#ddlItemType').val() + "'}",
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        cache: false,
+                        success: function (data) {
+                            $('#ddlStoreLocation').get(0).options.length = 0;
+
+                            if ($('#ddlItemType').val() != "CONSUMITEM") {
+                                if (data[0].Value == "9" || data[0].Value == "11" || data[0].Value == "12" || data[0].Value == "13") {
+                                    $("#ddlItemStatus").attr("disabled", true);
+                                }
+                                else {
+                                    $("#ddlItemStatus").attr("disabled", false);
+                                }
+                            }
+
+                            $.map(data, function (item) {
+                                $('#ddlStoreLocation').get(0).options[$('#ddlStoreLocation').get(0).options.length] = new Option(item.Display, item.Value);
+                            });
+                        },
+                        error: function () { alert("Item Does Not Load"); }
+                    });
+
+
+                    //LoadStoreLocationForMRRWithChallan(data[0].FromStoreLocation);
+                    LoadMrrType();
+                },
+                error: function () { }
+            });
+        });
+
+        $('#btnAddSerialToList').click(function () {
+
+            var itemCode = $('#hfItemCode').val();
+
+            var lengthOfSerialScanTable = $('#serialGrid tbody tr').length;
+            var mrrGridTr = $("#gvMrrDetails tbody tr:contains('" + itemCode + "')");
+
+            if (lengthOfSerialScanTable == 0) {
+                alert("Please MAP Serial For Item (" + itemCode + ")");
+                return false;
+            }
+
+            //            var mrrGridIndexNumber = $("#gvMrrDetails tbody tr:contains('" + itemCode + "')").index();
+            //            var serialGridIndexNumber = $("#SerialCollectionGrid tbody tr:contains('" + itemCode + "')").index();
+
+            var receivedQuantity = mrrGridTr.find("td:eq(7)").find('input').val();
+
+
+            if (lengthOfSerialScanTable < parseInt(receivedQuantity)) {
+                alert("Please MAP All Serial For Item (" + itemCode + ")");
+                return false;
+            }
+            else if (lengthOfSerialScanTable > parseInt(receivedQuantity)) {
+                alert("Number of Serial Cannot be Greater Than Received Quantity");
+                return false;
+            }
+
+            var editSerial = $('#hfEditSerial').val();
+            var trSerialNew = "";
+            var serialScanGrid = $('#serialGrid tbody');
+
+            for (i = 0; i < lengthOfSerialScanTable; i++) {
+
+                var tr = serialScanGrid.find("tr:eq(" + i + ")");
+                var serials = $.trim(tr.find("td:eq(0)").text());
+
+                var alreadyUsedSerials = $("#SerialCollectionGrid tbody:contains(\"" + serials + "\")").length;
+
+                if (editSerial == "0") {
+                    if (alreadyUsedSerials > 0) {
+                        alert("This (" + serials + ") Serial Is Already MAP For Received");
+                        return false;
+                    }
+                }
+                else {
+                    $("#SerialCollectionGrid tbody tr:contains(\"" + serials + "\")").remove();
+                }
+
+                trSerialNew = trSerialNew + "<tr id=\"isc" + itemCode + serials + "\">";
+
+                trSerialNew = trSerialNew + "<td>" + $.trim(itemCode) + "</td>";
+                trSerialNew = trSerialNew + "<td>" + serials + "</td>";
+                trSerialNew = trSerialNew + "<td>" + tr.find("td:eq(1)").text() + "</td>";
+
+                trSerialNew = trSerialNew + "</tr>";
+            }
+
+            $('#SerialCollectionGrid tbody').append(trSerialNew);
+            $("#mrrScanQuantity" + itemCode).val($('#txtTotalSerialQuantity').val());
+
+            $('#txtSerialNo').val("");
+            $('#txtTotalSerialQuantity').val("0");
+            $('#serialGrid tbody').html("");
+            $('#hfEditSerial').val("0");
+
+            $("#gvMrrDetails tbody tr:contains(" + $('#hfItemCode').val() + ")").css("background-color", "#c8e8f8");
+            $('#serialMapForMRR').css('display', 'none');
+
+            return false;
+        });
+
+
+    });
+
+    function MapSerialForMRR(itemCode) {
+
+        var tr = $("#gvMrrDetails tbody tr:contains('" + $.trim(itemCode) + "')");
+
+        if (tr.find("td:eq(0)").find('input').is(':checked') == false) {
+            alert("Please Select The Item(" + itemCode + ") For Challan");
+            $('#mrrReceive' + itemCode).val("");
+            return false;
+        }
+
+        if (tr.find("td:eq(7)").find('input').val() == "" || tr.find("td:eq(7)").find('input').val() == "0") {
+            alert("Please Give Receive Quantity For Item (" + itemCode + ") To Challan");
+            $('#mrrReceive' + itemCode).val("");
+            return false;
+        }
+
+        $('#hfItemCode').val(itemCode);
+
+        var receiveType = $('#ddlMrrType').val();
+        var mrrNumber = $('#txtMRRNumber').val();
+        var storeLocation = $('#ddlStoreLocation').val();
+        var challanInbox = $('#ddlChallanInbox').val();
+
+        if (receiveType == "") {
+            alert("Please Give MRR Type");
+            return false;
+        }
+        else if (challanInbox == "") {
+            alert("Please Select A Challan");
+            return false;
+        }
+       
+        else if (storeLocation == "") {
+            alert("Please Give Store Location");
+            return false;
+        }
+
+        else if ($('#ddlItemType').val().trim() == "INVTORYITM") {
+
+            if (mrrNumber == "") {
+                alert("Please Give MRR Number");
+                return false;
+            }
+        }
+
+     
+
+        LoadChallanItemSerials(itemCode);
+
+        var serialCollectionGridIndex = $("#SerialCollectionGrid tbody tr:contains('" + itemCode + "')").index();
+
+        if (serialCollectionGridIndex > -1) {
+
+            //            var alreadyEdit = $('#hfEditSerial').val();
+
+            //            if (alreadyEdit != "0")
+            //                return false;
+
+            $('#hfEditSerial').val("1");
+
+            var serialGridLength = $('#serialGrid tbody tr').length;
+
+            if (serialGridLength > 0)
+                $('#serialGrid tbody').html('');
+
+            var trNew = "";
+            var serialText = "";
+            var totalSerialQuantity = 0;
+            var alreadyAddedItem = "";
+
+            $("#SerialCollectionGrid tbody tr").each(function () {
+
+                alreadyAddedItem = $(this).find("td:eq(0)").text();
+                serialText = $(this).find("td:eq(1)").text();
+
+                if (alreadyAddedItem == $('#hfItemCode').val()) {
+
+                    totalSerialQuantity = totalSerialQuantity + 1;
+
+                    if (totalSerialQuantity % 2 == 0)
+                        trNew = "<tr class=\"t-alt\"> <td>" + serialText + "</td>";
+                    else
+                        trNew = "<tr> <td>" + serialText + "</td>";
+
+                    trNew = trNew + "<td>&nbsp;</td>"; // damage
+
+                    trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + serialText + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+
+                    $('#serialGrid tbody').append(trNew);
+                }
+            });
+
+            $('#txtTotalSerialQuantity').val(totalSerialQuantity);
+        }
+        else {
+            $('#serialGrid tbody').html('');
+            $('#txtTotalSerialQuantity').val('0');
+            $('#hfEditSerial').val("0");
+        }
+
+        $('#serialMapForMRR').css('display', '');
+    }
+
+
+    function LoadChallanItemSerials(itemCode) {
+
+        var challanSequenceNumber = $('#txtChallanSequenceNumber').val();
+        var challanSequenceAndFromLocation = $('#ddlChallanInbox').val();
+        var challanLocationCode = challanSequenceAndFromLocation.split('-')[1];
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadChallanItemSerials", "InventoryDailyTransaction")',
+            data: "{'challanSequenceNumber':'" + challanSequenceNumber + "','itemCode':'" + itemCode + "','challanLocationCode':'" + challanLocationCode + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                $('#ddlChallanItemSerials').get(0).options.length = 0;
+                $('#ddlChallanItemSerials').get(0).options[0] = new Option('--Select--', '');
+
+                $.map(data, function (item) {
+                    $('#ddlChallanItemSerials').get(0).options[$('#ddlChallanItemSerials').get(0).options.length] = new Option(item.Display, item.Value);
+
+                    if (item.IsAllDeliveredSerialSelectionForMRREnabled == "1")
+                    {
+                        $('#btnCopyBatchSerial').attr("disabled", false);
+                    }
+
+                });
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again.");
+            }
+        });
+
+    }
+
+    function LoadMrrType() {
+
+        var itemTypeId = $('#ddlItemType').val();
+        var validItemTransTypeForMRR = $('#hfValidItemTransTypeForMRR').val();
+
+        $.ajax({
+
+            type: 'POST',
+            url: '@Url.Action("MRRTypeListForMRRWithChallan", "InventoryDailyTransaction")',
+            data: "{'itemTypeId':'" + itemTypeId + "','validItemTransTypeForMRR':'" + validItemTransTypeForMRR + "'}",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlMrrType').get(0).options.length = 0;
+
+                $.map(data, function (item) {
+                    $('#ddlMrrType').get(0).options[$('#ddlMrrType').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () { alert("Item Does Not Load"); }
+        });
+    }
+
+    function LoadStoreLocationForMRRWithChallan(myStoreLocation) {
+
+        var itemTypeId = $('#ddlItemType').val();
+        var storelocationId = myStoreLocation.toString();
+
+        if (storelocationId = "")
+        { return false; }
+
+        alert(storelocationId)
+
+        $.ajax({
+
+            type: 'POST',
+            url: '@Url.Action("StoreLocationListForMRRWithChallan", "InventoryDailyTransaction")',
+            data: "{'storeLocationForMrrMaster':'" + storelocationId + "','itemTypeId':'" + itemTypeId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlStoreLocation').get(0).options.length = 0;
+
+                $.map(data, function (item) {
+                    $('#ddlStoreLocation').get(0).options[$('#ddlStoreLocation').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () { alert("Item Does Not Load"); }
+        });
+    }
+
+    function SaveMRRItem() {
+
+        var mrrDate = $('#dtpMRRDate').val();
+        var receiveType = $('#ddlMrrType').val();
+        var mrrNumber = $('#txtMRRNumber').val();
+        var storeLocation = $('#ddlStoreLocation').val();
+        var mrrSeqNumber = $('#txtMRRSequenceNumber').val();
+        var challanInbox = $('#ddlChallanInbox').val();
+        var challanLocation = $('#txtChalanLocationCode').val();
+        var itemCondition = $('#ddlItemStatus').val();
+        var itemType = $('#ddlItemType').val();
+
+        var mrrGridLength = $('#gvMrrDetails').data('tGrid').data.length;
+
+        var startDate = Helper.DateCange($('#hfOpenBackDay').val());
+        var endDate = Helper.DateCange($('#hfOpenDay').val());
+        var selectedDate = Helper.DateCange(mrrDate);
+
+        var challanDate = Helper.DateCange($('#txtChallanDate').val());
+
+        if (mrrGridLength <= 0) {
+            alert("No Item Found For Received");
+            return false;
+        }
+
+        if (mrrDate == "") {
+            alert("Please Give Received Date");
+            return false;
+        }
+        //        else if (selectedDate < startDate || selectedDate > endDate) {
+        //            alert("MRR Date Should be in Current Month/Period");
+        //            return false;
+        //        }
+        else if (selectedDate < challanDate) {
+            alert("MRR Date Cannot Be Less Than Challan Date");
+            return false;
+        }
+        else if (receiveType == "") {
+            alert("Please Give MRR Type");
+            return false;
+        }
+        else if (challanInbox == "") {
+            alert("Please Select A Challan");
+            return false;
+        }
+        //else if (mrrNumber == "") {
+        //    alert("Please Give MRR Number"); Modified By Md.Sultan Mahmud
+        //    return false;
+        //}
+        else if (storeLocation == "") {
+            alert("Please Give Store Location");
+            return false;
+        }
+
+        if (storeLocation == "9" || storeLocation == "11" || storeLocation == "12" || storeLocation == "13") {
+            itemCondition = "0";
+        }
+        else if (itemType == "CONSUMITEM") {
+            itemCondition = "0";
+        }
+        else {
+            if (itemCondition == "0") {
+                alert("Please Give Item Condition");
+                return false;
+            }
+        }
+
+        //        if (receiveType == "RCVFRDTNEW" || receiveType == "RCVFRDTOLD" || receiveType == "RCVFRDTCSI") {
+        //            itemCondition = "";
+        //        }
+        //        else {
+
+        //            if (itemCondition == "0") {
+        //                alert("Please Give Item Condition");
+        //                return false;
+        //            }
+        //        }
+
+        var challanSequenceNumber = $('#txtChallanSequenceNumber').val();
+
+        var componentSequenceNumber = 1;
+        var itemCode = "";
+        var itemSerials = "";
+
+        var challanMaster = "";
+        var challanWithSerials = "";
+        var isSerializable = "";
+        var refChallanSequenceNumber = ""
+        var challanQuantity = 0;
+        var alreadyReceiveQuantity = 0;
+
+        var i = 0;
+
+        for (i = 0; i < mrrGridLength; i++) {
+
+            var tr = $("#gvMrrDetails tbody tr:eq(" + i + ")");
+
+            itemCode = $.trim((tr.find('td:eq(1)').text()));
+            receivedQuantity = $.trim(tr.find('td:eq(7)').find('input').val());
+            challanQuantity = $.trim(tr.find('td:eq(5)').text());
+            alreadyReceiveQuantity = $.trim(tr.find('td:eq(6)').text());
+            isSerializable = $.trim(tr.find('td:eq(10)').text());
+            refChallanSequenceNumber = $.trim(tr.find('td:eq(11)').text());
+            var checkedDataOrNot = tr.find("td:eq(0)").find('input');
+
+            if (checkedDataOrNot.is(':checked') == true) {
+
+                if (receivedQuantity == "") {
+                    alert("Please Give Received Quantity");
+                    break;
+                }
+                else if (Helper.IsInt($.trim(receivedQuantity)) == false) {
+                    alert("Received Quantity Cannot Be Negative/Character");
+                    break;
+                }
+
+                if (isSerializable == "true") {
+
+                    var serialGridLengthCheck = $("#SerialCollectionGrid tbody tr").find("td:eq(0):contains('" + itemCode + "')").length;
+
+                    if (parseInt(receivedQuantity) != serialGridLengthCheck) {
+                        alert("Please MAP All Serial For The Item (" + itemCode + ")");
+                        break;
+                    }
+                }
+
+                if (challanMaster != "") {
+                    challanMaster = challanMaster + "#" + itemCode + "," + receiveType + "," + storeLocation + "," + receivedQuantity + "," + challanSequenceNumber + "," + challanLocation + "," + componentSequenceNumber + "," + refChallanSequenceNumber + "," + challanQuantity + "," + alreadyReceiveQuantity;
+                }
+                else {
+                    challanMaster = challanMaster + itemCode + "," + receiveType + "," + storeLocation + "," + receivedQuantity + "," + challanSequenceNumber + "," + challanLocation + "," + componentSequenceNumber + "," + refChallanSequenceNumber + "," + challanQuantity + "," + alreadyReceiveQuantity;
+                }
+
+                componentSequenceNumber = componentSequenceNumber + 1;
+            }
+        }
+
+        if (i != mrrGridLength)
+        { return false; }
+
+        if (challanMaster == "") {
+            alert("Please Select Items For Received");
+            return false;
+        }
+
+        componentSequenceNumber = 1;
+        $('#SerialCollectionGrid tbody tr').each(function () {
+
+            itemCode = $(this).find('td:eq(0)').text();
+            itemSerials = $(this).find('td:eq(1)').text();
+
+            if (challanWithSerials != "") {
+                challanWithSerials = challanWithSerials + "#" + itemCode + "," + itemSerials + "," + componentSequenceNumber;
+            }
+            else {
+                challanWithSerials = challanWithSerials + itemCode + "," + itemSerials + "," + componentSequenceNumber;
+            }
+
+            componentSequenceNumber = componentSequenceNumber + 1;
+        });
+
+        //alert("challanMaster: " + challanMaster);
+        //alert("challanWithSerials: " + challanWithSerials);
+
+        $.ajax({
+
+            type: 'POST',
+            url: '@Url.Action("SaveMRRWithChallan", "InventoryDailyTransaction")',
+            data: "{'mrrMaster':'" + challanMaster + "','mrrWithSerials':'" + challanWithSerials + "','mrrDate':'" + mrrDate + "','mrrSequenceNumber':'" + mrrSeqNumber + "','refMRRNumber':'" + mrrNumber + "','itemCondition':'" + itemCondition + "','itemType':'" + $('#ddlItemType').val() + "','particulars':'" + $('#txtParticulars').val() + "'}",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+
+                    //$("#ddlChallanInbox option[value='" + challanInbox + "']").remove();
+
+                    LoadChallanInbox();
+                    ClearAllControl();
+
+                    $('#txtMRRSequenceNumber').val(data[0].id);
+                }
+                else {
+                    alert(data[0].message);
+                }
+            },
+            error: function () { alert("Connection Failed. Please Try Again"); }
+        });
+
+        return false;
+    }
+
+    function CheckReceiveQuantity(itemCode, challanQuantity, alreadyReceivedQuantity, receiveQuantity) {
+
+        var tr = $("#gvMrrDetails tbody tr:contains('" + $.trim(itemCode) + "')");
+
+        if (tr.find("td:eq(0)").find('input').is(':checked') == false) {
+            alert("Please Select The (" + itemCode + ") For Challan");
+            $('#mrrReceive' + itemCode).val("");
+            return false;
+        }
+
+        var challanReceivedQuantity = parseInt(challanQuantity);
+        var receiveQuantityGiven = parseInt(alreadyReceivedQuantity) + parseInt(receiveQuantity);
+
+        if (receiveQuantityGiven > challanReceivedQuantity) {
+            alert("Receive Quantity Cannot Be Greater Than Challan & Already Receive Quantity");
+            $('#mrrReceive' + itemCode).val("");
+        }
+        else if (receiveQuantity == "0") {
+            alert("Please Give Receive Quantity");
+            $('#mrrReceive' + itemCode).val("");
+        }
+        else if (Helper.IsInt($.trim(receiveQuantity)) == false) {
+            alert("Receive Quantity Cannot Be Negative/Character");
+            $('#mrrReceive' + itemCode).val("");
+        }
+    }
+
+    function LoadChallanInbox() {
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadChallanInbox", "InventoryDailyTransaction")',
+            data: "{'itemTypeId':'" + $('#ddlItemType').val() + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                $('#ddlChallanInbox').get(0).options.length = 0;
+                $('#ddlChallanInbox').get(0).options[0] = new Option('--Select--', '');
+
+                $.map(data, function (item) {
+                    $('#ddlChallanInbox').get(0).options[$('#ddlChallanInbox').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again.");
+            }
+        });
+    }
+
+    function CheckGridRecords(itemCode) {
+
+        if ($("#checkRecords" + itemCode).is(":checked") == true) {
+
+        }
+        else if ($("#checkRecords" + itemCode).is(":checked") == false) {
+
+            var tr = $("#gvMrrDetails tbody tr:contains('" + itemCode + "')");
+            tr.find("td:eq(7)").find("input").val("");
+
+            tr.css("background-color", "#ffffff");
+
+            $("#SerialCollectionGrid tbody tr").each(function () {
+                if ($.trim($(this).find("td:eq(0)").text()) == itemCode) {
+                    $(this).remove();
+                }
+            });
+        }
+    }
+
+    function ClearAllControl() {
+
+        $('select').each(function () {
+            $(this).val("");
+        });
+
+        $('#gvMrrDetails').data().tGrid.dataBind([]);
+
+        $('#txtMRRNumber').val("");
+        $('#txtChallanLocation').val("");
+        $('#txtChalanLocationCode').val("")
+        $('#txtChallanDate').val("");
+        $('#txtChallanSequenceNumber').val("");
+        $('#txtRefChallanNumber').val("");
+
+        $('#hfEditSerial').val("0");
+        $('#hfItemCode').val("0");
+        $('#hfValidItemTransTypeForMRR').val("0");
+
+        $('#SerialCollectionGrid tbody').html('');
+        $('#serialGrid tbody').html('');
+        $('#ddlChallanItemSerials').get(0).options.length = 0;
+        $('#ddlChallanItemSerials').get(0).options[0] = new Option('--Select--', '');
+
+        $('#ddlStoreLocation').get(0).options.length = 0;
+        $('#ddlStoreLocation').get(0).options[0] = new Option('--Select--', '');
+
+        $('#ddlMrrType').get(0).options.length = 0;
+        $('#ddlMrrType').get(0).options[0] = new Option('--Select--', '');
+
+        $('#serialMapForMRR').css('display', 'none');
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

@@ -1,0 +1,879 @@
+﻿@{
+    ViewBag.Title = "Salary Advice For Bank";
+    Layout = "~/Areas/HRMS/Views/Shared/_HrmsLayout.cshtml";
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+@{
+    string ss = (Convert.ToDateTime(ViewBag.CurrentDay)).ToString("yyyyMM");   
+}
+<input id = "hfReportUrl" type = "hidden" value = "@ViewData["reportUrl"]"/>
+<input id="hfCurrentLocation" type="hidden" />
+<input id="hfRegionLocation" type="hidden" />
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td style="width: 50%;">
+            <table cellpadding="0" cellspacing="2" border="0">
+                <tr>
+                    <td>Start Letter Sequence No
+                    </td>
+                    <td>
+                        @Html.TextBox("txtStartLetterSequenceNo", "", new { @class = "ReportTextBox" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>End Letter Sequence No
+                    </td>
+                    <td>
+                        @Html.TextBox("txtEndLetterSequenceNo", "", new { @class = "ReportTextBox", @readonly = true })
+                    </td>
+                </tr>
+                <tr>
+                    <td>For Month
+                    </td>
+                    <td>
+                        @Html.DropDownList("ddlSalaryAdviseMonth", new SelectList(ViewBag.ForMonth, "YearMonthValue", "YearMonthName"), "--Select--", new { @class = "ReportDropDown" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bank Number
+                    </td>
+                    <td>
+                        @Html.DropDownList("ddlBanknumber", Enumerable.Empty<SelectListItem>(), new { @class = "ReportDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 50%;" valign="top">
+            <table cellpadding="0" cellspacing="2" border="0">
+                <tr>
+                    <td>Report Type
+                    </td>
+                    <td>
+                        @Html.DropDownList("ddlGenerateBankAdvice", new List<SelectListItem>{
+                           new SelectListItem { Text="For All Location Other Than HO", Value="FORALLLOCATIONEXCEPTHO" },
+                           new SelectListItem{Text = "For a Single Location", Value="FORASINGLELOCATION"},
+                           new SelectListItem{Text = "For Online Bank (Only Online Branch)", Value="FORAONLINEBANK"}
+                        }, new { @class = "ReportDropDown" }
+                       )
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bank Advice Location
+                    </td>
+                    <td>
+                        @Html.TextBox("txtBankAdviceLocation", "", new { @class = "ReportTextBox" })
+                        @(Html.Telerik().Window().Name("dialogEmployeeLocationSelection")
+                                          .Title("Select A Location For Load Employee")
+                                          .ClientEvents(events => events.OnClose("CloseDialogEmployeeLocationSelection"))
+                                          .Draggable(false)
+                                          .Resizable(resizing => resizing.Enabled(false)
+                                                                         .MinHeight(155)
+                                                                         .MinWidth(355)
+                                                                         .MaxHeight(500)
+                                                                         .MaxWidth(500)
+                                                                         )
+                                          .Modal(true)
+                                          .Buttons(b => b.Close())
+                                          .Content(@<p id="LoadEmployeeLocationSelectionWindow" style="height: 153px; width: 342px; padding: 0; margin: 0;">
+                                          </p>
+                                          )
+                                          .Visible(false)
+                                     )
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bank Advice Account
+                    </td>
+                    <td>
+                        @Html.DropDownList("ddlBankAdviceAccount", Enumerable.Empty<SelectListItem>(), "----Select---", new { @class = "ReportDropDown" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bank Advice Version
+                    </td>
+                    <td>
+                        @Html.DropDownList("ddlGenerateBankAdviceVersion", new List<SelectListItem> { 
+                                new SelectListItem{Text="English Version", Value="ENGLISH"},
+                                new SelectListItem{Text="Bangla Version", Value="BANGLA"}
+                        }, new { @class = "ReportDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input id="btnGenerateBankAdvice" type="button" class="button" value="Generate Bank Advice"
+                onclick="return GenerateBankAdvice();" />
+            <input id="btnViewBankAdvice" type="button" class="button" value="View Bank Advice"
+                onclick="return ReportValidationCheck();" />
+            <input id="btnBankAdviceForSalaryLatter" style="display:none" type="button" class="button" value="Latter To Customer"
+                onclick="return BankAdviceForSalaryLatterCheck();" />
+            <input id="btnLatterToChairmanReport" style="display:none"  type="button" class="button" value="Latter To Chairman"
+                onclick="return LatterToChairmanReportCheck();" />
+        
+          <input id="btnLatterToUpoZelaChairmanReport" style="display:none" type="button" class="button" value="Latter To UpoZela"
+                onclick="return LatterToUpoZelaChairmanReportCheck();" />
+       
+         <input id="btnEnvelopeToCustomerReport" style="display:none" type="button" class="button" value="Customer Envelope"
+                onclick="return EnvelopeToCustomerReportCheck();" />
+         <input id="btnAttachmentToUnionReport" style="display:none" type="button" class="button" value="Attachment To Union"
+                onclick="return AttachmentToUnionReportCheck();" />
+       
+        <input id="btnAttachmentToUpazilaReport" style="display:none"  type="button" class="button" value="Attachment To Upazila"
+                onclick="return AttachmentToUpazilaReportCheck();" />
+        </td>
+        <td>Salary With Bonus<input type="checkbox" id="chkbSalaryWithBonus" onclick="checkSalaryWithBonus();" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Bonus Only<input type="checkbox" id="chkbBonusOnly" onclick="checkBonusOnly();" />
+
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="2" style="height: 5px;"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div style="margin: 0 auto; width: 980px; padding: 5px; border: 1px solid #D1D1D1; overflow-x: scroll;">
+                <iframe id="ifrmReportViewer" name="ifrmReportViewer" frameborder="0" width="980"
+                    height="1000" scrolling="yes"></iframe>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="height: 5px;"></td>
+    </tr>
+</table>
+<script type="text/javascript">
+    //.................................................................Start for checkbox check/uncheck...................................................//
+
+    function checkSalaryWithBonus() {
+        if ($('#chkbSalaryWithBonus').is(':checked') == true) {
+            $('#chkbSalaryWithBonus').attr('checked', true);
+            $('#chkbBonusOnly').attr('checked', false);
+        }
+        else {
+            $('#chkbSalaryWithBonus').attr('checked', false);
+           // $('#chkbBonusOnly').attr('checked',true);
+        }
+    }
+    function checkBonusOnly() {
+
+        if ($('#chkbBonusOnly').is(':checked') == true) {
+            $('#chkbBonusOnly').attr('checked', true);
+            $('#chkbSalaryWithBonus').attr('checked', false);
+        }
+        else {
+            $('#chkbBonusOnly').attr('checked', false);
+            //$('#chkbSalaryWithBonus').attr('checked',true);
+        }
+    }
+    //.................................................................End for checkbox check/uncheck...................................................//
+    function ss() {
+        var iframeid = "ifrmReportViewer";
+        var iframename = "ifrmReportViewer";
+        var iframefield = "hfAdviceLetterReferenceEndSeqNo";
+
+        var mmspobj = document.getElementById(iframeid);
+        if (mmspobj.tagName == 'IFRAME') {
+            myval = window.frames[iframeid].document.getElementById(iframefield).value;
+        }
+        document.getElementById("txtEndLetterSequenceNo").value = myval;
+    }
+
+    function CloseDialogWindowEmployeeLocation() {
+
+        var locationCode = "";
+        var locationText = "";
+        var regionLocationCode = "";
+
+
+        if ($('#ddlLocationType').val() == "ho") {
+            locationText = "[9000] Head Office";
+            locationCode = "9000";
+        }
+        else if ($('#ddlLocationType').val() == "zone") {
+            locationText = $('#ddlZone').find('option:selected').text();
+            locationCode = $('#ddlZone').val();
+        }
+        else if ($('#ddlLocationType').val() == "unit") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+            regionLocationCode = $('#ddlRegion').val();
+        }
+
+        $('#txtBankAdviceLocation').val(locationText);
+
+        $('#hfCurrentLocation').val(locationCode);
+        $('#hfRegionLocation').val(regionLocationCode);
+
+        var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+        detailWindow.center().close();
+
+        GetLocationWiseBankAccount($('#hfCurrentLocation').val());
+
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+
+        return false;
+    }
+
+
+    function GetLocationWiseBankAccount(locationCode) {
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetLocationWiseBankAccountForSalaryBoucher", "HrmReport")',
+            data: { locationCode: locationCode },
+            cache: false,
+            success: function (data) {
+                $('#ddlBankAdviceAccount').get(0).options.length = 0;
+                $('#ddlBankAdviceAccount').get(0).options[0] = new Option('--Select--', '');
+
+                $.map(data, function (item) {
+                    $('#ddlBankAdviceAccount').get(0).options[$('#ddlBankAdviceAccount').get(0).options.length] = new Option(item.BankName, item.BankID);
+                });
+
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+    }
+
+
+    function GenerateBankAdvice() {
+
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+        var startLetterSequenceNo = $('#txtStartLetterSequenceNo').val();
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            //            else if (bankAccount == '') {
+            //                alert("Please select bank account.");
+            //                return false;
+            //            }
+        }
+        else if (startLetterSequenceNo == "") {
+            alert("Please Give Start Letter Sequence No");
+            return false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GenerateSalaryAdviceForBank", "HrmReport")',
+            data: { forMonth: forMonth, reportType: reportType, generateType: generateType, startLetterSequenceNo: startLetterSequenceNo, locationCode: locationCode, bankAccount: bankAccount },
+            cache: false,
+            success: function (data) {
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+                }
+                else {
+                    alert(data[0].message);
+                }
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+
+        var iframe_element = window.frames['ifrmReportViewer'];
+        iframe_element.document.open();
+        iframe_element.document.close();
+    }
+
+    function BankAdviceLcoation() {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("BankAdviceLcoation", "HrmReport")',
+            data: {},
+            cache: false,
+            success: function (data) {
+
+            },
+            error: function (req, status, error) {
+                alert(req.status);
+                alert(error);
+            }
+        });
+    }
+
+    function ReportValidationCheck() {
+
+        var url = $('#hfReportUrl').val();
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            else if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+        else if (reportType == 'FORAONLINEBANK') {
+            if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+
+        if ($('#chkbSalaryWithBonus').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForSalaryWithBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        else if ($('#chkbBonusOnly').is(":checked"))
+        {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount; 
+        }
+        else {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForSalary&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+              + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        $("#txtEndLetterSequenceNo").val("");
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else { myframe.setAttribute('src', url); }
+        }
+
+        setTimeout(GetCookie, 5000);
+
+        return false;
+    }
+
+    //
+
+    function BankAdviceForSalaryLatterCheck() {
+
+        var url = $('#hfReportUrl').val();
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            else if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+        else if (reportType == 'FORAONLINEBANK') {
+            if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+
+        if ($('#chkbSalaryWithBonus').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForSalaryWithBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        else if ($('#chkbBonusOnly').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+        else {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=LetterToCustomer&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+              + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        $("#txtEndLetterSequenceNo").val("");
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else { myframe.setAttribute('src', url); }
+        }
+
+        setTimeout(GetCookie, 5000);
+
+        return false;
+    }
+    //
+
+    function LatterToChairmanReportCheck() {
+
+        var url = $('#hfReportUrl').val();
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            else if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+        else if (reportType == 'FORAONLINEBANK') {
+            if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+
+        if ($('#chkbSalaryWithBonus').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForSalaryWithBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        else if ($('#chkbBonusOnly').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+        else {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=LetterToChairman&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+              + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        $("#txtEndLetterSequenceNo").val("");
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else { myframe.setAttribute('src', url); }
+        }
+
+        setTimeout(GetCookie, 5000);
+
+        return false;
+    } 
+    
+    function LatterToUpoZelaChairmanReportCheck() {
+
+        var url = $('#hfReportUrl').val();
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            else if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+        else if (reportType == 'FORAONLINEBANK') {
+            if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+
+        if ($('#chkbSalaryWithBonus').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForSalaryWithBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        else if ($('#chkbBonusOnly').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+        else {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=LetterToUNO&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+              + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        $("#txtEndLetterSequenceNo").val("");
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else { myframe.setAttribute('src', url); }
+        }
+
+        setTimeout(GetCookie, 5000);
+
+        return false;
+    }
+
+    function EnvelopeToCustomerReportCheck() {
+
+        var url = $('#hfReportUrl').val();
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            else if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+        else if (reportType == 'FORAONLINEBANK') {
+            if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+
+        if ($('#chkbSalaryWithBonus').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForSalaryWithBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        else if ($('#chkbBonusOnly').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+        else {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=Envelope&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+              + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        $("#txtEndLetterSequenceNo").val("");
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else { myframe.setAttribute('src', url); }
+        }
+
+        setTimeout(GetCookie, 5000);
+
+        return false;
+    } //AttachmentToUnionReportCheck
+
+    function AttachmentToUnionReportCheck() {
+
+        var url = $('#hfReportUrl').val();
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            else if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+        else if (reportType == 'FORAONLINEBANK') {
+            if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+
+        if ($('#chkbSalaryWithBonus').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForSalaryWithBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        else if ($('#chkbBonusOnly').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+        else {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=AttachmentToUnionReport&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+              + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        $("#txtEndLetterSequenceNo").val("");
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else { myframe.setAttribute('src', url); }
+        }
+
+        setTimeout(GetCookie, 5000);
+
+        return false;
+    } //AttachmentToUpazilaReport
+
+    function AttachmentToUpazilaReportCheck() {
+
+        var url = $('#hfReportUrl').val();
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            else if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+        else if (reportType == 'FORAONLINEBANK') {
+            if (bankAccount == '') {
+                alert("Please select bank account.");
+                return false;
+            }
+        }
+
+        if ($('#chkbSalaryWithBonus').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForSalaryWithBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        else if ($('#chkbBonusOnly').is(":checked")) {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=BankAdviceForBonus&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+               + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+        else {
+            url = "../../Areas/HRMS/Reports/ReportView.aspx?rptmode=local&reportname=AttachmentToUpazilaReport&parameters=dpForMonth=" + forMonth + ",dpReportType=" + reportType
+              + ",dpGenerateType=" + generateType + ",dpLocationCode=" + locationCode + ",dpBankAccount=" + bankAccount;
+        }
+
+        $("#txtEndLetterSequenceNo").val("");
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else { myframe.setAttribute('src', url); }
+        }
+
+        setTimeout(GetCookie, 5000);
+
+        return false;
+    }
+
+    function GetCookie() {
+        var iBody = $("#ifrmReportViewer").contents().find("body");
+        var myContent = iBody.find("#EndLetterSequenceNoToShow").text();
+        $("#txtEndLetterSequenceNo").val(myContent);
+    }
+
+    $(document).ready(function () {
+        $('#txtBankAdviceLocation').attr('disabled', true);
+        $('#ddlBankAdviceAccount').attr('disabled', true);
+    });
+
+    $('#ddlGenerateBankAdvice').change(function () {
+
+        if ($(this).val() == 'FORASINGLELOCATION') {
+
+            $('#txtBankAdviceLocation').attr('disabled', false);
+            $('#ddlBankAdviceAccount').attr('disabled', false);
+        }
+        else if ($(this).val() == 'FORAONLINEBANK') {
+
+            $('#txtBankAdviceLocation').attr('disabled', true);
+            $('#ddlBankAdviceAccount').attr('disabled', false);
+
+            $('#txtBankAdviceLocation').val("");
+            $('#ddlBankAdviceAccount').val("");
+            $('#hfCurrentLocation').val("");
+
+            GetLocationWiseBankAccount("");
+        }
+        else {
+
+            $('#txtBankAdviceLocation').val("");
+            $('#ddlBankAdviceAccount').val("");
+            $('#hfCurrentLocation').val("");
+
+            $('#txtBankAdviceLocation').attr('disabled', true);
+            $('#ddlBankAdviceAccount').attr('disabled', true);
+        }
+
+    });
+
+    $('#txtBankAdviceLocation').click(function () {
+        LoadLocationDialog();
+    });
+
+    function LoadLocationDialog() {
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("EmployeeLocationSelectionTransferPartial", "EmployeeRegister")',
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#LoadEmployeeLocationSelectionWindow').html(data);
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+
+        var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+        detailWindow.center().open();
+    }
+
+
+    function CloseDialogEmployeeLocationSelection(e) {
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+    }
+
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

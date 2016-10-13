@@ -1,0 +1,265 @@
+﻿@using RASolarERP.Model;
+@using RASolarHRMS.Model;
+<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+        else {
+            e.data = {
+                employeeID: $('#txtEmployeeID').val(),
+                employeeName: $('#txtEmployeeName').val(),
+                designation: $('#ddlDesignation').val(),
+                locationCode: $('#hfToLocation').val(),
+                employeeStatus: $('#ddlEmployeeStatus').val()
+            };
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+</script>
+@{
+    ViewBag.Title = "Employee Search";
+    Layout = "~/Areas/HRMS/Views/Shared/_HrmsLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+    
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfToLocation" type="hidden" value="" />
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td align="left" style="width: 50%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn" valign="top">
+                        Employee ID
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtEmployeeID", "", new { @class = "IRControl" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        Location Code
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtLocationCode", "", new { @class = "IRControl", @readonly = true })
+                        @(Html.Telerik().Window().Name("dialogEmployeeLocationSelection")
+                                          .Title("Select A Location For Transfer")
+                                          .ClientEvents(events => events.OnClose("CloseDialogEmployeeLocationSelection"))
+                                          .Draggable(false)
+                                          .Resizable(resizing => resizing.Enabled(false)
+                                                                         .MinHeight(155)
+                                                                         .MinWidth(355)
+                                                                         .MaxHeight(500)
+                                                                         .MaxWidth(500)
+                                                                         )
+                                          .Modal(true)
+                                          .Buttons(b => b.Close())
+                                          .Content(@<p id="LoadEmployeeLocationSelectionWindow" style="height: 153px; width: 342px;
+                                              padding: 0; margin: 0;">
+                                          </p>
+                                          )
+                                          .Visible(false)
+                                     )
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        Employee Status
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlEmployeeStatus", new List<SelectListItem>()
+                           {
+                               new SelectListItem {Text="Active", Value="0", Selected=true},
+                               new SelectListItem {Text="Active-InTransit", Value="4"},
+                               new SelectListItem{ Text="In-Active", Value="1"},
+                               new SelectListItem{ Text="Resign Employee", Value="77"},
+                               new SelectListItem{ Text="Held up", Value="75"}
+                           }, new { @class = "IRDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="width: 50%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn" valign="top">
+                        Employee Name
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtEmployeeName", "", new { @class = "IRControl" })
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn" valign="top">
+                        Designation
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlDesignation", new SelectList(ViewBag.Designation, "HDesignationID", "HDesignationName"), "--Select--", new { @class = "IRDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="3" style="padding-top: 8px;">
+            <input id="btnShowtemList" type="submit" value="Show" onclick="return ShowItemList();"
+                style="width: 60px;" />
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="3" style="padding-top: 8px;">
+            @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.EmployeeDetailsInfo>()
+         .Name("gvEmployeeSearchDetails")
+         .DataKeys(keys => keys.Add(k => k.EmployeeID))
+         .Columns(column =>
+         {
+             column.Bound(s => s.EmployeeID).Title("Employee ID").Width(100);
+             column.Bound(s => s.EmployeeName).Title("Employee Name").Width(200);
+             column.Bound(s => s.Department).Title("Department").Width(150);
+             column.Bound(s => s.Designation).Title("Designation").Width(150);
+             column.Bound(s => s.PresentLocation).Title("Present Location").Width(200);
+         })
+         .DataBinding(settings => settings.Ajax().Select("LoadEmployeeDetails", "EmployeeDept"))
+         .Scrollable(scorll => scorll.Height(250))
+         .ClientEvents(events =>
+         {
+             events.OnDataBinding("onDataBinding");
+             events.OnError("onError");
+         })
+         .Footer(true)
+         .Pageable(page => page.PageSize(60))
+         )
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    function CloseDialogWindowEmployeeLocation() {
+
+        var locationCode = "";
+        var locationText = "";
+        var regionLocationCode = "";
+
+
+        if ($('#ddlLocationType').val() == "ho") {
+            locationText = "[9000] Head Office";
+            locationCode = "9000";
+        }
+        else if ($('#ddlLocationType').val() == "zone") {
+            locationText = $('#ddlZone').find('option:selected').text();
+            locationCode = $('#ddlZone').val();
+        }
+        else if ($('#ddlLocationType').val() == "unit") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+            regionLocationCode = $('#ddlRegion').val();
+        }
+
+        $('#hfToLocation').val(locationCode);
+        $('#txtLocationCode').val(locationText);
+
+        var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+        detailWindow.center().close();
+
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+
+        return false;
+    }
+
+    $(document).ready(function () {
+        $('#txtLocationCode').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("EmployeeLocationSelectionPartial", "EmployeeRegister")',
+                dataType: 'html',
+                cache: false,
+                success: function (data) {
+                    $('#LoadEmployeeLocationSelectionWindow').html(data);
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+
+            var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+            detailWindow.center().open();
+        });
+    });
+
+    function CloseDialogEmployeeLocationSelection(e) {
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+    }
+
+    function ShowItemList() {
+        var params = {
+            employeeID: $('#txtEmployeeID').val(),
+            employeeName: $('#txtEmployeeName').val(),
+            designation: $('#ddlDesignation').val(),
+            locationCode: $('#hfToLocation').val(),
+            employeeStatus: $('#ddlEmployeeStatus').val()
+        };
+
+        var grid = $('#gvEmployeeSearchDetails').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        return false;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+    function CloseDialogWindow() {
+
+        var detailWindow = $("#dialogUnitSelection").data("tWindow");
+        detailWindow.center().close();
+
+        var locationCode = "";
+        var locationText = "";
+
+        if ($('#ddlUnit').val() != "") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+            $('#hfToLocation').val(locationCode);
+            $('#txtLocationCode').val(locationText);
+        }
+
+        return false;
+    }
+   
+</script>

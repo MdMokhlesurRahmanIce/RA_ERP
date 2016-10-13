@@ -1,0 +1,228 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RASolarModel", "RASolarModel", "{006A95CD-B06C-4937-97FE-BEE820F58AAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarAMS.Model", "RASolarAMS.Model\RASolarAMS.Model.csproj", "{52EA8C97-87A9-445E-BD81-EC7DEB2CCB35}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651} = {4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.Model", "RASolarERP.Model\RASolarERP.Model.csproj", "{7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651} = {4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarHRMS.Model", "RASolarHRMS.Model\RASolarHRMS.Model.csproj", "{408A53A1-E889-4729-8A07-F22CBD6755FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651} = {4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarSecurity.Model", "RASolarSecurity.Model\RASolarSecurity.Model.csproj", "{C3F17CEE-0625-4A48-A2C4-DC1ADA13F736}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarHelper", "RASolarHelper\RASolarHelper.csproj", "{107B98ED-7CD4-4F2A-93A6-AC9590123C37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RaSolarApplication", "RaSolarApplication", "{88868515-F9A0-40C7-92DE-346F5B1FE4C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.Web", "RASolarERP.Web\RASolarERP.Web.csproj", "{821C2F89-C84A-4EC8-B8E7-15F135DE8AC0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FD385955-8925-4764-9B27-52870994A53A} = {FD385955-8925-4764-9B27-52870994A53A}
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651} = {4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RASolarERPDomainModel", "RASolarERPDomainModel", "{D63F32C6-CBAD-4A84-BB9B-1DEAF020DE96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RASolarERPApplicationModels", "RASolarERPApplicationModels", "{7CD61E9E-EF7E-4E60-9BC8-C65EE09209BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RASolarERPApplicationControllers", "RASolarERPApplicationControllers", "{3BDD57F5-1E65-47F4-AF73-79EAB33B5E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.DomainModel", "RASolarERP.DomainModel\RASolarERP.DomainModel.csproj", "{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}"
+	ProjectSection(ProjectDependencies) = postProject
+		{107B98ED-7CD4-4F2A-93A6-AC9590123C37} = {107B98ED-7CD4-4F2A-93A6-AC9590123C37}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.FinancialControllers", "RASolarERP.FinancialControllers\RASolarERP.FinancialControllers.csproj", "{D98C9BDA-C264-4027-A62B-AD1D4F136AB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.HRMSControllers", "RASolarERP.HRMSControllers\RASolarERP.HRMSControllers.csproj", "{81F90559-4D72-463D-9825-BC9395733698}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.InventoryControllers", "RASolarERP.InventoryControllers\RASolarERP.InventoryControllers.csproj", "{FD385955-8925-4764-9B27-52870994A53A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34B8C514-6B1C-4A99-B309-244EC7151302} = {34B8C514-6B1C-4A99-B309-244EC7151302}
+		{3A72B857-C0EA-452C-959D-96125A365388} = {3A72B857-C0EA-452C-959D-96125A365388}
+		{7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE} = {7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE}
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651} = {4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.SalesControllers", "RASolarERP.SalesControllers\RASolarERP.SalesControllers.csproj", "{A5AD368D-B7A9-41D3-B459-0078A77DE62F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.FinancialModels", "RASolarERP.FinancialModels\RASolarERP.FinancialModels.csproj", "{0712F5C7-0CEC-4782-AA57-A03F8D5C8447}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.HRMSModels", "RASolarERP.HRMSModels\RASolarERP.HRMSModels.csproj", "{052F6173-41D5-4043-B8FB-922E8D8F039A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.InventoryModels", "RASolarERP.InventoryModels\RASolarERP.InventoryModels.csproj", "{34B8C514-6B1C-4A99-B309-244EC7151302}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.SalesModels", "RASolarERP.SalesModels\RASolarERP.SalesModels.csproj", "{3A72B857-C0EA-452C-959D-96125A365388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RASolarERP.CommonModels", "RASolarERP.CommonModels\RASolarERP.CommonModels.csproj", "{253550D6-D260-473E-B898-566DA1CB9FEC}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 17
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = RASolarSecurity.Model\\RASolarSecurity.Model.csproj
+		SccProjectTopLevelParentUniqueName1 = RASolarERP.sln
+		SccLocalPath1 = .
+		SccProjectFilePathRelativizedFromConnection1 = RASolarSecurity.Model\\
+		SccProjectUniqueName2 = RASolarHRMS.Model\\RASolarHRMS.Model.csproj
+		SccProjectTopLevelParentUniqueName2 = RASolarERP.sln
+		SccLocalPath2 = .
+		SccProjectFilePathRelativizedFromConnection2 = RASolarHRMS.Model\\
+		SccProjectUniqueName3 = RASolarHelper\\RASolarHelper.csproj
+		SccProjectTopLevelParentUniqueName3 = RASolarERP.sln
+		SccLocalPath3 = .
+		SccProjectFilePathRelativizedFromConnection3 = RASolarHelper\\
+		SccProjectUniqueName4 = RASolarERP.Web\\RASolarERP.Web.csproj
+		SccProjectTopLevelParentUniqueName4 = RASolarERP.sln
+		SccLocalPath4 = .
+		SccProjectFilePathRelativizedFromConnection4 = RASolarERP.Web\\
+		SccProjectUniqueName5 = RASolarERP.SalesModels\\RASolarERP.SalesModels.csproj
+		SccProjectTopLevelParentUniqueName5 = RASolarERP.sln
+		SccLocalPath5 = .
+		SccProjectFilePathRelativizedFromConnection5 = RASolarERP.SalesModels\\
+		SccProjectUniqueName6 = RASolarERP.SalesControllers\\RASolarERP.SalesControllers.csproj
+		SccProjectTopLevelParentUniqueName6 = RASolarERP.sln
+		SccLocalPath6 = .
+		SccProjectFilePathRelativizedFromConnection6 = RASolarERP.SalesControllers\\
+		SccProjectUniqueName7 = RASolarERP.Model\\RASolarERP.Model.csproj
+		SccProjectTopLevelParentUniqueName7 = RASolarERP.sln
+		SccLocalPath7 = .
+		SccProjectFilePathRelativizedFromConnection7 = RASolarERP.Model\\
+		SccProjectUniqueName8 = RASolarERP.InventoryModels\\RASolarERP.InventoryModels.csproj
+		SccProjectTopLevelParentUniqueName8 = RASolarERP.sln
+		SccLocalPath8 = .
+		SccProjectFilePathRelativizedFromConnection8 = RASolarERP.InventoryModels\\
+		SccProjectUniqueName9 = RASolarERP.InventoryControllers\\RASolarERP.InventoryControllers.csproj
+		SccProjectTopLevelParentUniqueName9 = RASolarERP.sln
+		SccLocalPath9 = .
+		SccProjectFilePathRelativizedFromConnection9 = RASolarERP.InventoryControllers\\
+		SccProjectUniqueName10 = RASolarERP.HRMSModels\\RASolarERP.HRMSModels.csproj
+		SccProjectTopLevelParentUniqueName10 = RASolarERP.sln
+		SccLocalPath10 = .
+		SccProjectFilePathRelativizedFromConnection10 = RASolarERP.HRMSModels\\
+		SccProjectUniqueName11 = RASolarERP.HRMSControllers\\RASolarERP.HRMSControllers.csproj
+		SccProjectTopLevelParentUniqueName11 = RASolarERP.sln
+		SccLocalPath11 = .
+		SccProjectFilePathRelativizedFromConnection11 = RASolarERP.HRMSControllers\\
+		SccProjectUniqueName12 = RASolarERP.FinancialModels\\RASolarERP.FinancialModels.csproj
+		SccProjectTopLevelParentUniqueName12 = RASolarERP.sln
+		SccLocalPath12 = .
+		SccProjectFilePathRelativizedFromConnection12 = RASolarERP.FinancialModels\\
+		SccProjectUniqueName13 = RASolarERP.FinancialControllers\\RASolarERP.FinancialControllers.csproj
+		SccProjectTopLevelParentUniqueName13 = RASolarERP.sln
+		SccLocalPath13 = .
+		SccProjectFilePathRelativizedFromConnection13 = RASolarERP.FinancialControllers\\
+		SccProjectUniqueName14 = RASolarERP.DomainModel\\RASolarERP.DomainModel.csproj
+		SccProjectTopLevelParentUniqueName14 = RASolarERP.sln
+		SccLocalPath14 = .
+		SccProjectFilePathRelativizedFromConnection14 = RASolarERP.DomainModel\\
+		SccProjectUniqueName15 = RASolarERP.CommonModels\\RASolarERP.CommonModels.csproj
+		SccProjectTopLevelParentUniqueName15 = RASolarERP.sln
+		SccLocalPath15 = .
+		SccProjectFilePathRelativizedFromConnection15 = RASolarERP.CommonModels\\
+		SccProjectUniqueName16 = RASolarAMS.Model\\RASolarAMS.Model.csproj
+		SccProjectTopLevelParentUniqueName16 = RASolarERP.sln
+		SccLocalPath16 = .
+		SccProjectFilePathRelativizedFromConnection16 = RASolarAMS.Model\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52EA8C97-87A9-445E-BD81-EC7DEB2CCB35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52EA8C97-87A9-445E-BD81-EC7DEB2CCB35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52EA8C97-87A9-445E-BD81-EC7DEB2CCB35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52EA8C97-87A9-445E-BD81-EC7DEB2CCB35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408A53A1-E889-4729-8A07-F22CBD6755FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408A53A1-E889-4729-8A07-F22CBD6755FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408A53A1-E889-4729-8A07-F22CBD6755FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408A53A1-E889-4729-8A07-F22CBD6755FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3F17CEE-0625-4A48-A2C4-DC1ADA13F736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3F17CEE-0625-4A48-A2C4-DC1ADA13F736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3F17CEE-0625-4A48-A2C4-DC1ADA13F736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3F17CEE-0625-4A48-A2C4-DC1ADA13F736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{107B98ED-7CD4-4F2A-93A6-AC9590123C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{107B98ED-7CD4-4F2A-93A6-AC9590123C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{107B98ED-7CD4-4F2A-93A6-AC9590123C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{107B98ED-7CD4-4F2A-93A6-AC9590123C37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821C2F89-C84A-4EC8-B8E7-15F135DE8AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821C2F89-C84A-4EC8-B8E7-15F135DE8AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821C2F89-C84A-4EC8-B8E7-15F135DE8AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821C2F89-C84A-4EC8-B8E7-15F135DE8AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98C9BDA-C264-4027-A62B-AD1D4F136AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98C9BDA-C264-4027-A62B-AD1D4F136AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98C9BDA-C264-4027-A62B-AD1D4F136AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98C9BDA-C264-4027-A62B-AD1D4F136AB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81F90559-4D72-463D-9825-BC9395733698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F90559-4D72-463D-9825-BC9395733698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81F90559-4D72-463D-9825-BC9395733698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81F90559-4D72-463D-9825-BC9395733698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD385955-8925-4764-9B27-52870994A53A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD385955-8925-4764-9B27-52870994A53A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD385955-8925-4764-9B27-52870994A53A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD385955-8925-4764-9B27-52870994A53A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5AD368D-B7A9-41D3-B459-0078A77DE62F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5AD368D-B7A9-41D3-B459-0078A77DE62F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5AD368D-B7A9-41D3-B459-0078A77DE62F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5AD368D-B7A9-41D3-B459-0078A77DE62F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0712F5C7-0CEC-4782-AA57-A03F8D5C8447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0712F5C7-0CEC-4782-AA57-A03F8D5C8447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0712F5C7-0CEC-4782-AA57-A03F8D5C8447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0712F5C7-0CEC-4782-AA57-A03F8D5C8447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{052F6173-41D5-4043-B8FB-922E8D8F039A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{052F6173-41D5-4043-B8FB-922E8D8F039A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{052F6173-41D5-4043-B8FB-922E8D8F039A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{052F6173-41D5-4043-B8FB-922E8D8F039A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34B8C514-6B1C-4A99-B309-244EC7151302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34B8C514-6B1C-4A99-B309-244EC7151302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34B8C514-6B1C-4A99-B309-244EC7151302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34B8C514-6B1C-4A99-B309-244EC7151302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A72B857-C0EA-452C-959D-96125A365388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A72B857-C0EA-452C-959D-96125A365388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A72B857-C0EA-452C-959D-96125A365388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A72B857-C0EA-452C-959D-96125A365388}.Release|Any CPU.Build.0 = Release|Any CPU
+		{253550D6-D260-473E-B898-566DA1CB9FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{253550D6-D260-473E-B898-566DA1CB9FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{253550D6-D260-473E-B898-566DA1CB9FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{253550D6-D260-473E-B898-566DA1CB9FEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{52EA8C97-87A9-445E-BD81-EC7DEB2CCB35} = {006A95CD-B06C-4937-97FE-BEE820F58AAF}
+		{7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE} = {006A95CD-B06C-4937-97FE-BEE820F58AAF}
+		{408A53A1-E889-4729-8A07-F22CBD6755FE} = {006A95CD-B06C-4937-97FE-BEE820F58AAF}
+		{C3F17CEE-0625-4A48-A2C4-DC1ADA13F736} = {006A95CD-B06C-4937-97FE-BEE820F58AAF}
+		{107B98ED-7CD4-4F2A-93A6-AC9590123C37} = {006A95CD-B06C-4937-97FE-BEE820F58AAF}
+		{821C2F89-C84A-4EC8-B8E7-15F135DE8AC0} = {88868515-F9A0-40C7-92DE-346F5B1FE4C6}
+		{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651} = {D63F32C6-CBAD-4A84-BB9B-1DEAF020DE96}
+		{0712F5C7-0CEC-4782-AA57-A03F8D5C8447} = {7CD61E9E-EF7E-4E60-9BC8-C65EE09209BD}
+		{052F6173-41D5-4043-B8FB-922E8D8F039A} = {7CD61E9E-EF7E-4E60-9BC8-C65EE09209BD}
+		{34B8C514-6B1C-4A99-B309-244EC7151302} = {7CD61E9E-EF7E-4E60-9BC8-C65EE09209BD}
+		{3A72B857-C0EA-452C-959D-96125A365388} = {7CD61E9E-EF7E-4E60-9BC8-C65EE09209BD}
+		{253550D6-D260-473E-B898-566DA1CB9FEC} = {7CD61E9E-EF7E-4E60-9BC8-C65EE09209BD}
+		{D98C9BDA-C264-4027-A62B-AD1D4F136AB9} = {3BDD57F5-1E65-47F4-AF73-79EAB33B5E5E}
+		{81F90559-4D72-463D-9825-BC9395733698} = {3BDD57F5-1E65-47F4-AF73-79EAB33B5E5E}
+		{FD385955-8925-4764-9B27-52870994A53A} = {3BDD57F5-1E65-47F4-AF73-79EAB33B5E5E}
+		{A5AD368D-B7A9-41D3-B459-0078A77DE62F} = {3BDD57F5-1E65-47F4-AF73-79EAB33B5E5E}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="965bca4a6f014290b14d1c56e60d31cf" Name="Diagram1" ZoomLevel="89">
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_ChartOfAccounts" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_FinalTransDetail" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_FinalTransMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_FiscalYearInfo" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_LocationWiseDailySummary" Width="1.5" PointX="6" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_PrePostTransDetail" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_PrePostTransMaster" Width="1.5" PointX="3.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_SpecialAccount" Width="1.5" PointX="3" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Aud_AuditAdjustmentRelatedAccountingTransaction" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Common_BankInfo" Width="1.5" PointX="3.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Common_LocationWiseBankAccountInfo" Width="1.5" PointX="6" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Common_ProjectInfo" Width="1.5" PointX="1.5" PointY="14.625" IsExpanded="true" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_FinalTransDetail_Acc_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_LocationWiseDailySummary_Acc_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_PrePostTransDetail_Acc_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_SpecialAccount_Acc_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Common_LocationWiseBankAccountInfo_Acc_ChartOfAccounts" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_t_FinalTransDetail_t_FinalTransMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_FinalTransMaster_tbl_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_LocationWiseDailySummary_tbl_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_PrePostTransDetail_Acc_PrePostTransMaster1" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Common_LocationWiseBankAccountInfo_Common_BankInfo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Common_BankAccountType" Width="1.5" PointX="8.25" PointY="8.375" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Common_BankBranchInfo" Width="1.5" PointX="11.655859172183956" PointY="12.808960086111426" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Common_LocationWiseBankAccountInfo_Common_BankAccountType" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Common_BankBranchInfo_Common_BankInfo" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Common_LocationWiseBankAccountInfo_Common_BankBranchInfo" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_PrePostTransDetailByDimension" Width="1.5" PointX="1.0958203603959738" PointY="20.689372429945212" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_PrePostTransDetailByDimension_Acc_PrePostTransDetail" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_TransNoCount" Width="1.5" PointX="5.5" PointY="21.75" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Hrm_SalaryPayRegisterByMonthNEmployee" Width="1.5" PointX="8.375" PointY="20.25" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_GLAccountVsDimension" Width="1.5" PointX="6.625" PointY="18.125" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_GLAccountVsDimension_Acc_ChartOfAccounts" />
+        <AssociationConnector Association="RASolarAMSModel.FK_Acc_PrePostTransDetailByDimension_Acc_GLAccountVsDimension" />
+        <EntityTypeShape EntityType="RASolarAMSModel.Acc_MonthlyCashReceiptPaymentTransaction" Width="1.5" PointX="10.625" PointY="2.25" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

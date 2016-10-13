@@ -1,0 +1,224 @@
+﻿<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+        else {
+            e.data = {
+                challanType: $('#ddlChallanType').val(),
+                dateFrom: $('#txtFromDate').val(),
+                dateTo: $('#txtToDate').val()
+            };
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+</script>
+@{
+    ViewBag.Title = "Stock In Transit At A Glance";
+    Layout = "~/Areas/Inventory/Views/Shared/_InventoryLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.5.1.js" type="text/javascript"></script>
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        Challan Type
+                    </td>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        @Html.DropDownList("ddlChallanType", new List<SelectListItem> 
+                        { 
+                            new SelectListItem { Text = "Incoming Challan", Value = "INDV_LOCATION_ALL_ITEM_INCOMING", Selected=true },
+                            new SelectListItem {Text="Outgoing Challan", Value="INDV_LOCATION_ALL_ITEM_OUTGOING"}
+                         }, new { @class = "IRDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        From Date
+                    </td>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        @(Html.Telerik().DatePicker()
+                            .Name("txtFromDate")
+                            .Max(new DateTime(2999, 12, 31))
+                        .Format("dd-MMM-yyyy")
+                        )
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        To Date
+                    </td>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        @(Html.Telerik().DatePicker()
+                            .Name("txtToDate")
+                            .Max(new DateTime(2999, 12, 31))
+                        .Format("dd-MMM-yyyy")
+                        )
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="3" style="padding-top: 8px;">
+            <input id="btnShowtemList" type="submit" value="Show" onclick="return ShowItemList();"
+                style="width: 60px;" />
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="3" style="padding-top: 8px;">
+            @(Html.Telerik().Grid<RASolarERP.DomainModel.InventoryModel.StockInTransitAtGlanceDetails>()
+         .Name("gvStockInTransitAtGlance")
+         .DataKeys(keys => keys.Add(k => k.ChallanNo))
+         .Columns(column =>
+         {
+             column.Bound(s => s.ChallanDate).Format("{0:dd-MMM-yyyy}").Title("Trans Date").Width(100);
+             column.Bound(s => s.ItemTransaction).Title("Challan Type").Width(200);
+             column.Bound(s => s.StoreLocationName).Title("Store Location").Width(200);
+             column.Bound(s => s.RefChallanNo).Title("Challan No").Width(80).ClientTemplate("<a class=\"ChallanNumber\" href='../InventoryDailyTransaction/ChallanDetails?ChallanSeqNo=<#=ChallanSeqNo#>&Challan=CHALLAN&locationCode=<#=ChallanFromLocationCode#>' target=\"_blank\" onclick=\"return StockTransitCheck('<#=ChallanFromLocationCode#>', '<#=ChallanFromLocationCode#>');\" ><#=RefChallanNo#></a>"); ;
+             column.Bound(s => s.ChallanSeqNo).Title("Challan Seq No").Width(80).ClientTemplate("<a class=\"ChallanSequenceNumber\" href='../InventoryDailyTransaction/ChallanDetails?ChallanSeqNo=<#=ChallanSeqNo#>&Challan=CHALLAN&locationCode=<#=ChallanFromLocationCode#>' target=\"_blank\" return StockTransitCheck('<#=ChallanFromLocationCode#>', '<#=ChallanFromLocationCode#>'); ><#=ChallanSeqNo#></a>"); ;
+             column.Bound(s => s.ChallanToLocationName).ClientTemplate("<#= ChallanToLocationName #> <#=\"[\" #> <#=ChallanToLocationCode#><#= \"]\" #>").Title("Issued To").Width(145);
+             column.Bound(s => s.ChallanFromLocationName).ClientTemplate("<#= ChallanFromLocationName #> <#= \"[\" #> <#=ChallanFromLocationCode#><#= \"]\" #>").Title("Issue From").Width(145);
+             column.Bound(s => s.ChallanToLocationCode).Hidden(true);
+             column.Bound(s => s.ChallanFromLocationCode).Hidden(true);
+         })
+         .DataBinding(settings => settings.Ajax().Select("LoadStockInTransitAtGlance", "InventoryAudit"))
+         .Scrollable(scorll => scorll.Height(250))
+         .ClientEvents(events =>
+         {
+             events.OnDataBinding("onDataBinding");
+             events.OnError("onError");
+         })
+         .Footer(true)
+         .Pageable(page => page.PageSize(100))
+         )
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $('#gvStockInTransitAtGlance').delegate("a.ChallanNumber", "click", function () {
+
+            var tr = $(this).parent().parent();
+
+            var challanToLocation = tr.find("td:eq(6)").text();
+            var challanFromLocation = tr.find("td:eq(7)").text();
+
+            var href = "";
+
+            href = $(this).attr("href");
+
+            if ($('#ddlChallanType').val() == "INDV_LOCATION_ALL_ITEM_INCOMING") {
+                href = href + "&locationCode=" + challanFromLocation;                
+            }
+            else if ($('#ddlChallanType').val() == "INDV_LOCATION_ALL_ITEM_OUTGOING") {
+                href = href + "&locationCode=" + challanFromLocation;
+            }
+
+            $(this).attr("href", href);
+
+            return true;
+
+        });
+
+        $('#gvStockInTransitAtGlance').delegate("a.ChallanSequenceNumber", "click", function () {
+
+            var tr = $(this).parent().parent();
+
+            var challanToLocation = tr.find("td:eq(6)").text();
+            var challanFromLocation = tr.find("td:eq(7)").text();
+
+            var href = "";
+
+            href = $(this).attr("href");
+
+            if ($('#ddlChallanType').val() == "INDV_LOCATION_ALL_ITEM_INCOMING") {
+                href = href + "&locationCode=" + challanFromLocation;
+            }
+            else if ($('#ddlChallanType').val() == "INDV_LOCATION_ALL_ITEM_OUTGOING") {
+                href = href + "&locationCode=" + challanFromLocation;
+            }
+
+            $(this).attr("href", href);
+
+            return true;
+
+        });
+
+    });
+
+    function ShowItemList() {
+
+        if ($('#txtFromDate').val() == "") {
+            alert("Please Give From Date");
+            return false;
+        }
+        else if ($('#txtToDate').val() == "") {
+            alert("Please Give To Date");
+            return false;
+        }
+
+        var params = {
+            challanType: $('#ddlChallanType').val(),
+            dateFrom: $('#txtFromDate').val(),
+            dateTo: $('#txtToDate').val()
+        };
+
+        var grid = $('#gvStockInTransitAtGlance').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        return false;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

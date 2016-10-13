@@ -1,0 +1,240 @@
+﻿@{
+    
+    bool menuShowHide = false;
+
+    if (@ViewBag.ShowHideMenu == null)
+    {
+        menuShowHide = false;
+    }
+    else
+    {
+        menuShowHide = (bool)@ViewBag.ShowHideMenu;
+    }
+
+
+    Html.Telerik().Menu()
+        .Name("HorizontalMenu")
+        .Orientation(MenuOrientation.Horizontal)
+        .Items(menu =>
+        {
+            menu.Add()
+               .Text("Home").Visible(menuShowHide)
+               .ImageUrl("~/Content/Images/Inventory.png")
+               .Url("~/RSFSecurity/HomePageSelection")
+               .Items(item => { });
+
+            menu.Add()
+                .Text("Sales Audit")
+                .ImageUrl("~/Content/Images/SalesIcon.png")
+                .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        @* <li>
+            <img src="@Url.Content("../../Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SalesAuditAdjsutment');">Sales Audit Adjustment</a>
+        </li>*@ @*<li>
+            <img src="@Url.Content("../../Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-UnitWiseCustomerRegister')">Customer Register</a>
+        </li>*@
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-CustomerRegisterForAuditor')">Customer Register
+                For Auditor</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-CustomersOtherView')">Customers Other View</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-CashMemoInformation')">Cash Memo Information</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="http://172.25.40.50/MonthlyEntrySales/SalesAuditAdjustmentReports.aspx"
+                target="_blank">Sales Audit Adjustment Report</a> </li>
+    </ul>
+    </text>
+);
+            menu.Add()
+                .Text("Inventory Audit")
+                .ImageUrl("~/Content/Images/Inventory.png")
+                .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-StockPositionViewNUpdate')">Stock Position
+                View and Update</a> </li>
+
+         <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-StockPositionViewNUpdateAuditObservation')">Stock Position
+                View and Update Audit Observation</a> </li>
+
+        @*<li>
+            <img src="@Url.Content("../../Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-AuditAdjustmentNewItem');">Audit Adjustment
+                New Item</a></li>
+        <li>
+            <img src="@Url.Content("../../Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-AuditAdjustmentCustomerSupportItem');">Audit
+                Adjustment Customer Support</a></li>
+        <li>
+            <img src="@Url.Content("../../Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-AuditAdjustmentSystemReturnItem');">Audit Adjustment
+                System Return</a></li> *@
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemIssueForAuditAdjustment');">Item Issue
+                For Audit Adjustment</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemReceiveForAuditAdjustment');">Item Receive
+                For Audit Adjustment</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventoryLedger')">Item Ledger Report</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventoryInTransitReport')">Stock In-Transit
+                Report</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemSummary');">Item Summary Report</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ChallanInformationAtGlance');">Challan Information
+                At A Glance</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-MRRInformationAtGlance');">MRR Information
+                At A Glance</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-StockInTransitAtGlance');">Stock In Transit
+                At A Glance</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemSerialCorrection');">Item Serial Correction</a> 
+        </li>
+    </ul>
+    </text>
+
+);
+
+            menu.Add()
+                .Text("Accounting Audit")
+                .ImageUrl("~/Content/Images/AccountingIcon.png")
+                @*.Items(item =>
+                {
+                    item.Add().Text("General Ledger Report").ImageUrl("~/Content/Images/AccountingIcon.png").
+                        Action("b", "b").LinkHtmlAttributes(new { onclick = "return RSFMenu('ACC-GeneralLedger');" });
+
+                    item.Add().Text("Monthly Account Summary Statement").ImageUrl("~/Content/Images/AccountingIcon.png").
+                        Action("b", "b").LinkHtmlAttributes(new { onclick = "return RSFMenu('ACC-MonthlyAccountSummaryStatement');" });
+
+                    item.Add().Text("Trial Balance Report").ImageUrl("~/Content/Images/AccountingIcon.png").
+                        Action("b", "b").LinkHtmlAttributes(new { onclick = "return RSFMenu('ACC-TrialBalance');" });
+
+
+                    item.Add().Text("Account Voucher For Auditor").ImageUrl("~/Content/Images/AccountingIcon.png")
+                        .Items(child =>
+                        {
+                            child.Add().Text("Contra Voucher").ImageUrl("~/Content/Images/AccountingIcon.png").
+                        Action("b", "b").LinkHtmlAttributes(new { onclick = "return RSFMenu('ACC-ContraVoucherForAuditor');" });
+
+                            child.Add().Text("Payment Voucher").ImageUrl("~/Content/Images/AccountingIcon.png").
+                        Action("b", "b").LinkHtmlAttributes(new { onclick = "return RSFMenu('ACC-PaymentVoucherForAuditor');" });
+
+                            child.Add().Text("Receive Voucher").ImageUrl("~/Content/Images/AccountingIcon.png").
+                        Action("b", "b").LinkHtmlAttributes(new { onclick = "return RSFMenu('ACC-ReceiveVoucherForAuditor');" });
+
+                            child.Add().Text("Child item 1.5.4").Text("Non Cash Voucher").ImageUrl("~/Content/Images/AccountingIcon.png").
+                        Action("b", "b").LinkHtmlAttributes(new { onclick = "return RSFMenu('ACC-NonCashVoucherForAuditor');" });
+
+                        });
+                });*@
+ .Content(
+     @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-GeneralLedger');">General Ledger Report</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-MonthlyAccountSummaryStatement')">Monthly Account
+                Summary Statement</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-TrialBalance');">Trial Balance Report</a>
+        </li>
+        <li class="t-item t-state-default">
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />Account
+            Voucher For Auditor<span class="t-icon t-arrow-next"></span>
+              <ul class="t-group MenuListVertical" style="display: none; margin-left: -120px; width: 153px;">
+                <li class="t-link">
+                    <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+                    <a href="#" onclick="return RSFMenu('ACC-ContraVoucherForAuditor');">Contra Voucher
+                    </a>
+                </li>
+                 <li class="t-link">
+                    <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+                    <a href="#" onclick="return RSFMenu('ACC-PaymentVoucherForAuditor');">Payment Voucher
+                    </a>
+                </li>
+                 <li class="t-link">
+                    <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+                    <a href="#" onclick="return RSFMenu('ACC-ReceiveVoucherForAuditor');">Receive Voucher
+                    </a>
+                </li>
+                 <li class="t-link">
+                    <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+                    <a href="#" onclick="return RSFMenu('ACC-NonCashVoucherForAuditor');">Non Cash Voucher
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    </text>
+                );
+
+            menu.Add()
+            .Text("Audit Setup")
+            .ImageUrl("~/Content/Images/Inventory.png")
+            .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-Auditor');">Auditor Setup</a> </li>
+    </ul>
+    </text>
+);
+
+            menu.Add()
+                .Text("Area Selection Page")
+                .ImageUrl("~/Content/Images/PreviousPage.png")
+                .Url("~/RSFSecurity/LocationSelection")
+                .Items(item => { });
+
+
+            menu.Add()
+                .Text("Employee Management")
+                .ImageUrl("~/Content/Images/Inventory.png")
+                .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-EmployeeSearch');">Employee Search</a>
+        </li>
+    </ul>
+    </text>
+);
+
+
+        }).Render();
+}

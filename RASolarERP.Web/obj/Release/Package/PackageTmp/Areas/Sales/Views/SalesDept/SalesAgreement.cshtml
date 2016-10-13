@@ -1,0 +1,1517 @@
+﻿@using RASolarERP.Model;
+@{
+    ViewBag.Title = "New Sales/Re-Sales Agreement";
+
+
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfCustomerIDPrefix" type="hidden" value="@ViewBag.CustomerId" />
+<input id="hfInstallmentSize" type="hidden" value="0" />
+<input id="hfInstallmentInMonth" type="hidden" value="0" />
+<input id="hfCurrentDay" type="hidden"  value="@ViewBag.CurrentDay"/>
+<input id="hfCustomerSerials" type="hidden" value="@ViewBag.CurrentCustomerSerial" />
+<input id="hfIsInventoryImplemented" type="hidden"  value="@ViewBag.IsInventoryImplemented"/>
+@using (Html.BeginForm("SalesAgreement", "SalesDept", FormMethod.Post, null))
+{  
+    @Html.Hidden("hfStockLocationWiseComponenet", "0")
+    @Html.Hidden("hfResaleOrNot", "false")
+    @Html.Hidden("hfCustomerCode", "")
+    @Html.Hidden("hfDiscountPercentage", "0")
+    @Html.Hidden("hfDPPercentage", "0")
+    @Html.Hidden("hfServiceChargePercentage", "0")
+    @Html.Hidden("hfIsReSalesOrSales", "0")
+
+    <input id="hfCustomerIdValidOrNot" type="hidden" value="0" />
+    
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td style="width: 25%;" align="left">
+                            Agreement Date:<font size="2" face="Tahoma" color="Red"><b>*</b></font> @Html.Telerik().DatePicker().Name("dtpAgreementDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(ViewBag.DayOpen)
+                        </td>
+                        <td style="width: 25%;" align="left">
+                            Sales Person:<font size="2" face="Tahoma" color="Red"><b>*</b></font>&nbsp;@Html.DropDownList("ddlEmployee", new SelectList(@ViewBag.Employee, "EmployeeID", "EmployeeName"), "--Select--", new { @class = "SalesAgreementControl" })
+                        </td>
+                        <td style="width: 50%; display: none;" align="left">
+                            Prospective Customer:&nbsp;@Html.TextBox("txtProspectiveCustomer", "", new { @class = "SalesAgreementControl" })
+                            <input id="btnSearchProspectiveCustomer" type="button" value="Search" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset class="sagGroupBox">
+                    <legend>Customer Information</legend>
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="width: 29%;" align="left" valign="top">
+                                <table cellpadding="0" cellspacing="2" border="0">
+                                    <tr>
+                                        <td class="SalesAgreementCaptionLeftColumn">
+                                            Customer Type:
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlCustomerType", new SelectList(ViewBag.CustomerType, "CustomerTypeID", "Description", "PERSNL"), new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionLeftColumn">
+                                            Customer Serial:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtCustomerSerial", (string)ViewBag.CurrentCustomerSerial, new { @onblur = "GenerateCustomerID();", @maxlength = "5", @class = "SalesAgreementControl" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionLeftColumn">
+                                            Customer ID:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtCustomerCode", (string)ViewBag.CustomerId, new { @disabled = "disabled", @class = "SalesAgreementControl" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionLeftColumn">
+                                            Customer Name:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtCustomerName", "", new { @class = "SalesAgreementControl" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 35%;" align="left" valign="top">
+                                <table cellpadding="0" cellspacing="2" border="0">
+                                    <tr>
+                                        <td class="SalesAgreementCaptionMiddleColumn">
+                                            Father/Husband Name:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtFatherHusbandName", "", new { @class = "SalesAgreementControl" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionMiddleColumn">
+                                            Mother Name:
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtMotherName", "", new { @class = "SalesAgreementControl" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionMiddleColumn">
+                                            Gender:
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlGender", new List<SelectListItem> { 
+                                new SelectListItem{Text ="Male", Value="M", Selected=true},
+                                new SelectListItem{Text ="Female", Value="F"}
+                            }, new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionMiddleColumn">
+                                            Village:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtVillage", "", new { @class = "SalesAgreementControl" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 35%;" valign="top" align="left">
+                                <table cellpadding="0" cellspacing="2" border="0">
+                                    <tr>
+                                        <td class="SalesAgreementCaptionRightColumn">
+                                            Post Office:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtPostOffice", "", new { @class = "SalesAgreementControl" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionRightColumn">
+                                            Upazilla/Thana:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlUpazillaThana", new SelectList(@ViewBag.Upazilla, "UPAZ_CODE", "UPAZ_NAME"), "--Select--", new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionRightColumn">
+                                            Mobile No:
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtMobileNumber", "", new { @onblur = "CheckPhone(this.value);", @class = "SalesAgreementControl", @maxLength = "11" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionRightColumn">
+                                            National ID Card:
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtNationalIdNumber", "", new { @onblur = "CheckNationalId(this.value);", @class = "SalesAgreementControl", @maxLength = "13" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset class="sagGroupBox">
+                    <legend>Package Information</legend>
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="width: 29%;" align="left" valign="top">
+                                <table cellpadding="0" cellspacing="2" border="0">
+                                    <tr>
+                                        <td class="SalesAgreementCaptionLeftColumn">
+                                            Program Name:
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlProgram", new SelectList(@ViewBag.Program, "PROG_CODE", "PROG_NAME", "SHS001"), new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionLeftColumn">
+                                            Project Name:
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlProject", new SelectList(@ViewBag.Project, "project_code", "project_name", "200   "), new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 35%;" align="left" valign="top">
+                                <table cellpadding="0" cellspacing="2" border="0">
+                                    <tr valign="top">
+                                        <td class="SalesAgreementCaptionMiddleColumn">
+                                            Package Capacity:
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlPackageCapacity", new SelectList(@ViewBag.PackageCapacity, "CapacityID", "Description", "0020WP"), "--Select--", new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="SalesAgreementCaptionMiddleColumn">
+                                            Package Light:
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlPackageLight", new SelectList(@ViewBag.PackageLight, "LightID", "Description", "02LIGHT"), "--Select--", new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 35%;" valign="top" align="left">
+                                <table cellpadding="0" cellspacing="2" border="0">
+                                    <tr>
+                                        <td class="SalesAgreementCaptionRightColumn">
+                                            Package Name:
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlPackage", new SelectList(@ViewBag.Package, "PackageCode", "Description"), "--Select--", new { @class = "SalesAgreementDropDown" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset class="sagGroupBox">
+                    <legend>Package Price/Items</legend>
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr id="tblHavingPkg">
+                            <td colspan="3" style="width: 100%;" align="left">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <td style="width: 29%;" valign="top">
+                                            <table cellpadding="0" cellspacing="2" border="0">
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionLeftColumn">
+                                                        Mode of Payment:
+                                                    </td>
+                                                    <td>
+                                                        @Html.DropDownList("ddlModeOfPayment", new SelectList(@ViewBag.ModeOfPayment, "ModeOfPaymentID", "Description", "03YEAR"), new { @class = "SalesAgreementDropDown" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionLeftColumn">
+                                                        Package Price:
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtPackagePrice", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionLeftColumn">
+                                                        Discount Amount (<label id="txtDiscount"></label>%):
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtDiscountAmount", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionLeftColumn">
+                                                        Amount After Discount:
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txActualPayableAmount", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionLeftColumn">
+                                                        DP Amount (<label id="txtDP"></label>%):
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtDPAmount", "", new { @onblur = "SetDPPercentage();", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td style="width: 35%;" valign="top">
+                                            <table cellpadding="0" cellspacing="2" border="0">
+                                                <tr>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionMiddleColumn">
+                                                        Memo Number:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtMemoNumber", "", new { @class = "SalesAgreementControl", @maxLength = "10" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionMiddleColumn">
+                                                        Loan Amount:
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtRestAmount", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionMiddleColumn">
+                                                        Total Service Charge (<label id="txtServiceCharge"></label>%):
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtTotalServiceCharge", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionMiddleColumn">
+                                                        Loan & Service Charge:
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtTotalPayableWithServiceCharge", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td style="width: 35%;" valign="top">
+                                            <table cellpadding="0" cellspacing="2" border="0">
+                                                <tr>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionRightColumn">
+                                                        Number of Installments:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtInstallments", "", new { @onblur = "CheckInstallment(this.value);", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionRightColumn">
+                                                        Installment Size/Amount:<font size="2" face="Tahoma" color="Red"><b>*</b></font>
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtInstallmentAmount", "", new { @onblur = "CheckInstallmentSizeValue(this.value);", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionRightColumn">
+                                                        Monthly Principal Receivable:
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtMonthlyPrincipalPayable", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="SalesAgreementCaptionRightColumn">
+                                                        Monthly Service Charge Receivable:
+                                                    </td>
+                                                    <td>
+                                                        @Html.TextBox("txtMonthlyServiceChargePayable", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            @(Html.Telerik().Grid<PackageDetails>()
+                              .Name("gvPackage")
+                              .DataKeys(keys => keys.Add(k => k.CompSeqNo))
+                              .Columns(column =>
+                              {
+                                  column.Bound(c => c.ItemCategoryID).Title("Component Code").Width(200).Hidden(true);
+                                  column.Bound(c => c.Description).Title("Description").Width(200);
+                                  column.Bound(c => c.CapacityDescription).Title("Capacity/Volume").Width(100);
+
+                                  column.Bound(c => c.ItemModel).ClientTemplate("<#if(ItemModel !='      '){#> <#=ModelDescription#> <#}else{#> <select id='ddlStock<#=ItemCategoryID#>' > <option value='0'>--Select--</option> <#}#> </select>")
+                                      .Title("Model").Width(100);
+
+                                  column.Bound(c => c.FixedQuantity).Title("Quantity").Width(100);
+                                  column.Bound(c => c.UnitOfMeasure).Title("Unit of Measure").Width(100);
+
+                                  column.Bound(c => c.ItemCategoryID).ClientTemplate("<#if(IsSerialNoMandatory == 1){#>  <input type='text' id='txtSerial<#=ItemCategoryID#>' value='' /> <b class=\"RedMarks\">*</b> <#} else {#> &nbsp; <#}#>").Title("Serial Number");
+                                  column.Bound(c => c.ItemModel).Hidden(true);
+                                  column.Bound(c => c.IsSerialNoMandatory).Hidden(true);
+                                  column.Bound(c => c.ItemCapacity).Hidden(true);
+                              })
+                              .DataBinding(dbBindings => dbBindings.Ajax().Select("_PackageDetailsLoad", "SalesDept"))
+                              .ClientEvents(events => events.OnDataBound("Grid_onDataBinding"))
+                              .Footer(false)
+                          )
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr id="tblWithoutPkg">
+                        <td colspan="3" style="width: 100%;" align="left">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td colspan="2">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%;">
+                                        <table cellpadding="0" cellspacing="2" border="0">
+                                            <tr>
+                                                <td>
+                                                    Type of Sales:
+                                                </td>
+                                                <td>
+                                                    <select id="ddlWPTypeOfSales">
+                                                        <option value="Credit">Credit</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Package Price:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPPackagePrice", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Actual Payable Amount:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txWPActualPayableAmount", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    DP Amount:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPDPAmount", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Subsidies:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPSubsidies", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Loan Amount:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPLoanAmount", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Year[s]:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPYears", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Total Service Charge:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPTotalServiceCharge", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Installment Size/Amount:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPInstallmentAmount", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Days of Payment[Every Month]:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPDaysofPayment", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Monthly Principal Payable:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPMonthlyPrincipalPayable", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="width: 50%;">
+                                        <table cellpadding="0" cellspacing="2" border="0">
+                                            <tr>
+                                                <td>
+                                                    Technical Fees:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPTechnicalFees", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Mode of Payment:
+                                                </td>
+                                                <td>
+                                                    <select id="ddlWPModeOfPayment">
+                                                        <option value="0">--Select--</option>
+                                                        <option value="Cash">Cash</option>
+                                                        <option value="3 Months">3 Months</option>
+                                                        <option value="1 Years">1 Years</option>
+                                                        <option value="2 Years">2 Years</option>
+                                                        <option value="3 Years">3 Years</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    DP (%):
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPDP", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Advance Payment:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPAdvancePayment", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Rest Amount:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPRestAmount", "", new { @readonly = "readonly", @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Service Charge:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPServiceCharge", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Installment[s]:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPInstallments", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Total Payable with Service Charge:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPTotalPayableWithServiceCharge", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Last Date of Payment:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPLastDateOfPayment", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Last Date of Installment:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPLastDateOfInstallment", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Monthly Service Charge Payable:
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("txtWPMonthlyServiceChargePayable", "", new { @class = "SalesAgreementControl" })
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td align="left">
+                            <input id="btnSubmit" style="width: 100px;" type="submit" onclick="return SaveSalesAgreement();"
+                                value="Submit" />
+                            &nbsp;&nbsp;
+                            <input type="button" style="width: 100px;" id="resetSalesAgreement" value="Cancel"
+                                onclick="return ClearAllControl();" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>   
+   
+}
+<script type="text/javascript">
+
+    if ($('#ddlProgram').val() != "BIO001") {
+        $('#tblWithoutPkg').css("display", "none");
+        $('#tblHavingPkg').css("display", "");
+    }
+
+    var initialLoad = true;
+    function Grid_onDataBinding(e) {
+
+        if (initialLoad) {
+            e.preventDefault();
+            initialLoad = false;
+        }
+
+        //ProcessStockLocation();
+        ItemModel();
+    }
+
+    $(document).ready(function () {
+
+        $('#ddlCustomerType').change(function () {
+            ClearAllControl();
+        });
+
+        $('#ddlProgram').change(function () {
+
+            if ($('#ddlProgram').val() == "BIO001") {
+                $('#tblWithoutPkg').css("display", "");
+                $('#tblHavingPkg').css("display", "none");
+            }
+            else {
+                $('#tblWithoutPkg').css("display", "none");
+                $('#tblHavingPkg').css("display", "");
+            }
+
+            LoadProject();
+            LoadPackage();
+            ///LoadModeOfPayments();
+            //LoadPackageAndBindGrid();
+            //ProcessStockLocation();
+        });
+
+        $('#ddlProject').change(function () {
+
+            LoadCapacity();
+            //LoadPackage();
+            //LoadPackageAndBindGrid();
+            // ProcessStockLocation();
+        });
+
+        $('#ddlPackage').change(function () {
+
+            LoadModeOfPayments();
+            $('#ddlModeOfPayment').val("03YEAR")
+
+            LoadPackageAndBindGrid();
+
+            var programID = $('#ddlProgram').val();
+            var projectID = $('#ddlProject').val();
+            var packageID = $('#ddlPackage').val();
+            var modeOfPayment = $('#ddlModeOfPayment').val();
+            var customerType = $('#ddlCustomerType').val();
+
+            SetAgreementDetails(packageID, programID, projectID, modeOfPayment, customerType, 0);
+        });
+
+        $('#ddlPackageLight').change(function () {
+            LoadPackage();
+        });
+
+        $('#ddlModeOfPayment').change(function () {
+
+            var dpAmount = 0;
+
+            if ($('#txtDPAmount').val() != "")
+                dpAmount = $('#txtDPAmount').val();
+
+            var programID = $('#ddlProgram').val();
+            var projectID = $('#ddlProject').val();
+            var packageID = $('#ddlPackage').val();
+            var modeOfPayment = $('#ddlModeOfPayment').val();
+            var customerType = $('#ddlCustomerType').val();
+
+            if (packageID == "")
+                return false;
+
+            LoadPackageAndBindGrid();
+            SetAgreementDetails(packageID, programID, projectID, modeOfPayment, customerType, 0);
+
+            return false;
+        });
+
+        function LoadPackageAndBindGrid() {
+
+            var params = {
+                packageCode: $('#ddlPackage').val(),
+                modeOfPaymentID: $('#ddlModeOfPayment').val(),
+                customerType: $('#ddlCustomerType').val()
+            };
+
+            var grid = $('#gvPackage').data('tGrid');
+            grid.dataSource._data = [];
+            //grid.rebind(params);
+
+            // Reload The Package Details
+            grid.ajaxRequest(params);
+        }
+
+        function LoadPackage() {
+
+            var capacityId = $('#ddlPackageCapacity').val();
+            var lightId = $('#ddlPackageLight').val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("PackgeList", "SalesDept")',
+                data: "{'capacityId':'" + capacityId + "','lightId':'" + lightId + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $('#ddlPackage').get(0).options.length = 0;
+                    $('#ddlPackage').get(0).options[0] = new Option("--Select--", "0");
+
+                    $.map(data, function (item) {
+                        $('#ddlPackage').get(0).options[$('#ddlPackage').get(0).options.length] = new Option(item.Display, item.Value);
+                    });
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+        }
+
+        $('#ddlPackageCapacity').change(function () {
+            LoadLight();
+        });
+
+        function LoadCapacity() {
+
+            var projectCode = $('#ddlProject').val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CapacityList", "SalesDept")',
+                data: "{'projectCode':'" + projectCode + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    $('#ddlPackageCapacity').get(0).options.length = 0;
+                    $('#ddlPackageCapacity').get(0).options[0] = new Option("--Select--", "0");
+
+                    $.map(data, function (item) {
+                        $('#ddlPackageCapacity').get(0).options[$('#ddlPackageCapacity').get(0).options.length] = new Option(item.Display, item.Value);
+                    });
+
+                },
+                error: function () {
+                    alert("Failed to Load Capacity");
+                }
+            });
+        }
+
+        function LoadLight() {
+
+            var capacityId = $('#ddlPackageCapacity').val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("LightList", "SalesDept")',
+                data: "{'capacityId':'" + capacityId + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    $('#ddlPackageLight').get(0).options.length = 0;
+                    $('#ddlPackageLight').get(0).options[0] = new Option("--Select--", "0");
+
+                    $.map(data, function (item) {
+                        $('#ddlPackageLight').get(0).options[$('#ddlPackageLight').get(0).options.length] = new Option(item.Description, item.LightID);
+                    });
+
+                },
+                error: function () {
+                    alert("Failed to Load Package Light");
+                }
+            });
+
+        }
+
+    });
+
+    function LoadProject() {
+
+        var programCode = $('#ddlProgram').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ProjectList", "SalesDept")',
+            data: "{'programCode':'" + programCode + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlProject').get(0).options.length = 0;
+                $('#ddlProject').get(0).options[0] = new Option("--Select--", "0");
+
+                $.map(data, function (item) {
+                    $('#ddlProject').get(0).options[$('#ddlProject').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function LoadModeOfPayments() {
+
+        var programCode = $('#ddlProgram').val();
+        var packageCode = $('#ddlPackage').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ModeOfPaymentList", "SalesDept")',
+            data: "{'programCode':'" + programCode + "','packageCode':'" + packageCode + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                $('#ddlModeOfPayment').get(0).options.length = 0;
+
+                $.map(data, function (item) {
+                    $('#ddlModeOfPayment').get(0).options[$('#ddlModeOfPayment').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+
+            },
+            error: function () {
+                alert("Failed to Load Mode Of Payment");
+            }
+        });
+    }
+
+    function ResetCombo() {
+
+        var grid = $('#gvPackage').data('tGrid');
+        var rowsCnt = $('#gvPackage').data('tGrid').data.length;
+
+        var tr = $("#gvPackage tbody tr:eq(1)");
+        var col = $(tr).find('td:eq(0)').text();
+
+        var tt = $(tr).find('td:eq(5)').find('input').val();
+
+        var cc = $(tr).find('td:eq(6)').find('select').val();
+
+        alert(tt);
+        alert(col);
+
+        return false;
+    }
+
+    function SetDPPercentage() {
+
+        if (Helper.IsInt($('#txtDPAmount').val()) == false) {
+            alert("Negative DP is Not Accepted.");
+            $('#txtDPAmount').val("0");
+        }
+
+        var dpAmount = 0;
+
+        if ($('#txtDPAmount').val() != "")
+            dpAmount = $('#txtDPAmount').val();
+
+        var programID = $('#ddlProgram').val();
+        var projectID = $('#ddlProject').val();
+        var packageID = $('#ddlPackage').val();
+        var modeOfPayment = $('#ddlModeOfPayment').val();
+        var customerType = $('#ddlCustomerType').val();
+
+        var actualPayableAmount = $('#txActualPayableAmount').val();
+        var dPAmount = $('#txtDPAmount').val();
+
+        if (parseInt(dpAmount) >= parseInt(actualPayableAmount)) {
+            alert("DP Amount Can't Be Equal Or Greater Than Package Price");
+        }
+        else {
+            SetAgreementDetails(packageID, programID, projectID, modeOfPayment, customerType, dPAmount);
+        }
+    }
+
+    function SetAgreementDetails(packageID, programID, projectID, modeOfPayment, customerType, dpAmount) {
+
+        var isResaleOrNewSales = 0;
+        var resalePackagePrice = 0;
+        var panelSerial = "";
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SalesAgreementDetails", "SalesDept")',
+            data: "{'packageCode':'" + packageID + "','programCode':'" + programID + "','projectCode':'" + projectID + "','paymentMode':'" + modeOfPayment + "','customerType':'" + customerType + "','dpAmountClient':'" + dpAmount + "','isResaleOrNewSales':'" + isResaleOrNewSales + "','panelSerial':'" + panelSerial + "','resalePackagePrice':'" + resalePackagePrice + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $.map(data, function (item) {
+
+                    $('#txtPackagePrice').val(item.packagePrice);
+                    $('#txtDiscount').text(item.discount);
+                    $('#hfDiscountPercentage').val(item.discount);
+                    $('#txtDiscountAmount').val(item.discountAmount);
+                    $('#txActualPayableAmount').val(item.actualPayableAmount);
+
+                    $('#txtRestAmount').val(item.restAmount);
+                    $('#txtMonthlyPrincipalPayable').val(item.monthlyPrincipalPayable);
+
+                    $('#txtDP').text(item.dPParcentage);
+                    $('#hfDPPercentage').val(item.dPParcentage);
+                    $('#txtDPAmount').val(item.dPAmount);
+
+                    $('#txtServiceCharge').text(item.serviceCharge);
+                    $('#hfServiceChargePercentage').val(item.serviceCharge);
+                    $('#txtTotalServiceCharge').val(item.totalServiceCharge);
+
+                    $('#txtTotalPayableWithServiceCharge').val(item.totalPayablewithServiceCharge);
+                    $('#txtMonthlyServiceChargePayable').val(item.monthlyServiceChargePayable);
+
+                    $('#hfInstallmentSize').val(item.installmentInMonth);
+                    $('#hfInstallmentInMonth').val(item.installmentSizeAmount);
+
+                    if (parseInt(item.totalYears) == 0) {
+                        $('#txtInstallmentAmount').val("0");
+                        $('#txtInstallments').val("0");
+                        $('#txtDPAmount').attr('readonly', 'readonly');
+                    }
+                    else {
+                        $('#txtInstallmentAmount').val("");
+                        $('#txtInstallments').val("");
+                        $('#txtDPAmount').attr('readonly', '');
+                    }
+
+                    if (item.calculationMesage.toString() != "") {
+                        alert(item.calculationMesage.toString());
+                    }
+
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function GenerateCustomerID() {
+
+        if ($('#txtCustomerSerial').val() == "")
+        { return false; }
+        if ($('#txtCustomerSerial').val() == "0") {
+            alert("0 Is Not Allowed For Customer Serial");
+            $('#txtCustomerSerial').val($('#hfCustomerSerials').val());
+            return false;
+        }
+
+        var customerCodePrefix = $('#hfCustomerIDPrefix').val();
+
+        if (Helper.IsInt($('#txtCustomerSerial').val()) == false) {
+            alert("Serial Number Not Valid");
+            $('#txtCustomerSerial').val($('#hfCustomerSerials').val());
+            $('#txtCustomerCode').val(customerCodePrefix);
+            $('#hfCustomerCode').val("");
+            return false;
+        }
+
+        var customerCode = $('#txtCustomerCode').val();
+        var customerSerials = $('#txtCustomerSerial').val();
+        var customerSerialDB = $('#hfCustomerSerials').val();
+
+        if (parseInt(customerSerials) > (parseInt(customerSerialDB) + 9)) {
+            alert("Customer Serial Can Given Current Serial to Maximum " + (parseInt(customerSerialDB) + 9));
+            $('#txtCustomerSerial').val($('#hfCustomerSerials').val());
+            return false;
+        }
+
+        if (parseInt(customerSerials) < parseInt(customerSerialDB)) {
+            alert("Customer Serial Can Given Current Serial to Maximum " + (parseInt(customerSerialDB) + 9));
+            $('#txtCustomerSerial').val($('#hfCustomerSerials').val());
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GenerateCustomerID", "SalesDept")',
+            data: "{'customerSerials':'" + customerSerials + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                $('#hfCustomerIdValidOrNot').val("0");
+
+                if (data == "Prefix") {
+                    alert("Invalid Customer Code Prefix");
+                    $('#txtCustomerCode').val(customerCodePrefix);
+                    $('#hfCustomerCode').val("");
+                    $('#txtCustomerSerial').val("");
+                }
+                else if (data == "Code") {
+                    alert("Invalid Customer Code");
+                    $('#txtCustomerCode').val(customerCodePrefix);
+                    $('#hfCustomerCode').val("");
+                    $('#txtCustomerSerial').val("");
+                }
+                else if (data == "Number") {
+                    alert("Customer Code Must Contains Number");
+                    $('#txtCustomerCode').val(customerCodePrefix);
+                    $('#hfCustomerCode').val("");
+                    $('#txtCustomerSerial').val("");
+                }
+                else if (data == "Already") {
+                    alert("Customer ID is already Exist.");
+                    $('#txtCustomerCode').val(customerCodePrefix);
+                    $('#hfCustomerCode').val("");
+                    $('#txtCustomerSerial').val("");
+                }
+                else {
+                    $('#txtCustomerCode').val(data.toString());
+                    $('#hfCustomerIdValidOrNot').val("1");
+                    $('#hfCustomerCode').val(data.toString());
+                }
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function SaveSalesAgreement() {
+
+        var agrementDate = $('#dtpAgreementDate').val();
+        var customerCode = $('#txtCustomerCode').val();
+        var customerName = $('#txtCustomerName').val();
+        var fatherHusbandName = $('#txtFatherHusbandName').val();
+        var village = $('#txtVillage').val();
+        var postOffice = $('#txtPostOffice').val();
+        var package = $('#ddlPackage').val();
+        var salesEmployee = $('#ddlEmployee').val();
+        var installments = $('#txtInstallments').val();
+        var installmentAmount = $('#txtInstallmentAmount').val();
+        var customerType = $('#ddlCustomerType').val();
+        var modeoFPayment = $('#ddlModeOfPayment').val();
+        var memoNumber = $('#txtMemoNumber').val();
+
+        var startDate = Helper.StartDate($('#hfCurrentDay').val());
+        var endDate = Helper.EndDate($('#hfCurrentDay').val());
+        var selectedDate = Helper.DateCange(agrementDate);
+
+        var currentDay = Helper.Date($('#hfCurrentDay').val());
+        var selectedDate = Helper.Date(agrementDate);
+
+        var currentDateSum = currentDay[0] + currentDay[1] + currentDay[2];
+        var selectedDateSum = selectedDate[0] + selectedDate[1] + selectedDate[2];
+
+        var selectedDateSumWithoutDay = selectedDate[1] + selectedDate[2];
+        var currentDateSumWithoutDay = currentDay[1] + currentDay[2]
+
+        alert("currentDateSum " + currentDateSum + " -- selectedDateSum" + selectedDateSum + " -- currentDateSumWithoutDay" + currentDateSumWithoutDay + "-- selectedDateSumWithoutDay" + selectedDateSumWithoutDay);
+
+        if (agrementDate == '') {
+            alert("Please Give the Agreement Date");
+            return false;
+        }
+        else if (selectedDate < startDate || selectedDate > endDate) {
+            alert("Agreement Date Should be in Current Month/Period");
+            return false;
+        }        
+        else if (package == "") {
+            alert("Please Select Package");
+            return false;
+        }
+        else if (customerCode == '') {
+            alert("Please Give the Customer ID");
+            return false;
+        }
+        else if (customerName == '') {
+            alert("Please Give the Customer Name");
+            return false;
+        }
+        else if (fatherHusbandName == '') {
+            alert("Please Give the Father/Husband Name");
+            return false;
+        }
+        else if (village == '') {
+            alert("Please Give the Village Name");
+            return false;
+        }
+        else if (postOffice == '') {
+            alert("Please Give the Post Office");
+            return false;
+        }
+        else if (salesEmployee == '') {
+            alert("Please Select a Sales Person");
+            return false;
+        }
+        else if ($('#ddlUpazillaThana').val() == "") {
+            alert("Please Select Upazilla/Thana");
+            return false;
+        }
+        else if (installments == '') {
+            alert("Please Give Installments");
+            return false;
+        }
+        else if (installmentAmount == '') {
+            alert("Please Give Installment Amount");
+            return false;
+        }
+        else if (memoNumber == '') {
+            alert("Please Give Memo Number");
+            return false;
+        }
+        else {
+
+            var actualPayableAmount = parseInt($('#txActualPayableAmount').val());
+            var dpAmpunt = parseInt($('#txtDPAmount').val());
+
+            var customerIDIsValidOrNot = $('#hfCustomerIdValidOrNot').val();
+
+            var serviceCharge = $('#txtTotalServiceCharge').val();
+
+            //alert("HF " + parseInt($('#hfInstallmentInMonth').val()) + "  txt " + parseInt(installmentAmount));
+
+            if (dpAmpunt >= actualPayableAmount) {
+                alert("DP Amount Can't Be Equal Or Greater Than Package Price");
+                return false;
+            }
+            else if (customerIDIsValidOrNot != "1") {
+                alert("Invalid Customer Code");
+                return false;
+            }
+            else if (parseInt(installments) != parseInt($('#hfInstallmentSize').val())) {
+                alert("Installments and Mode of Paymnet Need to Same");
+                return false;
+            }
+            else if (parseInt(installmentAmount) != parseInt($('#hfInstallmentInMonth').val())) {
+                alert("Installment Amount is Incorrect");
+                return false;
+            }
+
+            if (ProcessStockLocationWiseComponents() != true)
+            { alert("Please Give the Serial Number/Model"); return false; }
+
+            return true;
+        }
+
+        return true;
+    }
+
+    $(document).ready(function () {
+
+        $('form').submit(function () {
+
+            $.ajax({
+
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (data) {
+
+                    $.map(data, function (item) {
+                        if (item.messageCode == "success") {
+                            alert(item.message);
+                            ClearAllControl();
+
+                            var customerSerialsNew = parseInt($('#hfCustomerSerials').val());
+                            $('#hfCustomerSerials').val((customerSerialsNew + 1).toString());
+                            $('#txtCustomerSerial').val($('#hfCustomerSerials').val());
+                        }
+                        else {
+                            alert(item.message);
+                        }
+                    });
+                },
+                error: function () { alert("Connection Failed. Please Try Again."); }
+            });
+
+            return false;
+        });
+    });
+
+    function ItemModel() {
+
+        var rowsCount = $('#gvPackage').data('tGrid').data.length;
+        var itemCategoryIds = "";
+        var itemCapacityIds = "";
+
+        if (rowsCount > 0) {
+
+            for (var i = 0; i < rowsCount; i++) {
+
+                var tr = $("#gvPackage tbody tr:eq(" + i + ")");
+                var categoryId = $(tr).find('td:eq(0)').text();
+                var capacityId = $(tr).find('td:eq(9)').text();
+
+                if (i != 0) {
+                    itemCategoryIds = itemCategoryIds + "#" + categoryId
+                    itemCapacityIds = itemCapacityIds + "#" + capacityId;
+                }
+                else {
+                    itemCategoryIds = itemCategoryIds + categoryId;
+                    itemCapacityIds = itemCapacityIds + capacityId;
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ItemModelList", "SalesDept")',
+                data: "{'itemCategoryId':'" + itemCategoryIds + "','itemCapacityId':'" + itemCapacityIds + "'}",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                    var modelCounter = 0;
+                    var modelSelected = "";
+
+                    for (var i = 0; i < rowsCount; i++) {
+                        var tr = $("#gvPackage tbody tr:eq(" + i + ")");
+                        var categoryId = $(tr).find('td:eq(0)').text();
+                        var isSelectOrNot = $(tr).find('td:eq(3)').find('select');
+
+                        if (isSelectOrNot.is('select')) {
+
+                            $.map(data, function (item) {
+                                if (categoryId == item.ItemCategory) {
+                                    isSelectOrNot.get(0).options[isSelectOrNot.get(0).options.length] = new Option(item.Description, item.ItemModelID);
+                                    modelCounter = modelCounter + 1;
+                                    modelSelected = item.ItemModelID;
+                                }
+                            });
+
+                            if (modelCounter == 1) {
+                                isSelectOrNot.val(modelSelected);
+                            }
+
+                            modelCounter = 0;
+                            modelSelected = "";
+                        }
+                    }
+                },
+                error: function () { alert("Connection Failed. Please Try Again"); }
+            });
+
+        }
+
+        // alert(itemCategoryIds);
+    }
+
+    function SaveSalesAgreementForWithoutPackage() {
+
+        var program = $('#ddlProgram').val();
+        var project = $('#ddlProject').val();
+        var package = $('#ddlPackage').val();
+        var agreementDate = $('#dtpAgreementDate').val();
+        var customerID = $('#txtCustomerCode').val();
+        var gender = $('#ddlGender').val();
+        var mobileNumber = $('#txtMobileNumber').val();
+        var village = $('#txtVillage').val();
+        var upazillaThana = $('#ddlUpazillaThana').val();
+        var customerType = $('#ddlCustomerType').val();
+        var customerName = $('#txtCustomerName').val();
+        var fatherHusbandName = $('#txtFatherHusbandName').val();
+        var postOffice = $('#txtPostOffice').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GenerateCustomerID", "SalesDept")',
+            data: "",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function ProcessStockLocationWiseComponents() {
+
+        var orderComponent = "";
+        var itemCategoryId = "";
+        var itemSerial = "";
+        var modelNumber = "";
+        var isSerialMandatory = "";
+        var storeLocation = "1";
+        var i = 0;
+
+        var rowsCount = $('#gvPackage').data('tGrid').data.length;
+
+        for (i = 0; i < rowsCount; i++) {
+
+            var tr = $("#gvPackage tbody tr:eq(" + i + ")");
+
+            itemCategoryId = $(tr).find('td:eq(0)').text();
+            isSerialMandatory = $(tr).find('td:eq(8)').text();
+
+            var itemModel = $(tr).find('td:eq(3)');
+            var serialNumber = $(tr).find('td:eq(6)');
+
+            if (itemModel.find('option').length > 0) {
+                modelNumber = itemModel.find('option:selected').val();
+
+                if (modelNumber == 0) {
+                    break;
+                }
+            }
+            else {
+                modelNumber = $(tr).find('td:eq(7)').text();
+            }
+
+            if (serialNumber.find('input').is('input')) {
+                itemSerial = serialNumber.find('input').val();
+            }
+            else {
+                itemSerial = "";
+            }
+
+            if (isSerialMandatory == "true") {
+                if (itemSerial == "") {
+                    break;
+                }
+            }
+
+            if (orderComponent != "") {
+                orderComponent = orderComponent + "#" + itemCategoryId + "_" + modelNumber + "_" + itemSerial + "_" + storeLocation;
+            }
+            else {
+                orderComponent = itemCategoryId + "_" + modelNumber + "_" + itemSerial + "_" + storeLocation;
+            }
+        }
+
+        $('#hfStockLocationWiseComponenet').val(orderComponent);
+
+        if (i == rowsCount)
+        { return true; }
+        else
+        { return false; }
+    }
+
+    function ProcessStockLocation() {
+
+        var rowsCount = $('#gvPackage').data('tGrid').data.length;
+
+        if ($('#chkbResale').is(":checked")) {
+            for (var i = 0; i < rowsCount; i++) {
+                var tr = $("#gvPackage tbody tr:eq(" + i + ")");
+                var stockLocation = $(tr).find('td:eq(6)').find('select');
+                stockLocation.attr('disabled', false);
+            }
+        }
+        else if (!$('#chkbResale').is(":checked")) {
+            for (var i = 0; i < rowsCount; i++) {
+                var tr = $("#gvPackage tbody tr:eq(" + i + ")");
+                var stockLocation = $(tr).find('td:eq(6)').find('select');
+                stockLocation.attr('disabled', true);
+            }
+        }
+    }
+
+    function ClearAllControl() {
+
+        $(document).ready(function () {
+            $('input[type="text"]').each(function () {
+                $(this).val("");
+            });
+        });
+
+        $('#txtCustomerCode').val($('#hfCustomerIDPrefix').val());
+        $('#txtCustomerSerial').val($('#hfCustomerSerials').val());
+        $('#hfInstallmentSize').val("0");
+        $('#hfInstallmentInMonth').val("0");
+        $('#hfServiceChargePercentage').val("0");
+        $('#hfDiscountPercentage').val("0");
+        $('#hfDPPercentage').val("0");
+
+        $('#ddlPackage').val("");
+        $('#ddlUpazillaThana').val("");
+        $('#ddlPackageCapacity').val("");
+        $('#ddlPackageLight').val("");
+
+        $('#gvPackage').data().tGrid.total = 0;
+        $('#gvPackage').data().tGrid.dataBind([]);
+    }
+
+    function CheckInstallment(installment) {
+        if (installment == "")
+            return false;
+
+        if (Helper.IsInt(installment) == false) {
+            alert("Negative/Text Installment Is Not Allowed");
+            $('#txtInstallments').val("");
+        }
+        else if (parseInt($('#hfInstallmentSize').val()) != parseInt(installment)) {
+            alert("Installments and Mode of Paymnet Need to Same");
+            $('#txtInstallments').val("");
+        }
+    }
+
+    function CheckInstallmentSizeValue(installmentSize) {
+        if (installmentSize == "")
+            return false;
+
+        if (Helper.IsInt(installmentSize) == false) {
+            alert("Negative/Text installmentSize Is Not Allowed");
+            $('#txtInstallmentAmount').val("");
+        }
+        else if (parseInt($('#hfInstallmentInMonth').val()) != parseInt(installmentSize)) {
+            alert("Installment Amount is Incorrect");
+            $('#txtInstallmentAmount').val("");
+        }
+    }
+
+    function CheckPhone(mobileNumber) {
+
+        if (mobileNumber == "")
+            return false;
+
+        if (Helper.IsInt(mobileNumber) == false) {
+            alert("Negative/Text Phone/Mobile Number Is Not Allowed");
+            $('#txtMobileNumber').val("");
+        }
+    }
+
+    function CheckNationalId(nationalId) {
+
+        if (nationalId == "")
+            return false;
+
+        if (Helper.IsInt(nationalId) == false) {
+            alert("Negative/Text National ID Is Not Allowed");
+            $('#txtNationalIdNumber').val("");
+        }
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

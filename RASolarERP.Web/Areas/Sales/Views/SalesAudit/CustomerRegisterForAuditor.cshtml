@@ -1,0 +1,1408 @@
+﻿@using RASolarERP.Model;
+@model IEnumerable<RASolarERP.Model.UnitWiseCustomerRegisterReport>
+@{
+    ViewBag.Title = "Customer Register For Auditor";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<script type="text/javascript">
+
+    var firstTime = true;
+    function OnDataBindingCustomerCollection(e) {
+
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function OnErrorCustomerCollection(e) {
+        e.preventDefault();
+    }
+
+</script>
+<input id="hfOpenDay" type="hidden"  value="@ViewBag.OpenDay"/>
+<input id="hfOpenBackDay" type="hidden"  value="@ViewBag.OpenBackDay"/>
+<input id="hfSearchLocationCode" type="hidden" value="" />
+<input id="hfCollectionAddOrEditDelete" type="hidden" />
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td align="left">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td align="left">Total Collection In This Month: @((string)ViewBag.TotalCollectionInCurrentMonth)
+                    </td>
+                    <td align="left">Total Advance: @((string)ViewBag.TotalAdvance)
+                    </td>
+                    <td align="left">Total Overdue: @((string)ViewBag.TotalOverdue)
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid(Model)
+                                      .Name("gvUnitWiseCustomerRegisterReport")
+                                      .DataKeys(keys => keys.Add(k => k.CustomerCode))
+                                      .Columns(column =>
+                                      {
+                                          column.Bound(c => c.CustomerCode).Template(@<a href="#" onclick="return ShowCustomerLedger('@item.CustomerCode')">@item.CustomerCode</a>).Title("Customer ID").Width(85);
+                                          column.Bound(c => c.CustomerName).Width(170);
+                                          column.Bound(c => c.AgreementDate).Format("{0:dd-MMM-yyyy}").Width(95);
+                                          column.Bound(c => c.CollectionInCurrentMonthWithoutDP).HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}").Title("Collection In Current Month").Width(75);
+                                          column.Bound(c => c.OverdueOrAdvanceBalance).HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}").Title("Overdue or Advance").Width(75);
+                                          column.Bound(c => c.OutstandingBalance).HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Format("{0:0}").Width(75);
+                                          column.Template(@<a href="#" onclick="return CustomerCollectionForAdjustment('@item.CustomerCode', '@item.CustomerName','@item.OutstandingBalance', '@item.EmployeeAsFPR', '@item.EmployeeName')">Collection_Adjustment</a>).Width(100);
+                                          column.Template(@<a href="#" onclick="return CustomerTransfer('@item.CustomerCode', '@item.CustomerName')">Transfer</a>).Width(60);
+                                          column.Template(@<a href="@(@Url.Action("SystemReturnCustomer", "CustomerRegister") + "?customerCode=")@(item.CustomerCode)" target="_blank">System
+                                              Return</a>).Width(100);
+                                          // column.Template(@<a href="#" onclick="return FullPaidCustomer('@item.CustomerCode', '@item.CustomerName','@item.CollectionInCurrentMonthWithoutDP.ToString("0")','@Convert.ToDecimal(item.OutstandingBalance).ToString("0")')">Full
+                                          //   Paid</a>).Width(65);
+                                          column.Template(@<a href="#" class="FullPaidCustomerFromUnit">Full Paid</a>).Width(65); ;
+                                          column.Template(@<a href="#" onclick="return SalesAdjustment('@item.CustomerCode')">Sales_Adjustment</a>).Width(80);
+                                      })
+                                                                        .Selectable()
+                                                                        .Pageable(pages => pages.PageSize(300))
+                                                                        .Scrollable(scroll => scroll.Height(300))
+                                                                        .ToolBar(commands =>
+                                                                        {
+                                                                            commands.Custom().HtmlAttributes(new { id = "exportCustomerRegisterToPdf", onclick = "return SetParamaterForPdfGenerationCustomerRegister();" }).Text("Export To PDF Customer Register").Action("ExportToPdfCustomerRegister", "CustomerRegister", new { page = 1, groupby = "~", orderby = "~", filter = "~" });
+                                                                            commands.Custom().HtmlAttributes(new { id = "exportCustomerLedgerToPdf", onclick = "return SetParamaterForPdfGenerationCustomerLedger();" }).Text("Export To PDF Customer Ledger").Action("ExportToPdfCustomerLedger", "CustomerRegister", new { page = 1, groupby = "~", orderby = "~", filter = "~", customerCode = "~" });
+                                                                            commands.Custom().HtmlAttributes(new { id = "exportAllCustomerLedgerToPdf", onclick = "return SetParamaterForPdfGenerationAllCustomerLedger();" }).Text("Export To PDF All Customer Ledger").Action("ExportToPdfAllCustomerLedger", "CustomerRegister", new { page = 1, groupby = "~", orderby = "~", filter = "~", customerCode = "~" });
+                                                                        })
+
+                                                          )
+            </div>
+        </td>
+    </tr>
+
+    <tr id="customerCollectionTr">
+        <td valign="top">
+            <form id="frmCustomerCollection" method="post" action="SaveCustomerCollectionAdjustment">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td style="width: 30%;" valign="top">
+                            @Html.Hidden("hfCollectionSerials", "0")
+                            @Html.Hidden("hfCustomerCodeForCollection", "0")
+                            @Html.Hidden("hfCustomerFprPerson", "0")
+                            @Html.Hidden("hfResponsibeEmployee", "0")
+                            <input id="hfOutstandingBalance" type="hidden" value="0" />
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left">Customer ID
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCustomerCode", "", new { @disabled = "disabled" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Collection Date
+                                    </td>
+                                    <td align="left">
+                                        @(Html.Telerik().DatePicker().Name("dtpCollectionDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(ViewBag.OpenDay))
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Collection Amount
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCollectionAmount", "")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="left">
+                                        <input id="btnColelctionSubmit" type="submit" value="Save" onclick="return CustomerCollectionSave();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 30%;" valign="top" align="left">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left">Customer Name
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCustomerName", "", new { @disabled = "disabled" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Memo Number
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtMemoNumber", "", new { @maxLength = "10" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Collected By
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCustomerFprPerson", "", new { @readonly = true })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 39%;" valign="top" align="left">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td>Audit Reason
+                                    </td>
+                                    <td>
+                                     @*   @Html.DropDownList("ddlAuditReason", new SelectList(ViewBag.AuditReasons, "ReasonCode", "ReasonDescription"), "--Select--", new { @style = "width:242px;" })*@
+                                        
+                                         @Html.DropDownList("ddlAuditReason", Enumerable.Empty<SelectListItem>(), "--Select--",  new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionMiddleColumn">Responsible Employee
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtResponsibleEmployee", "", new { @style = "width:236px;" })
+                                        @(Html.Telerik().Window()
+                                              .Name("dialogEmployeeSelection")
+                                              .Title("Select An Employee")
+                                              .ClientEvents(evenets => evenets.OnClose("CloseDialogEmployeeSelection"))
+                                              .Draggable(false)
+                                              .Resizable(resizing =>
+                                                        resizing.Enabled(false)
+                                                                .MinHeight(500)
+                                                                .MinWidth(970)
+                                                                .MaxHeight(500)
+                                                                .MaxWidth(970)
+                                              )
+                                              .Modal(true)
+                                              .Buttons(b => b.Close())
+                                              .Content(@<p id="LoadEmployeeSelection" style="margin: 0; padding: 0; width: 970px; height: 425px;">
+                                              </p>)
+                                             .Visible(false)
+                                        )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Remarks
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtClaimRemarks", "", new { maxlength = "100", @style = "width:236px;" })
+                                        @(Html.Telerik().Window().Name("dialogEmployeeLocationSelection")
+                                          .Title("Select A Location For Load Employee")
+                                          .ClientEvents(events => events.OnClose("CloseDialogEmployeeLocationSelection"))
+                                          .Draggable(false)
+                                          .Resizable(resizing => resizing.Enabled(false)
+                                                                         .MinHeight(155)
+                                                                         .MinWidth(355)
+                                                                         .MaxHeight(500)
+                                                                         .MaxWidth(500)
+                                                                         )
+                                          .Modal(true)
+                                          .Buttons(b => b.Close())
+                                          .Content(@<p id="LoadEmployeeLocationSelectionWindow" style="height: 153px; width: 342px; padding: 0; margin: 0;">
+                                          </p>
+                                          )
+                                          .Visible(false)
+                                     )
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <tr id="fullPayment">
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="customerTransferTr">
+        <td valign="top">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="width: 60%;" valign="top">
+                        <form id="frmCustomerTransfer" method="post" action="SaveCustomerTransferInfo">
+                            @Html.Hidden("hfCollectionSerials", "0")
+                            @Html.Hidden("hfCustomerCodeForTransfer", "0")
+                            @*<input id="hfOutstandingBalance" type="hidden" value="0" />*@
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left">Customer ID
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCTCustomerCode", "", new { @disabled = "disabled" })
+                                    </td>
+                                    <td align="left">Customer Name
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtCTCustomerName", "", new { @disabled = "disabled" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Transfer Date
+                                    </td>
+                                    <td align="left">
+                                        @(Html.Telerik().DatePicker().Name("dtpTransferDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(ViewBag.OpenDay))
+                                    </td>
+                                    <td align="left">Transfer To Unit
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtToLocation", "", new { @class = "IRControl", @readonly = true })
+                                        @(Html.Telerik().Window().Name("dialogUnitSelection")
+                                          .Title("Select A Location For Transfer")
+                                          .Draggable(false)
+                                          .Resizable(resizing => resizing.Enabled(false)
+                                                                         .MinHeight(115)
+                                                                         .MinWidth(325)
+                                                                         .MaxHeight(500)
+                                                                         .MaxWidth(500)
+                                                                         )
+                                          .Modal(true)
+                                          .Buttons(b => b.Close())
+                                          .Content(@<text>
+                                        @Html.Partial("UnitSelection")
+                                        <input type="button" value="&nbsp;&nbsp;&nbsp;OK" class="OkButton" onclick="return CloseDialogWindow();" />
+                                        </text>
+                                                    )
+                                          .Visible(false)
+                                     )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Transfer Note
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextArea("txtTransferNotes", "")
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="left">
+                                        <input id="btnTransferInfoSubmit" type="submit" value="Save" onclick="return CustomerTransferSave();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="systemReturnContainer">
+        <td style="width: 100%">
+            @Html.Hidden("hfCustomerCodeForSystemReturn", "0")
+            <input id="hfSROutstandingBalance" type="hidden" value="0" />
+            <input id="hfSRCollectionInCurrentMonth" type="hidden" value="0" />
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left">Customer ID
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtSRCustomerCode", "", new { @disabled = "disabled" })
+                    </td>
+                    <td align="left">Customer Name
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtSRCustomerName", "", new { @disabled = "disabled" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="left">
+                        <input id="btnSystemReturn" type="button" value="System Return" onclick="return SystemReturnSave();" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="fullPaidCustomerContainer">
+        <td style="width: 100%">
+            <fieldset>
+                <legend>Full Paid</legend>
+                <form id="frmCustomerFullPaid" method="post" action="SaveCustomerFullPaidInfo">
+                    @Html.Hidden("hfCustomerCodeForFullPayed", "0")
+                    @Html.Hidden("hfApprovalRequiredForFullPayed", "")
+                    <input id="hfFPOutstandingBalance" type="hidden" value="0" />
+                    <input id="hfFPCollectionInCurrentMonth" type="hidden" value="0" />
+                    <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                        <tr>
+                            <td style="width: 49%;">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Customer ID
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtFPCustomerCode", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Customer Name
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtFPCustomerName", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Total Principal Receivable
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTotalPrincipalReceivable", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Total Service Charge Received
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTotalServiceChargeReceived", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Total Service Charge Receivable (Up to current month)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTotalServiceChargeReceivable", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Remaining Principal Receivable (After Advance Adjustment)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtRemainingPrincipalReceivable", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Remaining Service Charge Receivable (After Advance Adjustment)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtRemainingServiceChargeReceivable", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 49%;">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Agreement Date
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtAgreementDate", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Total Due / Used Month
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTotalDue", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Agreement Closed Date
+                                        </td>
+                                        <td align="left">
+                                            @(Html.Telerik().DatePicker().Name("dtpAgreementClosedDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)))
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Trans Date
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtTransDate", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Closed In
+                                        </td>
+                                        <td align="left">
+                                            @Html.DropDownList("ddlClosedIn", new List<SelectListItem> 
+                                        { 
+                                            new SelectListItem {Text="Current Month", Value="CurrentMonth", Selected = true},
+                                            new SelectListItem {Text="Last Month", Value="LastMonth"}
+                                         }, new { @style = "width: 150px;" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Approval Number
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtApprovalNumber", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Advance Balance (After Adjustment)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtAdvanceBalance", "", new { @readonly = "readonly" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Closed with Waive
+                                        </td>
+                                        <td align="left">
+                                            @Html.DropDownList("ddlClosedWithWaive", new List<SelectListItem> 
+                                        { 
+                                            new SelectListItem { Text = "--Select--", Value = "0"},
+                                            new SelectListItem {Text="Close this customer with waiver approved by management", Value="1"},
+                                         }, new { @style = "width: 450px;" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table cellpadding="0" cellspacing="4" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" class="LblUnitWiseCustomerRegisterForFullPaid">Note
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtNote", "", new { @style = "width: 450px;" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" align="left">
+                                <input id="btnFullPaid" type="submit" value="Save" onclick="return FullPayedCustomerSave();" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td id="CustomerLedgerContainer" style="width: 100%"></td>
+    </tr>
+    <tr>
+        <td id="customerCollectionUpdateNDelete">
+
+            <fieldset>
+                <legend>Update/Delete Customer Collection</legend>
+
+                <form id="frmCustomerCollectionUpdateNDelete" method="post" action="SaveCustomerCollectionAdjustmentForUpdateNDelete">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="width: 30%;" valign="top">
+                                @Html.Hidden("hfCollectionSerialsForUpdateNDelete", "0")
+                                @Html.Hidden("hfCollectionYearMonthForUpdateNDelete", "0")
+                                @Html.Hidden("hfCustomerCodeForCollectionForUpdateNDelete", "0")
+                                @Html.Hidden("hfCustomerCollectionTypeForUpdateNDelete","0");
+                                @Html.Hidden("hfUpdateNDeleteOptions", "0")
+                                @Html.Hidden("hfCustomerFprPersonForUpdateNDelete", "0")
+                                @Html.Hidden("hfResponsibeEmployeeForUpdateNDelete", "0")
+                                <input id="hfOutstandingBalanceForUpdateNDelete" type="hidden" value="0" />
+                                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                    <tr>
+                                        <td align="left">Customer ID
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtCustomerCodeForUpdateNDelete", "", new { @disabled = "disabled" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Collection Date
+                                        </td>
+                                        <td align="left">
+                                            @(Html.Telerik().DatePicker().Name("dtpCollectionDateForUpdateNDelete").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(ViewBag.OpenDay))
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Collection Amount
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtCollectionAmountForUpdateNDelete", "")
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" align="left">
+                                            <input id="btnColelctionSubmitForUpdate" type="submit" value="Update" class="btn" onclick="return CustomerCollectionSaveForUpdate();" />
+                                            <input id="btnColelctionSubmitForDelete" type="submit" value="Delete" class="btn" onclick="return CustomerCollectionSaveForDelete();" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 30%;" valign="top" align="left">
+                                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                    <tr>
+                                        <td align="left">Customer Name
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtCustomerNameForUpdateNDelete", "", new { @disabled = "disabled" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Memo Number
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtMemoNumberForUpdateNDelete", "", new { @maxLength = "10" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Collected By
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtCustomerFprPersonForUpdateNDelete", "", new { @readonly = true })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 39%;" valign="top" align="left">
+                                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                    <tr>
+                                        <td>Audit Reason
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlAuditReasonForUpdateNDelete", new SelectList(ViewBag.AuditReasons, "ReasonCode", "ReasonDescription"), "--Select--", new { @style = "width:242px;" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="IRCaptionMiddleColumn">Responsible Employee
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtResponsibleEmployeeForUpdateNDelete", "", new { @style = "width:236px;" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Remarks
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("txtClaimRemarksForUpdateNDelete", "", new { maxlength = "100", @style = "width:236px;" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td id="salesAuditAdjustment" style="width: 100%"></td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $('#customerCollectionTr').css('display', 'none');
+    $('#customerCollectionUpdateNDelete').css('display', 'none');
+    $('#customerTransferTr').css('display', 'none');
+    $('#fullPayment').css('display', 'none');
+    $('#showCollectionDetails').css('display', 'none');
+    $('#systemReturnContainer').css('display', 'none');
+    $('#fullPaidCustomerContainer').css('display', 'none');
+    $('#salesAuditAdjustment').css('display', 'none');
+
+    function CloseDialogEmployeeSelection() {
+
+    }
+
+    function CloseDialogEmployeeLocationSelection(e) {
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+    }
+
+    function CloseDialogWindowEmployeeLocation() {
+
+        var locationCode = "";
+        var locationText = "";
+        var regionLocationCode = "";
+
+        if ($('#ddlLocationType').val() == "ho") {
+            locationText = "[9000] Head Office";
+            locationCode = "9000";
+        }
+        else if ($('#ddlLocationType').val() == "zone") {
+            locationText = $('#ddlZone').find('option:selected').text();
+            locationCode = $('#ddlZone').val();
+        }
+        else if ($('#ddlLocationType').val() == "unit") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+            regionLocationCode = $('#ddlRegion').val();
+        }
+        $('#txtSearchLocationCode').val(locationCode);
+        var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+        detailWindow.center().close();
+
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+
+        return false;
+    }
+
+    function LoadEmployeeSearchWindow() {
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("__LoadEmployeeSearchWindow", "../HRMS/EmployeeRegister")',
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#LoadEmployeeSelection').html(data);
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+
+        var detailWindow = $("#dialogEmployeeSelection").data("tWindow");
+        detailWindow.center().open();
+    }
+
+    function OkCommandEmployeeSelectionWindow(employeeId, employeeName) {
+
+        var detailWindow = $("#dialogEmployeeSelection").data("tWindow");
+        detailWindow.center().close();
+
+        if ($('#hfCollectionAddOrEditDelete').val() == "1") {
+            $('#txtResponsibleEmployeeForUpdateNDelete').val(employeeName + ' [' + employeeId + ']');
+            $('#hfResponsibeEmployeeForUpdateNDelete').val(employeeId);
+        }
+        else {
+            $('#txtResponsibleEmployee').val(employeeName + ' [' + employeeId + ']');
+            $('#hfResponsibeEmployee').val(employeeId);
+        }
+
+        $('#LoadEmployeeSelection').html('');
+        $('#hfSearchLocationCode').val("");
+
+        return false;
+    }
+
+    function CloseDialogEmployeeSelection(e) {
+        $('#LoadEmployeeSelection').html('');
+    }
+
+    $(document).ready(function () {
+
+        $('#frmCustomerFullPaid').submit(function () {
+
+            var CustomerCode = $('#txtFPCustomerCode').val();
+            var TransDate = $('#txtTransDate').val();
+            var AgreementCloseDate = $('#dtpAgreementClosedDate').val();
+            var MonthUsed = $('#txtTotalDue').val();
+            var note = $('#txtNote').val();
+            var RemainingServiceChargeReceivable = $('#txtRemainingServiceChargeReceivable').val();
+            var RemainingPrincipalReceivable = $('#txtRemainingPrincipalReceivable').val();
+            var TotalPrincipalReceivableAsPerAgreement = $('#txtTotalPrincipalReceivable').val();
+            var TotalServiceChargeRecoveredAtTheEndOfClosedMonth = $('#txtTotalServiceChargeReceived').val();
+            var TotalServiceChargeReceivableConsideringDueNoOfInstallmentAtTheEndOfClosedMonth = $('#txtTotalServiceChargeReceivable').val();
+            var ApprovalNumber = $('#txtApprovalNumber').val();
+            var closedIn = $('#ddlClosedIn').val();
+
+            var ClosedWithWaive = 0;
+
+
+            if ($('#ddlClosedWithWaive').val() != '') {
+                ClosedWithWaive = 1;
+            }
+
+
+            var fullPaiedCustomerRegister = {
+
+                CustomerCode: CustomerCode,
+                TransDate: TransDate,
+                AgreementClosedDate: AgreementCloseDate,
+                MonthUsage: MonthUsed,
+                IsClosedWithWaive: ClosedWithWaive,
+                RemainingPrincipalReceivableAtTheEndOfClosedMonth: RemainingPrincipalReceivable,
+                RemainingServiceChargeReceivableAtTheEndOfClosedMonth: RemainingServiceChargeReceivable,
+                TotalPrincipalReceivableAsPerAgreement: TotalPrincipalReceivableAsPerAgreement,
+                TotalServiceChargeRecoveredAtTheEndOfClosedMonth: TotalServiceChargeRecoveredAtTheEndOfClosedMonth,
+                TotalServiceChargeReceivableConsideringDueNoOfInstallmentAtTheEndOfClosedMonth: TotalServiceChargeReceivableConsideringDueNoOfInstallmentAtTheEndOfClosedMonth,
+                ApprovalNo: ApprovalNumber,
+                Remarks: note
+            };
+
+            $.ajax({
+                type: this.method,
+                url: this.action,
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ fullPaiedCustomerRegister: fullPaiedCustomerRegister, closedIn: closedIn }),
+                cache: false,
+                success: function (data) {
+                    if (data[0].messageCode == "success") {
+                        alert(data[0].message);
+                        $('#frmCustomerFullPaid')[0].reset();
+                        $('#fullPaidCustomerContainer').css('display', 'none');
+
+                        var href = $('.t-refresh').attr('href');
+                        window.location.href = href;
+                    }
+                    else {
+                        alert(data[0].message);
+                    }
+                },
+                error: function () {
+
+                }
+            });
+
+            return false;
+        });
+
+        $('#txtResponsibleEmployee').click(function () {
+            $('#hfCollectionAddOrEditDelete').val("0")
+            LoadEmployeeSearchWindow();
+        });
+
+        $('#txtToLocation').click(function () {
+            var detailWindow = $("#dialogUnitSelection").data("tWindow");
+            detailWindow.center().open();
+        });
+
+        $('#frmCustomerCollection').submit(function () {
+            $.ajax({
+
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (data) {
+
+                    $.map(data, function (item) {
+                        if (item.messageCode == "success") {
+                            alert(item.message);
+
+                            if (parseInt($('#hfCollectionSerials').val()) != 0) {
+
+                                var tr = $("#grvCustomerCollection tbody tr:eq(" + (parseInt($('#hfCollectionSerials').val()) - 1) + ")");
+                                $(tr).find('td:eq(1)').text($('#dtpCollectionDate').val());
+                                $(tr).find('td:eq(2)').text($('#txtMemoNumber').val());
+                                $(tr).find('td:eq(3)').text($('#txtCollectionAmount').val());
+
+                                $('#hfCollectionSerials').val("0");
+                            }
+
+                            ClearCollectionControl();
+
+                        }
+                        else {
+                            alert(item.message);
+                        }
+                    });
+                },
+                error: function () { alert("Save Is Not Succeed. Please Try Again."); }
+            });
+
+            return false;
+        });
+
+        $('#frmCustomerCollectionUpdateNDelete').submit(function () {
+
+            var customerCodeForCollectionForUpdateNDelete = $('#hfCustomerCodeForCollectionForUpdateNDelete').val();
+
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (data) {
+
+                    $.map(data, function (item) {
+                        if (item.messageCode == "success") {
+                            alert(item.message);
+                            ShowCustomerLedger(customerCodeForCollectionForUpdateNDelete);
+                            //ClearCollectionControl();                           
+                        }
+                        else {
+                            alert(item.message);
+                        }
+                    });
+                },
+                error: function () { alert("Save Is Not Succeed. Please Try Again."); }
+            });
+
+            return false;
+        });
+
+
+        $('#txtCollectionAmount').change(function () {
+
+            var outstandingBalance = parseInt($('#hfOutstandingBalance').val());
+            var collectionAmount = parseInt($('#txtCollectionAmount').val());
+
+            if (collectionAmount > (outstandingBalance + 1000)) {
+                alert("Collection Amount Cannot be Greater Than Outstanding Balance");
+                $('#txtCollectionAmount').val("0");
+            }
+
+        });
+
+    });
+
+    $("#txtResponsibleEmployeeForUpdateNDelete").click(function () {
+        $('#hfCollectionAddOrEditDelete').val("1");
+        LoadEmployeeSearchWindow();
+    });
+
+    $("#gvUnitWiseCustomerRegisterReport").delegate("a.FullPaidCustomerFromUnit", "click", function () {
+
+        var tr = $(this).parent().parent();
+
+        $('#CustomerLedgerContainer').html('');
+        $('#fullPaidCustomerContainer').css('display', '');
+        $('#customerCollectionTr').css('display', 'none');
+        $('#customerTransferTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#salesAuditAdjustment').css('display', 'none');
+        $('#customerCollectionUpdateNDelete').css('display', 'none');
+
+        var customerCode = "", customerName = "", outstandingBalance = "", collectionInCurrentMonthWithoutDP = "";
+
+        customerCode = $(tr).find("td:eq(0)").find("a").text();
+        customerName = $(tr).find("td:eq(1)").text();
+        collectionInCurrentMonthWithoutDP = $(tr).find("td:eq(3)").text()
+        outstandingBalance = $(tr).find("td:eq(5)").text();
+
+        $('#hfCustomerCodeForFullPayed').val(customerCode);
+        $('#txtFPCustomerCode').val(customerCode);
+        $('#txtFPCustomerName').val(customerName);
+
+        $('#hfFPOutstandingBalance').val(outstandingBalance);
+        $('#hfFPCollectionInCurrentMonth').val(collectionInCurrentMonthWithoutDP);
+
+        $('#txtApprovalNumber').attr("disabled", true);
+
+        GetCustomerDataToCloseWithFullPaid(customerCode, 'CurrentMonth');
+
+    });
+
+    function GetCustomerDataToCloseWithFullPaid(customerCode, closedIn) {
+
+        $('#frmCustomerFullPaid')[0].reset();
+        $('#ddlClosedIn').val(closedIn);
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetCustomerDataToCloseWithFullPaidOrWaive", "CustomerRegister")',
+            data: { customerCode: customerCode, closedIn: closedIn },
+            cache: false,
+            success: function (data) {
+                $('#txtFPCustomerCode').val(data.CustomerCode);
+                $('#txtAgreementDate').val(data.AgreementDateStringFormat);
+                $('#txtTransDate').val(data.TransDate);
+                $('#dtpAgreementClosedDate').val(data.AgreementClosedDate);
+                $('#txtFPCustomerName').val(data.CustomerName);
+                $('#txtTotalDue').val(data.MonthUsage);
+                $('#txtTotalPrincipalReceivable').val(data.TotalPrincipalReceivable);
+                $('#txtRemainingPrincipalReceivable').val(data.RemainingPrincipalReceivableAfterAdjustmentFromAdvance);
+                $('#txtTotalServiceChargeReceivable').val(data.TotalServiceChargeReceivableUpToDate);
+                $('#txtClosedWithWaive').val(data.AgreementDate);
+                $('#txtTotalServiceChargeReceived').val(data.TotalServiceChargeRecovered);
+                $('#txtRemainingServiceChargeReceivable').val(data.RemainingServiceChargeReceivableAfterAdjustmentFromAdvance);
+                $('#txtAdvanceBalance').val(data.OverdueOrAdvanceBalanceAfterAdjustment);
+                $('#hfApprovalRequiredForFullPayed').val(data.IsApprovalRequired);
+                if (data.IsApprovalRequired == true) {
+                    $('#ddlClosedWithWaive').val(1);
+                    $('#ddlClosedWithWaive').attr("disabled", true);
+                }
+                else {
+                    $('#ddlClosedWithWaive').val(0);
+                    $('#ddlClosedWithWaive').attr("disabled", true);
+                }
+                $('#txtApprovalNumber').val(data.ApprovalNo);
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+    }
+
+    function grvCustomerCollection_RowSelect(e) {
+
+        var dataItem = $('#grvCustomerCollection').data('tGrid').dataItem(e.row);
+        $('#hfCollectionSerials').val(dataItem['SerialNo']);
+
+        $('#txtMemoNumber').val(e.row.cells[2].innerHTML);
+        $('#txtCollectionAmount').val(e.row.cells[3].innerHTML);
+
+        $('#hfCustomerFprPerson').val(e.row.cells[4].innerHTML);
+        $('#txtCustomerFprPerson').val(e.row.cells[5].innerHTML);
+
+        if (e.row.cells[1].innerHTML != "")
+            $('#dtpCollectionDate').val(e.row.cells[1].innerHTML);
+
+        $('#ddlAuditReason').val(e.row.cells[8].innerHTML);
+        $('#txtResponsibleEmployee').val(e.row.cells[7].innerHTML);
+        $('#txtClaimRemarks').val(e.row.cells[9].innerHTML);
+        $('#hfResponsibeEmployee').val(e.row.cells[6].innerHTML);
+    }
+
+    function CustomerCollectionSave() {
+
+        if (!confirm("Are You Sure that You want to Save this Adjustment Entry’")) {
+            return false;
+        }
+
+        var collectionDate = $('#dtpCollectionDate').val();
+        var memoNumber = $('#txtMemoNumber').val();
+        var collectionGivenAmount = $('#txtCollectionAmount').val();
+        var aduitReason = $('#ddlAuditReason').val();
+
+        //        var startDate = Helper.DateCange($('#hfOpenBackDay').val());
+        //        var endDate = Helper.DateCange($('#hfOpenDay').val());
+        //        var selectedDate = Helper.DateCange(collectionDate);
+
+        if (collectionDate == "") {
+            alert("Please Give Collection Date");
+            return false;
+        }
+            //        else if (selectedDate < startDate || selectedDate > endDate) {
+            //            alert("Collection Date Should be in Current Month/Period");
+            //            return false;
+            //        }
+        else if (memoNumber == "") {
+            alert("Please Give Memo Number");
+            return false;
+        }
+        else if (collectionGivenAmount == "") {
+            alert("Please Give Collection Amount");
+            return false;
+        }
+        else if (collectionGivenAmount == "0") {
+            alert("Please Give Collection Amount");
+            return false;
+        }
+        else if ($('#ddlAuditReason').val() == "") {
+            alert("Please Select Audit Reason.");
+            return false;
+        }
+        else if (aduitReason == "") {
+            alert("Please Select Audit Reason.");
+            return false;
+        }
+        else if ((aduitReason == "CASCOBDEPM" || aduitReason == "CASCONDEPM" || aduitReason == "CASCONDEPW" || aduitReason == "CASHBUINST" || aduitReason == "OAUDITCLAM") && $('#txtResponsibleEmployee').val() == "") {
+            alert("Please Give Responsible Employee.");
+            return false;
+        }
+        else if (Helper.IsNumeric(collectionGivenAmount) == false) {
+            alert("Collection Amount Cannot be Character");
+            $('#txtCollectionAmount').val("");
+            return false;
+        }
+        else if ($.trim($('#txtCustomerFprPerson').val()) == "") {
+            alert("Customer FPR Is Not Set.");
+            $('#txtCustomerFprPerson').val("");
+            return false;
+        }
+
+        var outstandingBalance = parseInt($('#hfOutstandingBalance').val());
+        var collectionAmount = parseInt($('#txtCollectionAmount').val());
+
+        if (collectionAmount >= (outstandingBalance + 1000)) {
+            alert("Collection Amount Cannot be Greater Than Outstanding Balance");
+            $('#txtCollectionAmount').val("0");
+            return false;
+        }
+
+        return true;
+    }
+
+    function CustomerCollectionForAdjustment(customerCode, customerName, outstandingBalance, fprPersonId, fprPersonName) {
+
+        $('#CustomerLedgerContainer').html('');
+        $('#customerCollectionTr').css('display', '');
+        $('#customerTransferTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#salesAuditAdjustment').css('display', 'none');
+        $('#customerCollectionUpdateNDelete').css('display', 'none');
+
+        ClearCollectionControl();
+        $('#showCollectionDetails').css('display', 'none');
+
+        $('#txtCustomerCode').val(customerCode);
+        $('#txtCustomerName').val(customerName);
+
+        if ($.trim(fprPersonId) != "")
+            $('#txtCustomerFprPerson').val(fprPersonName + " [" + fprPersonId + "]");
+
+        $('#hfCustomerFprPerson').val(fprPersonId);
+        $('#hfCollectionSerials').val("0");
+        $('#hfCustomerCodeForCollection').val(customerCode);
+
+        $('#hfOutstandingBalance').val(outstandingBalance);
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AuditReasonList", "SalesAudit")',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlAuditReason').get(0).length = 0;
+                $('#ddlAuditReason').get(0).options[0] = new Option("--Select--", "");
+
+                $.map(data, function (item) {
+                    $('#ddlAuditReason').get(0).options[$('#ddlAuditReason').get(0).length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () { alert("Connection Failed. Please Try Again."); }
+         });
+
+        return false;
+    }
+
+    function CustomerTransfer(customerCode, customerName) {
+
+        $('#CustomerLedgerContainer').html('');
+        $('#customerTransferTr').css('display', '');
+        $('#customerCollectionTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#salesAuditAdjustment').css('display', 'none');
+        $('#customerCollectionUpdateNDelete').css('display', 'none');
+
+        $('#txtCTCustomerCode').val(customerCode);
+        $('#txtCTCustomerName').val(customerName);
+        $('#hfCollectionSerials').val("0");
+
+        $('#showCollectionDetails').css('display', 'none');
+
+        return false;
+    }
+
+    function UpdateCustomerCollection() {
+        $('#showCollectionDetails').css('display', '');
+        LoadCutomerCollectionAndBindGrid();
+
+        return false;
+    }
+
+    function SystemReturnCustomer(customerCode, customerName, collectionInCurrentMonthWithoutDP, outstandingBalance) {
+
+        $('#systemReturnContainer').css('display', '');
+        $('#customerCollectionTr').css('display', 'none');
+        $('#customerTransferTr').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#salesAuditAdjustment').css('display', 'none');
+        $('#CustomerLedgerContainer').html('');
+        $('#salesAuditAdjustment').html('');
+        $('#customerCollectionUpdateNDelete').css('display', 'none');
+
+        $('#hfCustomerCodeForSystemReturn').val(customerCode);
+        $('#txtSRCustomerCode').val(customerCode);
+        $('#txtSRCustomerName').val(customerName);
+
+        $('#hfSROutstandingBalance').val(outstandingBalance);
+        $('#hfSRCollectionInCurrentMonth').val(collectionInCurrentMonthWithoutDP);
+
+
+        return false;
+    }
+
+    function SystemReturnSave() {
+
+        var outstandingBalance = $('#hfSROutstandingBalance').val();
+        var collectionInCurrentMonthWithoutDP = $('#hfSRCollectionInCurrentMonth').val();
+
+        var result = confirm("Do you want to System Return For This Customer?")
+        if (result) {
+            UpdateCustomerStatus($('#hfCustomerCodeForSystemReturn').val(), "SR");
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function UpdateCustomerStatus(customerCode, types) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateCustomerStatus", "CustomerRegister")',
+            data: "{'customerCode':'" + customerCode + "','type':'" + types + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                alert(data[0].message);
+                var href = $('.t-refresh').attr('href');
+                window.location.href = href;
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+    }
+
+    function CollectionUpdateNDelete(customerCode, customerName, collectionAmount, collectionDate, memoNumber, yearMonth, serialNo, collectionType) {
+
+        $('#customerCollectionUpdateNDelete').css('display', '');
+
+        $('#hfCollectionSerialsForUpdateNDelete').val(serialNo);
+        $('#hfCollectionYearMonthForUpdateNDelete').val(yearMonth);
+
+        $('#hfCustomerCodeForCollectionForUpdateNDelete').val(customerCode);
+        $('#hfCustomerCollectionTypeForUpdateNDelete').val(collectionType);
+        $('#txtCustomerCodeForUpdateNDelete').val(customerCode);
+        $('#txtCustomerNameForUpdateNDelete').val(customerName);
+        $('#txtMemoNumberForUpdateNDelete').val(memoNumber);
+        $('#txtCollectionAmountForUpdateNDelete').val(collectionAmount);
+        $('#dtpCollectionDateForUpdateNDelete').val(collectionDate);
+        $('#ddlAuditReasonForUpdateNDelete').val("");
+        return false;
+    }
+
+    function FullPayedCustomerSave() {
+
+        var Note = $('#txtNote').val();
+
+        if (Note == '') {
+            alert('Please insert note for full paied.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function ShowCustomerLedger(customerCode) {
+
+        $('#customerCollectionTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#customerTransferTr').css('display', 'none');
+        $('#salesAuditAdjustment').css('display', 'none');
+        $('#CustomerLedgerContainer').css('display', '');
+        $('#customerCollectionUpdateNDelete').css('display', 'none');
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("CustomerLedger", "SalesAudit")',
+            data: { customerCode: customerCode },
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#CustomerLedgerContainer').html(data);
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+    }
+
+    function SalesAdjustment(customerCode) {
+
+        $('#customerCollectionTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#customerTransferTr').css('display', 'none');
+        $('#CustomerLedgerContainer').css('display', 'none');
+        $('#salesAuditAdjustment').css('display', '');
+        $('#customerCollectionUpdateNDelete').css('display', 'none');
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("SalesAuditAdjustment", "SalesAudit")',
+            data: { customerCode: customerCode },
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#salesAuditAdjustment').html(data);
+
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+    }
+
+    function CloseDialogWindow() {
+
+        var detailWindow = $("#dialogUnitSelection").data("tWindow");
+        detailWindow.center().close();
+
+        var locationCode = "";
+        var locationText = "";
+
+        if ($('#ddlUnit').val() != "") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+        }
+        $('#txtToLocation').val(locationText);
+        return false;
+    }
+
+    function LoadCutomerCollectionAndBindGrid() {
+
+        var params = {
+            customerCode: $('#txtCustomerCode').val()
+        };
+
+        var grid = $('#grvCustomerCollection').data('tGrid');
+        grid.dataSource._data = [];
+        //grid.rebind(params);
+
+        // Reload The Package Details
+        grid.ajaxRequest(params);
+    }
+
+    function ClearCollectionControl() {
+
+        $('#dtpCollectionDate').val("");
+        $('#txtMemoNumber').val("");
+        $('#txtCollectionAmount').val("");
+        $('#txtCustomerFprPerson').val("");
+
+        $('#ddlAuditReason').val("");
+        $('#txtResponsibleEmployee').val("");
+        $('#txtClaimRemarks').val("");
+    }
+
+    function CustomerTransferSave() {
+
+        var customerID = $('#txtCTCustomerCode').val();
+        var customerTransferDate = $('#dtpTransferDate').val();
+        var transferToLocation = $('#txtToLocation').val();
+        var transferNote = $('#txtTransferNotes').val();
+
+        var result = confirm("Do you want to Transfer This Customer?")
+        if (result) {
+            TransferCustomer(customerID, customerTransferDate, transferToLocation, transferNote);
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function TransferCustomer(customerID, customerTransferDate, transferToLocation, transferNote) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("TransferCustomer", "CustomerRegister")',
+            data: "{'customerID':'" + customerID + "','customerTransferDate':'" + customerTransferDate + "','transferToLocation':'" + transferToLocation + "','transferNote':'" + transferNote + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                alert(data[0].message);
+                var href = $('.t-refresh').attr('href');
+                window.location.href = href;
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+
+    }
+
+    function SetParamaterForPdfGenerationCustomerRegister() {
+
+        var grid = $("#gvUnitWiseCustomerRegisterReport").data("tGrid");
+        var $exportToPdf = $('#exportCustomerRegisterToPdf');
+        var href = $exportToPdf.attr("href");
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'orderby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+
+        $exportToPdf.attr("href", href);
+
+        return true;
+    }
+
+    function SetParamaterForPdfGenerationCustomerLedger() {
+
+        var tr = $("#CustomerLedgerContainer > table tbody tr:eq(0) td:eq(0) > table tbody tr:eq(0)");
+        var customerCode = $.trim($(tr).find("td:eq(1)").text());
+
+        if (customerCode == "") {
+            alert("Please Click a Customer First");
+            return false;
+        }
+
+        var grid = $("#gvUnitWiseCustomerRegisterReport").data("tGrid");
+        var $exportToPdf = $('#exportCustomerLedgerToPdf');
+        var href = $exportToPdf.attr("href");
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'orderby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+        href = href.replace(/customerCode=([^&]*)/, 'customerCode=' + (customerCode || '~'));
+
+        $exportToPdf.attr("href", href);
+
+        return true;
+    }
+
+    function SetParamaterForPdfGenerationAllCustomerLedger() {
+
+        var grid = $("#gvUnitWiseCustomerRegisterReport").data("tGrid");
+        var $exportToPdf = $('#exportAllCustomerLedgerToPdf');
+        var href = $exportToPdf.attr("href");
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'orderby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+        href = href.replace(/customerCode=([^&]*)/, 'customerCode=' + (customerCode || '~'));
+
+        $exportToPdf.attr("href", href);
+
+        return true;
+    }
+
+    function CustomerCollectionSaveForUpdate() {
+
+        var aduitReason = $('#ddlAuditReasonForUpdateNDelete').val();
+
+        if (aduitReason == "") {
+            alert("Please Select Audit Reason.");
+            return false;
+        }
+
+        $('#hfUpdateNDeleteOptions').val("UPDATE");
+
+    }
+
+    function CustomerCollectionSaveForDelete() {
+        $('#hfUpdateNDeleteOptions').val("DELETE");
+        return true;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

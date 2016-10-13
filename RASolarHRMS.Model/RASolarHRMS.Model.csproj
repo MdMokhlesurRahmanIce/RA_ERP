@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{408A53A1-E889-4729-8A07-F22CBD6755FE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RASolarHRMS.Model</RootNamespace>
+    <AssemblyName>RASolarHRMS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aud_AuditingDetailsForAuditors.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Aud_AuditingMaster.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_DistrictInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_LocationInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_UpazillaInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetEmployeeTransferredButNotYetAccepted.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetLocationWiseEmployeeForEmployeeRegister.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_BankAdviceForSalaryMaster.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_BloodGroupInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_DepartmentInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EducationInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EmployeeInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EmployeeNDateWiseTADAEntry.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EmployeeTransfer.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EmployeeTransferAdditionalInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EmployeeWiseBankAccount.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EmployeeWiseSalaryStructureDetails.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EmployeeWiseSalaryStructureMaster.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_EmploymentTypeInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_HierarchicalDesignation.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_HierarchicalDesignationVsOperationalRole.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_LocationWiseEmployee.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_MajorSubject.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_MaritalStatusInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_OperationalRole.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_ReligionInfo.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_SubDepartmentOrSection.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IRASolarHRMSRepository.cs" />
+    <Compile Include="IRASolarHRMSService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RASolarHRADB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarHRADB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarHRADB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarHRADB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarHRADB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarHRMSRepository.cs" />
+    <Compile Include="RASolarHRMSService.cs" />
+    <Compile Include="Sal_LocationWiseSalespersonForHOnZO.cs">
+      <DependentUpon>RASolarHRADB.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="RASolarHRADB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RASolarHRADB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="RASolarHRADB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RASolarHRADB.edmx</DependentUpon>
+      <LastGenOutput>RASolarHRADB.Context.cs</LastGenOutput>
+    </None>
+    <None Include="RASolarHRADB.edmx.diagram">
+      <DependentUpon>RASolarHRADB.edmx</DependentUpon>
+    </None>
+    <None Include="RASolarHRADB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RASolarHRADB.edmx</DependentUpon>
+      <LastGenOutput>RASolarHRADB.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RASolarERP.DomainModel\RASolarERP.DomainModel.csproj">
+      <Project>{4e6b26f1-dc7a-4a9e-8b48-dbe0ef1f5651}</Project>
+      <Name>RASolarERP.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RASolarHelper\RASolarHelper.csproj">
+      <Project>{107b98ed-7cd4-4f2a-93a6-ac9590123c37}</Project>
+      <Name>RASolarHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

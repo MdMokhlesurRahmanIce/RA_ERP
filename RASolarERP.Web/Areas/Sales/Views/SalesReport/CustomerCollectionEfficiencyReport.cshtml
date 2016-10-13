@@ -1,0 +1,164 @@
+﻿@model IEnumerable<RASolarERP.Model.CollectionEfficiencyByCustomer>
+@{
+    ViewBag.Title = "Collection Efficiency Report (by Customer)";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+@{
+    List<decimal> arr = new List<decimal>();
+    arr = (List<decimal>)TempData["TotalSums"];
+}
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid(Model)
+              .Name("gvCustomerCollectionEfficiency")
+              .DataKeys(keys => keys.Add(k => k.CustomerCode))
+              .Columns(column =>
+              {
+                  column.Bound(c => c.CustomerCode).FooterTemplate(@<b>Total:</b>).Width(100);
+                  column.Bound(c => c.CustomerName).FooterTemplate(@<b></b>).Width(150);
+                  column.Bound(c => c.CM_Receivable__One_Installment__4).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[0].ToString("0.00")</b>).Title("CM Receivable (One Installment) 4").Width(100);
+                  column.Bound(c => c.CM_CashCollection_5).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[1].ToString("0.00")</b>).Title("CM Cash Collection 5").Width(100);
+                  column.Bound(c => c.CM_SystemReturn_6).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[2].ToString("0.00")</b>).Title("CM System Return 6").Width(100);
+                  column.Bound(c => c.CM_AdvanceAdjustment_7).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[3].ToString("0.00")</b>).Title("CM Advance Adjustment 7").Width(100);
+                  column.Bound(c => c.CM_TotalCollection_8_5_6_7).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[4].ToString("0.00")</b>).Title("CM Total Collection 8=5+6+7").Width(100);
+                  column.Bound(c => c.CM_CollectionEfficiency_9_8_4_).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[5].ToString("0.00")</b>).Title("CM Collection Efficiency 9=8/4%").Width(100);
+                  column.Bound(c => c.OD_OverdueInCurrentMonth_10_4_8).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[6].ToString("0.00")</b>).Title("OD Overdue In Current Month 10=4-8").Width(100);
+                  column.Bound(c => c.OD_OverdueBalanceAtTheEndOfLastMonth_11).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[7].ToString("0.00")</b>).Title("OD Overdue Balance At The End Of Last Month 11").Width(100);
+                  column.Bound(c => c.OD_TotalOverdueUpToCurrentMonth_12_10_11).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[8].ToString("0.00")</b>).Title("OD Total Overdue Up To Current Month 12=10+11").Width(100);
+                  column.Bound(c => c.OD_RecoveryFromOverdueInCurrentMonth_13).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[9].ToString("0.00")</b>).Title("OD Recovery From Overdue In Current Month 13").Width(100);
+                  column.Bound(c => c.OD_SystemReturn_14).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[10].ToString("0.00")</b>).Title("OD System Return 14").Width(100);
+                  column.Bound(c => c.OD_OverdueBalanceAtTheEndOfCurrentMonth_15_12_13_14).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[11].ToString("0.00")</b>).Title("OD Overdue Balance At The End Of Current Month 15=12-13-14").Width(100);
+                  column.Bound(c => c.OverallCollectionEfficiency_16__8_13_14___4_11__).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[12].ToString("0.00")</b>).Title("Overall Collection Efficiency 16=(8+13+14) / (4+11)%").Width(100);
+                  column.Bound(c => c.AD_AdvanceBalanceAtTheEndOfLastMonth_17).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[13].ToString("0.00")</b>).Title("AD Advance Balance At The End Of Last Month 17").Width(100);
+                  column.Bound(c => c.AD_AdvanceReceivedInCurrentMonth_18).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[14].ToString("0.00")</b>).Title("AD Advance Received In Current Month 18").Width(100);
+                  column.Bound(c => c.AD_TotalAdvance_19_17_18).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[15].ToString("0.00")</b>).Title("AD Total Advance 19 =17+18").Width(100);
+                  column.Bound(c => c.AD_AdvanceAdjustmentInCurrentMonth_20).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[16].ToString("0.00")</b>).Title("AD Advance Adjustment In Current Month 20").Width(100);
+                  column.Bound(c => c.AD_SystemReturn_21).HtmlAttributes(new { @class = "GridColumnRightAlign" }).FooterTemplate(@<b>@arr[17].ToString("0.00")</b>).Title("AD System Return 21").Width(100);
+                  column.Bound(c => c.AD_AdvanceBalanceAfterAdjustment_22_19_20_21).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("AD Advance Balance After Adjustment 22 =19 - 20 -21").Width(100).FooterTemplate(@<b>@arr[18].ToString("0.00")</b>);
+              })
+              .Selectable()
+              .Scrollable(scroll => scroll.Height(300))
+        )
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        function MymY() {
+            var gridLength = $('.t-grid-content tbody tr').length;
+
+            var CM_Receivable_One_Installment_4 = 0;
+            var CM_CashCollection_5 = 0;
+            var CM_SystemReturn_6 = 0;
+            var CM_AdvanceAdjustment_7 = 0;
+            var CM_TotalCollection_8_5_6_7 = 0;
+            var CM_CollectionEfficiency_9_8_4 = 0;
+            var OD_OverdueInCurrentMonth_10_4_8 = 0;
+            var OD_OverdueBalanceAtTheEndOfLastMonth_11 = 0;
+            var OD_TotalOverdueUpToCurrentMonth_12_10_11 = 0;
+            var OD_RecoveryFromOverdueInCurrentMonth_13 = 0;
+            var OD_SystemReturn_14 = 0;
+            var OD_OverdueBalanceAtTheEndOfCurrentMonth_15_12_13_14 = 0;
+            var OverallCollectionEfficiency_16_8_13_14_4_11 = 0;
+            var AD_AdvanceBalanceAtTheEndOfLastMonth_17 = 0;
+            var AD_AdvanceReceivedInCurrentMonth_18 = 0;
+            var AD_TotalAdvance_19_17_18 = 0;
+            var AD_AdvanceAdjustmentInCurrentMonth_20 = 0;
+            var AD_SystemReturn_21 = 0;
+            var AD_AdvanceBalanceAfterAdjustment_22_19_20_21 = 0;
+
+            for (var i = 0; i < gridLength; i++) {
+
+                var tr = $(".t-grid-content tbody tr:eq(" + i + ")");
+
+                CM_Receivable_One_Installment_4 = CM_Receivable_One_Installment_4 + parseFloat($(tr).find('td:eq(2)').text());
+                CM_CashCollection_5 = CM_CashCollection_5 + parseFloat($(tr).find('td:eq(3)').text());
+                CM_SystemReturn_6 = CM_SystemReturn_6 + parseFloat($(tr).find('td:eq(4)').text());
+                CM_AdvanceAdjustment_7 = CM_AdvanceAdjustment_7 + parseFloat($(tr).find('td:eq(5)').text());
+                CM_TotalCollection_8_5_6_7 = CM_TotalCollection_8_5_6_7 + parseFloat($(tr).find('td:eq(6)').text());
+
+                OD_OverdueInCurrentMonth_10_4_8 = OD_OverdueInCurrentMonth_10_4_8 + parseFloat($(tr).find('td:eq(8)').text());
+                OD_OverdueBalanceAtTheEndOfLastMonth_11 = OD_OverdueBalanceAtTheEndOfLastMonth_11 + parseFloat($(tr).find('td:eq(9)').text());
+                OD_TotalOverdueUpToCurrentMonth_12_10_11 = OD_TotalOverdueUpToCurrentMonth_12_10_11 + parseFloat($(tr).find('td:eq(10)').text());
+                OD_RecoveryFromOverdueInCurrentMonth_13 = OD_RecoveryFromOverdueInCurrentMonth_13 + parseFloat($(tr).find('td:eq(11)').text());
+                OD_SystemReturn_14 = OD_SystemReturn_14 + parseFloat($(tr).find('td:eq(12)').text());
+                OD_OverdueBalanceAtTheEndOfCurrentMonth_15_12_13_14 = OD_OverdueBalanceAtTheEndOfCurrentMonth_15_12_13_14 + parseFloat($(tr).find('td:eq(13)').text());
+
+                AD_AdvanceBalanceAtTheEndOfLastMonth_17 = AD_AdvanceBalanceAtTheEndOfLastMonth_17 + parseFloat($(tr).find('td:eq(15)').text());
+                AD_AdvanceReceivedInCurrentMonth_18 = AD_AdvanceReceivedInCurrentMonth_18 + parseFloat($(tr).find('td:eq(16)').text());
+                AD_TotalAdvance_19_17_18 = AD_TotalAdvance_19_17_18 + parseFloat($(tr).find('td:eq(17)').text());
+                AD_AdvanceAdjustmentInCurrentMonth_20 = AD_AdvanceAdjustmentInCurrentMonth_20 + parseFloat($(tr).find('td:eq(18)').text());
+                AD_SystemReturn_21 = AD_SystemReturn_21 + parseFloat($(tr).find('td:eq(19)').text());
+                AD_AdvanceBalanceAfterAdjustment_22_19_20_21 = AD_AdvanceBalanceAfterAdjustment_22_19_20_21 + parseFloat($(tr).find('td:eq(20)').text());
+
+            }
+
+            CM_CollectionEfficiency_9_8_4 = (CM_TotalCollection_8_5_6_7 / CM_Receivable_One_Installment_4) * 100;
+            OverallCollectionEfficiency_16_8_13_14_4_11 = (CM_TotalCollection_8_5_6_7 + OD_RecoveryFromOverdueInCurrentMonth_13 + OD_SystemReturn_14) / (CM_Receivable_One_Installment_4 + OD_OverdueBalanceAtTheEndOfLastMonth_11);
+
+            var trFooter = $(".t-grid-footer tbody tr");
+
+            trFooter.find('td:eq(2)').find('b').text(CM_Receivable_One_Installment_4.toFixed(2));
+            trFooter.find('td:eq(3)').find('b').text(CM_CashCollection_5.toFixed(2));
+            trFooter.find('td:eq(4)').find('b').text(CM_SystemReturn_6.toFixed(2));
+            trFooter.find('td:eq(5)').find('b').text(CM_AdvanceAdjustment_7.toFixed(2));
+            trFooter.find('td:eq(6)').find('b').text(CM_TotalCollection_8_5_6_7.toFixed(2));
+            trFooter.find('td:eq(7)').find('b').text(CM_CollectionEfficiency_9_8_4.toFixed(2));
+
+            trFooter.find('td:eq(8)').find('b').text(OD_OverdueInCurrentMonth_10_4_8.toFixed(2));
+            trFooter.find('td:eq(9)').find('b').text(OD_OverdueBalanceAtTheEndOfLastMonth_11.toFixed(2));
+            trFooter.find('td:eq(10)').find('b').text(OD_TotalOverdueUpToCurrentMonth_12_10_11.toFixed(2));
+            trFooter.find('td:eq(11)').find('b').text(OD_RecoveryFromOverdueInCurrentMonth_13.toFixed(2));
+            trFooter.find('td:eq(12)').find('b').text(OD_SystemReturn_14.toFixed(2));
+            trFooter.find('td:eq(13)').find('b').text(OD_OverdueBalanceAtTheEndOfCurrentMonth_15_12_13_14.toFixed(2));
+            trFooter.find('td:eq(14)').find('b').text(OverallCollectionEfficiency_16_8_13_14_4_11.toFixed(2));
+
+            trFooter.find('td:eq(15)').find('b').text(AD_AdvanceBalanceAtTheEndOfLastMonth_17.toFixed(2));
+            trFooter.find('td:eq(16)').find('b').text(AD_AdvanceReceivedInCurrentMonth_18.toFixed(2));
+            trFooter.find('td:eq(17)').find('b').text(AD_TotalAdvance_19_17_18.toFixed(2));
+            trFooter.find('td:eq(18)').find('b').text(AD_AdvanceAdjustmentInCurrentMonth_20.toFixed(2));
+            trFooter.find('td:eq(19)').find('b').text(AD_SystemReturn_21.toFixed(2));
+            trFooter.find('td:eq(20)').find('b').text(AD_AdvanceBalanceAfterAdjustment_22_19_20_21.toFixed(2));
+        }
+    });
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

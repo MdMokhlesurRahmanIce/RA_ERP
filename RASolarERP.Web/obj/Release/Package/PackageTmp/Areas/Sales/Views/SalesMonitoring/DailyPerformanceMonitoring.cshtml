@@ -1,0 +1,764 @@
+﻿@using RASolarHelper
+<script type="text/javascript">
+
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+    var errors;
+    function onError(e) {
+        errors = e;
+        e.preventDefault();
+        Helper.AlertMessage("", errors.XMLHttpRequest.responseText)
+    }
+
+
+    var firstTimeForCollection = true;
+    function onDataBindingCollection(e) {
+        if (firstTimeForCollection) {
+            e.preventDefault();
+            firstTimeForCollection = false;
+        }
+    }
+
+    function onErrorCollection(e) {
+        e.preventDefault();
+    }
+
+    var firstTimeForComperison = true;
+    function onDataBindingComperison(e) {
+        if (firstTimeForComperison) {
+            e.preventDefault();
+            firstTimeForComperison = false;
+        }
+    }
+
+    function onErrorComperison(e) {
+        e.preventDefault();
+    }
+
+
+
+    var firstTimeForTargetVsAchievement = true;
+    function onDataBindingTargetVsAchievement(e) {
+        if (firstTimeForTargetVsAchievement) {
+            e.preventDefault();
+            firstTimeForTargetVsAchievement = false;
+        }
+    }
+
+    function onErrorTargetVsAchievement(e) {
+        e.preventDefault();
+    }
+
+
+
+    var firstTimeForOtherStatus = true;
+    function onDataBindingOtherStatus(e) {
+        if (firstTimeForOtherStatus) {
+            e.preventDefault();
+            firstTimeForOtherStatus = false;
+        }
+    }
+
+    function onErrorOtherStatus(e) {
+        e.preventDefault();
+    }
+
+
+    var firstTimeonDataBindingSystemReturnVsResaleNDRFCollectionStatus = true;
+    function onDataBindingSystemReturnVsResaleNDRFCollectionStatus(e) {
+        if (firstTimeonDataBindingSystemReturnVsResaleNDRFCollectionStatus) {
+            e.preventDefault();
+            firstTimeonDataBindingSystemReturnVsResaleNDRFCollectionStatus = false;
+        }
+    }
+
+    function onErrorSystemReturnVsResaleNDRFCollectionStatus(e) {
+        e.preventDefault();
+    }
+
+</script>
+@{
+    ViewBag.Title = "Daily Performance Monitoring";
+
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>    
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+
+<input type="hidden" id="hfLocationType" value="@ViewBag.Location" />
+<table cellpadding="0" cellspacing="3" border="0" width="100%">
+    <tr>
+        <td valign="top">
+            <fieldset>
+                <legend></legend>
+                <table cellpadding="0" cellspacing="6" border="0" width="100%">
+                    <tr>
+                        <td width="30%">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td style="width:85px;">Report Option:
+                                    </td>
+                                    <td>
+                                        @{
+                                            List<SelectListItem> ss = new List<SelectListItem>();
+
+                                            ss = new List<SelectListItem>
+                                                { 
+                                                    new SelectListItem { Text = "RSF Summary", Value = "RSFSUMMARY" },
+                                                    new SelectListItem { Text = "Individual Zone", Value = "INDIVIDUALZONE" },
+                                                    new SelectListItem { Text = "Zone Summary", Value = "ZONESUMMARY" },
+                                                    new SelectListItem { Text = "Individual Region", Value = "INDIVIDUALREGION" },
+                                                    new SelectListItem { Text = "Region Summary", Value = "REGIONSUMMARY" },
+                                                    new SelectListItem { Text = "Individual Unit", Value = "INDIVIDUALUNIT" },
+                                                    new SelectListItem { Text = "Unit Summary", Value = "UNITSUMMARY" }
+                                                };
+                                        }
+
+                                        @Html.DropDownList("ddlReportOption", new SelectList(ss, "Value", "Text"), "--Select--", new { @style = "width:150px; display:none;" })
+                                        <label id="lblReportType" class="LabelForDisplayData"></label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+
+                        <td width="68%">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td align="left" style="width:55px;">Location:</td>
+                                    <td align="left">
+                                        <label id="lblLocationType" class="LabelForDisplayData"></label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+
+                        <td width="1%">
+                            <input id="btnLoadLocationWiseReportDefault" type="button" value="<< Back To Summary" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td class="HorizontalDividerBIGWithoutBG"></td>
+    </tr>
+    <tr>
+        <td>
+            <div id="DailyPerformanceMonitoringAccordion">
+
+                <h3>Sales Monitoring</h3>
+                <div>
+                    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <input type="submit" id="btnForSales" name="btnForSales" value="Show Sales" onclick="return ShowSalesList('')" style="float: right;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @(Html.Telerik().Grid<RASolarERP.DomainModel.SalesModel.DailyPerformanceMonitoringForSales>()
+                            .Name("gvDailyPerformanceMonitoringForSales")
+                            .DataKeys(keys => keys.Add(k => k.LocationCode))
+                            .Columns(column =>
+                               {
+                                   column.Bound(s => s.LocationCode).ClientTemplate("<a href=\"javascript:void(0)\" onclick=\"return ShowSummaryOnDemand('<#=LocationCode#>','<#=LocationName#>', 'DailyPerformanceMonitoringForSales');\"><#=LocationName#></a>").Title("Location Name");
+                                   column.Bound(s => s.SalesTarget_CurrentMonthTotal).Title("Sales Target Current Month Total").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.SalesTarget_Yesterday).Title("Sales Target Yesterday").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.SalesAchievement_Yesterday).Title("Sales Achievement Yesterday").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.SalesTarget_UpToDate).Width("Sales Target Up To Date").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.SalesAchievement_UpToDate).Title("Sales Achievement Up To Date").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.SalesEfficiency_UpToDate).Title("Sales Efficiency Up To Date").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.SalesVarianceWithMonthlyTarget).Title("Sales Variance With Monthly Target").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                   column.Bound(s => s.RequiredTargetPerDay).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                               })
+
+                                .DataBinding(settings => settings.Ajax().Select("_DailyPerformanceMonitoringForSales", "SalesMonitoring"))
+                                .ClientEvents(events =>
+                                   {
+                                       events.OnDataBinding("onDataBinding");
+                                       events.OnError("onError");
+                                   })
+                                 .Scrollable(scroll => scroll.Height(290))
+                                 .Selectable()
+                               )
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+                <h3>Collection Monitoring</h3>
+                <div>
+                    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <input type="submit" id="btnForCollection" name="btnForCollection" value="Show Collection" onclick="return ShowCollectionList('')" style="float: right;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="DataGridXScrollForAccordion">
+                                    @(Html.Telerik().Grid<RASolarERP.DomainModel.SalesModel.DailyBusinessPerformanceMonitoringCollection>()
+                            .Name("gvDailyPerformanceMonitoringForCollection")
+                            .DataKeys(keys => keys.Add(k => k.LocationCode))
+                            .Columns(column =>
+                            {
+                                column.Bound(s => s.LocationCode).ClientTemplate("<a href=\"javascript:void(0)\" onclick=\"return ShowSummaryOnDemand('<#=LocationCode#>','<#=LocationName#>', 'DailyPerformanceMonitoringForCollection');\"><#=LocationName#></a>").Title("Location Name");
+                                column.Bound(s => s.RegularCollectionTarget_CurrentMonthTotal).Title("Regular Collection Target Current Month Total").Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.RegularCollectionTarget_UpToDate).Title("Regular Collection Target Up To Date").Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.RegularCollectionAchievement_UpToDate).Title("Regular Collection Achievement Up To Date").Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.CurrentCollectionEfficiency_UpToDate).Title("Current Collection Efficiency Up To Date").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.CurrentCollectionEfficiency_LastMonth).Title("Current Collection Efficiency Last Month").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.OverdueBalance_LastMonth).Title("Overdue Balance Last Month").Format("{0:0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.OverdueCollectionTarget_UpToDate).Title("Overdue Collection Target Up To Date").Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.OverdueCollectionAchievement_UpToDate).Title("Overdue Collection Achievement Up To Date").Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.OverdueCollectionEfficiency_UpToDate).Title("Overdue Collection Efficiency Up To Date").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.OverdueCollectionEfficiency_LastMonth).Title("Overdue Collection Efficiency Last Month").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.OverallCollectionEfficiency_UpToDate).Title("Overall Collection Efficiency Up To Date").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                column.Bound(s => s.OverallCollectionEfficiency_LastMonth).Title("Overall Collection Efficiency Last Month").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                            })
+
+                           .DataBinding(settings => settings.Ajax().Select("_DailyBusinessPerformanceMonitoringCollection", "SalesMonitoring"))
+                           .ClientEvents(events =>
+                           {
+                               events.OnDataBinding("onDataBindingCollection");
+                               events.OnError("onErrorCollection");
+                           })
+                           .Scrollable(scroll => scroll.Height(275))
+                           .Selectable()
+                           )
+                                </div>
+                            </td>
+
+                        </tr>
+                    </table>
+                    <br />
+                </div>
+
+                <h3>Status on Net-OD (Increase/Decrease) up to Date</h3>
+                <div>
+                    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <input type="submit" id="btnStatusOnNetODIncreaseNDecrease" name="btnStatusOnNetODIncreaseNDecrease" value="Show Status" onclick="return ShowStatusOnNetODIncreaseNDecrease('')" style="float: right;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @(Html.Telerik().Grid<RASolarERP.DomainModel.SalesModel.DailyBusinessPerformanceMonitoringNetODIncreaseOrDecreaseComperison>()
+                                  .Name("gvDailyPerformanceMonitoringIncreaseOrDecreaseComperison")
+                                  .DataKeys(keys => keys.Add(k => k.LocationCode))
+                                  .Columns(column =>
+                                  {
+                                      column.Bound(s => s.LocationCode).ClientTemplate("<a href=\"javascript:void(0)\" onclick=\"return ShowSummaryOnDemand('<#=LocationCode#>','<#=LocationName#>', 'DailyPerformanceMonitoringIncreaseOrDecreaseComperison');\"><#=LocationName#></a>").Title("Location Name");
+                                      column.Bound(s => s.ODRecoveryInLastMonth).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OverdueInLastMonth).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.NetODInLastMonth).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.ODRecoveryInCurrentMonth).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OverdueInCurrentMonth).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.NetODInCurrentMonth).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.NetODIncreasesOrDecreasesFromLastMonth).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                  })
+                                  .DataBinding(settings => settings.Ajax().Select("_DailyBusinessPerformanceMonitoringIncreaseOrDecreaseComperison", "SalesMonitoring"))
+                                  .ClientEvents(events =>
+                                  {
+                                      events.OnDataBinding("onDataBindingComperison");
+                                      events.OnError("onErrorComperison");
+                                  })
+                                  .Scrollable(scroll => scroll.Height(275))
+                                  .Selectable()
+                                )
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>System Return and Resale</h3>
+                <div>
+                    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <input type="submit" id="btn" name="btn" value="Show Status" onclick="return ShowDailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus('')" style="float: right;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="DataGridXScrollForAccordion">
+                                    @(Html.Telerik().Grid<RASolarERP.DomainModel.SalesModel.DailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus>()
+                                  .Name("gvDailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus")
+                                  .DataKeys(keys => keys.Add(k => k.LocationCode))
+                                  .Columns(column =>
+                                  {
+                                      column.Bound(s => s.LocationCode).ClientTemplate("<a href=\"javascript:void(0)\" onclick=\"return ShowSummaryOnDemand('<#=LocationCode#>','<#=LocationName#>', 'DailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus');\"><#=LocationName#></a>").Title("Location Name");
+                                      column.Bound(s => s.Last3MonthsSystemReturn).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.Last3MonthsResale).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.ThisMonthOPBalance_NetSealable).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.ThisMonthSystemReturn).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.ThisMonthResale).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.ClosingBalance).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.SalesMay2013ToOnward_Qty).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.DRFMay2013ToOnward_Qty).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.DRFBacklog_Qty).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.ThisMonthSales_Qty).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.ThisMonthDRFReceived_Qty).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                  })
+                                  .DataBinding(settings => settings.Ajax().Select("_DailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus", "SalesMonitoring"))
+                                  .ClientEvents(events =>
+                                  {
+                                      events.OnDataBinding("onDataBindingSystemReturnVsResaleNDRFCollectionStatus");
+                                      events.OnError("onErrorSystemReturnVsResaleNDRFCollectionStatus");
+                                  })
+                                  .Scrollable(scroll => scroll.Height(275))
+                                  .Selectable()
+                                )
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>Daily Target vs. Achievement</h3>
+                <div>
+                    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+
+                                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" style="width: 9%;">Status As On:
+                                        </td>
+                                        <td align="left" style="width: 41%;">
+                                            @(Html.Telerik().DatePicker().Name("dtpStatusAsOn").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)))
+                                        </td>
+                                        <td align="right" style="width: 50%;">
+                                            <input type="submit" id="btntk" name="btn" value="Show Status" onclick="return ShowDailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement('')" style="float: right;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @(Html.Telerik().Grid<RASolarERP.DomainModel.SalesModel.DailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement>()
+                                  .Name("gvDailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement")
+                                  .DataKeys(keys => keys.Add(k => k.LocationCode))
+                                  .Columns(column =>
+                                  {
+                                      column.Bound(s => s.LocationCode).ClientTemplate("<a href=\"javascript:void(0)\" onclick=\"return ShowSummaryOnDemand('<#=LocationCode#>','<#=LocationName#>', 'DailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement');\"><#=LocationName#></a>").Title("Location Name");
+                                      column.Bound(s => s.SalesTarget_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.SalesAchievement_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.SalesEfficiency_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.RegularCollectionTarget_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.RegularCollectionAchievement_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.RegularCollectionEfficiency_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OverdueCollectionTarget_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OverdueCollectionAchievement_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OverdueCollectionEfficiency_ForTheDay).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                  })
+                                  .DataBinding(settings => settings.Ajax().Select("_DailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement", "SalesMonitoring"))
+                                  .ClientEvents(events =>
+                                  {
+                                      events.OnDataBinding("onDataBindingTargetVsAchievement");
+                                      events.OnError("onErrorTargetVsAchievement");
+                                  })
+                                  .Scrollable(scroll => scroll.Height(265))
+                                  .Selectable()
+                                )
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>Zone Wise Status For Presentation</h3>
+                <div>
+                    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+
+                                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                    <tr>
+                                        <td align="right" style="width: 50%;">
+                                            <input type="submit" id="btntk" name="btn" value="Show Status" onclick="return ShowDailyBusinessPerformanceMonitoringOtherStatus('')" style="float: right;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="DataGridXScrollForAccordion">
+                                    @(Html.Telerik().Grid<RASolarERP.DomainModel.SalesModel.DailyBusinessPerformanceMonitoringOtherStatus>()
+                                  .Name("gvDailyBusinessPerformanceMonitoringOtherStatus")
+                                  .DataKeys(keys => keys.Add(k => k.ZoneName))
+                                  .Columns(column =>
+                                  {
+                                      column.Bound(s => s.ZoneName).ClientTemplate("<a href=\"javascript:void(0)\" onclick=\"return ShowSummaryOnDemand('<#=ZoneName#>','<#=ZoneName#>', 'gvDailyBusinessPerformanceMonitoringOtherStatus');\"><#=ZoneName#></a>").Title("Zone Name");
+                                      column.Bound(s => s.NoOfActiveCustomer).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.NoOfCustomerWithZeroCollectionThisMonth).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.MissingCollectionThisMonth_InPercentage).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.NoOfOngoingCustomerTotal).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OngoingCustomerInOD_Qty).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OngoingInOD_InPercentage).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OngoingCustomerInOD_ODAmount).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.NoOfLPOC).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.OngoingCustomerInODSettled_Qty).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.NoOfLPOC).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.LPOC_InPercentage).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.LPOC_ODAmount).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.LPOCSettled_Qty).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                      column.Bound(s => s.LastMonthAdvanceCollection).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.LastMonthAdvanceAdjustment).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                      column.Bound(s => s.ThisMonthAdvanceCollection).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                  })
+                                  .DataBinding(settings => settings.Ajax().Select("_DailyBusinessPerformanceMonitoringOtherStatus", "SalesMonitoring"))
+                                  .ClientEvents(events =>
+                                  {
+                                      events.OnDataBinding("onDataBindingOtherStatus");
+                                      events.OnError("onErrorOtherStatus");
+                                  })
+                                  .Scrollable(scroll => scroll.Height(265))
+                                  .Selectable()
+                                )
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+        </td>
+    </tr>
+
+</table>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        LoadLocationWiseDefaultReportOption();
+
+        $("#btnLoadLocationWiseReportDefault").click(function () {
+            LoadLocationWiseDefaultReportOption();
+            $('#lblLocationType').text("");
+
+            var activeIndex = $('#DailyPerformanceMonitoringAccordion').accordion('option', 'active');
+
+            if (activeIndex == 0) {
+                ShowSalesList('');
+            }
+            else if (activeIndex == 1) {
+                ShowCollectionList('');
+            }
+            else if (activeIndex == 2) {
+                ShowStatusOnNetODIncreaseNDecrease('');
+            }
+            else if (activeIndex == 3) {
+                ShowDailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus('');
+            }
+            else if (activeIndex == 4) {
+                ShowDailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement('');
+            }
+
+        });
+
+        $("#DailyPerformanceMonitoringAccordion").accordion({
+            autoHeight: false,
+            clearStyle: true,
+            animated: false,
+            active: 0,
+            navigation: false,
+            icons: { header: 'ui-icon-plus', headerSelected: 'ui-icon-minus' }
+        });
+
+    });
+
+    function ShowSalesList(locationCode) {
+
+        var reportType = $('#ddlReportOption').val();
+
+        if (reportType == "") {
+            Helper.AlertMessage("Report Type Required", "Please Give The Report Type");
+            return false;
+        }
+
+        var params = {
+            reportOption: reportType,
+            locationCode: locationCode
+        };
+
+        var grid = $("#gvDailyPerformanceMonitoringForSales").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        setTimeout("cssForLastRow('gvDailyPerformanceMonitoringForSales')", 3000);
+        return false;
+    }
+
+    function ShowCollectionList(locationCode) {
+
+        var reportType = $('#ddlReportOption').val();
+
+        if (reportType == "") {
+            Helper.AlertMessage("Report Type Required", "Please Give The Report Type");
+            return false;
+        }
+
+        var params = {
+            reportOption: reportType,
+            locationCode: locationCode
+        };
+
+        var grid = $("#gvDailyPerformanceMonitoringForCollection").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        setTimeout("cssForLastRow('gvDailyPerformanceMonitoringForCollection')", 3000);
+        return false;
+    }
+
+    function ShowStatusOnNetODIncreaseNDecrease(locationCode) {
+
+        var reportType = $('#ddlReportOption').val();
+
+        if (reportType == "") {
+            Helper.AlertMessage("Report Type Required", "Please Give The Report Type");
+            return false;
+        }
+
+        var params = {
+            reportOption: reportType,
+            locationCode: locationCode
+        };
+
+        var grid = $("#gvDailyPerformanceMonitoringIncreaseOrDecreaseComperison").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        setTimeout("cssForLastRow('gvDailyPerformanceMonitoringIncreaseOrDecreaseComperison')", 3000);
+
+        return false;
+    }
+
+    function ShowDailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement(locationCode) {
+
+        var reportType = $('#ddlReportOption').val();
+
+        if (reportType == "") {
+            Helper.AlertMessage("Report Type Required", "Please Give The Report Type");
+            return false;
+        }
+        else if ($('#dtpStatusAsOn').val() == "") {
+            Helper.AlertMessage("Date Required", "Please Give The Status Date");
+            return false;
+        }
+
+        var params = {
+            reportOption: reportType,
+            locationCode: locationCode,
+            dateForTheStatus: $('#dtpStatusAsOn').val()
+        };
+
+        var grid = $("#gvDailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        setTimeout("cssForLastRow('gvDailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement')", 3000);
+
+        return false;
+    }
+
+    function ShowDailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus(locationCode) {
+
+        var reportType = $('#ddlReportOption').val();
+
+        if (reportType == "") {
+            Helper.AlertMessage("Report Type Required", "Please Give The Report Type");
+            return false;
+        }
+
+        var params = {
+            reportOption: reportType,
+            locationCode: locationCode
+        };
+
+        var grid = $("#gvDailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        setTimeout("cssForLastRow('gvDailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus')", 3000);
+
+        return false;
+    }
+
+
+    function ShowDailyBusinessPerformanceMonitoringOtherStatus(locationCode) {
+
+        var reportType = $('#ddlReportOption').val();
+
+        if (reportType == "") {
+            Helper.AlertMessage("Report Type Required", "Please Give The Report Type");
+            return false;
+        }
+
+        var params = {
+            reportOption: reportType,
+            locationCode: locationCode
+        };
+
+        var grid = $("#gvDailyBusinessPerformanceMonitoringOtherStatus").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        setTimeout("cssForLastRow('gvDailyBusinessPerformanceMonitoringOtherStatus')", 3000);
+
+        return false;
+    }
+
+    
+
+    function cssForLastRow(gridName) {
+        $("#" + gridName + " tbody tr:last").css({ "font-weight": "bold", "font-size": "16px;" });
+    }
+
+    function ShowSummaryOnDemand(locationCode, locationName, reportLoad) {
+
+        if (locationCode == "")
+            return false;
+
+        var reportType = $('#ddlReportOption').val();
+        var locationType = $('#lblLocationType').text();
+
+        if ($("#hfLocationType").val() == "HO") {
+
+            if (reportType == "RSFSUMMARY") {
+                reportType = "ZONESUMMARY";
+                locationType = "Zone: " + locationName + " [" + locationCode + "]";
+            }
+            else if (reportType == "ZONESUMMARY") {
+                reportType = "REGIONSUMMARY";
+                locationType += " -> " + "Region: " + locationName + " [" + locationCode + "]";
+            }
+            else if (reportType == "REGIONSUMMARY") {
+                reportType = "UNITSUMMARY";
+                locationType += " -> " + "Unit: " + locationName + " [" + locationCode + "]";
+            }
+        }
+        else if ($("#hfLocationType").val() == "Zone") {
+            if (reportType == "INDIVIDUALZONE") {
+                reportType = "ZONESUMMARY";
+                locationType = "Zone: " + locationName + " [" + locationCode + "]";
+            }
+            else if (reportType == "ZONESUMMARY") {
+                reportType = "REGIONSUMMARY";
+                locationType += " -> " + "Region: " + locationName + " [" + locationCode + "]";
+            }
+            else if (reportType == "REGIONSUMMARY") {
+                reportType = "UNITSUMMARY";
+                locationType += " -> " + "Unit: " + locationName + " [" + locationCode + "]";
+            }
+        }
+        else if ($("#hfLocationType").val() == "Region") {
+            if (reportType == "INDIVIDUALREGION") {
+                reportType = "REGIONSUMMARY";
+                locationType = "Region: " + locationName + " [" + locationCode + "]";
+            }
+            else if (reportType == "REGIONSUMMARY") {
+                reportType = "UNITSUMMARY";
+                locationType += " -> " + "Unit: " + locationName + " [" + locationCode + "]";
+            }
+        }
+        else if ($("#hfLocationType").val() == "Unit") {
+            if (reportType == "INDIVIDUALUNIT") {
+                reportType = "UNITSUMMARY";
+                locationType = "Unit: " + locationName + " [" + locationCode + "]";
+            }
+        }
+
+        $('#ddlReportOption').val(reportType);
+        $('#lblLocationType').text(locationType);
+        $("#lblReportType").text($("#ddlReportOption option:selected").text());
+
+        if (reportLoad == "DailyPerformanceMonitoringForSales") {
+            ShowSalesList(locationCode);
+        }
+        else if (reportLoad == "DailyPerformanceMonitoringForCollection") {
+            ShowCollectionList(locationCode);
+        }
+        else if (reportLoad == "DailyPerformanceMonitoringIncreaseOrDecreaseComperison") {
+            ShowStatusOnNetODIncreaseNDecrease(locationCode);
+        }
+        else if (reportLoad == "DailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus") {
+            ShowDailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus(locationCode);
+        }
+        else if (reportLoad == "DailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement") {
+            ShowDailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement(locationCode);
+        }
+    }
+
+    function LoadLocationWiseDefaultReportOption() {
+        if ($("#hfLocationType").val() == "HO") {
+            $("#ddlReportOption").val("RSFSUMMARY");
+            $("#lblReportType").text($("#ddlReportOption option:selected").text());
+            $("#btnForCollection").hide();
+        }
+        else if ($("#hfLocationType").val() == "Zone") {
+            $("#ddlReportOption").val("INDIVIDUALZONE");
+            $("#lblReportType").text($("#ddlReportOption option:selected").text());
+            $("#btnForCollection").hide();
+        }
+        else if ($("#hfLocationType").val() == "Region") {
+            $("#ddlReportOption").val("INDIVIDUALREGION");
+            $("#lblReportType").text($("#ddlReportOption option:selected").text());
+            //start disable button show collection if its region
+            $("#btnForCollection").hide();
+            
+            //end disable button show collection if its region
+        }
+        else if ($("#hfLocationType").val() == "Unit") {
+            $("#ddlReportOption").val("INDIVIDUALUNIT");
+            $("#lblReportType").text($("#ddlReportOption option:selected").text());
+            $("#btnForCollection").hide();
+        }
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+</script>

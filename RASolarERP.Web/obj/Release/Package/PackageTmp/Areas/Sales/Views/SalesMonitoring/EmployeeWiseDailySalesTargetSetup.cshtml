@@ -1,0 +1,433 @@
+﻿@model IEnumerable<RASolarERP.Model.LocationNEmployeeWiseDailySalesNCollectionTarget>
+@using RASolarERP.Model;
+@using System.Collections.Generic;
+@{
+    ViewBag.Title = "Employee Wise Daily Sales Target Setup";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.5.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>  
+    <link href="../../../../Content/RSFERP.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/RSFERPSecurity.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../Content/Site.css" rel="stylesheet" type="text/css" />
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+@{
+   
+    Sal_LocationWiseSalesNCollectionTarget objLocationWiseSalesNCollectionTarget = new Sal_LocationWiseSalesNCollectionTarget();
+    objLocationWiseSalesNCollectionTarget = (Sal_LocationWiseSalesNCollectionTarget)TempData["LocationWiseSalesNCollectionTarget"];
+
+    int rowCounter = 0;
+    int employeeWaitingForAccept = (int)@ViewBag.EmployeeTransferredButNotYetAccepted;
+}
+<input id="hfEmployeeWiseSalesTarget" type="hidden" />
+<input id="hfIsTargetCompleted" type="hidden" value="@ViewBag.IsEmployeeWiseTargetSettingCompleted" />
+<input id="hfEmployeeTransferredButNotYetAccepted" type="hidden" value="@ViewBag.EmployeeTransferredButNotYetAccepted" />
+<input id="hfIsLeapYear" type="hidden" value="@ViewBag.IsLeapYear" />
+<table class="hh1" width="100%" cellpadding="0" cellspacing="0" border="0">
+    @*<tr>
+        <td style="padding-bottom: 3px;">
+            <a href="../../EmployeeWiseDailyTargetAllocationGuide.doc" style="font-size: 14px;
+                font-weight: bold;" target="_blank">Guide Line</a>
+        </td>
+    </tr>*@
+    <tr>
+        <td class="salmonitoringHead1" width="25%" align="left">Overall Unit Monthly Target:
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <table id="hhh1" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td colspan="2" style="height: 1px;"></td>
+                </tr>
+                <tr style="background-color: #F3F4F8;">
+                    <td align="left" width="15%" style="background-color: #DBD7D9">Unit
+                    </td>
+                    <td width="35%" style="background-color: #DBD7D9" align="left">
+                        @Html.Label("lblUnitName", (string)@ViewBag.UnitName)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height: 2px;"></td>
+                </tr>
+                <tr>
+                    <td align="left" width="15%" style="background-color: #DBD7D9">Month
+                    </td>
+                    <td width="35%" style="background-color: #DBD7D9" align="left">
+                        @Html.Label("lblMonth", TempData["YearMonth"].ToString())
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height: 2px;"></td>
+                </tr>
+                <tr>
+                    <td align="left" width="15%" style="background-color: #DBD7D9">Monthly Sales Target
+                    </td>
+                    <td width="35%" style="background-color: #DBD7D9" align="left">
+                        <input id="hfTotalSalesTarget" type="hidden" value="@(Convert.ToString(objLocationWiseSalesNCollectionTarget.SalesTarget))"/>
+                        <b id="lblUnitSalesTarget">@(Convert.ToString(objLocationWiseSalesNCollectionTarget.SalesTarget))</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height: 2px;"></td>
+                </tr>
+                <tr>
+                    <td align="left" width="15%" style="background-color: #DBD7D9">Total Allocated Target
+                    </td>
+                    <td width="35%" style="background-color: #DBD7D9" align="left">
+                        <b id="lblAllocatedTarget">@(Convert.ToString(ViewBag.TotalAllocatedTarget))</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="height: 2px;"></td>
+                </tr>
+                @* <tr>
+                        <td width="15%" style="background-color: #DBD7D9" align="left">
+                            Monthly Current Collection Target
+                        </td>
+                        <td width="35%" style="background-color: #DBD7D9" align="left">
+                            <b id="lblRegularCollectionTarget">@(Convert.ToDecimal(objLocationWiseSalesNCollectionTarget.RegularCollectionTarget).ToString("0"))</b>
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td colspan="2" style="height: 2px;"></td>
+                </tr>
+                @* <tr>
+                        <td width="15%" style="background-color: #DBD7D9" align="left">
+                            Monthly Overdue Collection Target
+                        </td>
+                        <td width="35%" style="background-color: #DBD7D9" align="left">
+                            <b id="lblOverdueCollectionTarget">@(Convert.ToDecimal(objLocationWiseSalesNCollectionTarget.OverdueCollectionTarget).ToString("0"))</b>
+                        </td>
+                    </tr>*@
+                <tr>
+                    <td colspan="4" style="height: 1px;"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+@if (@employeeWaitingForAccept != 1)
+{
+    <table class="hh1" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td class="salmonitoringHead1" width="25%" align="left">Employee Wise Target Allocation:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="DataGridXScroll">
+                    @(Html.Telerik().Grid(Model)
+                  .Name("gvLocationNEmployeeWiseDailySalesNCollectionTarget")
+                  .DataKeys(keys => keys.Add(k => k.EmployeeID))
+                  .Columns(column =>
+                  {
+                      column.Bound(e => e.EmployeeID).Title("Employee ID").Width(80);
+                      column.Bound(e => e.EmployeeName).Title("Employee Name").Width(150);
+                      column.Bound(e => e.Day01).Title("Day 01").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '1', this.value)"   value="@(@item.Day01)" id="@("day1" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day02).Title("Day 02").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '2', this.value)"   value="@(@item.Day02)" id="@("day2" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day03).Title("Day 03").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '3', this.value)"   value="@(@item.Day03)" id="@("day3" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day04).Title("Day 04").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '4', this.value)"   value="@(@item.Day04)" id="@("day4" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day05).Title("Day 05").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '5', this.value)"   value="@(@item.Day05)" id="@("day5" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day06).Title("Day 06").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '6', this.value)"   value="@(@item.Day06)" id="@("day6" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day07).Title("Day 07").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '7', this.value)"   value="@(@item.Day07)" id="@("day7" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day08).Title("Day 08").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '8', this.value)"   value="@(@item.Day08)" id="@("day8" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day09).Title("Day 09").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '9', this.value)"   value="@(@item.Day09)" id="@("day9" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day10).Title("Day 10").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '10', this.value)"   value="@(@item.Day10)" id="@("day10" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day11).Title("Day 11").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '11', this.value)"   value="@(@item.Day11)" id="@("day11" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day12).Title("Day 12").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '12', this.value)"   value="@(@item.Day12)" id="@("day12" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day13).Title("Day 13").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '13', this.value)"   value="@(@item.Day13)" id="@("day13" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day14).Title("Day 14").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '14', this.value)"   value="@(@item.Day14)" id="@("day14" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day15).Title("Day 15").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '15', this.value)"   value="@(@item.Day15)" id="@("day15" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day16).Title("Day 16").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '16', this.value)"   value="@(@item.Day16)" id="@("day16" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day17).Title("Day 17").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '17', this.value)"   value="@(@item.Day17)" id="@("day17" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day18).Title("Day 18").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '18', this.value)"   value="@(@item.Day18)" id="@("day18" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day19).Title("Day 19").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '19', this.value)"   value="@(@item.Day19)" id="@("day19" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day20).Title("Day 20").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '20', this.value)"   value="@(@item.Day20)" id="@("day20" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day21).Title("Day 21").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '21', this.value)"   value="@(@item.Day21)" id="@("day21" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day22).Title("Day 22").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '22', this.value)"   value="@(@item.Day22)" id="@("day22" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day23).Title("Day 23").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '23', this.value)"   value="@(@item.Day23)" id="@("day23" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day24).Title("Day 24").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '24', this.value)"   value="@(@item.Day24)" id="@("day24" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day25).Title("Day 25").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '25', this.value)"   value="@(@item.Day25)" id="@("day25" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day26).Title("Day 26").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '26', this.value)"   value="@(@item.Day26)" id="@("day26" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day27).Title("Day 27").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '27', this.value)"   value="@(@item.Day27)" id="@("day27" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day28).Title("Day 28").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '28', this.value)"   value="@(@item.Day28)" id="@("day28" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35);
+                      column.Bound(e => e.Day29).Title("Day 29").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '29', this.value)"   value="@(@item.Day29)" id="@("day29" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35).Visible(ViewBag.IsLeapYear);
+                      column.Bound(e => e.Day30).Title("Day 30").Template(@<input type="text" style="width:30px; text-align:right;" onblur="CalculateTotalTarget('@item.EmployeeID.Trim()', '30', this.value)"   value="@(@item.Day30)" id="@("day30" + @item.EmployeeID.Replace("-", "").Replace(" ", ""))"/>).Width(35).Visible(ViewBag.IsLeapYear);
+                      column.Bound(e => e.TotalForTheMonth).Title("Total For The Month").Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                      column.Template(@<a href="#" onclick="return SaveEmplyeeDailyTarget('@item.EmployeeID.Trim()', '@(rowCounter++)');">Save</a>).Width(50);
+                  })
+            )
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p id="targetLocked" style="color: Red; font-size: 14px; font-weight: bold;">
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <input type="button" id="btnSubmitDailyTarget" value="Final Save" />
+            </td>
+        </tr>
+    </table>
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        if ($('#hfEmployeeTransferredButNotYetAccepted').val() == "1") {
+            alert("Some Employee Transferred in This Location Please Go To Accept Transferred Employee Page For Accept/Reject");
+            return false;
+        }
+
+        if ($('#hfIsTargetCompleted').val() == "1") {
+            $('#btnSubmitDailyTarget').attr('disabled', true);
+            $('#targetLocked').text("Daily Target Finally Saved And Locked");
+        }
+        else {
+            $('#btnSubmitDailyTarget').attr('disabled', false);
+            $('#targetLocked').text("");
+        }
+
+        $('#btnSubmitDailyTarget').click(function () {
+
+            if (FinishedEmployeeWiseDailyTarget() == true) {
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("FinishedEmployeeDailySalesTarget", "SalesMonitoring")',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    cache: false,
+                    success: function (data) {
+                        if (data[0].messageCode == "success") {
+                            $('#hfIsTargetCompleted').val("1");
+                            $('#btnSubmitDailyTarget').attr('disabled', true);
+                            alert(data[0].message);
+                        }
+                        else {
+                            alert(data[0].message);
+                        }
+                    },
+                    error: function () {
+                        alert("Connection Is Not Avaiable. Try Later.");
+                    }
+                });
+            }
+
+            return false;
+        });
+
+    });
+
+    function CalculateTotalTarget(employeeId, days, targetValue) {
+
+        var employeeIdWithoutHipen = Helper.CustomerIdWithoutHiPen(employeeId);
+
+        if (targetValue == "") {
+            $("#day" + days + employeeIdWithoutHipen).val("0");
+        }
+        else if (Helper.IsInt(targetValue) == false) {
+            alert("Target Value Cannot Be Character/Negative");
+            $("#day" + days + employeeIdWithoutHipen).val("0");
+            return false;
+        }
+        else if (Helper.IsLeadingZeroContains(targetValue) == true) {
+            $("#day" + days + employeeIdWithoutHipen).val(parseInt(targetValue, 10));
+        }
+
+        var monthlySalesTarget = parseInt($('#hfTotalSalesTarget').val());
+        var perDayMaximumTargetAllowed = Math.ceil((monthlySalesTarget / 30) * 2);
+
+        if (parseInt(targetValue, 10) > perDayMaximumTargetAllowed) {
+            alert("Target Cannot Be Maximum (" + perDayMaximumTargetAllowed + ") Per Day");
+            $("#day" + days + employeeIdWithoutHipen).val("0");
+            return false;
+        }
+
+        var tr = $("#gvLocationNEmployeeWiseDailySalesNCollectionTarget tbody tr:contains('" + employeeId + "')");
+        var columnLength = tr.find('td').length - 2;
+
+        var totalTargetSetValue = 0, columnCount = 0;
+
+        for (columnCount = 2; columnCount < columnLength; columnCount++) {
+
+            if (tr.find("td:eq(" + columnCount + ")").find("input").val() == "0" || tr.find("td:eq(" + columnCount + ")").find("input").val() == "") {
+                continue;
+            }
+
+            totalTargetSetValue = totalTargetSetValue + parseInt(tr.find("td:eq(" + columnCount + ")").find("input").val(), 10);
+        }
+
+        tr.find("td:eq(" + columnLength + ")").text(totalTargetSetValue);
+
+        var totalAllocatedTarget = 0;
+        var rowsLength = $("#gvLocationNEmployeeWiseDailySalesNCollectionTarget tbody tr").length;
+
+        for (columnCount = 0; columnCount < rowsLength; columnCount++) {
+            totalAllocatedTarget = totalAllocatedTarget + parseInt($("#gvLocationNEmployeeWiseDailySalesNCollectionTarget tbody tr:eq(" + columnCount + ")").find("td:eq(" + columnLength + ")").text(), 10);
+        }
+
+        $('#lblAllocatedTarget').text(totalAllocatedTarget);
+    }
+
+    function SaveEmplyeeDailyTarget(employeeId, rowIndex) {
+
+        if ($('#hfIsTargetCompleted').val() == "1") {
+            alert("Target Already Set and Locked");
+            return false;
+        }
+
+        if (SaveEmployeeWiseDailyTarget(rowIndex) == true) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveEmployeeDailySalesTarget", "SalesMonitoring")',
+                data: "{'employeeWiseSalesTarget':'" + $('#hfEmployeeWiseSalesTarget').val() + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                    if (data[0].messageCode == "success") {
+                        alert(data[0].message);
+                    }
+                    else {
+                        alert(data[0].message);
+                    }
+                },
+                error: function () {
+                    alert("Connection Is Not Avaiable. Try Later.");
+                }
+            });
+        }
+
+        return false;
+    }
+
+    function SaveEmployeeWiseDailyTarget(rowIndex) {
+
+        var employeeSalesTarget = "", employeeWiseSalesTargetSave = "", dayTarget = 0, rowCount = 0, columnCount = 0;
+        var monthlySalesTarget = 0, totalSalesTarget = 0, columnLength = 0, employeeId = "";
+        monthlySalesTarget = $('#hfTotalSalesTarget').val();
+        columnLength = $('#gvLocationNEmployeeWiseDailySalesNCollectionTarget tbody tr:eq(0)').find('td').length - 2;
+
+        dayTarget = 0;
+        employeeSalesTarget = "";
+
+        var tr = $("#gvLocationNEmployeeWiseDailySalesNCollectionTarget tbody tr:eq(" + rowIndex + ")");
+        employeeId = tr.find('td:eq(0)').text();
+
+        for (columnCount = 2; columnCount < columnLength; columnCount++) {
+
+            dayTarget = 0;
+            var column = tr.find("td:eq(" + columnCount + ")");
+
+            if (column.find('input').val() == "0" || column.find('input').val() == "") {
+                dayTarget = 0;
+            }
+            else {
+                dayTarget = parseInt(column.find('input').val());
+            }
+
+            totalSalesTarget = totalSalesTarget + dayTarget;
+
+            employeeSalesTarget = employeeSalesTarget + dayTarget;
+
+            if (columnCount < (columnLength - 1)) {
+                employeeSalesTarget = employeeSalesTarget + ",";
+            }
+        }
+
+        if (employeeWiseSalesTargetSave != "") {
+            employeeWiseSalesTargetSave = employeeWiseSalesTargetSave + "#" + employeeId + "," + employeeSalesTarget;
+        }
+        else {
+            employeeWiseSalesTargetSave = employeeWiseSalesTargetSave + employeeId + "," + employeeSalesTarget;
+        }
+
+        $('#hfEmployeeWiseSalesTarget').val(employeeWiseSalesTargetSave);
+        return true;
+    }
+
+    function FinishedEmployeeWiseDailyTarget() {
+
+        var dayTarget = 0, rowCount = 0, columnCount = 0;
+        var monthlySalesTarget = 0, totalSalesTarget = 0, rowsLength = 0, columnLength = 0;
+
+        monthlySalesTarget = $('#hfTotalSalesTarget').val();
+
+        columnLength = $('#gvLocationNEmployeeWiseDailySalesNCollectionTarget tbody tr:eq(0)').find('td').length - 2;
+        rowsLength = $('#gvLocationNEmployeeWiseDailySalesNCollectionTarget tbody tr').length;
+
+        for (rowCount = 0; rowCount < rowsLength; rowCount++) {
+
+            dayTarget = 0;
+
+            var tr = $("#gvLocationNEmployeeWiseDailySalesNCollectionTarget tbody tr:eq(" + rowCount + ")");
+
+            for (columnCount = 2; columnCount < columnLength; columnCount++) {
+
+                dayTarget = 0;
+                var column = tr.find("td:eq(" + columnCount + ")");
+
+                if (column.find('input').val() == "0" || column.find('input').val() == "") {
+                    dayTarget = 0;
+                }
+                else {
+                    dayTarget = parseInt(column.find('input').val());
+                }
+
+                totalSalesTarget = totalSalesTarget + dayTarget;
+            }
+        }
+
+        if (totalSalesTarget < monthlySalesTarget) {
+            alert("Monthy Sales Target Should Be Equall With Total Day Wise Target Distribution");
+            $('#hfEmployeeWiseSalesTarget').val("0");
+            return false;
+        }
+        else if (totalSalesTarget > monthlySalesTarget) {
+            alert("Monthy Sales Target Should Be Equall With Total Day Wise Target Distribution");
+            $('#hfEmployeeWiseSalesTarget').val("0");
+            return false;
+        }
+
+        return true;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{52EA8C97-87A9-445E-BD81-EC7DEB2CCB35}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RASolarAMS.Model</RootNamespace>
+    <AssemblyName>RASolarAMS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccGetMonthlyExpensesInDetail.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccIncomeStatementForMonthlyMIS.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountBalanceSheet.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountingDataEntryStatus.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccShowAccountWiseBreakdown.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccTrialBalanceInDetailByAccount.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_ChartOfAccounts.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_FinalTransDetail.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_FinalTransMaster.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_FiscalYearInfo.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_GLAccountVsDimension.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_LocationWiseDailySummary.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_MonthlyCashReceiptPaymentTransaction.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_PrePostTransDetail.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_PrePostTransDetailByDimension.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_PrePostTransMaster.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_SpecialAccount.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Acc_TransNoCount.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Aud_AuditAdjustmentRelatedAccountingTransaction.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_BankAccountType.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_BankBranchInfo.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_BankInfo.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_LocationWiseBankAccountInfo.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_ProjectInfo.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralLedger.cs" />
+    <Compile Include="GLAccountLedger.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_SalaryPayRegisterByMonthNEmployee.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IRASolarAMSRepository.cs" />
+    <Compile Include="IRASolarAMSService.cs" />
+    <Compile Include="MonthlyAccountingSummaryStatement.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RASolarAMSDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarAMSDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarAMSDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarAMSDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarAMSDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarAMSRepository.cs" />
+    <Compile Include="RASolarAMSService.cs" />
+    <Compile Include="TrialBalance.cs">
+      <DependentUpon>RASolarAMSDB.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="RASolarAMSDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RASolarAMSDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="RASolarAMSDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RASolarAMSDB.edmx</DependentUpon>
+      <LastGenOutput>RASolarAMSDB.Context.cs</LastGenOutput>
+    </None>
+    <None Include="RASolarAMSDB.edmx.diagram">
+      <DependentUpon>RASolarAMSDB.edmx</DependentUpon>
+    </None>
+    <None Include="RASolarAMSDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RASolarAMSDB.edmx</DependentUpon>
+      <LastGenOutput>RASolarAMSDB.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RASolarERP.DomainModel\RASolarERP.DomainModel.csproj">
+      <Project>{4e6b26f1-dc7a-4a9e-8b48-dbe0ef1f5651}</Project>
+      <Name>RASolarERP.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RASolarHelper\RASolarHelper.csproj">
+      <Project>{107b98ed-7cd4-4f2a-93a6-ac9590123c37}</Project>
+      <Name>RASolarHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

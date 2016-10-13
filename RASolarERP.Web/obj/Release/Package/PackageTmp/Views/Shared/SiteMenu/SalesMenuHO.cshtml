@@ -1,0 +1,92 @@
+﻿@{
+    Html.Telerik().Menu()
+        .Name("HorizontalMenu")
+        .Orientation(MenuOrientation.Horizontal)
+        .Items(menu =>
+        {
+            //menu.Add()
+            //    .Text("SalesIcon")
+            //    .ImageUrl("../../Content/Images/SalesIcon.png")
+            //    .Items(item =>
+            //    {
+            //        item.Add().Text("Monthly SalesIcon Transaction").ImageUrl("../../Content/Images/SalesIcon.png");
+            //        item.Add().Text("SalesIcon Summary Report").ImageUrl("../../Content/Images/SalesIcon.png");
+            //        item.Add().Text("SalesIcon Data Entry Status").ImageUrl("../../Content/Images/SalesIcon.png");
+            //        item.Add().Text("Closing SalesIcon Report").ImageUrl("../../Content/Images/SalesIcon.png");
+
+
+
+            //    });
+
+            menu.Add()
+         .Text("Progress Review")
+         .ImageUrl("~/Content/Images/ProgressReview.png")
+         .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        @*<li>
+            <img src="@Url.Content("../../Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-DailyProgressReviewDataEntryStatus');">Daily
+                Progress Review Data Entry Status</a> </li>
+        <li>
+            <img src="@Url.Content("../../Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-LocationNEmployeeWiseWeeklySalesNCollectionReport');">Weekly Overdue Collection Report</a></li>
+        <li>
+            <img src="@Url.Content("../../Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-WeeklySalesNCollectionEntryStatus');">Weekly
+                Overdue Collection Entry Status</a></li>*@
+       @* <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-ProgressReviewGraph');">Sales & Collection Target Vs. Achievement in Graph</a> </li>*@
+       @* <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-DailyTADAEntry');">Daily TA/DA Entry</a>
+        </li>*@
+
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SalesRecoveryCommitmentReview');">Sales And Recovery Commitment Review</a></li>
+
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-DailyPerformanceMonitoring');">Daily Performance Monitoring</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-WeeklySalesNCollectionEntryStatusForUnitUser');">Weekly Overdue Collection Entry Status</a>
+        </li>
+
+    </ul>
+    </text>
+
+
+);
+
+            menu.Add()
+                  .Text("Sales")
+                  .ImageUrl("~/Content/Images/SalesIcon.png")
+                  .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SalesSummary');">Sales Data Entry Status</a></li>
+        @* <li>
+            <img src="@Url.Content("../../Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-OverdueCollectionTargetVsAchievementByUnitOfficeReport');">
+                Overdue Collection Target Vs Achievement By Unit Office</a></li>*@
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-CollectionEfficiencySummary');">Collection
+                Efficiency Summary</a></li>
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-UOCollectionVsHOPhysicalCashMovementReport');">UO Collection Vs HO Physical Cash Movement Report</a></li>*@
+
+    </ul>
+    </text>
+);
+
+
+        }).Render();
+}

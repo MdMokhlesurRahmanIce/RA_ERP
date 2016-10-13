@@ -1,0 +1,14 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".txt" #>
+
+1. How To Execute a Sclar Funtion using Entity Framework
+
+var vv = context.CreateQuery<decimal>("SELECT VALUE RSFMISModel.Store.FUNC_GetDepretiatedPackagePriceBySRPanelSerial(@prmPanelSerialNo) FROM {1}", new ObjectParameter("prmPanelSerialNo", panelSerial.Trim())).First();
+return Convert.ToDecimal(vv);
+
+
+c.	Sending Item Stock Location: New Saleable (1) and Item Condition: Non-Saleable/Damage/Repairable (21), then Received Item Stock Location is New Repairable and Damage (11)
+d.	Sending Item Stock Location: Old Saleable (2) and Item Condition: Saleable/Good (20), then Received Item Stock Location is Old Saleable (2)
+e.	Sending Item Stock Location: Old Saleable (2) and Item Condition: Non-Saleable/Damage/Repairable (21), then Received Item Stock Location is Old Repairable and Damage (12)
+f.	Sending Item Stock Location: CSI Good (3) and Item Condition: Saleable/Good (20), then Received Item Stock Location is CSI Good (3)
+g.	Sending Item Stock Location: CSI Good (3) and Item Condition: Non-Saleable/Damage/Repairable (21), then Received Item Stock Location is CSI Repairable and Damage (13)

@@ -1,0 +1,139 @@
+﻿@{
+    Html.Telerik().Menu()
+        .Name("HorizontalMenu")
+        .Orientation(MenuOrientation.Horizontal)
+        .Items(menu =>
+        {
+            menu.Add()
+        .Text("Progress Review")
+        .ImageUrl("~/Content/Images/ProgressReview.png")
+        .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-DailyProgressReviewDataEntryStatus');">Daily
+                Progress Review Data Entry Status</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-LocationNEmployeeWiseWeeklySalesNCollectionReport');">Weekly Overdue Collection Report</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SummaryForTheDayClosing');">Day Open/Close</a></li>
+    </ul>
+    </text>
+
+);
+            menu.Add()
+                  .Text("Sales")
+                  .ImageUrl("~/Content/Images/SalesIcon.png")
+                  .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-CollectionEfficiencySummary');">Collection
+                Efficiency Summary</a></li>
+    </ul>
+    </text>
+
+);
+
+            menu.Add()
+                .Text("Inventory")
+                .ImageUrl("~/Content/Images/Inventory.png")
+                .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ReportViewer');">Closing Inventory Report</a></li>
+    </ul>
+    </text>
+);
+
+            menu.Add()
+           .Text("Accounting")
+           .ImageUrl("~/Content/Images/AccountingIcon.png")
+           .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-AccountingSummary');">Account Data Entry Status</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-AccountingModuleForHeadOffice');" target="_blank">Accounting Transaction</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-TrialBalance');">Trial Balance Report</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-ReportViewerAccountFinance');">Financial Balance Sheet</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-GeneralLedger');">General Ledger Report</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-IncomeStatement');">Income Statement</a>
+        </li>
+
+          <li class="t-item t-state-default">
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" /><a href="#"> Account Voucher</a><span class="t-icon t-arrow-next"></span>
+              <ul class="t-group MenuListVertical" style="display: none; margin-left: -120px; width: 153px;">
+                  <li class="t-link">
+                      <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+                      <a href="#" onclick="return RSFMenu('ACC-PaymentVoucher');">Payment Voucher
+                      </a>
+                  </li>
+
+                  <li class="t-link">
+                    <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+                    <a href="#" onclick="return RSFMenu('ACC-ReceiveVoucher');">Receive Voucher
+                    </a>
+                </li>
+
+                  <li class="t-link">
+                      <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+                      <a href="#" onclick="return RSFMenu('ACC-ContraVoucher');">Contra Voucher
+                      </a>
+                  </li>
+                
+                
+                 <li class="t-link">
+                    <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+                    <a href="#" onclick="return RSFMenu('ACC-NonCashVoucher');">Non Cash Voucher
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+    </text>
+);
+            menu.Add()
+                .Text("Customer Training")
+                .ImageUrl("~/Content/Images/Training.png")
+                .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/Training.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-CustomerTrainingSummaryReport');">Customer
+                Training Summary Report</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Training.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-CustomerTrainingDetailsReport');">Customer
+                Training Details Report</a></li>
+    </ul>
+    </text>);
+
+
+
+        }).Render();
+}

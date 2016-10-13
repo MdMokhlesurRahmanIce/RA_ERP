@@ -1,0 +1,185 @@
+﻿@{
+    Html.Telerik().Menu()
+        .Name("HorizontalMenu")
+        .Orientation(MenuOrientation.Horizontal)
+        .Items(menu =>
+        {
+            menu.Add()
+             .Text("Progress Review")
+             .ImageUrl("~/Content/Images/ProgressReview.png")
+             .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        @*<li>
+            <img src="@Url.Content("../../Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-DailyProgressReviewDataEntryStatus');">Daily
+                Progress Review Data Entry Status</a> </li>
+        <li>
+            <img src="@Url.Content("../../Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-LocationNEmployeeWiseWeeklySalesNCollectionReport');">Weekly Overdue Collection Report</a></li>
+        <li>
+            <img src="@Url.Content("../../Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-WeeklySalesNCollectionEntryStatus');">Weekly
+                Overdue Collection Entry Status</a> </li>*@
+       @* <li>
+            <img src="@Url.Content("~/Content/images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SummaryForTheDayClosing');">Day Open/Close</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-DailyTADAEntry');">Daily TA/DA Entry</a>
+        </li>*@
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-TADAReviewNApproval');">TA/DA Review And Approval</a>
+        </li>*@
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-EmployeeRegister');">Employee Register</a>
+        </li>*@
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-EmployeeAcceptReject');">Accept Transferred
+                Employee</a> </li>*@
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-ProgressReviewGraph');">Sales & Collection
+                Target Vs. Achievement in Graph</a> </li>*@
+
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-ODRecoveryCommitmentReview');">OD Recovery Commitment Review</a> </li>*@
+          <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SalesRecoveryCommitmentReview');">Sales And Recovery Commitment Review</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-DailyPerformanceMonitoring');">Daily Performance Monitoring</a>
+        </li>
+         <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-WeeklySalesNCollectionEntryStatusForUnitUser');">Weekly Overdue Collection Entry Status </a>
+        </li> 
+    </ul>
+    </text>
+
+);
+
+            menu.Add()
+              .Text("Sales")
+              .ImageUrl("~/Content/Images/SalesIcon.png")
+              .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SalesSummary');">Sales Data Entry Status</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-CollectionEfficiencySummary');">Collection
+                Efficiency Summary</a></li>
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SummarySheetForRegionalSalesPosting');">Summary
+                Sheet For Regional Sales Posting</a></li>*@
+    </ul>
+    </text>
+);
+
+            menu.Add()
+                .Text("Inventory")
+                .ImageUrl("~/Content/Images/Inventory.png")
+                .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-StockPositionViewNUpdate')">Stock Position
+                View and Update</a> </li>*@
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemReceiveWithChallan')">MRR (With Challan)</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemReceiveWithoutChallan')">MRR (Without Challan)</a>
+        </li>*@
+      @*  <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemIssue')">Challan</a> </li>*@
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventoryLedger')">Item Ledger Report</a>
+        </li>
+        @*<li>
+            <img src="@Url.Content("../../Content/Images/Inventory.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventoryInTransitReport')">Stock In-Transit
+                Report</a> </li>*@
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-StockInTransitAtGlance');">Stock In Transit
+                At A Glance</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemSummary');">Item Summary Report</a>
+        </li>
+       @* <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-CashMemoBookAllocation');">Cash Memo Book Allocation</a></li>*@
+        @* <li>
+            <img src="@Url.Content("../../Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventoryDataEntryStatusReport');">Inventory
+                Data Entry Status Report</a> </li>*@
+    </ul>
+    </text>
+);
+
+            menu.Add()
+                    .Text("Accounting")
+                    .ImageUrl("~/Content/Images/AccountingIcon.png")
+                    .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-AccountingModuleForZO');" target="_blank">Accounting
+                Transaction</a></li>*@
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-TrialBalance');">Trial Balance Report</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-GeneralLedger');">General Ledger Report</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-AccountingSummary');">Account Data Entry Status</a>
+        </li>
+       @* <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-EmployeeWiseSalaryPayment');">Employee Wise Salary Payment</a>
+        </li>*@
+    </ul>
+    </text>
+
+);
+
+            menu.Add()
+          .Text("HR Admin")
+          .ImageUrl("~/Content/Images/HRAdmin.png")
+          .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+       @* <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-EmployeeTransfer');">Employee Register</a>
+        </li>*@
+    </ul>
+    </text>
+
+);
+
+        }).Render();
+}

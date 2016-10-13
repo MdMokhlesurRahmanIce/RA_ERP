@@ -1,0 +1,125 @@
+﻿@{
+      if(false)
+      {
+          <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+      }   
+    
+    ViewBag.Title = "Income Statement";
+    
+    
+    Layout = "~/Areas/Financial/Views/Shared/_AccountingLayout.cshtml";
+}
+
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+
+@section LoginInfo
+{
+     <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+
+<input id = "hdUrl" type = "hidden" value = "@ViewData["reportUrl"]"/>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    @using (Html.BeginForm("Login"))
+    { 
+        <tr>
+            <td style="width: 30%;" align="left">
+                Date From:&nbsp;
+               @(Html.Telerik().DatePicker()
+                     .Name("txDateFrom")
+                        .Max(new DateTime(2999, 12, 31))
+                        .Format("dd/MM/yyyy")
+                  .HtmlAttributes(new { @Style = "width:100px; height:10px;" })
+
+                )
+            </td> 
+            <td style="width: 30%;" align="left">
+             Date To:&nbsp;
+             @(Html.Telerik().DatePicker()
+                    .Name("txDateTo")
+                        .Max(new DateTime(2999, 12, 31))
+                       .Format("dd/MM/yyyy")
+                     .HtmlAttributes(new { @class = "datetimeBox" })                        
+                )
+            </td>           
+            <td style="width: 40%;" align="left">
+                <input type="submit" onclick="return ReportValidationCheck();" name="ShowReport"
+                    value="Show Report" />
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3" style="height: 10px;">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="width: 100%;">
+            <iframe id="ifrmReportViewer" frameborder="0"  width="1000"; height="1500"; style="overflow:hidden;" scrolling="no"></iframe>
+        </td>
+    </tr>
+    <tr>
+    <td style="height:10px;" colspan="3">
+    
+    </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+
+    function ReportValidationCheck() {
+
+        var url = $('#hdUrl').val();
+        var dateFrom = $('#txDateFrom').val();
+        var dateTo = $('#txDateTo').val();
+
+        if (dateFrom == "") {
+            alert("Please Give From Date.");
+        }
+        else if (dateTo == "") {
+            alert("Please Give To Date.");
+        }
+        else {
+
+            //url = url + "dpSpYearMonth=" + yearmonth + ",rpYearMonth=" + yearmonth + ",rpStockInTransit=" + stockInTransit;
+            //"../Reports/ReportViewerAccountFinance.aspx?rptmode=local&reportname=StatementOfFinancilaPosition&parameters=dpSpYearMonth=" + yearmonth + ",rpYearMonth=" + yearmonth;
+            url = "../../Areas/Financial/Reports/ReportViewerAccountFinance.aspx?rptmode=local&reportname=IncomeStatement&parameters=dpSpdateFrom=" + dateFrom + ",dpSpdateFrom=" + dateTo;
+
+            var myframe = document.getElementById("ifrmReportViewer");
+            if (myframe !== null) {
+                if (myframe.src) {
+                    myframe.src = url;
+                }
+                else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                    myframe.contentWindow.location = url;
+                }
+                else { myframe.setAttribute('src', url); }
+            }
+        }
+
+        return false;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

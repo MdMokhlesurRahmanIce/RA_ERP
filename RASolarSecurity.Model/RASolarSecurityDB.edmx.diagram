@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d64229f460b243179c6a1ed09be0b3cc" Name="Diagram1">
+        <EntityTypeShape EntityType="RASolarERP_SecurityAdminModel.ListOfRASolarERPPages" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarERP_SecurityAdminModel.LocationInformation" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarERP_SecurityAdminModel.Sys_StatusInfo" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarERP_SecurityAdminModel.UserInformation" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarERP_SecurityAdminModel.UserLocationMapping" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarERP_SecurityAdminModel.UserRoleOrGroupInformation" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarERP_SecurityAdminModel.UserRoleOrGroupWisePermission" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupWisePermission_ListOfRASolarERPPages" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_LocationInformation_Sys_StatusInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_LocationInformation" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_UserInformation_Sys_StatusInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupInformation_Sys_StatusInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_UserInformation_UserRoleOrGroupInformation" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_UserInformation" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_UserInformation1" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupWisePermission_UserRoleOrGroupInformation" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

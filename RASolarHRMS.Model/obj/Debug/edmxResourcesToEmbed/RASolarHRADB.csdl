@@ -1,0 +1,1341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RASolarHRAModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="RASolarHRAEntities" p1:LazyLoadingEnabled="false">
+    <EntitySet Name="Aud_AuditingDetailsForAuditors" EntityType="RASolarHRAModel.Aud_AuditingDetailsForAuditors" />
+    <EntitySet Name="Aud_AuditingMaster" EntityType="RASolarHRAModel.Aud_AuditingMaster" />
+    <EntitySet Name="Common_DistrictInfo" EntityType="RASolarHRAModel.Common_DistrictInfo" />
+    <EntitySet Name="Common_LocationInfo" EntityType="RASolarHRAModel.Common_LocationInfo" />
+    <EntitySet Name="Common_UpazillaInfo" EntityType="RASolarHRAModel.Common_UpazillaInfo" />
+    <EntitySet Name="Hrm_BankAdviceForSalaryMaster" EntityType="RASolarHRAModel.Hrm_BankAdviceForSalaryMaster" />
+    <EntitySet Name="Hrm_BloodGroupInfo" EntityType="RASolarHRAModel.Hrm_BloodGroupInfo" />
+    <EntitySet Name="Hrm_DepartmentInfo" EntityType="RASolarHRAModel.Hrm_DepartmentInfo" />
+    <EntitySet Name="Hrm_EducationInfo" EntityType="RASolarHRAModel.Hrm_EducationInfo" />
+    <EntitySet Name="Hrm_EmployeeInfo" EntityType="RASolarHRAModel.Hrm_EmployeeInfo" />
+    <EntitySet Name="Hrm_EmployeeTransfer" EntityType="RASolarHRAModel.Hrm_EmployeeTransfer" />
+    <EntitySet Name="Hrm_EmployeeTransferAdditionalInfo" EntityType="RASolarHRAModel.Hrm_EmployeeTransferAdditionalInfo" />
+    <EntitySet Name="Hrm_EmploymentTypeInfo" EntityType="RASolarHRAModel.Hrm_EmploymentTypeInfo" />
+    <EntitySet Name="Hrm_HierarchicalDesignation" EntityType="RASolarHRAModel.Hrm_HierarchicalDesignation" />
+    <EntitySet Name="Hrm_HierarchicalDesignationVsOperationalRole" EntityType="RASolarHRAModel.Hrm_HierarchicalDesignationVsOperationalRole" />
+    <EntitySet Name="Hrm_LocationWiseEmployee" EntityType="RASolarHRAModel.Hrm_LocationWiseEmployee" />
+    <EntitySet Name="Hrm_MajorSubject" EntityType="RASolarHRAModel.Hrm_MajorSubject" />
+    <EntitySet Name="Hrm_MaritalStatusInfo" EntityType="RASolarHRAModel.Hrm_MaritalStatusInfo" />
+    <EntitySet Name="Hrm_OperationalRole" EntityType="RASolarHRAModel.Hrm_OperationalRole" />
+    <EntitySet Name="Hrm_ReligionInfo" EntityType="RASolarHRAModel.Hrm_ReligionInfo" />
+    <EntitySet Name="Hrm_SubDepartmentOrSection" EntityType="RASolarHRAModel.Hrm_SubDepartmentOrSection" />
+    <EntitySet Name="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" EntityType="RASolarHRAModel.Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+    <EntitySet Name="Sal_LocationWiseSalespersonForHOnZO" EntityType="RASolarHRAModel.Sal_LocationWiseSalespersonForHOnZO" />
+    <AssociationSet Name="FK_Aud_AuditingDetailsForAuditors_Aud_AuditingMaster" Association="RASolarHRAModel.FK_Aud_AuditingDetailsForAuditors_Aud_AuditingMaster">
+      <End Role="Aud_AuditingMaster" EntitySet="Aud_AuditingMaster" />
+      <End Role="Aud_AuditingDetailsForAuditors" EntitySet="Aud_AuditingDetailsForAuditors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Aud_AuditingMaster_Aud_AuditingMaster" Association="RASolarHRAModel.FK_Aud_AuditingMaster_Aud_AuditingMaster">
+      <End Role="Aud_AuditingMaster" EntitySet="Aud_AuditingMaster" />
+      <End Role="Aud_AuditingMaster1" EntitySet="Aud_AuditingMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Aud_AuditingMaster_Common_LocationInfo" Association="RASolarHRAModel.FK_Aud_AuditingMaster_Common_LocationInfo">
+      <End Role="Common_LocationInfo" EntitySet="Common_LocationInfo" />
+      <End Role="Aud_AuditingMaster" EntitySet="Aud_AuditingMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_tbl_District" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District">
+      <End Role="Common_DistrictInfo" EntitySet="Common_DistrictInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_tbl_District1" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District1">
+      <End Role="Common_DistrictInfo" EntitySet="Common_DistrictInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_tbl_District2" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District2">
+      <End Role="Common_DistrictInfo" EntitySet="Common_DistrictInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_upazilla_tbl_district" Association="RASolarHRAModel.FK_tbl_upazilla_tbl_district">
+      <End Role="Common_DistrictInfo" EntitySet="Common_DistrictInfo" />
+      <End Role="Common_UpazillaInfo" EntitySet="Common_UpazillaInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_LocationInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_LocationInfo">
+      <End Role="Common_LocationInfo" EntitySet="Common_LocationInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeTransfer_Common_LocationInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Common_LocationInfo">
+      <End Role="Common_LocationInfo" EntitySet="Common_LocationInfo" />
+      <End Role="Hrm_EmployeeTransfer" EntitySet="Hrm_EmployeeTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeTransfer_LocationInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_LocationInfo">
+      <End Role="Common_LocationInfo" EntitySet="Common_LocationInfo" />
+      <End Role="Hrm_EmployeeTransfer" EntitySet="Hrm_EmployeeTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeTransfer_LocationInfo1" Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_LocationInfo1">
+      <End Role="Common_LocationInfo" EntitySet="Common_LocationInfo" />
+      <End Role="Hrm_EmployeeTransfer" EntitySet="Hrm_EmployeeTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LocationWiseEmployee_LocationInfo" Association="RASolarHRAModel.FK_LocationWiseEmployee_LocationInfo">
+      <End Role="Common_LocationInfo" EntitySet="Common_LocationInfo" />
+      <End Role="Hrm_LocationWiseEmployee" EntitySet="Hrm_LocationWiseEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_tbl_Upazilla" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_Upazilla">
+      <End Role="Common_UpazillaInfo" EntitySet="Common_UpazillaInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_tbl_Upazilla1" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_Upazilla1">
+      <End Role="Common_UpazillaInfo" EntitySet="Common_UpazillaInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_BloodGroupInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_BloodGroupInfo">
+      <End Role="Hrm_BloodGroupInfo" EntitySet="Hrm_BloodGroupInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_DepartmentInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_DepartmentInfo">
+      <End Role="Hrm_DepartmentInfo" EntitySet="Hrm_DepartmentInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_SubDepartmentOrSection_Hrm_DepartmentInfo" Association="RASolarHRAModel.FK_Hrm_SubDepartmentOrSection_Hrm_DepartmentInfo">
+      <End Role="Hrm_DepartmentInfo" EntitySet="Hrm_DepartmentInfo" />
+      <End Role="Hrm_SubDepartmentOrSection" EntitySet="Hrm_SubDepartmentOrSection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_EducationInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EducationInfo">
+      <End Role="Hrm_EducationInfo" EntitySet="Hrm_EducationInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_EmploymentTypeInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EmploymentTypeInfo">
+      <End Role="Hrm_EmploymentTypeInfo" EntitySet="Hrm_EmploymentTypeInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignation" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignation">
+      <End Role="Hrm_HierarchicalDesignation" EntitySet="Hrm_HierarchicalDesignation" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignationVsOperationalRole" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignationVsOperationalRole">
+      <End Role="Hrm_HierarchicalDesignationVsOperationalRole" EntitySet="Hrm_HierarchicalDesignationVsOperationalRole" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_LocationWiseEmployee" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_LocationWiseEmployee">
+      <End Role="Hrm_LocationWiseEmployee" EntitySet="Hrm_LocationWiseEmployee" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_MajorSubject" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_MajorSubject">
+      <End Role="Hrm_MajorSubject" EntitySet="Hrm_MajorSubject" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_MaritalStatusInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_MaritalStatusInfo">
+      <End Role="Hrm_MaritalStatusInfo" EntitySet="Hrm_MaritalStatusInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_ReligionInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_ReligionInfo">
+      <End Role="Hrm_ReligionInfo" EntitySet="Hrm_ReligionInfo" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_SubDepartmentOrSection" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_SubDepartmentOrSection">
+      <End Role="Hrm_SubDepartmentOrSection" EntitySet="Hrm_SubDepartmentOrSection" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+      <End Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" EntitySet="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeTransfer_Hrm_EmployeeInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_EmployeeInfo">
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+      <End Role="Hrm_EmployeeTransfer" EntitySet="Hrm_EmployeeTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_LocationWiseEmployee_Hrm_EmployeeInfo" Association="RASolarHRAModel.FK_Hrm_LocationWiseEmployee_Hrm_EmployeeInfo">
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+      <End Role="Hrm_LocationWiseEmployee" EntitySet="Hrm_LocationWiseEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType_Hrm_EmployeeInfo" Association="RASolarHRAModel.FK_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType_Hrm_EmployeeInfo">
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+      <End Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" EntitySet="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeTransfer_Hrm_LocationWiseEmployee" Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_LocationWiseEmployee">
+      <End Role="Hrm_LocationWiseEmployee" EntitySet="Hrm_LocationWiseEmployee" />
+      <End Role="Hrm_EmployeeTransfer" EntitySet="Hrm_EmployeeTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_HierarchicalDesignation" Association="RASolarHRAModel.FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_HierarchicalDesignation">
+      <End Role="Hrm_HierarchicalDesignation" EntitySet="Hrm_HierarchicalDesignation" />
+      <End Role="Hrm_HierarchicalDesignationVsOperationalRole" EntitySet="Hrm_HierarchicalDesignationVsOperationalRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_OperationalRole" Association="RASolarHRAModel.FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_OperationalRole">
+      <End Role="Hrm_OperationalRole" EntitySet="Hrm_OperationalRole" />
+      <End Role="Hrm_HierarchicalDesignationVsOperationalRole" EntitySet="Hrm_HierarchicalDesignationVsOperationalRole" />
+    </AssociationSet>
+    <FunctionImport Name="GetEmployeeTransferredButNotYetAccepted" ReturnType="Collection(RASolarHRAModel.GetEmployeeTransferredButNotYetAccepted)">
+      <Parameter Name="UnitCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetLocationWiseEmployeeForEmployeeRegister" ReturnType="Collection(RASolarHRAModel.GetLocationWiseEmployeeForEmployeeRegister)">
+      <Parameter Name="LocationCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="HrmEmployeeTransfer">
+      <Parameter Name="prmLocationCode" Mode="In" Type="String" />
+      <Parameter Name="prmEmployeeID" Mode="In" Type="String" />
+      <Parameter Name="prmEmployeeTransferOrReceive" Mode="In" Type="String" />
+      <Parameter Name="prmTransferToLocation" Mode="In" Type="String" />
+      <Parameter Name="prmTransDate" Mode="In" Type="String" />
+      <Parameter Name="prmNoteForTransfer" Mode="In" Type="String" />
+      <Parameter Name="prmUserID" Mode="In" Type="String" />
+      <Parameter Name="prmDBTransType" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Hrm_EmployeeWiseBankAccount" EntityType="RASolarHRAModel.Hrm_EmployeeWiseBankAccount" />
+    <AssociationSet Name="FK_Hrm_EmployeeWiseBankAccount_Hrm_EmployeeInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeWiseBankAccount_Hrm_EmployeeInfo">
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+      <End Role="Hrm_EmployeeWiseBankAccount" EntitySet="Hrm_EmployeeWiseBankAccount" />
+    </AssociationSet>
+    <EntitySet Name="Hrm_EmployeeWiseSalaryStructureDetails" EntityType="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureDetails" />
+    <EntitySet Name="Hrm_EmployeeWiseSalaryStructureMaster" EntityType="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureMaster" />
+    <EntitySet Name="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" EntityType="RASolarHRAModel.Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" />
+    <AssociationSet Name="FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_EmployeeWiseSalaryStructureMaster" Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_EmployeeWiseSalaryStructureMaster">
+      <End Role="Hrm_EmployeeWiseSalaryStructureMaster" EntitySet="Hrm_EmployeeWiseSalaryStructureMaster" />
+      <End Role="Hrm_EmployeeWiseSalaryStructureDetails" EntitySet="Hrm_EmployeeWiseSalaryStructureDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+      <End Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" EntitySet="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" />
+      <End Role="Hrm_EmployeeWiseSalaryStructureDetails" EntitySet="Hrm_EmployeeWiseSalaryStructureDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+      <End Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" EntitySet="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+      <End Role="Hrm_EmployeeWiseSalaryStructureDetails" EntitySet="Hrm_EmployeeWiseSalaryStructureDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_EmploymentTypeInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_EmploymentTypeInfo">
+      <End Role="Hrm_EmploymentTypeInfo" EntitySet="Hrm_EmploymentTypeInfo" />
+      <End Role="Hrm_EmployeeWiseSalaryStructureMaster" EntitySet="Hrm_EmployeeWiseSalaryStructureMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_HierarchicalDesignation" Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_HierarchicalDesignation">
+      <End Role="Hrm_HierarchicalDesignation" EntitySet="Hrm_HierarchicalDesignation" />
+      <End Role="Hrm_EmployeeWiseSalaryStructureMaster" EntitySet="Hrm_EmployeeWiseSalaryStructureMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+      <End Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" EntitySet="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+      <End Role="Hrm_EmployeeWiseSalaryStructureMaster" EntitySet="Hrm_EmployeeWiseSalaryStructureMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_EmploymentTypeInfo" Association="RASolarHRAModel.FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_EmploymentTypeInfo">
+      <End Role="Hrm_EmploymentTypeInfo" EntitySet="Hrm_EmploymentTypeInfo" />
+      <End Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" EntitySet="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_HierarchicalDesignation" Association="RASolarHRAModel.FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_HierarchicalDesignation">
+      <End Role="Hrm_HierarchicalDesignation" EntitySet="Hrm_HierarchicalDesignation" />
+      <End Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" EntitySet="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeInfo_Hrm_EmployeeWiseSalaryStructureMaster" Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EmployeeWiseSalaryStructureMaster">
+      <End Role="Hrm_EmployeeWiseSalaryStructureMaster" EntitySet="Hrm_EmployeeWiseSalaryStructureMaster" />
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+    </AssociationSet>
+    <EntitySet Name="Hrm_EmployeeNDateWiseTADAEntry" EntityType="RASolarHRAModel.Hrm_EmployeeNDateWiseTADAEntry" />
+    <AssociationSet Name="FK_Hrm_EmployeeNDateWiseTADAEntry_Hrm_LocationWiseEmployee" Association="RASolarHRAModel.FK_Hrm_EmployeeNDateWiseTADAEntry_Hrm_LocationWiseEmployee">
+      <End Role="Hrm_LocationWiseEmployee" EntitySet="Hrm_LocationWiseEmployee" />
+      <End Role="Hrm_EmployeeNDateWiseTADAEntry" EntitySet="Hrm_EmployeeNDateWiseTADAEntry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeTransferAdditionalInfo_Hrm_EmployeeInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeTransferAdditionalInfo_Hrm_EmployeeInfo">
+      <End Role="Hrm_EmployeeInfo" EntitySet="Hrm_EmployeeInfo" />
+      <End Role="Hrm_EmployeeTransferAdditionalInfo" EntitySet="Hrm_EmployeeTransferAdditionalInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hrm_EmployeeTransfer_Hrm_EmployeeTransferAdditionalInfo" Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_EmployeeTransferAdditionalInfo">
+      <End Role="Hrm_EmployeeTransferAdditionalInfo" EntitySet="Hrm_EmployeeTransferAdditionalInfo" />
+      <End Role="Hrm_EmployeeTransfer" EntitySet="Hrm_EmployeeTransfer" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Aud_AuditingDetailsForAuditors">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="AuditSeqNo" />
+      <PropertyRef Name="AuditorsEmployeeID" />
+    </Key>
+    <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="AuditSeqNo" Type="String" Nullable="false" MaxLength="9" Unicode="true" FixedLength="true" />
+    <Property Name="AuditorsEmployeeID" Type="String" Nullable="false" MaxLength="8" Unicode="true" FixedLength="true" />
+    <NavigationProperty Name="Aud_AuditingMaster" Relationship="RASolarHRAModel.FK_Aud_AuditingDetailsForAuditors_Aud_AuditingMaster" FromRole="Aud_AuditingDetailsForAuditors" ToRole="Aud_AuditingMaster" />
+  </EntityType>
+  <EntityType Name="Aud_AuditingMaster">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="AuditSeqNo" />
+    </Key>
+    <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="AuditSeqNo" Type="String" Nullable="false" MaxLength="9" Unicode="true" FixedLength="true" />
+    <Property Name="AuditStartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="AuditFinishDate" Type="DateTime" Precision="0" />
+    <Property Name="AuditPeriodFromDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="AuditPeriodToDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="RefLastAuditSeqNo" Type="String" MaxLength="9" Unicode="true" FixedLength="true" />
+    <Property Name="Remarks" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Aud_AuditingDetailsForAuditors" Relationship="RASolarHRAModel.FK_Aud_AuditingDetailsForAuditors_Aud_AuditingMaster" FromRole="Aud_AuditingMaster" ToRole="Aud_AuditingDetailsForAuditors" />
+    <NavigationProperty Name="Aud_AuditingMaster1" Relationship="RASolarHRAModel.FK_Aud_AuditingMaster_Aud_AuditingMaster" FromRole="Aud_AuditingMaster" ToRole="Aud_AuditingMaster1" />
+    <NavigationProperty Name="Aud_AuditingMaster2" Relationship="RASolarHRAModel.FK_Aud_AuditingMaster_Aud_AuditingMaster" FromRole="Aud_AuditingMaster1" ToRole="Aud_AuditingMaster" />
+    <NavigationProperty Name="Common_LocationInfo" Relationship="RASolarHRAModel.FK_Aud_AuditingMaster_Common_LocationInfo" FromRole="Aud_AuditingMaster" ToRole="Common_LocationInfo" />
+  </EntityType>
+  <EntityType Name="Common_DistrictInfo">
+    <Key>
+      <PropertyRef Name="DIST_CODE" />
+    </Key>
+    <Property Name="DIST_CODE" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="DIST_NAME" Type="String" Nullable="false" MaxLength="35" Unicode="false" FixedLength="false" />
+    <Property Name="CREATED" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MODIFIED" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District" FromRole="Common_DistrictInfo" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo1" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District1" FromRole="Common_DistrictInfo" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo2" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District2" FromRole="Common_DistrictInfo" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Common_UpazillaInfo" Relationship="RASolarHRAModel.FK_tbl_upazilla_tbl_district" FromRole="Common_DistrictInfo" ToRole="Common_UpazillaInfo" />
+  </EntityType>
+  <EntityType Name="Common_LocationInfo">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+    </Key>
+    <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="LocationName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="LocationType" Type="Byte" Nullable="false" />
+    <Property Name="ParentLocation" Type="String" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="TempIsInventoryStockUpdateFinish" Type="Boolean" />
+    <Property Name="BackDayAllowedForTransaction" Type="Byte" />
+    <NavigationProperty Name="Aud_AuditingMaster" Relationship="RASolarHRAModel.FK_Aud_AuditingMaster_Common_LocationInfo" FromRole="Common_LocationInfo" ToRole="Aud_AuditingMaster" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_LocationInfo" FromRole="Common_LocationInfo" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeTransfer" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Common_LocationInfo" FromRole="Common_LocationInfo" ToRole="Hrm_EmployeeTransfer" />
+    <NavigationProperty Name="Hrm_EmployeeTransfer1" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_LocationInfo" FromRole="Common_LocationInfo" ToRole="Hrm_EmployeeTransfer" />
+    <NavigationProperty Name="Hrm_EmployeeTransfer2" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_LocationInfo1" FromRole="Common_LocationInfo" ToRole="Hrm_EmployeeTransfer" />
+    <NavigationProperty Name="Hrm_LocationWiseEmployee" Relationship="RASolarHRAModel.FK_LocationWiseEmployee_LocationInfo" FromRole="Common_LocationInfo" ToRole="Hrm_LocationWiseEmployee" />
+    <Property Type="String" Name="CreatedBy" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreatedOn" Precision="3" />
+    <Property Type="String" Name="ModifiedBy" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="ModifiedOn" Precision="3" />
+    <Property Type="DateTime" Name="ClosedOn" Precision="0" />
+    <Property Type="String" Name="NewLocationCode" MaxLength="4" FixedLength="true" Unicode="true" />
+    <Property Type="Decimal" Name="IDCOL_BranchID" Precision="18" Scale="0" />
+    <Property Type="String" Name="IDCOL_BranchName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ManagersMobileNo" MaxLength="11" FixedLength="true" Unicode="true" />
+    <Property Type="Boolean" Name="IsItPoorCollectionEfficiencyUnit" />
+    <Property Type="String" Name="ManagersEmployeeID" MaxLength="8" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Common_UpazillaInfo">
+    <Key>
+      <PropertyRef Name="UPAZ_CODE" />
+    </Key>
+    <Property Name="UPAZ_CODE" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="UPAZ_NAME" Type="String" Nullable="false" MaxLength="35" Unicode="false" FixedLength="false" />
+    <Property Name="DIST_CODE" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="CREATED" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MODIFIED" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IDCOL_ThanaID" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="IDCOL_ThanaName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Common_DistrictInfo" Relationship="RASolarHRAModel.FK_tbl_upazilla_tbl_district" FromRole="Common_UpazillaInfo" ToRole="Common_DistrictInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_Upazilla" FromRole="Common_UpazillaInfo" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo1" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_Upazilla1" FromRole="Common_UpazillaInfo" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_BankAdviceForSalaryMaster">
+    <Key>
+      <PropertyRef Name="YearMonth" />
+      <PropertyRef Name="BankID" />
+      <PropertyRef Name="BankBranchID" />
+      <PropertyRef Name="SalaryDisbursementBankAccountNumber" />
+    </Key>
+    <Property Name="YearMonth" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="BankID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="BankName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="BankBranchID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="BankBranchName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SalaryLocationCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="SalaryDisbursementBankAccountNumber" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="AdviceLetterReferenceSeqNo" Type="Int16" Nullable="false" />
+    <Property Name="AdviceLetterReferenceNo" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
+    <Property Name="Signatory1Designation" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Signatory1Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Signatory2Designation" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Signatory2Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Hrm_BloodGroupInfo">
+    <Key>
+      <PropertyRef Name="BloodGroupID" />
+    </Key>
+    <Property Name="BloodGroupID" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="BloodGroupDescription" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_BloodGroupInfo" FromRole="Hrm_BloodGroupInfo" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_DepartmentInfo">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="DepartmentName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_DepartmentInfo" FromRole="Hrm_DepartmentInfo" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_SubDepartmentOrSection" Relationship="RASolarHRAModel.FK_Hrm_SubDepartmentOrSection_Hrm_DepartmentInfo" FromRole="Hrm_DepartmentInfo" ToRole="Hrm_SubDepartmentOrSection" />
+  </EntityType>
+  <EntityType Name="Hrm_EducationInfo">
+    <Key>
+      <PropertyRef Name="EducationID" />
+    </Key>
+    <Property Name="EducationID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="EducationName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="EducationLevel" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EducationInfo" FromRole="Hrm_EducationInfo" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_EmployeeInfo">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="8" Unicode="true" FixedLength="true" />
+    <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="EmployeeFathersName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="EmployeeMothersName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" Unicode="true" FixedLength="true" />
+    <Property Name="PlaceOfBirth" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="MaritalStatus" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="Nationality" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Religion" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="HighestEducation" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="MajorSubject" Type="String" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="BloodGroup" Type="String" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="NationalIDCard" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="EmailID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PresentDistrictCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="PresentUpazillaCode" Type="String" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="PresentPoliceStation" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PresentPostOffice" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PresentStreetOrVillage" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PresentHouseNo" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="PresentMobileNo" Type="String" MaxLength="11" Unicode="true" FixedLength="false" />
+    <Property Name="PresentPhone" Type="String" MaxLength="11" Unicode="true" FixedLength="false" />
+    <Property Name="PermanentDistrictCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="PermanentUpazillaCode" Type="String" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="PermanentPoliceStation" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PermanentPostOffice" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PermanentStreetVillage" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PermanentHouseNo" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="PermanentMobileNo" Type="String" MaxLength="11" Unicode="true" FixedLength="false" />
+    <Property Name="PermanentPhone" Type="String" MaxLength="11" Unicode="true" FixedLength="false" />
+    <Property Name="JoiningDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="LastDesignation" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="LastOperationalRole" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="LastDepartment" Type="String" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="LastSection" Type="String" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="LastEmploymentType" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="LastSalaryStructureSeqNo" Type="Byte" />
+    <Property Name="ModeOfSalaryPayment" Type="String" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="ProbationPeriodInMonth" Type="Byte" />
+    <Property Name="ConfirmationDate" Type="DateTime" Precision="0" />
+    <Property Name="LastLocationCode" Type="String" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="ReleaseDate" Type="DateTime" Precision="0" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="StatusChangedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Common_DistrictInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District" FromRole="Hrm_EmployeeInfo" ToRole="Common_DistrictInfo" />
+    <NavigationProperty Name="Common_DistrictInfo1" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District1" FromRole="Hrm_EmployeeInfo" ToRole="Common_DistrictInfo" />
+    <NavigationProperty Name="Common_DistrictInfo2" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District2" FromRole="Hrm_EmployeeInfo" ToRole="Common_DistrictInfo" />
+    <NavigationProperty Name="Common_LocationInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_LocationInfo" FromRole="Hrm_EmployeeInfo" ToRole="Common_LocationInfo" />
+    <NavigationProperty Name="Common_UpazillaInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_Upazilla" FromRole="Hrm_EmployeeInfo" ToRole="Common_UpazillaInfo" />
+    <NavigationProperty Name="Common_UpazillaInfo1" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_Upazilla1" FromRole="Hrm_EmployeeInfo" ToRole="Common_UpazillaInfo" />
+    <NavigationProperty Name="Hrm_BloodGroupInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_BloodGroupInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_BloodGroupInfo" />
+    <NavigationProperty Name="Hrm_DepartmentInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_DepartmentInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_DepartmentInfo" />
+    <NavigationProperty Name="Hrm_EducationInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EducationInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_EducationInfo" />
+    <NavigationProperty Name="Hrm_EmploymentTypeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EmploymentTypeInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_EmploymentTypeInfo" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignation" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignation" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_HierarchicalDesignation" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignationVsOperationalRole" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignationVsOperationalRole" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_HierarchicalDesignationVsOperationalRole" />
+    <NavigationProperty Name="Hrm_LocationWiseEmployee" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_LocationWiseEmployee" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_LocationWiseEmployee" />
+    <NavigationProperty Name="Hrm_MajorSubject" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_MajorSubject" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_MajorSubject" />
+    <NavigationProperty Name="Hrm_MaritalStatusInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_MaritalStatusInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_MaritalStatusInfo" />
+    <NavigationProperty Name="Hrm_ReligionInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_ReligionInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_ReligionInfo" />
+    <NavigationProperty Name="Hrm_SubDepartmentOrSection" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_SubDepartmentOrSection" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_SubDepartmentOrSection" />
+    <NavigationProperty Name="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+    <NavigationProperty Name="Hrm_EmployeeTransfer" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_EmployeeInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_EmployeeTransfer" />
+    <NavigationProperty Name="Hrm_LocationWiseEmployee1" Relationship="RASolarHRAModel.FK_Hrm_LocationWiseEmployee_Hrm_EmployeeInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_LocationWiseEmployee" />
+    <NavigationProperty Name="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType1" Relationship="RASolarHRAModel.FK_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType_Hrm_EmployeeInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+    <NavigationProperty Name="Hrm_EmployeeWiseBankAccount" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseBankAccount_Hrm_EmployeeInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_EmployeeWiseBankAccount" />
+    <Property Type="DateTime" Name="ResignDate" Precision="0" />
+    <NavigationProperty Name="Hrm_EmployeeWiseSalaryStructureMaster" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EmployeeWiseSalaryStructureMaster" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_EmployeeWiseSalaryStructureMaster" />
+    <Property Type="String" Name="EmployeeSpouseName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SpouseBloodGroup" MaxLength="4" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="PassportNo" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="PassportExpiryDate" Precision="0" />
+    <Property Type="String" Name="DrivingLicenseNo" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="Byte" Name="ContractualPeriodInMonth" />
+    <NavigationProperty Name="Hrm_EmployeeTransferAdditionalInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransferAdditionalInfo_Hrm_EmployeeInfo" FromRole="Hrm_EmployeeInfo" ToRole="Hrm_EmployeeTransferAdditionalInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_EmployeeTransfer">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="TransferSeqNo" />
+    </Key>
+    <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="8" Unicode="true" FixedLength="true" />
+    <Property Name="TransferSeqNo" Type="Byte" Nullable="false" />
+    <Property Name="TransferDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TransferFromLocation" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="TransferToLocation" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="IsItLastTransfer" Type="Boolean" Nullable="false" />
+    <Property Name="NoteForTransfer" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="IsTransferAccepted" Type="Boolean" Nullable="false" />
+    <Property Name="RefAEProjectCode" Type="String" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="RefAETransNo" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Common_LocationInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Common_LocationInfo" FromRole="Hrm_EmployeeTransfer" ToRole="Common_LocationInfo" />
+    <NavigationProperty Name="Common_LocationInfo1" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_LocationInfo" FromRole="Hrm_EmployeeTransfer" ToRole="Common_LocationInfo" />
+    <NavigationProperty Name="Common_LocationInfo2" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_LocationInfo1" FromRole="Hrm_EmployeeTransfer" ToRole="Common_LocationInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_EmployeeInfo" FromRole="Hrm_EmployeeTransfer" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_LocationWiseEmployee" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_LocationWiseEmployee" FromRole="Hrm_EmployeeTransfer" ToRole="Hrm_LocationWiseEmployee" />
+    <NavigationProperty Name="Hrm_EmployeeTransferAdditionalInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_EmployeeTransferAdditionalInfo" FromRole="Hrm_EmployeeTransfer" ToRole="Hrm_EmployeeTransferAdditionalInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_EmployeeTransferAdditionalInfo">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="TransferSeqNo" />
+    </Key>
+    <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="8" Unicode="true" FixedLength="true" />
+    <Property Name="TransferSeqNo" Type="Byte" Nullable="false" />
+    <Property Name="RequisitionReceivedOn" Type="DateTime" Precision="0" />
+    <Property Name="OfficeOrderNo" Type="String" MaxLength="25" Unicode="true" FixedLength="false" />
+    <Property Name="OfficeOrderDate" Type="DateTime" Precision="0" />
+    <Property Name="TransferReleaseDate" Type="DateTime" Precision="0" />
+    <Property Name="ResponsibilityHandoverTo" Type="String" MaxLength="8" Unicode="true" FixedLength="true" />
+    <Property Name="ResponsibilityTakenoverFrom" Type="String" MaxLength="8" Unicode="true" FixedLength="true" />
+    <Property Name="ReasonForLateTransferRelease" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ReasonForLateTransferJoining" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ActualTransferReleaseDate" Type="DateTime" Precision="0" />
+    <Property Name="ActualTransferJoiningDate" Type="DateTime" Precision="0" />
+    <Property Type="String" Name="NewOperationalRole" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransferAdditionalInfo_Hrm_EmployeeInfo" FromRole="Hrm_EmployeeTransferAdditionalInfo" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeTransfer" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_EmployeeTransferAdditionalInfo" FromRole="Hrm_EmployeeTransferAdditionalInfo" ToRole="Hrm_EmployeeTransfer" />
+  </EntityType>
+  <EntityType Name="Hrm_EmploymentTypeInfo">
+    <Key>
+      <PropertyRef Name="EmploymentTypeID" />
+    </Key>
+    <Property Name="EmploymentTypeID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="EmploymentTypeDescription" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EmploymentTypeInfo" FromRole="Hrm_EmploymentTypeInfo" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeWiseSalaryStructureMaster" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_EmploymentTypeInfo" FromRole="Hrm_EmploymentTypeInfo" ToRole="Hrm_EmployeeWiseSalaryStructureMaster" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Relationship="RASolarHRAModel.FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_EmploymentTypeInfo" FromRole="Hrm_EmploymentTypeInfo" ToRole="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" />
+  </EntityType>
+  <EntityType Name="Hrm_HierarchicalDesignation">
+    <Key>
+      <PropertyRef Name="HDesignationID" />
+    </Key>
+    <Property Name="HDesignationID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="EmployeeGrade" Type="String" MaxLength="3" Unicode="true" FixedLength="false" />
+    <Property Name="HDesignationName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignation" FromRole="Hrm_HierarchicalDesignation" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignationVsOperationalRole" Relationship="RASolarHRAModel.FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_HierarchicalDesignation" FromRole="Hrm_HierarchicalDesignation" ToRole="Hrm_HierarchicalDesignationVsOperationalRole" />
+    <NavigationProperty Name="Hrm_EmployeeWiseSalaryStructureMaster" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_HierarchicalDesignation" FromRole="Hrm_HierarchicalDesignation" ToRole="Hrm_EmployeeWiseSalaryStructureMaster" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Relationship="RASolarHRAModel.FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_HierarchicalDesignation" FromRole="Hrm_HierarchicalDesignation" ToRole="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" />
+  </EntityType>
+  <EntityType Name="Hrm_HierarchicalDesignationVsOperationalRole">
+    <Key>
+      <PropertyRef Name="HDesignationID" />
+      <PropertyRef Name="OperationalRoleID" />
+    </Key>
+    <Property Name="HDesignationID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="OperationalRoleID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignationVsOperationalRole" FromRole="Hrm_HierarchicalDesignationVsOperationalRole" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignation" Relationship="RASolarHRAModel.FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_HierarchicalDesignation" FromRole="Hrm_HierarchicalDesignationVsOperationalRole" ToRole="Hrm_HierarchicalDesignation" />
+    <NavigationProperty Name="Hrm_OperationalRole" Relationship="RASolarHRAModel.FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_OperationalRole" FromRole="Hrm_HierarchicalDesignationVsOperationalRole" ToRole="Hrm_OperationalRole" />
+  </EntityType>
+  <EntityType Name="Hrm_LocationWiseEmployee">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="8" Unicode="true" FixedLength="true" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Common_LocationInfo" Relationship="RASolarHRAModel.FK_LocationWiseEmployee_LocationInfo" FromRole="Hrm_LocationWiseEmployee" ToRole="Common_LocationInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_LocationWiseEmployee" FromRole="Hrm_LocationWiseEmployee" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo1" Relationship="RASolarHRAModel.FK_Hrm_LocationWiseEmployee_Hrm_EmployeeInfo" FromRole="Hrm_LocationWiseEmployee" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeTransfer" Relationship="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_LocationWiseEmployee" FromRole="Hrm_LocationWiseEmployee" ToRole="Hrm_EmployeeTransfer" />
+    <NavigationProperty Name="Hrm_EmployeeNDateWiseTADAEntry" Relationship="RASolarHRAModel.FK_Hrm_EmployeeNDateWiseTADAEntry_Hrm_LocationWiseEmployee" FromRole="Hrm_LocationWiseEmployee" ToRole="Hrm_EmployeeNDateWiseTADAEntry" />
+  </EntityType>
+  <EntityType Name="Hrm_MajorSubject">
+    <Key>
+      <PropertyRef Name="MajorSubjectID" />
+    </Key>
+    <Property Name="MajorSubjectID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="MajorSubjectName" Type="String" MaxLength="60" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_MajorSubject" FromRole="Hrm_MajorSubject" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_MaritalStatusInfo">
+    <Key>
+      <PropertyRef Name="MaritalStatusID" />
+    </Key>
+    <Property Name="MaritalStatusID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="MaritalStatusDescription" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_MaritalStatusInfo" FromRole="Hrm_MaritalStatusInfo" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_OperationalRole">
+    <Key>
+      <PropertyRef Name="OperationalRoleID" />
+    </Key>
+    <Property Name="OperationalRoleID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="OperationalRoleName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignationVsOperationalRole" Relationship="RASolarHRAModel.FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_OperationalRole" FromRole="Hrm_OperationalRole" ToRole="Hrm_HierarchicalDesignationVsOperationalRole" />
+  </EntityType>
+  <EntityType Name="Hrm_ReligionInfo">
+    <Key>
+      <PropertyRef Name="ReligionID" />
+    </Key>
+    <Property Name="ReligionID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="ReligionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_ReligionInfo" FromRole="Hrm_ReligionInfo" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_SubDepartmentOrSection">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+      <PropertyRef Name="SectionID" />
+    </Key>
+    <Property Name="DepartmentID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="SectionID" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="SectionName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SortingOrder" Type="Byte" />
+    <Property Name="Status" Type="Byte" />
+    <NavigationProperty Name="Hrm_DepartmentInfo" Relationship="RASolarHRAModel.FK_Hrm_SubDepartmentOrSection_Hrm_DepartmentInfo" FromRole="Hrm_SubDepartmentOrSection" ToRole="Hrm_DepartmentInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_SubDepartmentOrSection" FromRole="Hrm_SubDepartmentOrSection" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="HDesignationID" />
+      <PropertyRef Name="EmploymentTypeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="8" Unicode="true" FixedLength="true" />
+    <Property Name="HDesignationID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="EmploymentTypeID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" FromRole="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeInfo1" Relationship="RASolarHRAModel.FK_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType_Hrm_EmployeeInfo" FromRole="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" ToRole="Hrm_EmployeeInfo" />
+    <NavigationProperty Name="Hrm_EmployeeWiseSalaryStructureDetails" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" FromRole="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" ToRole="Hrm_EmployeeWiseSalaryStructureDetails" />
+    <NavigationProperty Name="Hrm_EmployeeWiseSalaryStructureMaster" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" FromRole="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" ToRole="Hrm_EmployeeWiseSalaryStructureMaster" />
+  </EntityType>
+  <EntityType Name="Sal_LocationWiseSalespersonForHOnZO">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="SalespersonCode" />
+    </Key>
+    <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="SalespersonCode" Type="String" Nullable="false" MaxLength="8" Unicode="true" FixedLength="true" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+  </EntityType>
+  <Association Name="FK_Aud_AuditingDetailsForAuditors_Aud_AuditingMaster">
+    <End Role="Aud_AuditingMaster" Type="RASolarHRAModel.Aud_AuditingMaster" Multiplicity="1" />
+    <End Role="Aud_AuditingDetailsForAuditors" Type="RASolarHRAModel.Aud_AuditingDetailsForAuditors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aud_AuditingMaster">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="AuditSeqNo" />
+      </Principal>
+      <Dependent Role="Aud_AuditingDetailsForAuditors">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="AuditSeqNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Aud_AuditingMaster_Aud_AuditingMaster">
+    <End Role="Aud_AuditingMaster" Type="RASolarHRAModel.Aud_AuditingMaster" Multiplicity="0..1" />
+    <End Role="Aud_AuditingMaster1" Type="RASolarHRAModel.Aud_AuditingMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aud_AuditingMaster">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="AuditSeqNo" />
+      </Principal>
+      <Dependent Role="Aud_AuditingMaster1">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="RefLastAuditSeqNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Aud_AuditingMaster_Common_LocationInfo">
+    <End Role="Common_LocationInfo" Type="RASolarHRAModel.Common_LocationInfo" Multiplicity="1" />
+    <End Role="Aud_AuditingMaster" Type="RASolarHRAModel.Aud_AuditingMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_LocationInfo">
+        <PropertyRef Name="LocationCode" />
+      </Principal>
+      <Dependent Role="Aud_AuditingMaster">
+        <PropertyRef Name="LocationCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_tbl_District">
+    <End Role="Common_DistrictInfo" Type="RASolarHRAModel.Common_DistrictInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_DistrictInfo">
+        <PropertyRef Name="DIST_CODE" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="PlaceOfBirth" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_tbl_District1">
+    <End Role="Common_DistrictInfo" Type="RASolarHRAModel.Common_DistrictInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_DistrictInfo">
+        <PropertyRef Name="DIST_CODE" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="PresentDistrictCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_tbl_District2">
+    <End Role="Common_DistrictInfo" Type="RASolarHRAModel.Common_DistrictInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_DistrictInfo">
+        <PropertyRef Name="DIST_CODE" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="PermanentDistrictCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_upazilla_tbl_district">
+    <End Role="Common_DistrictInfo" Type="RASolarHRAModel.Common_DistrictInfo" Multiplicity="1" />
+    <End Role="Common_UpazillaInfo" Type="RASolarHRAModel.Common_UpazillaInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_DistrictInfo">
+        <PropertyRef Name="DIST_CODE" />
+      </Principal>
+      <Dependent Role="Common_UpazillaInfo">
+        <PropertyRef Name="DIST_CODE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_LocationInfo">
+    <End Role="Common_LocationInfo" Type="RASolarHRAModel.Common_LocationInfo" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_LocationInfo">
+        <PropertyRef Name="LocationCode" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="LastLocationCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeTransfer_Common_LocationInfo">
+    <End Role="Common_LocationInfo" Type="RASolarHRAModel.Common_LocationInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeTransfer" Type="RASolarHRAModel.Hrm_EmployeeTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_LocationInfo">
+        <PropertyRef Name="LocationCode" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeTransfer">
+        <PropertyRef Name="TransferToLocation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeTransfer_LocationInfo">
+    <End Role="Common_LocationInfo" Type="RASolarHRAModel.Common_LocationInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeTransfer" Type="RASolarHRAModel.Hrm_EmployeeTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_LocationInfo">
+        <PropertyRef Name="LocationCode" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeTransfer">
+        <PropertyRef Name="TransferFromLocation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeTransfer_LocationInfo1">
+    <End Role="Common_LocationInfo" Type="RASolarHRAModel.Common_LocationInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeTransfer" Type="RASolarHRAModel.Hrm_EmployeeTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_LocationInfo">
+        <PropertyRef Name="LocationCode" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeTransfer">
+        <PropertyRef Name="TransferToLocation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LocationWiseEmployee_LocationInfo">
+    <End Role="Common_LocationInfo" Type="RASolarHRAModel.Common_LocationInfo" Multiplicity="1" />
+    <End Role="Hrm_LocationWiseEmployee" Type="RASolarHRAModel.Hrm_LocationWiseEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_LocationInfo">
+        <PropertyRef Name="LocationCode" />
+      </Principal>
+      <Dependent Role="Hrm_LocationWiseEmployee">
+        <PropertyRef Name="LocationCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_tbl_Upazilla">
+    <End Role="Common_UpazillaInfo" Type="RASolarHRAModel.Common_UpazillaInfo" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_UpazillaInfo">
+        <PropertyRef Name="UPAZ_CODE" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="PresentUpazillaCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_tbl_Upazilla1">
+    <End Role="Common_UpazillaInfo" Type="RASolarHRAModel.Common_UpazillaInfo" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_UpazillaInfo">
+        <PropertyRef Name="UPAZ_CODE" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="PermanentUpazillaCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_BloodGroupInfo">
+    <End Role="Hrm_BloodGroupInfo" Type="RASolarHRAModel.Hrm_BloodGroupInfo" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_BloodGroupInfo">
+        <PropertyRef Name="BloodGroupID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="BloodGroup" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_DepartmentInfo">
+    <End Role="Hrm_DepartmentInfo" Type="RASolarHRAModel.Hrm_DepartmentInfo" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_DepartmentInfo">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="LastDepartment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_SubDepartmentOrSection_Hrm_DepartmentInfo">
+    <End Role="Hrm_DepartmentInfo" Type="RASolarHRAModel.Hrm_DepartmentInfo" Multiplicity="1" />
+    <End Role="Hrm_SubDepartmentOrSection" Type="RASolarHRAModel.Hrm_SubDepartmentOrSection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_DepartmentInfo">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Hrm_SubDepartmentOrSection">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_EducationInfo">
+    <End Role="Hrm_EducationInfo" Type="RASolarHRAModel.Hrm_EducationInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EducationInfo">
+        <PropertyRef Name="EducationID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="HighestEducation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_EmploymentTypeInfo">
+    <End Role="Hrm_EmploymentTypeInfo" Type="RASolarHRAModel.Hrm_EmploymentTypeInfo" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmploymentTypeInfo">
+        <PropertyRef Name="EmploymentTypeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="LastEmploymentType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignation">
+    <End Role="Hrm_HierarchicalDesignation" Type="RASolarHRAModel.Hrm_HierarchicalDesignation" Multiplicity="1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_HierarchicalDesignation">
+        <PropertyRef Name="HDesignationID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="LastDesignation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignationVsOperationalRole">
+    <End Role="Hrm_HierarchicalDesignationVsOperationalRole" Type="RASolarHRAModel.Hrm_HierarchicalDesignationVsOperationalRole" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_HierarchicalDesignationVsOperationalRole">
+        <PropertyRef Name="HDesignationID" />
+        <PropertyRef Name="OperationalRoleID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="LastDesignation" />
+        <PropertyRef Name="LastOperationalRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_LocationWiseEmployee">
+    <End Role="Hrm_LocationWiseEmployee" Type="RASolarHRAModel.Hrm_LocationWiseEmployee" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_LocationWiseEmployee">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="LastLocationCode" />
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_MajorSubject">
+    <End Role="Hrm_MajorSubject" Type="RASolarHRAModel.Hrm_MajorSubject" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_MajorSubject">
+        <PropertyRef Name="MajorSubjectID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="MajorSubject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_MaritalStatusInfo">
+    <End Role="Hrm_MaritalStatusInfo" Type="RASolarHRAModel.Hrm_MaritalStatusInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_MaritalStatusInfo">
+        <PropertyRef Name="MaritalStatusID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="MaritalStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_ReligionInfo">
+    <End Role="Hrm_ReligionInfo" Type="RASolarHRAModel.Hrm_ReligionInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_ReligionInfo">
+        <PropertyRef Name="ReligionID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="Religion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_SubDepartmentOrSection">
+    <End Role="Hrm_SubDepartmentOrSection" Type="RASolarHRAModel.Hrm_SubDepartmentOrSection" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_SubDepartmentOrSection">
+        <PropertyRef Name="DepartmentID" />
+        <PropertyRef Name="SectionID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="LastDepartment" />
+        <PropertyRef Name="LastSection" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+    <End Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Type="RASolarHRAModel.Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Multiplicity="0..1" />
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="HDesignationID" />
+        <PropertyRef Name="EmploymentTypeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="LastDesignation" />
+        <PropertyRef Name="LastEmploymentType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeTransfer_Hrm_EmployeeInfo">
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="1" />
+    <End Role="Hrm_EmployeeTransfer" Type="RASolarHRAModel.Hrm_EmployeeTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeTransfer">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_LocationWiseEmployee_Hrm_EmployeeInfo">
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="1" />
+    <End Role="Hrm_LocationWiseEmployee" Type="RASolarHRAModel.Hrm_LocationWiseEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Hrm_LocationWiseEmployee">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType_Hrm_EmployeeInfo">
+    <End Role="Hrm_EmployeeInfo" Type="RASolarHRAModel.Hrm_EmployeeInfo" Multiplicity="1" />
+    <End Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Type="RASolarHRAModel.Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeTransfer_Hrm_LocationWiseEmployee">
+    <End Role="Hrm_LocationWiseEmployee" Type="RASolarHRAModel.Hrm_LocationWiseEmployee" Multiplicity="1" />
+    <End Role="Hrm_EmployeeTransfer" Type="RASolarHRAModel.Hrm_EmployeeTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_LocationWiseEmployee">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeTransfer">
+        <PropertyRef Name="TransferFromLocation" />
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_HierarchicalDesignation">
+    <End Role="Hrm_HierarchicalDesignation" Type="RASolarHRAModel.Hrm_HierarchicalDesignation" Multiplicity="1" />
+    <End Role="Hrm_HierarchicalDesignationVsOperationalRole" Type="RASolarHRAModel.Hrm_HierarchicalDesignationVsOperationalRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_HierarchicalDesignation">
+        <PropertyRef Name="HDesignationID" />
+      </Principal>
+      <Dependent Role="Hrm_HierarchicalDesignationVsOperationalRole">
+        <PropertyRef Name="HDesignationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_OperationalRole">
+    <End Role="Hrm_OperationalRole" Type="RASolarHRAModel.Hrm_OperationalRole" Multiplicity="1" />
+    <End Role="Hrm_HierarchicalDesignationVsOperationalRole" Type="RASolarHRAModel.Hrm_HierarchicalDesignationVsOperationalRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_OperationalRole">
+        <PropertyRef Name="OperationalRoleID" />
+      </Principal>
+      <Dependent Role="Hrm_HierarchicalDesignationVsOperationalRole">
+        <PropertyRef Name="OperationalRoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetEmployeeTransferredButNotYetAccepted">
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="8" />
+    <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Designation" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="TransferFromLocation" Nullable="false" MaxLength="6" />
+    <Property Type="DateTime" Name="TransferDate" Nullable="false" />
+    <Property Type="String" Name="NoteForTransfer" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="GetLocationWiseEmployeeForEmployeeRegister">
+    <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="8" />
+    <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Designation" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="OperationalRoleName" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="Hrm_EmployeeWiseBankAccount">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="8" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="BankID" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="BankBranchID" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BankAccountNumber" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BankAccountType" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Address" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="AccountOpeningDate" Precision="0" />
+    <Property Type="String" Name="SalaryLocationCode" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="SalaryDisbursementBankAccountNumber" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SalaryDisbursementBranchName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Remarks" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Byte" Name="Status" Nullable="false" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseBankAccount_Hrm_EmployeeInfo" FromRole="Hrm_EmployeeWiseBankAccount" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <Association Name="FK_Hrm_EmployeeWiseBankAccount_Hrm_EmployeeInfo">
+    <End Type="RASolarHRAModel.Hrm_EmployeeInfo" Role="Hrm_EmployeeInfo" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseBankAccount" Role="Hrm_EmployeeWiseBankAccount" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeWiseBankAccount">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Hrm_EmployeeWiseSalaryStructureDetails">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="SalaryStructureSeqNo" />
+      <PropertyRef Name="SalaryComponentID" />
+    </Key>
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="8" FixedLength="true" Unicode="true" />
+    <Property Type="Byte" Name="SalaryStructureSeqNo" Nullable="false" />
+    <Property Type="String" Name="SalaryComponentID" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="RefHDesignationID" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="RefEmploymentTypeID" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Type="Decimal" Name="Amount" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="Hrm_EmployeeWiseSalaryStructureMaster" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_EmployeeWiseSalaryStructureMaster" FromRole="Hrm_EmployeeWiseSalaryStructureDetails" ToRole="Hrm_EmployeeWiseSalaryStructureMaster" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" FromRole="Hrm_EmployeeWiseSalaryStructureDetails" ToRole="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" />
+    <NavigationProperty Name="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" FromRole="Hrm_EmployeeWiseSalaryStructureDetails" ToRole="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+  </EntityType>
+  <EntityType Name="Hrm_EmployeeWiseSalaryStructureMaster">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="SalaryStructureSeqNo" />
+    </Key>
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="8" FixedLength="true" Unicode="true" />
+    <Property Type="Byte" Name="SalaryStructureSeqNo" Nullable="false" />
+    <Property Type="String" Name="HDesignationID" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="EmploymentTypeID" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Type="DateTime" Name="SSEffectiveFromDate" Nullable="false" Precision="0" />
+    <Property Type="DateTime" Name="SSEffectiveToDate" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Hrm_EmployeeWiseSalaryStructureDetails" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_EmployeeWiseSalaryStructureMaster" FromRole="Hrm_EmployeeWiseSalaryStructureMaster" ToRole="Hrm_EmployeeWiseSalaryStructureDetails" />
+    <NavigationProperty Name="Hrm_EmploymentTypeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_EmploymentTypeInfo" FromRole="Hrm_EmployeeWiseSalaryStructureMaster" ToRole="Hrm_EmploymentTypeInfo" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignation" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_HierarchicalDesignation" FromRole="Hrm_EmployeeWiseSalaryStructureMaster" ToRole="Hrm_HierarchicalDesignation" />
+    <NavigationProperty Name="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" FromRole="Hrm_EmployeeWiseSalaryStructureMaster" ToRole="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+    <NavigationProperty Name="Hrm_EmployeeInfo" Relationship="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EmployeeWiseSalaryStructureMaster" FromRole="Hrm_EmployeeWiseSalaryStructureMaster" ToRole="Hrm_EmployeeInfo" />
+  </EntityType>
+  <EntityType Name="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+    <Key>
+      <PropertyRef Name="HDesignationID" />
+      <PropertyRef Name="EmploymentTypeID" />
+      <PropertyRef Name="SalaryComponentID" />
+    </Key>
+    <Property Type="String" Name="HDesignationID" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="EmploymentTypeID" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="SalaryComponentID" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="Decimal" Name="MinBandAmountFrom" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="MinBandAmountTo" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="MidBandAmountFrom" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="MidBandAmountTo" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="MaxBandAmountFrom" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="MaxBandAmountTo" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="FixedAmount" Precision="19" Scale="4" />
+    <Property Type="String" Name="Remarks" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Byte" Name="Status" Nullable="false" />
+    <NavigationProperty Name="Hrm_EmployeeWiseSalaryStructureDetails" Relationship="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" FromRole="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" ToRole="Hrm_EmployeeWiseSalaryStructureDetails" />
+    <NavigationProperty Name="Hrm_EmploymentTypeInfo" Relationship="RASolarHRAModel.FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_EmploymentTypeInfo" FromRole="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" ToRole="Hrm_EmploymentTypeInfo" />
+    <NavigationProperty Name="Hrm_HierarchicalDesignation" Relationship="RASolarHRAModel.FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_HierarchicalDesignation" FromRole="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" ToRole="Hrm_HierarchicalDesignation" />
+  </EntityType>
+  <Association Name="FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_EmployeeWiseSalaryStructureMaster">
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureMaster" Role="Hrm_EmployeeWiseSalaryStructureMaster" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureDetails" Role="Hrm_EmployeeWiseSalaryStructureDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmployeeWiseSalaryStructureMaster">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="SalaryStructureSeqNo" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeWiseSalaryStructureDetails">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="SalaryStructureSeqNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+    <End Type="RASolarHRAModel.Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureDetails" Role="Hrm_EmployeeWiseSalaryStructureDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+        <PropertyRef Name="HDesignationID" />
+        <PropertyRef Name="EmploymentTypeID" />
+        <PropertyRef Name="SalaryComponentID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeWiseSalaryStructureDetails">
+        <PropertyRef Name="RefHDesignationID" />
+        <PropertyRef Name="RefEmploymentTypeID" />
+        <PropertyRef Name="SalaryComponentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+    <End Type="RASolarHRAModel.Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureDetails" Role="Hrm_EmployeeWiseSalaryStructureDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="HDesignationID" />
+        <PropertyRef Name="EmploymentTypeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeWiseSalaryStructureDetails">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="RefHDesignationID" />
+        <PropertyRef Name="RefEmploymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_EmploymentTypeInfo">
+    <End Type="RASolarHRAModel.Hrm_EmploymentTypeInfo" Role="Hrm_EmploymentTypeInfo" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureMaster" Role="Hrm_EmployeeWiseSalaryStructureMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmploymentTypeInfo">
+        <PropertyRef Name="EmploymentTypeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeWiseSalaryStructureMaster">
+        <PropertyRef Name="EmploymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_HierarchicalDesignation">
+    <End Type="RASolarHRAModel.Hrm_HierarchicalDesignation" Role="Hrm_HierarchicalDesignation" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureMaster" Role="Hrm_EmployeeWiseSalaryStructureMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_HierarchicalDesignation">
+        <PropertyRef Name="HDesignationID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeWiseSalaryStructureMaster">
+        <PropertyRef Name="HDesignationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+    <End Type="RASolarHRAModel.Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureMaster" Role="Hrm_EmployeeWiseSalaryStructureMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="HDesignationID" />
+        <PropertyRef Name="EmploymentTypeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeWiseSalaryStructureMaster">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="HDesignationID" />
+        <PropertyRef Name="EmploymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_EmploymentTypeInfo">
+    <End Type="RASolarHRAModel.Hrm_EmploymentTypeInfo" Role="Hrm_EmploymentTypeInfo" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmploymentTypeInfo">
+        <PropertyRef Name="EmploymentTypeID" />
+      </Principal>
+      <Dependent Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+        <PropertyRef Name="EmploymentTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_HierarchicalDesignation">
+    <End Type="RASolarHRAModel.Hrm_HierarchicalDesignation" Role="Hrm_HierarchicalDesignation" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_HierarchicalDesignation">
+        <PropertyRef Name="HDesignationID" />
+      </Principal>
+      <Dependent Role="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+        <PropertyRef Name="HDesignationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeInfo_Hrm_EmployeeWiseSalaryStructureMaster">
+    <End Type="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureMaster" Role="Hrm_EmployeeWiseSalaryStructureMaster" Multiplicity="0..1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeInfo" Role="Hrm_EmployeeInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmployeeWiseSalaryStructureMaster">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="SalaryStructureSeqNo" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="LastSalaryStructureSeqNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Hrm_EmployeeNDateWiseTADAEntry">
+    <Key>
+      <PropertyRef Name="YearMonth" />
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="DateOfTADA" />
+    </Key>
+    <Property Type="String" Name="YearMonth" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="LocationCode" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="8" FixedLength="true" Unicode="true" />
+    <Property Type="DateTime" Name="DateOfTADA" Nullable="false" Precision="0" />
+    <Property Type="Decimal" Name="TAAmount" Nullable="false" Precision="19" Scale="4" />
+    <Property Type="String" Name="ParticularsForTA" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="DAAmount" Nullable="false" Precision="19" Scale="4" />
+    <Property Type="String" Name="ParticularsForDA" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Byte" Name="DaysOfPendingEntry" />
+    <Property Type="String" Name="CreatedBy" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+    <Property Type="String" Name="ModifiedBy" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="ModifiedOn" Precision="3" />
+    <Property Type="Byte" Name="Status" Nullable="false" />
+    <NavigationProperty Name="Hrm_LocationWiseEmployee" Relationship="RASolarHRAModel.FK_Hrm_EmployeeNDateWiseTADAEntry_Hrm_LocationWiseEmployee" FromRole="Hrm_EmployeeNDateWiseTADAEntry" ToRole="Hrm_LocationWiseEmployee" />
+  </EntityType>
+  <Association Name="FK_Hrm_EmployeeNDateWiseTADAEntry_Hrm_LocationWiseEmployee">
+    <End Type="RASolarHRAModel.Hrm_LocationWiseEmployee" Role="Hrm_LocationWiseEmployee" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeNDateWiseTADAEntry" Role="Hrm_EmployeeNDateWiseTADAEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_LocationWiseEmployee">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeNDateWiseTADAEntry">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeTransferAdditionalInfo_Hrm_EmployeeInfo">
+    <End Type="RASolarHRAModel.Hrm_EmployeeInfo" Role="Hrm_EmployeeInfo" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeTransferAdditionalInfo" Role="Hrm_EmployeeTransferAdditionalInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmployeeInfo">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeTransferAdditionalInfo">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hrm_EmployeeTransfer_Hrm_EmployeeTransferAdditionalInfo">
+    <End Type="RASolarHRAModel.Hrm_EmployeeTransferAdditionalInfo" Role="Hrm_EmployeeTransferAdditionalInfo" Multiplicity="1" />
+    <End Type="RASolarHRAModel.Hrm_EmployeeTransfer" Role="Hrm_EmployeeTransfer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Hrm_EmployeeTransferAdditionalInfo">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="TransferSeqNo" />
+      </Principal>
+      <Dependent Role="Hrm_EmployeeTransfer">
+        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="TransferSeqNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

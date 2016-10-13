@@ -1,0 +1,338 @@
+﻿@using RASolarHRMS.Model
+@{
+    ViewBag.Title = "Accept Transferred Employee";
+    Layout = "~/Areas/HRMS/Views/Shared/_HrmsLayout.cshtml";
+
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+    
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfCurrentDay" type="hidden"  value="@ViewBag.CurrentDay"/>
+@{
+    List<RASolarERP.DomainModel.HRMSModel.EmployeeTransferInfo> lstGetLocationWiseEmployeeForEmployeeRegister = new List<RASolarERP.DomainModel.HRMSModel.EmployeeTransferInfo>();
+    lstGetLocationWiseEmployeeForEmployeeRegister = (List<RASolarERP.DomainModel.HRMSModel.EmployeeTransferInfo>)TempData["EmployeeRegister"];    
+}
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid(lstGetLocationWiseEmployeeForEmployeeRegister)
+                    .Name("gvLocationWiseEmployeeAcceptOrReject")
+                            .DataKeys(keys => keys.Add(k => k.EmployeeID))
+                    .Columns(column =>
+                    {
+                        column.Bound(c => c.EmployeeID).Title("Employee ID");
+                        column.Bound(c => c.EmployeeName).Width(150).Title("Employee Name");
+                        column.Bound(c => c.Designation).Title("Employee Designation").Width(150);
+                        column.Bound(c => c.TransferFromLocation);
+                        column.Bound(c => c.TransferDate).Format("{0:dd-MMM-yyyy}").Title("Joining Date as per Transfer");
+                        column.Bound(c => c.TransferSeqNo).Hidden(true);
+                        column.Bound(c => c.TransferToLocation);
+                        
+                        column.Template(@<a href="#" onclick="return TransferEmployee('@item.EmployeeID')">Accept</a>).Title("Employee Accept");
+                        column.Template(@<a href="#" onclick="return EmployeeReject('@item.EmployeeID')">Not-Accept</a>).Title("Employee Not-Accept");
+                    })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(100))
+                    .Scrollable(scroll => scroll.Height(300))
+
+                )
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="HorizontalDividerBIGWithoutBG"></td>
+    </tr>
+    <tr>
+        <td id="divEmployeeInformation" style="display: none;">
+            <fieldset class="sagGroupBox">
+                <legend>Employee Information</legend>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td style="width: 50%;" align="left" valign="top">
+                            <table cellpadding="0" cellspacing="5" border="0">
+                                <tr>
+                                    <td class="HrEmployeeTransferLeftColumn" valign="top">Employee ID
+                                    </td>
+                                    <td style="width: 308px;">
+                                        <label class="LabelForEmployeeTransfer" id="lblEmployeeID">
+                                        </label>
+                                    </td>
+                                    <td>
+                                        @Html.Hidden("hfEmployeeId", "")
+                                        @Html.Hidden("hfOfficeOrderCheck", "")
+                                        @Html.Hidden("hfTransferSeqNo","")
+                                        @Html.Hidden("hfEmployeeTansferFrmLocation","")
+                                        @Html.Hidden("hfEmployeeTansferToLocation","")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="HrEmployeeTransferLeftColumn" valign="top">Employee Name
+                                    </td>
+                                    <td style="width: 308px;">
+                                        <label class="LabelForEmployeeTransfer" id="lblEmployeeName">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="HrEmployeeTransferLeftColumn" valign="top">Office Order No
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtOfficeOrderNo", "", new { })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 50%;" align="left" valign="top">
+                            <table cellpadding="0" cellspacing="5" border="0">
+                                <tr>
+                                    <td class="HrEmployeeTransferLeftColumn">Joining Date as per Transfer
+                                    </td>
+                                    <td style="width: 308px;">
+                                        <label class="LabelForEmployeeTransfer" id="lblDateOfJoining">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="HrEmployeeTransferLeftColumn" valign="top">Designation
+                                    </td>
+                                    <td style="width: 308px;">
+                                        <label class="LabelForEmployeeTransfer" id="lblDesignation">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="HrEmployeeTransferLeftColumn" valign="top">Actual Joining Date
+                                    </td>
+                                    <td>
+                                        @(Html.Telerik().DatePicker().Name("dtpJoingDate").Format("dd-MMM-yyyy").Max(new DateTime(2099, 12, 31))
+                                        .ClientEvents(events => events.OnChange("onChangeDatePicker"))
+                                        )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="HrEmployeeTransferLeftColumn" valign="top">Reasons of Late Joining
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtReasonOfLateJoining", "", new { @style = "width: 300px;" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="left">
+                            <input id="btnSaveEmployeeAccept" type="submit" value="Save" onclick="return EmployeeAccept();" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td id="CustomerLedgerContainer" style="width: 100%"></td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+
+    function onChangeDatePicker(e) {
+        var joiningDate = $('#dtpJoingDate').val();
+        var joiningDateAsTransfer = $('#lblDateOfJoining').text();
+
+        if (joiningDate != joiningDateAsTransfer) {
+            $('#txtReasonOfLateJoining').attr("disabled", false);
+        }
+        else {
+            $('#txtReasonOfLateJoining').attr("disabled", true);
+        }
+    }
+
+
+    $(document).ready(function () {
+        $('#txtReasonOfLateJoining').attr("disabled", true);
+    });
+
+
+
+    function EmployeeAccept() {
+
+        var employeeID = $('#hfEmployeeId').val();
+        var officeOrderNo = $('#txtOfficeOrderNo').val();
+        var joiningDate = $('#dtpJoingDate').val();
+        var OfficeOrderCheck = $('#hfOfficeOrderCheck').val();
+        var reasonOfLateJoining = $('#txtReasonOfLateJoining').val();
+        var joiningDateAsTransfer = $('#lblDateOfJoining').text();
+        var transferSeqNo = $('#hfTransferSeqNo').val();
+        var transferFromLocation = $('#hfEmployeeTansferFrmLocation').val();
+        var transferToLocation = $('#hfEmployeeTansferToLocation').val();
+
+        $('#txtReasonOfLateJoining').attr("disabled", true);
+
+        if (officeOrderNo == '') {
+            alert("Please insert office order no");
+            return false;
+        }
+        else if ($('#hfOfficeOrderCheck').val() == 1) {
+            alert("Please insert correct office order no.");
+            return false;
+        }
+
+        if (joiningDate != joiningDateAsTransfer && reasonOfLateJoining == "") {
+            $('#txtReasonOfLateJoining').attr("disabled", false);
+            alert("Please insert reason.");
+            return false;
+        }
+
+        if (confirm("Do You Want To Accept The Employee")) {
+
+            var AcceptOrRejectDate = $('#hfCurrentDay').val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("EmployeeAccept", "EmployeeRegister")',
+                data: "{'employeeID':'" + employeeID + "','AcceptOrRejectDate':'" + AcceptOrRejectDate + "','officeOrderNo':'" + officeOrderNo + "','joiningDate':'" + joiningDate + "','reasonOfLateJoining':'" + reasonOfLateJoining + "','transferSeqNo':'" + transferSeqNo + "','transferFromLocation':'" + transferFromLocation + "','transferToLocation':'" + transferToLocation + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    alert(data[0].message);
+                    ClearAllControl();
+                    var href = $('.t-refresh').attr('href');
+                    window.location.href = href;
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+        }
+    }
+
+    function EmployeeReject(employeeID) {
+
+        var tr = $("#gvLocationWiseEmployeeAcceptOrReject tbody tr").find("td:eq(0):contains('" + employeeID + "')").parent();
+        $('#hfEmployeeTansferFrmLocation').val($(tr).find("td:eq(3)").text());
+        $('#hfEmployeeTansferToLocation').val($(tr).find("td:eq(6)").text());
+        $('#hfTransferSeqNo').val($(tr).find("td:eq(5)").text());
+
+        if (confirm("Do You Want To Reject The Employee")) {
+
+            var AcceptOrRejectDate = $('#hfCurrentDay').val();
+            var transferSeqNo = $('#hfTransferSeqNo').val();
+            var transferFromLocation = $('#hfEmployeeTansferFrmLocation').val();
+            var transferToLocation = $('#hfEmployeeTansferToLocation').val();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("EmployeeReject", "EmployeeRegister")',
+                data: "{'employeeID':'" + employeeID + "','AcceptOrRejectDate':'" + AcceptOrRejectDate + "','transferSeqNo':'" + transferSeqNo + "','transferFromLocation':'" + transferFromLocation + "','transferToLocation':'" + transferToLocation + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    alert(data[0].message);
+                    var href = $('.t-refresh').attr('href');
+                    window.location.href = href;
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+        }
+    }
+
+
+    function TransferEmployee(employeeId) {
+        $('#divEmployeeInformation').show();
+
+        $('#txtOfficeOrderNo').blur(function () {
+            var officeOrderNo = $('#txtOfficeOrderNo').val();
+            var check = 0;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckTransferOfficeOrderNo", "EmployeeRegister")',
+                data: "{'officeOrderNo':'" + officeOrderNo + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                async: false,
+                cache: false,
+                success: function (data) {
+                    if (data == 0)
+                        $('#hfOfficeOrderCheck').val(1);
+                    else
+                        $('#hfOfficeOrderCheck').val("");
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+        });
+        $('#txtOfficeOrderNo').val("");
+        EmployeeInformationAssign(employeeId);
+    }
+
+    function EmployeeInformationAssign(employeeId) {
+
+        var tr = $("#gvLocationWiseEmployeeAcceptOrReject tbody tr").find("td:eq(0):contains('" + employeeId + "')").parent();
+
+        $('#hfEmployeeId').val(employeeId);
+        $('#lblEmployeeID').text(employeeId);
+        $('#lblEmployeeName').text($(tr).find("td:eq(1)").text());
+        $('#lblDesignation').text($(tr).find("td:eq(2)").text());
+        $('#hfEmployeeTansferFrmLocation').val($(tr).find("td:eq(3)").text());
+        $('#lblDateOfJoining').text($(tr).find("td:eq(4)").text());
+        $('#dtpJoingDate').val($(tr).find("td:eq(4)").text());
+        $('#hfTransferSeqNo').val($(tr).find("td:eq(5)").text());
+        $('#hfEmployeeTansferToLocation').val($(tr).find("td:eq(6)").text());
+        //$('#lblJobLocation').text($(tr).find("td:eq(6)").text());
+        //$('#hfEmployeeCurrentLocationId').val($(tr).find("td:eq(7)").text());
+    }
+
+
+    function ClearAllControl() {
+        $('#hfEmployeeId').val("");
+        $('#lblEmployeeID').text("");
+        $('#lblEmployeeName').text("");
+        $('#lblDateOfJoining').text("");
+        $('#lblDesignation').text("");
+        $('#txtOfficeOrderNo').val("");
+        $('#hfOfficeOrderCheck').val("");
+        $('#hfTransferSeqNo').val("");
+        $('#hfEmployeeTansferFrmLocation').val("");
+        $('#hfEmployeeTansferToLocation').val("");
+    }
+
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

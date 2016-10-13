@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ec20ef985b094c0998cc548b09c63f88" Name="Diagram1" ZoomLevel="45" ShowGrid="false" DisplayType="true">
+        <EntityTypeShape EntityType="RASolarMISModel.Aud_AdjustmentReasonCodes" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Aud_AuditAdjustmentObservationOnSalesAgreement" Width="1.5" PointX="33.75" PointY="75.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Aud_AuditAdjustmentRelatedChallanOrMRRForReference" Width="1.5" PointX="10.5" PointY="56.625" />
+        <EntityTypeShape EntityType="RASolarMISModel.Aud_AuditAdjustmentRelatedCollectionFromCustomers" Width="1.5" PointX="30" PointY="85" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_CashMemoBookMaster" Width="1.5" PointX="5.375" PointY="12" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_CurrentYearMonthNWeek" Width="1.5" PointX="5.75" PointY="9.125" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_DistrictInfo" Width="1.5" PointX="1.5" PointY="89.25" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_LocationInfo" Width="1.5" PointX="0.75" PointY="45.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_PeriodOpenClose" Width="1.5" PointX="3" PointY="40.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_ProgramInfo" Width="1.5" PointX="0.75" PointY="32.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_ProjectInfo" Width="1.5" PointX="3" PointY="32.25" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_RegionInfo" Width="1.5" PointX="1.5" PointY="101.625" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_Sys_LocationType" Width="1.5" PointX="1.5" PointY="36.625" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_Sys_StatusInfo" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_Sys_SystemSettings" Width="1.5" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_UnionInfo" Width="1.5" PointX="1.5" PointY="81.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_UpazillaInfo" Width="1.5" PointX="1.5" PointY="85" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_ZoneInfo" Width="1.5" PointX="4.875" PointY="105.125" />
+        <EntityTypeShape EntityType="RASolarMISModel.Hrm_LocationWiseEmployee" Width="1.5" PointX="3" PointY="45" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ChallanDetails" Width="1.5" PointX="5.25" PointY="79.25" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ChallanDetailsWithSerialNo" Width="1.5" PointX="7.5" PointY="79.5" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ChallanMaster" Width="1.5" PointX="2.5" PointY="56" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ChallanWithMultipleLocations" Width="1.5" PointX="5.25" PointY="57.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ChallanWithMultipleLocationsWithItemWiseDistribution" Width="1.5" PointX="10.5" PointY="69" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemCategorySubCategory" Width="1.5" PointX="3" PointY="63.5" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemMaster" Width="1.5" PointX="7.5" PointY="63" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemModel" Width="1.5" PointX="5.25" PointY="70.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemStockByLocation" Width="1.5" PointX="5.25" PointY="66" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemTransactionTypes" Width="1.5" PointX="0.75" PointY="39.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_MRRDetails" Width="1.5" PointX="10.5" PointY="63.5" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_MRRDetailsWithSerialNo" Width="1.5" PointX="15.75" PointY="71.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_StoreLocation" Width="1.5" PointX="3" PointY="68.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_Sys_ItemType" Width="1.5" PointX="0.75" PointY="58.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CollectionFromCustomers" Width="1.5" PointX="27.75" PointY="78.5" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CollectionTypeInfo" Width="1.5" PointX="25.5" PointY="87.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerFuelUsed" Width="1.5" PointX="1.5" PointY="92.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerIncomeRange" Width="1.5" PointX="7.375" PointY="102.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerOccupations" Width="1.5" PointX="9.625" PointY="102.5" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerRelations" Width="1.5" PointX="11.625" PointY="102.125" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerTrainingTransDetails" Width="1.5" PointX="5.25" PointY="24.625" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerType" Width="1.5" PointX="18.75" PointY="44.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerWiseOverdueBalanceForTracker" Width="1.5" PointX="8.75" PointY="5.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_ItemSetDetail" Width="1.5" PointX="5.25" PointY="61.25" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_ItemSetMaster" Width="2.125" PointX="3" PointY="50" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Light" Width="1.5" PointX="14.25" PointY="52.5" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_ListedUnitPriceForSparePartsSales" Width="1.5" PointX="2.75" PointY="9.5" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_LocationNEmployeeWiseActivityDaily" Width="1.5" PointX="10.5" PointY="40.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_LocationNEmployeeWiseActivityMonthly" Width="1.5" PointX="8.25" PointY="39.125" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_LocationNEmployeeWiseDailySalesNCollectionTarget" Width="1.5" PointX="8.25" PointY="43.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_LocationWiseSalesNCollectionTarget" Width="1.5" PointX="6" PointY="40.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_ModeOfPayment" Width="1.5" PointX="18.75" PointY="47.625" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_PackageDetail" Width="1.5" PointX="7.5" PointY="69.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_PackageMaster" Width="1.5" PointX="18.75" PointY="51" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_PackageOrItemCapacity" Width="1.5" PointX="5.25" PointY="32.125" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SalesAgreementClosedWithFullPaidOrWaive" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SalesItems" Width="1.5" PointX="27.75" PointY="67.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SalesItemsWithSerialNo" Width="1.5" PointX="30" PointY="71.125" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SparePartsSalesItems" Width="1.5" PointX="12.75" PointY="56.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SparePartsSalesItemsWithSerialNo" Width="1.5" PointX="22.5" PointY="66.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SystemReturn" Width="1.5" PointX="24.75" PointY="107.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SystemReturnItems" Width="1.5" PointX="27" PointY="109.625" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SystemReturnItemsWithSerialNo" Width="1.5" PointX="29.25" PointY="91.625" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_TempApprovalForSalesAgreementClosed" Width="1.5" PointX="10.75" PointY="8.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_CapacityVsLight" Width="1.5" PointX="16.5" PointY="52.25" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_CustomerTypeVsModeOfPayment" Width="1.5" PointX="21" PointY="46.25" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage" Width="1.5" PointX="23.25" PointY="49" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_ModeOfPaymentNPackageVsDiscount" Width="1.5" PointX="23.25" PointY="89.25" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy" Width="1.5" PointX="23.25" PointY="101.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_ModeOfPaymentVsPackage" Width="1.5" PointX="21" PointY="52.125" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_ModeOfPaymentWiseDiscountPolicy" Width="1.5" PointX="21" PointY="88.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_UnitVsUpazilla" Width="1.5" PointX="3.75" PointY="91.875" />
+        <AssociationConnector Association="RASolarMISModel.FK_Aud_AuditAdjustmentObservationOnSalesAgreement_Sal_Validation_CapacityVsLight" />
+        <AssociationConnector Association="RASolarMISModel.FK_Aud_AuditAdjustmentObservationOnSalesAgreement_Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage" />
+        <AssociationConnector Association="RASolarMISModel.FK_Aud_AuditAdjustmentObservationOnSalesAgreement_Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_RefChallanOrMRRForAuditAdjustment_Inv_ChallanMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Aud_AuditAdjustmentRelatedCollectionFromCustomers_Sal_CollectionFromCustomers" />
+        <AssociationConnector Association="RASolarMISModel.FK_tbl_upazilla_tbl_district" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanMaster_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanWithMultipleLocations_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanWithMultipleLocations_LocationInfo1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemStockByLocation_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_LocationInformation_LocationType" />
+        <AssociationConnector Association="RASolarMISModel.FK_LocationWiseEmployee_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_tbl_PeriodOpenClose_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_tbl_Region_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_tbl_Zone_LocationInformation" />
+        <AssociationConnector Association="RASolarMISModel.FK_tbl_Project_tbl_Program" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_PackageCapacity_tbl_Project" />
+        <AssociationConnector Association="RASolarMISModel.FK_tbl_region_tbl_Zone" />
+        <AssociationConnector Association="RASolarMISModel.FK_UnionInfo_tbl_Upazilla" />
+        <AssociationConnector Association="RASolarMISModel.FK_UnitVsUpazilla_tbl_Upazilla" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_LocationNEmployeeWiseDailySalesNCollectionTarget_Hrm_LocationWiseEmployee" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanDetails_Inv_ChallanMaster1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanDetailsWithSerialNo_Inv_ChallanDetails1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanWithMultipleLocationsWithItemWiseDistribution_Inv_ChallanDetails" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRDetails_Inv_ChallanDetails" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRDetailsWithSerialNo_Inv_ChallanDetailsWithSerialNo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanMaster_Inv_ItemTransactionTypes" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanMaster_ItemType" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanWithMultipleLocations_Inv_ChallanMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanWithMultipleLocationsWithItemWiseDistribution_Inv_ChallanWithMultipleLocations" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemCategorySubCategory_ItemType" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemMaster_Inv_ItemCategorySubCategory" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemModel_Inv_ItemCategorySubCategory" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_PackageDetail_Inv_ItemCategorySubCategory" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemMaster_Inv_ItemModel" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemMaster_ItemType" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemMaster_Sal_PackageOrItemCapacity" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesItems_Inv_ItemMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SparePartsSalesItems_Inv_ItemMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_PackageDetail_Inv_ItemModel" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemStockByLocation_Inv_StoreLocation" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRDetailsWithSerialNo_Inv_MRRDetails" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_StoreLocation_ItemType" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_CustomerTypeVsModeOfPayment_Sal_CustomerType" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_ItemSetDetail_Sal_ItemSetMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CapacityVsLight_Sal_Light" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_LocationNEmployeeWiseActivityDaily_Sal_LocationNEmployeeWiseDailySalesNCollectionTarget" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_LocationNEmployeeWiseActivityMonthly_Sal_LocationWiseSalesNCollectionTarget" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_LocationNEmployeeWiseDailySalesNCollectionTarget_Sal_LocationWiseSalesNCollectionTarget" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_PackageMaster_Sal_ModeOfPayment" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_CustomerTypeVsModeOfPayment_Sal_ModeOfPayment" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ModeOfPaymentVsPackage_Sal_ModeOfPayment" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ModeOfPaymentWiseDiscountPolicy_Sal_ModeOfPayment" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_PackageDetail_Sal_PackageMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_PackageMaster_Sal_CapacityVsLight" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_PackageMaster_Sal_PackageOrItemCapacity" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy_Sal_PackageMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ModeOfPaymentVsPackage_Sal_PackageMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CapacityVsLight_Sal_PackageOrItemCapacity" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesItemsWithSerialNo_Sal_SalesItems" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SparePartsSalesItemsWithSerialNo_Sal_SparePartsSalesItems" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SystemReturnItems_Sal_SystemReturn" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SystemReturnItemsWithSerialNo_Sal_SystemReturnItems" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage_Sal_Validation_CustomerTypeVsModeOfPayment" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage_Sal_Validation_ModeOfPaymentVsPackage" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ModeOfPaymentNPackageVsDiscount_Sal_Validation_ModeOfPaymentVsPackage" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ModeOfPaymentNPackageVsDiscount_Sal_Validation_ModeOfPaymentWiseDiscountPolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy_Sal_Validation_ModeOfPaymentVsPackage" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_ODCustomerGrading" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_ODRecoveryCommitmentByRMnZM" Width="1.5" PointX="2.75" PointY="11.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SalesAgreementPrePost" Width="1.5" PointX="25.5" PointY="74.625" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SalesItemsWithSerialNoPrePost" Width="1.5" PointX="30" PointY="74.875" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_Sal_Validation_ModeOfPaymentNPackageVsDiscount" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_ProgramVsCustomerTypeNModeOfPayment" Width="1.5" PointX="21" PointY="63.125" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ModeOfPaymentVsProgram_Common_ProgramInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_CustomerTypeNModeOfPaymentVsProgram_Sal_Validation_CustomerTypeVsModeOfPayment" />
+        <EntityTypeShape EntityType="RASolarMISModel.Fix_EmployeeWiseFixedAssetsAllocation" Width="1.5" PointX="12.75" PointY="63.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Fix_EmployeeWiseFixedAssetsAllocationWithSerialNo" Width="1.5" PointX="25.5" PointY="70.25" />
+        <AssociationConnector Association="RASolarMISModel.FK_Fix_EmployeeWiseFixedAssetsAllocation_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Fix_EmployeeWiseFixedAssetsAllocation_Inv_ItemMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Fix_EmployeeWiseFixedAssetsAllocation_Inv_ItemStockByLocation" />
+        <AssociationConnector Association="RASolarMISModel.FK_Fix_EmployeeWiseFixedAssetsAllocationWithSerialNo_Fix_EmployeeWiseFixedAssetsAllocation" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemTransactionDetails" Width="1.5" PointX="12.75" PointY="69.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemTransactionDetailsWithSerialNo" Width="1.5" PointX="18" PointY="74.25" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemTransactionDetails_Inv_ChallanDetails" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemTransactionDetailsWithSerialNo_Inv_ChallanDetailsWithSerialNo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemTransactionDetails_Inv_MRRDetails" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemTransactionDetailsWithSerialNo_Inv_ItemTransactionDetails" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemTransactionDetailsWithSerialNo_Inv_MRRDetailsWithSerialNo" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerTrainingSchedule" Width="1.5" PointX="3.75" PointY="99.25" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_MRRMaster" Width="1.5" PointX="8.25" PointY="54" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_RefChallanOrMRRForAuditAdjustment_Inv_MRRMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRMaster_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRMaster_Inv_ChallanMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRMaster_Inv_ItemTransactionTypes" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRDetails_Inv_MRRMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRMaster_ItemType" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CollectionFromCustomers_Sal_CollectionTypeInfo" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CollectionFromCustomersPrePost" Width="1.5" PointX="30.75" PointY="78.5" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CollectionFromCustomersPrePost_Sal_CollectionTypeInfo" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemNItemCategoryWithSerialNoMaster" Width="1.5" PointX="1" PointY="21.875" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ItemStockWithSerialNoByLocation" Width="1.5" PointX="3.125" PointY="15.5" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemNItemCategoryWithSerialNoMaster_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Fix_EmployeeWiseFixedAssetsAllocationWithSerialNo_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanDetailsWithSerialNo_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanDetailsWithSerialNo_Inv_ItemStockWithSerialNoByLocation" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemStockWithSerialNoByLocation_Inv_ItemMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemNItemCategoryWithSerialNoMaster_Inv_ItemStockWithSerialNoByLocation" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemNItemCategoryWithSerialNoMaster_Inv_ItemTransactionDetailsWithSerialNo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemStockWithSerialNoByLocation_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemTransactionDetailsWithSerialNo_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRDetailsWithSerialNo_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_Inv_ItemNItemCategoryWithSerialNoMaster1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesItemsWithSerialNo_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesItemsWithSerialNoPrePost_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SparePartsSalesItemsWithSerialNo_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SystemReturnItemsWithSerialNo_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemStockWithSerialNoByLocation_Inv_ItemStockByLocation" />
+        <AssociationConnector Association="RASolarMISModel.FK_Common_CashMemoBookMaster_Hrm_LocationWiseEmployee" />
+        <AssociationConnector Association="RASolarMISModel.FK_Fix_EmployeeWiseFixedAssetsAllocation_Hrm_LocationWiseEmployee" />
+        <AssociationConnector Association="RASolarMISModel.FK_Fix_EmployeeWiseFixedAssetsAllocationWithSerialNo_Inv_ItemStockWithSerialNoByLocation" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_Validation_SubstituteItemNMapping" Width="1.5" PointX="8.0042530801167029" PointY="29.292066364219444" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_Validation_SubstituteItemNMapping_Inv_ItemMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_Validation_SubstituteItemNMapping_Inv_ItemMaster1" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_VendorInfo" Width="1.5" PointX="11.261860090895491" PointY="14.733061618512991" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_VendorInfo_Inv_ItemTransactionTypes" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_VendorInfo_Inv_ItemTransactionTypes1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_VendorInfo_Inv_ItemTransactionTypes2" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRMaster_Inv_VendorInfo" />
+        <EntityTypeShape EntityType="RASolarMISModel.SHSDistributionPlan_Master" Width="1.5" PointX="13.25" PointY="80.375" />
+        <EntityTypeShape EntityType="RASolarMISModel.SHSDistributionPlan_IndividualItem" Width="1.5" PointX="17.875" PointY="83.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_RouteMaster" Width="1.5" PointX="10.125" PointY="84.125" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_RouteDetail" Width="1.5" PointX="7.75" PointY="84" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_RootDetail_Common_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_RootDetail_Inv_RootMaster" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SalesAgreement" Width="1.5" PointX="21.875" PointY="74.625" />
+        <AssociationConnector Association="RASolarMISModel.FK_Aud_AuditAdjustmentObservationOnSalesAgreement_Sal_SalesAgreement" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_Inv_ItemNItemCategoryWithSerialNoMaster1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CollectionFromCustomers_Sal_SalesAgreement" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CollectionFromCustomersPrePost_Sal_SalesAgreement" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_Sal_Validation_ModeOfPaymentNPackageVsDiscount" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_Sal_Validation_ProgramVsCustomerTypeNModeOfPayment" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesItems_Sal_SalesAgreement" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SystemReturn_Sal_SalesAgreement" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Validation_ProgramVsCustomerTypeNModeOfPaymentWiseServiceChargePolicy" Width="1.5" PointX="21.5" PointY="56.75" />
+        <AssociationConnector Association="RASolarMISModel.FK_Aud_AuditAdjustmentObservationOnSalesAgreement_Sal_Validation_ProgramVsCustomerTypeNModeOfPaymentWiseServiceChargePolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_Sal_Validation_ProgramVsCustomerTypeNModeOfPaymentWiseServiceChargePolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_Sal_Validation_ProgramVsCustomerTypeNModeOfPaymentWiseServiceChargePolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Validation_ProgramVsCustomerTypeNModeOfPaymentWiseServiceChargePolicy_Sal_Validation_ProgramVsCustomerTypeNModeOfPayment" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_ERPVersusPhysicalBalance" Width="1.5" PointX="7.625" PointY="86.5" />
+        <EntityTypeShape EntityType="RASolarMISModel.Inv_VendorChallanWithItemReferenceToCheck" Width="1.5" PointX="8.125" PointY="0.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_DailyBusinessPerformanceMonitoring_SalesAndRecoveryStatusByUnit" Width="1.5" PointX="0.875" PointY="105.75" />
+        <EntityTypeShape EntityType="RASolarMISModel.Common_UnitInfo" Width="1.5" PointX="1.5" PointY="95.125" />
+        <AssociationConnector Association="RASolarMISModel.FK_tbl_Unit_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_tbl_Unit_tbl_Region" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerTrainingScheduleNUpdate_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_UnitVsUpazilla_tbl_Unit" />
+        <EntityTypeShape EntityType="RASolarMISModel.SHSDistributionPlan_RootWiseLocation" Width="1.5" PointX="16.375" PointY="80.375" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_VendorChallanWithItemReferenceToCheck_SHSDistributionPlan_RootWiseLocation" />
+        <AssociationConnector Association="RASolarMISModel.FK_SHSDistributionPlan_IndividualItem_SHSDistributionPlan_RootWiseLocation" />
+        <AssociationConnector Association="RASolarMISModel.FK_SHSDistributionPlan_RootWiseLocation_SHSDistributionPlan_Master" />
+        <EntityTypeShape EntityType="RASolarMISModel.SHSDistributionPlan_RootWiseLocationNPackage" Width="1.5" PointX="13.375" PointY="84.125" />
+        <AssociationConnector Association="RASolarMISModel.FK_SHSDistributionPlan_RootWiseLocationNPackage_SHSDistributionPlan_RootWiseLocation" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SparePartsSalesMaster" Width="1.5" PointX="5.75" PointY="48.25" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SparePartsSalesMaster_LocationInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SparePartsSalesMaster_Inv_ChallanMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SparePartsSalesMaster_Sal_ItemSetMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SparePartsSalesItems_Sal_SparePartsSalesMaster" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerTrainingTransMaster" Width="1.5" PointX="6.25" PointY="97.625" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerTrainingTransMaster_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerTrainingTransMaster_Sal_CustomerTrainingSchedule" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerTrainingTransDetails_Sal_CustomerTrainingTransMaster" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SparePartsSales_DataFromExternalSources" Width="1.5" PointX="5.375" PointY="27.125" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SparePartsSales_DataFromExternalSources_LocationInfo" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_Customer" Width="1.5" PointX="7.2510015942393817" PointY="19.230896466984831" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerPrePost" Width="1.5" PointX="2.875" PointY="0.5" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Customer_tbl_District" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerPrePost_tbl_District" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Customer_UnionInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerPrePost_UnionInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Customer_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerPrePost_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Customer_tbl_Upazilla" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerPrePost_tbl_Upazilla" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ChallanMaster_Sal_Customer" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_ItemNItemCategoryWithSerialNoMaster_Sal_Customer" />
+        <AssociationConnector Association="RASolarMISModel.FK_Inv_MRRMaster_Sal_Customer" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Customer_Sal_CustomerFuelUsed" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Customer_Sal_CustomerIncomeRange" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Customer_Sal_CustomerOccupations1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_Customer_Sal_CustomerRelations" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreement_Sal_Customer" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerPrePost_Sal_CustomerFuelUsed" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerPrePost_Sal_CustomerIncomeRange" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerPrePost_Sal_CustomerOccupations" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerPrePost_Sal_CustomerRelations" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_Sal_CustomerPrePost" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerInfoBackup" Width="1.5" PointX="0.5" PointY="1.25" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerInfoBackup_tbl_District" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerInfoBackup_UnionInfo" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerInfoBackup_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerInfoBackup_tbl_Upazilla" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SalesItemsPrePost" Width="5.5" PointX="9" PointY="162" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesItemsPrePost_Inv_ItemMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesItemsPrePost_Sal_SalesAgreementPrePost" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesItemsWithSerialNoPrePost_Sal_SalesItemsPrePost" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_SalesAgreementPrePost_DataFromExternalSources" Width="1.5" PointX="6.958710923306044" PointY="17.529394053634906" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Inv_ItemNItemCategoryWithSerialNoMaster1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Sal_Validation_ModeOfPaymentNPackageVsDiscount" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Sal_Validation_ProgramVsCustomerTypeNModeOfPaymentWiseServiceChargePolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_tbl_Unit" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Inv_ItemNItemCategoryWithSerialNoMaster" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Inv_ItemNItemCategoryWithSerialNoMaster1" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Sal_Validation_ModeOfPaymentNPackageVsDiscount" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_SalesAgreementPrePost_DataFromExternalSources_Sal_Validation_ProgramVsCustomerTypeNModeOfPaymentWiseServiceChargePolicy" />
+        <EntityTypeShape EntityType="RASolarMISModel.Sal_CustomerStatus" Width="1.5" PointX="2.0380465863449717" PointY="20.155801395026874" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerStatus_Sal_Customer" />
+        <AssociationConnector Association="RASolarMISModel.FK_Sal_CustomerTrainingTransDetails_Sal_CustomerStatus" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

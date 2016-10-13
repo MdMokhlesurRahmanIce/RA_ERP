@@ -1,0 +1,258 @@
+﻿@using System.Web.Helpers;
+@model IEnumerable<RASolarERP.Model.ProgressReviewDataEntryStatusDaily>
+@{
+    ViewBag.Title = "Daily Progress Review Data Entry Status";
+    
+    
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>    
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+   <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+
+<input id="hfIsAuthenticForSave" type="hidden" value="@ViewBag.IsAuthenticForSave" />
+
+<table cellpadding="0" cellspacing="0" border="0">   
+    <tr>
+        <td style="margin-top: 5px;">
+            @using (Html.BeginForm("DailyProgressReviewDataEntryStatus", "SalesMonitoring", FormMethod.Post))
+            {
+                @Html.Hidden("hfFilteredByUser", "")
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td align="left">
+                            Filtered By User&nbsp;&nbsp;@Html.CheckBox("chkbFilteredByUser")
+                        </td>
+                        <td align="left">
+                            <input id="btnSubmit" type="submit" value="Search" onclick="return SetFilter();" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="DataGridXScroll">
+                @if (Model.Count() > 0)
+                {
+
+                    @(Html.Telerik().Grid(Model)
+                    .Name("grvDailyProgressReviewDataEntryStatus")
+                    .DataKeys(keys => keys.Add(k => k.Unit_Code))
+                    .Columns(column =>
+                    {
+                        column.Bound(p => p.Zone_Name).Width(100).Hidden(true).GroupHeaderTemplate(@<text>Zone:
+                    @item.Key</text>);
+                        column.Bound(p => p.Region_Name).Width(100).Hidden(true).GroupHeaderTemplate(@<text>Region:
+                    @item.Key</text>);
+                        column.Template(@<a href="SalesMonitoringEntry?uc=@item.Unit_Code" target="_blank">@item.Unit_Code</a>).Width(70).HtmlAttributes(new { @class = "GridColumnLeftAlign" }).Title("Unit Code");
+                        column.Bound(p => p.Unit_Name).Width(150).HtmlAttributes(new { @class = "GridColumnLeftAlign" }).Title("Unit Name");
+                        column.Bound(p => p.IsEmployeeWiseTargetSettingCompleted).Width(90).Title("Target Setting Completed");
+                        column.Bound(p => p.SalesCurrentMonthTarget_AfterAlloc).Width(75).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Sales Target")
+            .Aggregate(aggreages => aggreages.Sum())
+               .Format("{0:0}")
+               .FooterTemplate(@<text> @item.Sum.Format("{0:0}") </text>)
+               .GroupFooterTemplate(@<text>@item.Sum.Format("{0:0}")</text>);
+
+                        column.Bound(p => p.CumulativeSalesAchievementThisMonth).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Cumulative Sales Achievement")
+            .Aggregate(aggreages => aggreages.Sum())
+               .Format("{0:0}")
+               .FooterTemplate(@<text> @item.Sum.Format("{0:0}") </text>)
+               .GroupFooterTemplate(@<text>@item.Sum.Format("{0:0}")</text>);
+
+                        column.Bound(p => p.SalesCurrentMonthAchievementStatus).Width(100).Title("Sales Achievemet Status").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                        column.Bound(p => p.RegColcCurrentMonthTarget_AfterAlloc).Width(110).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Current Collection Target")
+            .Aggregate(aggreages => aggreages.Sum())
+               .Format("{0:0}")
+               .FooterTemplate(@<text> @item.Sum.Format("{0:0}") </text>)
+               .GroupFooterTemplate(@<text>@item.Sum.Format("{0:0}")</text>);
+
+                        column.Bound(p => p.CumulativeRegColcAchievementThisMonth).Width(130).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Cumulative Current Collection Achievement")
+            .Aggregate(aggreages => aggreages.Sum())
+               .Format("{0:0}")
+               .FooterTemplate(@<text> @item.Sum.Format("{0:0}") </text>)
+               .GroupFooterTemplate(@<text>@item.Sum.Format("{0:0}")</text>);
+
+                        column.Bound(p => p.RegColcCurrentMonthAchievementStatus).Width(100).Title("Current Collection Status").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                        column.Bound(p => p.OverdueColcCurrentMonthTarget_AfterAlloc).Width(110).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Overdue Collection Target")
+            .Aggregate(aggreages => aggreages.Sum())
+               .Format("{0:0}")
+               .FooterTemplate(@<text> @item.Sum.Format("{0:0}") </text>)
+               .GroupFooterTemplate(@<text>@item.Sum.Format("{0:0}")</text>);
+
+                        column.Bound(p => p.CumulativeOverdueColcAchievementThisMonth).Width(120).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Cumulative Overdue Collection Achievement")
+            .Aggregate(aggreages => aggreages.Sum())
+               .Format("{0:0}")
+               .FooterTemplate(@<text> @item.Sum.Format("{0:0}") </text>)
+               .GroupFooterTemplate(@<text>@item.Sum.Format("{0:0}")</text>);
+
+                        column.Bound(p => p.OverdueColcCurrentMonthAchievementStatus).Width(100).Title("Overdue Collection  Status").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                        column.Bound(p => p.LastOpenDateByUO).Format("{0:dd-MMM-yy}").Width(80).Title("Last Open Date By UO").HtmlAttributes(new { @class = "GridColumnLeftAlign" });
+                        column.Bound(p => p.LastReviewedByRM).Format("{0:dd-MMM-yyyy}").Width(80).Title("Last Reviewed By RM").HtmlAttributes(new { @class = "GridColumnLeftAlign" });
+                        column.Bound(p => p.LastReviewedByZM).Format("{0:dd-MMM-yyyy}").Width(80).Title("Last Reviewed By ZM").HtmlAttributes(new { @class = "GridColumnLeftAlign" });
+                        column.Bound(p => p.LastReviewedByHO).Format("{0:dd-MMM-yyyy}").Width(80).Title("Last Reviewed By HO").HtmlAttributes(new { @class = "GridColumnLeftAlign" });
+
+                        column.Template(@<a href="#" onclick="return SaveDailyProgressReviewStatus('@item.Unit_Code','@item.LastOpenDateByUO','@item.LastReviewedByRM','@item.LastReviewedByZM','@item.LastReviewedByHO');">Save</a>).Width(50).Hidden((bool)ViewBag.ShowHide);
+
+                    }).Scrollable(scroll => scroll.Height(300)).Selectable().Groupable(settings
+                => settings.Groups(group =>
+                {
+                    group.Add(g => g.Zone_Name); group.Add(g => g.Region_Name);
+                }).Visible(false)))
+                    
+                }
+                else
+                { 
+                    <div style="font-size: 15px; padding-top: 10px; color: Red;">
+                        No Data Found</div>
+                }
+            </div>
+        </td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" style="padding: 15px;" width="100%">
+    <tr>
+        <td align="left">
+            Total number of Units:&nbsp;&nbsp;@ViewBag.TotalNumberofUnits
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            Target Setting Completed:&nbsp;&nbsp;@ViewBag.TargetSettingsCompleted
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            Entry Up-to-date:&nbsp;&nbsp;@ViewBag.EntryUpToDate
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+
+    function SaveDailyProgressReviewStatus(unitCode, lastEntryByUM, lastReviewedByRM, lastReviewedByZM, lastReviewedByHO) {
+
+        var locationType = @(Html.Raw(Json.Encode(ViewBag.Location)));
+
+        if($('#hfIsAuthenticForSave').val()=="False")
+        {
+            alert("You Are Not an Authentic Approver for This Location");
+            return false;
+        }
+
+        if (locationType == "Region") {
+
+            if (lastEntryByUM == "") {
+                alert("Cannot Save before UM Confirm.");
+                return false;
+            }            
+            else {
+                SaveDailyProgressReviewStatusAjax(unitCode);
+                return true;
+            }
+        }
+        else if (locationType == "Zone") {
+
+            if (lastReviewedByRM == "") {
+                alert("Cannot Save before RM Confirm.");
+                return false;
+            }           
+            else {
+                SaveDailyProgressReviewStatusAjax(unitCode);
+                return true;
+            }
+        }
+        else if (locationType == "HO") {
+
+            if (lastReviewedByRM == "") {
+                alert("Cannot Save before RM Confirm.");
+                return false;
+            }
+            else if (lastReviewedByZM == "") {
+                alert("Cannot Save before ZM Confirm.");
+                return false;
+            }            
+            else {
+                SaveDailyProgressReviewStatusAjax(unitCode);
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
+
+        return false;
+    }
+
+
+    function SetFilter() {
+
+        if ($('#chkbFilteredByUser').is(':checked')) {
+            $('#hfFilteredByUser').val(true);
+        }
+        else {
+            $('#hfFilteredByUser').val(false);
+        }
+
+        return true;
+    }
+
+    function SaveDailyProgressReviewStatusAjax(unitCode) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DailyProgressReviewDataEntryStatusSave", "SalesMonitoring")',
+            data: "{'unitCode':'" + unitCode + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                if (data == "Succeed") {
+                    alert("Confirmation Is Succeed.");
+                }
+                else if (data == "NotSucceed")
+                { alert("Confirmation Is Not Succeed."); }
+
+            },
+            error: function () {
+                alert("Failed To Load Item");
+            }
+        });
+
+    }
+
+   function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }  
+</script>

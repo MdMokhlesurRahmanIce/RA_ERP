@@ -1,0 +1,70 @@
+﻿@using model = RASolarERP.Web.Models;
+@{
+    ViewBag.Title = "Regional Office Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+    <tr>
+        <td align="right" style="width: 100%; padding-right: 10px;">
+            <table cellpadding="0" cellspacing="0" border="0" style="text-align: left;" width="100%">
+                <tr>
+                    <td style="width: 10%;">
+                        @Html.ActionLink("Log Out", "LogOut", "RSFSecurity")
+                    </td>
+                    <td style="width: 90%;" align="right">
+                        <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+                            <tr>
+                                <td style="width: 85%" align="right">
+                                    Location Type:&nbsp;&nbsp;
+                                </td>
+                                <td style="width: 15%" align="left">
+                                    @ViewBag.Location
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 85%" align="right">
+                                    Location:&nbsp;&nbsp;
+                                </td>
+                                <td style="width: 15%" align="left">
+                                    @ViewBag.Region
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="height: 30px;">
+           
+        </td>
+    </tr>
+    <tr>
+        <td class="HorizontalDivider">
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+    });
+
+    function GotoSalesSummaryPage() {
+
+        var url = "../../Sales/SalesDept/SalesSummary";
+        window.location.replace(url);
+
+        return false;
+    }
+
+    function GotoInventorySummaryPage() {
+
+        var url = "../Inventory/InventoryDept/InventorySummary";
+        window.location.replace(url);
+
+        return false;
+    }
+
+</script>

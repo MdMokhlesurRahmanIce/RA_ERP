@@ -1,0 +1,1196 @@
+﻿@using RASolarHelper;
+<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+</script>
+
+
+
+@using RASolarERP.DomainModel.HRMSModel;
+@model IEnumerable<RASolarERP.DomainModel.HRMSModel.AssesmentGrid>
+
+@{
+    ViewBag.Title = "কর্মী মূল্যায়ণ ";
+
+
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+
+@*<input id="hfLocation" type="hidden" value="@ViewBag.LocationCode"/>
+<input id="hfOpenDay" type="hidden" value="@ViewBag.OpenDay" />
+<input id="hfSaveMessage" type="hidden" value="" />
+<input id="hfTargetButton" type="hidden" value="@ViewBag.TargetBtn" /> *@
+
+@*   @{
+             List<LoadRequestEntryGet> lstLoadRequestEntryGet = new List<LoadRequestEntryGet>();
+             lstLoadRequestEntryGet = (List<LoadRequestEntryGet>)TempData["LstLoadRequestEntryGet"];
+                
+               }*@
+
+<input id="hfERPValue" type="hidden" value=""/>
+<input id="hfScore" type="hidden" value=""/>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+    @*  <tr>
+
+        <td>
+
+           <p style="font-size:16px;margin-left:200px;"> রুরাল সার্ভিসেস ফাউন্ডেশন</p>
+        </td>
+    </tr>*@
+    <tr>
+        <td width="14%">
+            <br />
+            <br />
+        </td>
+    </tr>
+    <tr>
+        <td width="14%"><font size="2px" face="Tahoma"><b>মূল্যায়ণের নাম : </b></font>
+        </td>
+        <td width="14%">
+            @Html.DropDownList("ddlMullaynerName", new SelectList(@ViewBag.MullaynerName, "EvaluationTypeID", "EvaluationTypeDetails"), "--Select--", new { @class = "IRDropDown" })
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            <br />
+            <br />
+
+        </td>
+    </tr>
+    <tr>
+         <td width="14%"><font size="2px" face="Tahoma"><b>মূল্যায়ন কাল :  </b></font>
+        </td>
+        <td width="14%">
+            @Html.DropDownList("ddlMullaynerKal", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "IRDropDown" })
+        </td>
+        <td align="left" width="14%"></td>
+        <td width="14%"><font size="2px" face="Tahoma"><b>আইডি নং : </b></font>
+        </td>
+        <td width="14%">
+            @Html.DropDownList("ddlIdNo",  Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "IRDropDown" })
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <br />
+            <br />
+
+        </td>
+    </tr>
+    <tr>
+        <td width="14%"><font size="2px" face="Tahoma"><b>নাম : </b></font>
+        </td>
+        <td width="14%">
+            @Html.TextBox("txtName", "", new { @onblur = "CheckPhone(this.value);", @class = "IRControl", @readonly = "readonly" })
+        </td>
+
+        <td align="left" width="14%"></td>
+        <td align="left" width="14%">
+            <div id="lblProshikhonDate"><font size="2" face="Tahoma"><b>প্রশিক্ষনের তারিখ :</b></font></div>
+             <div id="lblFromDate"  style="display:none;"><font size="2" face="Tahoma"><b>From Date :</b></font></div>
+        </td>
+        <td width="14%">
+            <div id="dtProshikhon">
+               @*  @Html.TextBox("dtpProshikhon", "", new { @onblur = "CheckPhone(this.value);", @class = "IRControl", @readonly = "readonly" })*@
+                @(Html.Telerik().DatePicker().Name("dtpProshikhon").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(DateTime.Now))
+            </div>
+        </td>
+
+        <td>
+            <br />
+        </td>
+
+    </tr>
+
+    <tr>
+        <td width="14%"><font size="2px" face="Tahoma"><b>পদবী  : </b></font>
+        </td>
+        <td width="14%">
+            @Html.TextBox("txtPodobi", "", new { @onblur = "CheckPhone(this.value);", @class = "IRControl", @readonly = "readonly" })
+        </td>
+
+        <td align="left" width="14%"></td>
+        <td align="left" width="14%">
+            <div id="lblMullayenerTarik"><font size="2" face="Tahoma"><b>মূল্যায়ণ তারিখ :</b></font></div> 
+            <div id="lblToDate" style="display:none;"><font size="2" face="Tahoma"><b>To Date :</b></font></div>
+        </td>
+        <td width="14%">
+           @*   @Html.TextBox("dtpMullaenTarikh", "", new { @onblur = "CheckPhone(this.value);", @class = "IRControl", @readonly = "readonly" })*@
+            @(Html.Telerik().DatePicker().Name("dtpMullaenTarikh").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(DateTime.Now))
+        </td>
+
+        <td>
+            <br />
+        </td>
+
+    </tr>
+
+    <tr>
+        <td width="14%"><font size="2px" face="Tahoma"><b>যোগদানের তারিখ : </b></font>
+        </td>
+        <td width="14%">
+            @Html.TextBox("txtJogdanerTarikh", "", new { @onblur = "CheckPhone(this.value);", @class = "IRControl", @readonly = "readonly" })
+        </td>
+
+        @*<td align="left"  width="14%"></td>
+          <td align="left"  width="14%"><font size="2" face="Tahoma"><b>মূল্যায়ণ তারিখ পরে :</b></font></td>
+        <td  width="14%"> @(Html.Telerik().DatePicker().Name("dtpMullaenPore").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(DateTime.Now))
+                        </td>*@
+        <td>
+            <br />
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <br />
+            <br />
+            <br />
+
+        </td>
+    </tr>
+
+
+</table>
+
+<table>
+    <tr>
+        <td>
+            <font size="2" face="Tahoma"><b>কর্মী মূল্যায়ন :</b></font>
+        </td>
+    </tr>
+
+</table>
+
+<table class="hh1" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+    <tr>
+
+
+
+
+        @*<td class="salmonitoringHead1" width="25%" align="left" style="margin-left:200px; text-align:right">Load Request:
+            </td>*@
+    </tr>
+    <tr>
+
+        <td>
+            <div style="display: none">
+                <table id="serialGrid">
+                    <tbody>
+
+
+                        @*                           @foreach (var item in lstLoadRequestEntryGet)
+                           {
+                                                    <tr>
+                                                        <td>@item.EmployeeID</td>
+                                                        <td>@item.LoadRequestForRSFServices</td>
+                                                        <td>@item.LoadRequestForPayWellServices</td>
+                                                       
+                                                    </tr>
+                           }*@
+
+
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid(Model)
+                  .Name("gvLoadRequestEntry")
+                  .DataKeys(keys => keys.Add(k => k.EvaluationCriteriaID))
+                  .Columns(column =>
+                  {
+                      column.Bound(e => e.EvaluationCriteriaID).Title("ID").Width(5).Hidden(true);
+                      //column.Bound(e => e.EvaluationCriteriaID).ClientTemplate("<input type='checkbox' value='' id='checkRecords' onchange='return CheckGridRecords();' />").Title("<input type='checkbox' id='checkBoxAll' onclick='checkAllRows();'>").HtmlAttributes(new { style = "text-align:center" }).Width(15);
+                      column.Bound(e => e.EvaluationCriteriaID).ClientTemplate("<input type='checkbox' value='<#=EvaluationCriteriaID#>' id='checkRecords' onchange='return CheckGridRecords(this.value);' />").Title("").HtmlAttributes(new { style = "text-align:center" }).Width(15);
+                      column.Bound(e => e.EvaluationCriteriaNameInBangla).HtmlAttributes(new { style=" font-size: 15px;"}).Title("<b style='font-size:14px; font-style:normal;'>যোগ্যতার মাপকাঠি</b>").Width(185).FooterTemplate(@<b>Total:</b>);
+                      column.Bound(e => e.EvaluationCriteriaWeight).Title("<b style='font-size:14px; font-style:normal;'>ওয়েট</b>").Width(20).FooterTemplate(@<b id="tatalWeight"></b>).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                      column.Bound(e => e.FalseFieldForERPT).Title("<b style='font-size:14px; font-style:normal;'>ইআরপি তথ্য</br>").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                      column.Bound(c => c.EvaluationCriteriaID).ClientTemplate("<select id='ddlProsikhonPurbo<#=EvaluationCriteriaID#>' style='text-align:center' onchange=' calculatePraptoNo(this, this.value)' > <option value='0'>0-আশা-ব্যঞ্জক নয়</option><option value='1'>১-মোটামুটি</option><option value='2'>২-ভাল</option><option value='3'>৩-খুব ভাল</option><option value='4'>৪-উত্তম</option></select>").Title("<b style='font-size:14px; font-style:normal;'>মূল্যায়ন</br>").Width(45);
+                      column.Bound(c => c.EvaluationCriteriaID).Title("<b style='font-size:14px; font-style:normal;'>প্রাপ্ত নাম্বার</br>").Width(25).HtmlAttributes(new { @class = "GridColumnRightAlign" }).ClientTemplate("<input type='text' value='' id='@('txtPraptoNo+' + @item.EvaluationCriteriaID)' onblur='ChecktxtPraptoNo('txtPraptoNo+@item.EvaluationCriteriaID',this.value);' style='text-align:right; width:40px;' readOnly=true; />").FooterTemplate(@<b id='txtPraptoTotal'></b>);
+                     // column.Bound(e => e.EvaluationCriteriaID).Title("<b style='font-size:14px; font-style:normal;'>ইআরপি তথ্য</br>").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                      //column.Bound(c => c.AssessmentCriteriaID).Template(@<select id='ddlProsikhonThreeMPore<#=AssessmentCriteriaID#>' style="text-align:center" onchange=" calculateThreeMPorePraptoNo(this, this.value)" > <option value='0'>0-আশা-ব্যঞ্জক নয়</option><option value='1'>১-মোটামুটি</option><option value='2'>২-ভাল</option><option value='3'>৩-খুব ভাল</option><option value='4'>৪-উত্তম</option></select>).Title("প্রশিক্ষণের ৩ মাস পরে").Width(100);
+                      //column.Bound(e => e.AssessmentCriteriaID).Title("প্রাপ্ত নাম্বার").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Template(@<input type='text' value='' id="@("txtPraptoThreeMNo+" + @item.AssessmentCriteriaID)" onblur="ChecktxtPraptoThreeMNo('txtPraptoThreeMNo+@item.AssessmentCriteriaID',this.value);" style="text-align:right; width:80px;" />).FooterTemplate(@<b id='txtPraptoThreeMNoTotal'></b>);
+                      column.Bound(e => e.EvaluationCriteriaID).Title("<b style='font-size:14px; font-style:normal;'>মন্তব্য</br>").Width(65).ClientTemplate("<input type='text' value='' id='@('txtIndiMontobbo+' + @item.EvaluationCriteriaID)' onblur='ChecktxtPraptoThreeMNo('txtIndiMontobbo+@item.EvaluationCriteriaID',this.value);' style='text-align:left; width:160px;' />");
+                       
+
+                  }).DataBinding(settings => settings.Ajax().Select("LoadGridDetails", "EmployeeDept"))
+         .Scrollable(scorll => scorll.Height(365))
+                        //.ClientEvents(events =>
+                        //{
+                        //    events.OnDataBinding("onDataBinding");
+                        //    events.OnError("onError");
+                        //})
+
+
+         )
+
+            </div>
+
+        </td>
+
+        <script type="text/javascript"> 
+            //var lrTotalService = 0;
+            //var lrTotalPayWell = 0;
+            //$('#serialGrid tbody tr').each(function () {
+
+            //    var lrTotalService1 = $(this).find('td:eq(1)').text().trim();
+            //    var lrTotalPayWell1 = $(this).find('td:eq(2)').text().trim();
+
+            //    lrTotalService = lrTotalService + parseInt(lrTotalService1, 10);
+            //    lrTotalPayWell = lrTotalPayWell + parseInt(lrTotalPayWell1, 10);
+
+
+            //});
+            //$('#txtRsfServiceTotal').text(lrTotalService);
+            //$('#txtRsfPayWellTotal').text(lrTotalPayWell);
+        </script>
+
+    </tr>
+    <tr>
+        <td>
+            <p id="targetLocked" style="color: Red; font-size: 14px; font-weight: bold;">
+            </p>
+        </td>
+    </tr>
+
+
+
+</table>
+
+<table width="100%">
+
+    <tr width="100%">
+
+        <td width="25%"><font size="2px" face="Tahoma"><b>ইউনিট ম্যানেজারের মন্তব্য : </b></font>
+        </td>
+        <td wdith="35%">
+            @Html.TextBox("txtUnitManagerMontobbo", "", new { @onblur = "ChecktxtUnitManagerMontobbo(this.value);", @class = "IRControl" })
+        </td>
+    </tr>
+
+    <tr width="100%">
+
+        <td width="25%"><font size="2px" face="Tahoma"><b>মূল্যায়ণকারী ইউনিট ম্যানেজার এর নাম : </b></font>
+        </td>
+        <td wdith="35%">
+            @Html.TextBox("txtUnitManagerNam", (string)ViewBag.LoginId, new { @readonly = "readonly", @class = "IRControl" })
+        </td>
+    </tr>
+    <tr>
+        <td width="25%"><font size="2px" face="Tahoma"><b>তারিখ : </b></font>
+        </td>
+        <td wdith="35%">
+            @(Html.Telerik().DatePicker().Name("dtptarikhUmName").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(DateTime.Now))
+        </td>
+        @* <td  width="40%"><font size="2px" face="Tahoma"><b>I have verified all the above information </b></font>
+                      @Html.CheckBox("chkConfirm", "")                  
+                   </td>*@
+    </tr>
+
+
+
+    <tr>
+        <td>
+         <br/>
+        <br/>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <img src="~/Content/Images/Triplex.gif" id="loadingImage" height="25" width="25" alt="tttt" style="display: none;" />
+            @* <input type="button"; id="testbtn" value="test"/>*@
+            <input type="button" id="btnSave" value="Save" />
+            @*<input type="button" id="btnSaveFinal" value="Final Save"  style="margin-left:100px" />*@
+        </td>
+    </tr>
+
+    <tr>
+        <td><br/>
+        <br/>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+
+
+    $('#ddlIdNo').change(function () {
+
+        var EmpId = $('#ddlIdNo').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetDataForEmployee", "EmployeeDept")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ EmployeeID: EmpId }),
+            cache: false,
+            success: function (data) {
+
+                //alert(data[0].EmployeeName);
+                //alert(data[0].HDesignation);
+                $('#txtName').val(data[0].EmployeeName);
+                $('#txtPodobi').val(data[0].HDesignation);
+                $('#txtJogdanerTarikh').val(data[0].JoiningDate);
+               
+
+
+                //
+                //Tasnim Alam
+                if ($('#ddlMullaynerName').val() == "EMPCONEV")
+                {
+                    $('#dtpProshikhon').val(data[0].JoiningDate);
+
+                                    var mullaynKal = $('#ddlMullaynerKal').val();
+                                    var fromdate = data[0].JoiningDate;
+                                    var todate;
+
+                                    if (mullaynKal == "EVLA1YER")
+                                        todate = "1";
+                                    if (mullaynKal == "EVLA3MNT")
+                                        todate = "3";
+                                    if (mullaynKal == "EVLA6MNT")
+                                        todate = "6";
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '@Url.Action("TodateCalcForConf", "EmployeeDept")',
+                                    //data: "{'ddlMullaynerKal':'" + $('#ddlMullaynerKal').val() + "'}",
+                                    data: JSON.stringify({ fromdate: fromdate, todate: todate }),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: 'json',
+                                    cache: false,
+                                    success: function (data) {
+
+                                        $('#dtpMullaenTarikh').val(data[0].calctodate);
+
+                                        $('#dtpProshikhon').attr('disabled', 'disabled');
+                                        $('#dtpMullaenTarikh').attr('disabled', 'disabled');
+                                    },
+                                    error: function () {
+                                        alert("Connection Failed. Please Try Again.");
+                                    }
+                                });
+                    }
+                //End T.Alam
+
+            },
+            error: function () {
+                Helper.AlertMessage("", "Connection Failed. Please Try Again");
+                //notSave = 1;
+                //$('#loadingImage').hide();
+            }
+
+        });
+
+    });
+
+
+    $('#ddlMullaynerName').change(function () {
+
+        var ddlMullaynerNameVal = $('#ddlMullaynerName').val();
+
+        if (ddlMullaynerNameVal == 'EMPCONEV')
+        {
+            $('#lblProshikhonDate').hide();
+            $('#lblFromDate').show();
+            $('#lblMullayenerTarik').hide();
+            $('#lblToDate').show();
+            $('#dtProshikhon').show();
+        }
+
+        else if (ddlMullaynerNameVal == 'EMPTRNEV')
+        {
+            $('#lblProshikhonDate').show();
+            $('#lblFromDate').hide();
+            $('#lblMullayenerTarik').show();
+            $('#lblToDate').hide();
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("MullaynerKal", "EmployeeDept")',
+            data: "{'ddlMullaynerName':'" + $('#ddlMullaynerName').val() + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlMullaynerKal').get(0).options.length = 0;
+                $('#ddlMullaynerKal').get(0).options[0] = new Option('--Select--', '');
+                $.map(data, function (item) {
+                    $('#ddlMullaynerKal').get(0).options[$('#ddlMullaynerKal').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again.");
+            }
+        });
+    })
+
+
+
+    function calculatePraptoNo(x, y) {
+        var rowsCount = $('#gvLoadRequestEntry tbody tr').length;
+        var txtPraptoTotal = 0;
+        for (var i = 1; i < rowsCount - 1; i++) {
+            var tr = $("#gvLoadRequestEntry tbody tr:eq(" + i + ")");
+            var weit = $(tr).find('td:eq(3)').text().trim();
+            var proshikhonerPurbe = $(tr).find('td:eq(5) option:selected').val();
+            var montobbo = $(tr).find('td:eq(7)').find('input').val();
+            var proptoNo = parseInt(weit, 10) * parseInt(proshikhonerPurbe, 10);
+            $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+            txtPraptoTotal = parseInt(txtPraptoTotal, 10) + parseInt($(tr).find('td:eq(6)').find('input').val(), 10);
+            $('#txtPraptoTotal').text(parseInt(txtPraptoTotal, 10));
+            //if (y == "0" && montobbo == "")
+            //{
+            //    alert("মন্তব্য প্রদান করুন");
+            //    return false;
+            //}
+            //else if (y == "4" && montobbo == "")
+            //{
+            //    alert("মন্তব্য প্রদান করুন");
+            //    return false;
+            //}
+        }
+    }
+
+    function getdate() {
+
+        if ($('#ddlMullaynerName').val() == "EMPCONEV") {
+            var tt = document.getElementById('txtJogdanerTarikh').value;
+
+            var date = new Date(tt);
+            var newdate = new Date(date);
+
+            newdate.setDate(newdate.getDate() + 3);
+
+            var dd = newdate.getDate();
+            var mm = newdate.getMonth() + 1;
+            var y = newdate.getFullYear();
+
+            var someFormattedDate = mm + '/' + dd + '/' + y;
+            document.getElementById('follow_Date').value = someFormattedDate;
+        }
+        else if ($('#ddlMullaynerName').val() != "EMPCONEV")
+        {
+        
+        }
+    }
+
+
+    function CheckGridRecords(valOfthis)
+    {
+
+        var EmpId = $('#ddlIdNo').val();
+        var viewScore = "VIEW_SCORE";
+        var mullayenerName = $('#ddlMullaynerName').val();
+        var ddlMullaynerKal = $('#ddlMullaynerKal').val();
+        var dataERPt = "";
+        var dataMullayen = "";
+        var dataPraptoNo = "";
+
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetDataForERPT", "EmployeeDept")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ viewScore: viewScore, EmployeeID: EmpId, mullayenerName: mullayenerName, ddlMullaynerKal: ddlMullaynerKal, valOfthis: valOfthis }),
+            cache: false,
+            success: function (data) {
+
+                ////alert(data[0].EmployeeName);
+                ////alert(data[0].HDesignation);
+                //$('#txtName').val(data[0].EmployeeName);
+                //$('#txtPodobi').val(data[0].HDesignation);
+                //$('#txtJogdanerTarikh').val(data[0].JoiningDate);
+                $('#hfERPValue').val(data[0].ERPValue);
+                $('#hfScore').val(data[0].Score);
+
+                var tr = $("#gvLoadRequestEntry tbody tr:eq(" + valOfthis + ")");
+                var waigts = $(tr).find('td:eq(3)').text();
+
+                var proptoNo = "";
+                if ($('#hfScore').val()=="0")
+                {
+                    dataMullayen = "0-আশা-ব্যঞ্জক নয়";
+                    proptoNo = 0;
+                }
+                else if ($('#hfScore').val() == "1") {
+                    dataMullayen = "১-মোটামুটি";
+                    proptoNo = parseInt(waigts, 10) * parseInt(1, 10);
+                    $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+                }
+                else if ($('#hfScore').val() == "2") {
+                    dataMullayen = "২-ভাল";
+                    proptoNo = parseInt(waigts, 10) * parseInt(2, 10);
+                    $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+                }
+                else if ($('#hfScore').val() == "3") {
+                    dataMullayen = "৩-খুব ভাল";
+                    proptoNo = parseInt(waigts, 10) * parseInt(3, 10);
+                    $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+                }
+                else if ($('#hfScore').val() == "4") {
+                    dataMullayen = "৪-উত্তম";
+                    proptoNo = parseInt(waigts, 10) * parseInt(4, 10);
+                    $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+                }
+       
+                $(tr).find('td:eq(4)').text($('#hfERPValue').val());
+
+                $(tr).find('td:eq(5)').find("option:contains(" + dataMullayen + ")").each(function () {
+                    if ($(this).text() == dataMullayen) {
+                        $(this).attr("selected", "selected");
+
+                        // $("#ddTest option:selected").attr('disabled', 'disabled');
+                        $(tr).find('td:eq(5) option').attr('disabled', 'disabled');
+                    }
+                });
+
+                //if ($('#hfERPValue').val() != "")
+                //{
+                //   // $(tr).find('td:eq(5)').attr('disabled', 'disabled');
+                //    $(tr).find('td:eq(5) option').attr('disabled', 'disabled');
+                //}
+
+
+                $('#hfERPValue').val('');
+                $('#hfScore').val('');
+                // alert( $('#hfERPValue').val());
+
+
+
+                // start for sum of prapto no
+                var rowsCount = $('#gvLoadRequestEntry tbody tr').length;
+                var txtPraptoTotal = 0;
+                for (var i = 1; i < rowsCount - 1; i++) {
+                    var tr = $("#gvLoadRequestEntry tbody tr:eq(" + i + ")");
+                    //var weit = $(tr).find('td:eq(3)').text().trim();
+                    //var proshikhonerPurbe = $(tr).find('td:eq(5) option:selected').val();
+                    var montobbo = $(tr).find('td:eq(7)').find('input').val();
+                    var proptoNo = $(tr).find('td:eq(6)').find('input').val() == "" ? 0 : $(tr).find('td:eq(6)').find('input').val();//parseInt(weit, 10) * parseInt(proshikhonerPurbe, 10);
+                    // $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+                    txtPraptoTotal = parseInt(txtPraptoTotal, 10) + parseInt(proptoNo, 10);
+                    $('#txtPraptoTotal').text(parseInt(txtPraptoTotal, 10));
+                    //var y = $(tr).find('td:eq(5)').find('input').val();
+
+                    //if (y == "0" && montobbo == "") {
+                    //    alert("মন্তব্য প্রদান করুন");
+                    //    return false;
+                    //}
+                    //else if (y == "4" && montobbo == "") {
+                    //    alert("মন্তব্য প্রদান করুন");
+                    //    return false;
+                    //}
+                }
+
+            },
+            error: function () {
+                Helper.AlertMessage("", "Connection Failed. Please Try Again");
+                //notSave = 1;
+                //$('#loadingImage').hide();
+            }
+
+         });
+       
+       // var tr = $("#gvLoadRequestEntry tbody tr:eq(" + valOfthis + ")");
+       // var waigts = $(tr).find('td:eq(3)').text();
+
+       // var proptoNo = "";
+       // if ($('#hfScore').val()=="0")
+       // {
+       //     dataMullayen = "0-আশা-ব্যঞ্জক নয়";
+       //     proptoNo = 0;
+       // }
+       //else if ($('#hfScore').val() == "1") {
+       //    dataMullayen = "১-মোটামুটি";
+       //    proptoNo = parseInt(waigts, 10) * parseInt(1, 10);
+       //    $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+       //}
+       //else if ($('#hfScore').val() == "2") {
+       //    dataMullayen = "২-ভাল";
+       //    proptoNo = parseInt(waigts, 10) * parseInt(2, 10);
+       //    $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+       //}
+       //else if ($('#hfScore').val() == "3") {
+       //    dataMullayen = "৩-খুব ভাল";
+       //    proptoNo = parseInt(waigts, 10) * parseInt(3, 10);
+       //    $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+       //}
+       //else if ($('#hfScore').val() == "4") {
+       //    dataMullayen = "৪-উত্তম";
+       //    proptoNo = parseInt(waigts, 10) * parseInt(4, 10);
+       //    $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+       //}
+       
+       // $(tr).find('td:eq(4)').text($('#hfERPValue').val());
+
+       // $(tr).find('td:eq(5)').find("option:contains(" + dataMullayen + ")").each(function () {
+       //     if ($(this).text() == dataMullayen) {
+       //         $(this).attr("selected", "selected");
+       //     }
+       // });
+
+
+       //  $('#hfERPValue').val('');
+       //  $('#hfScore').val('');
+       // // alert( $('#hfERPValue').val());
+
+
+
+       // // start for sum of prapto no
+       // var rowsCount = $('#gvLoadRequestEntry tbody tr').length;
+       // var txtPraptoTotal = 0;
+       // for (var i = 1; i < rowsCount - 1; i++) {
+       //     var tr = $("#gvLoadRequestEntry tbody tr:eq(" + i + ")");
+       //     //var weit = $(tr).find('td:eq(3)').text().trim();
+       //     //var proshikhonerPurbe = $(tr).find('td:eq(5) option:selected').val();
+       //     var montobbo = $(tr).find('td:eq(7)').find('input').val();
+       //     var proptoNo = $(tr).find('td:eq(6)').find('input').val() == "" ? 0 : $(tr).find('td:eq(6)').find('input').val();//parseInt(weit, 10) * parseInt(proshikhonerPurbe, 10);
+       //    // $(tr).find('td:eq(6)').find('input').val(parseInt(proptoNo / 4, 10));
+       //     txtPraptoTotal = parseInt(txtPraptoTotal, 10) + parseInt(proptoNo, 10);
+       //     $('#txtPraptoTotal').text(parseInt(txtPraptoTotal, 10));
+       //     //var y = $(tr).find('td:eq(5)').find('input').val();
+
+       //     //if (y == "0" && montobbo == "") {
+       //     //    alert("মন্তব্য প্রদান করুন");
+       //     //    return false;
+       //     //}
+       //     //else if (y == "4" && montobbo == "") {
+       //     //    alert("মন্তব্য প্রদান করুন");
+       //     //    return false;
+       //     //}
+       // }
+
+        // end for sum of prapto no
+    }
+
+
+
+
+    $('#ddlMullaynerKal').change(function () {
+
+        $('#txtPraptoTotal').text('');
+        $('#tatalWeight').text('');
+        var mullaynKal = $('#ddlMullaynerKal').val();
+        var mullaynNam = $('#ddlMullaynerName').val();
+        // var todate;
+
+        
+
+        //Tasnim Alam
+
+        $('#ddlIdNo').val('');
+        $('#dtpProshikhon').attr('disabled', false);
+        $('#dtpMullaenTarikh').attr('disabled', false);
+        //if (mullaynKal == "EVLA1YER")
+        //    todate = "1";
+        //if (mullaynKal == "EVLA3MNT")
+        //    todate = "3";
+        //if (mullaynKal == "EVLA6MNT")
+        //    todate = "6";
+        //if (mullaynKal == "EVLA9MNT")
+        //    todate = "9";
+        //if (mullaynKal == "EVLBFRTR")
+        //    todate = "0";
+
+
+        //if (mullaynKal == "EVLBFRTR") {
+
+        //    $('#lblProshikhonDate').hide();
+        //    $('#dtProshikhon').hide();
+
+        //}
+        //else if (mullaynKal != "EVLBFRTR") {
+        //    $('#lblProshikhonDate').show();
+        //    $('#dtProshikhon').show();
+        //}
+        if (mullaynKal == "EVLBFRTR" && mullaynNam != "EMPCONEV") {
+
+            $('#lblProshikhonDate').hide();
+            $('#dtProshikhon').hide();
+
+        }
+        else if (mullaynKal != "EVLBFRTR" && mullaynNam != "EMPCONEV") {
+            $('#lblProshikhonDate').show();
+            $('#dtProshikhon').show();
+        }
+        //alert('jdfgjhg');
+        if (mullaynKal != "" && mullaynNam != "") {
+            var params = {
+                mullaynNam: mullaynNam,
+                mullaynKal: mullaynKal
+            };
+
+            var grid = $('#gvLoadRequestEntry').data('tGrid');
+            grid.dataSource._data = [];
+            grid.ajaxRequest(params);
+        }
+        //if ($('#gvLoadRequestEntry tbody tr').length > 5) {
+        $('#tatalWeight').text('100');
+        //}
+
+        //  start for EmpID droprdownlist
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetEmpID", "EmployeeDept")',
+            //data: "{'ddlMullaynerName':'" + $('#ddlMullaynerName').val() + "'}",
+            data: JSON.stringify({ mullaynNam: mullaynNam, mullaynKal: mullaynKal }),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlIdNo').get(0).options.length = 0;
+                $('#ddlIdNo').get(0).options[0] = new Option('--Select--', '');
+                $.map(data, function (item) {
+                    $('#ddlIdNo').get(0).options[$('#ddlIdNo').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again.");
+            }
+        });
+
+        //  end  for EmpID droprdownlist
+    })
+
+    function calculateThreeMPorePraptoNo(x, y) {
+        var rowsCount = $('#gvLoadRequestEntry tbody tr').length;
+        var txtPraptoThreeMNoTotal = 0;
+        for (var i = 1; i < rowsCount - 1; i++) {
+
+            var tr = $("#gvLoadRequestEntry tbody tr:eq(" + i + ")");
+            var weit = $(tr).find('td:eq(3)').text().trim();
+            var proshikhonerPurbe = $(tr).find('td:eq(6) option:selected').val();
+            var proptoNo = parseInt(weit, 10) * parseInt(proshikhonerPurbe, 10);
+            $(tr).find('td:eq(7)').find('input').val(parseInt(proptoNo / 4, 10));
+
+            txtPraptoThreeMNoTotal = parseInt(txtPraptoThreeMNoTotal, 10) + parseInt($(tr).find('td:eq(7)').find('input').val(), 10);
+            $('#txtPraptoThreeMNoTotal').text(parseInt(txtPraptoThreeMNoTotal, 10));
+        }
+    }
+
+    function ChecktxtPraptoNo(x,y)
+    {
+
+
+    }
+
+    function ChecktxtUnitManagerMontobbo(x)
+    {
+
+
+    }
+
+    $(document).ready(function () {
+
+        $('#btnSave').click(function () {
+
+
+            //..............Start Check Montobbo for 0 and 4..............//
+
+            var rowsCounts = $('#gvLoadRequestEntry tbody tr').length;
+            
+            for (var i = 1; i < rowsCounts - 1; i++) {
+
+                var tr = $("#gvLoadRequestEntry tbody tr:eq(" + i + ")");
+
+                var assesmentOptionId1 = $(tr).find('td:eq(0)').text().trim();
+                var weight1 = $(tr).find('td:eq(3)').text().trim();
+                var pPurboPNo1 = $(tr).find('td:eq(6)').find('input').val();//$(tr).find('td:eq(4)').find('input').val().trim();
+                // $(tr).find('td:eq(4)').find('input').val()
+                var assesmentOptionCriteria1 = $(tr).find('td:eq(5) option:selected').val();
+                var montobbo = $(tr).find('td:eq(7)').find('input').val();
+
+                if (assesmentOptionCriteria1 == "0" && montobbo=="") {
+
+                    alert("মন্তব্য প্রদান করুন");
+                    return false;
+                }
+               
+                else if (assesmentOptionCriteria1 == "4" && montobbo == "") {
+                    alert("মন্তব্য প্রদান করুন");
+                    return false;
+                }
+            }
+
+            //..............End Check Montobbo for 0 and 4..............//
+
+
+            var befrtr = "BEFRTR";
+            var chkbxVal = "approved";
+            
+            var empEvType = $('#ddlMullaynerName').val();
+            var empEvKal = $('#ddlMullaynerKal').val();
+            var txtUnitManagerMontobbo = $('#txtUnitManagerMontobbo').val();
+
+            if (txtUnitManagerMontobbo.length == 0) {
+                alert("ইউনিট ম্যানেজারের মন্তব্য প্রদান করুন");
+                return false;
+            }
+
+
+            var ddlIdNo = $('#ddlIdNo').val();
+
+            if (ddlIdNo == "") {
+                alert('Please select IDNo.')
+                return false;
+            }
+
+            //start for confirmation
+
+            var txtPraptoTotal = $('#txtPraptoTotal').text();
+            if (parseInt(txtPraptoTotal, 10) < 60 && empEvType == 'EMPCONEV')
+                {
+
+                    if (confirm("He Fails this Stage, Do you want to Continue ?")) {
+                      
+                        var aprovedDate = $('#dtptarikhUmName').val();
+                        var assesmentOptionId = "";
+                        var assesmentOptionCriteria = "";
+                        var weight = "";
+                        var rowWiseRemarks = "";
+                        var pPurboPNo = "";
+                        var trainingDate = $('#dtpProshikhon').val();
+                        var assesmentDate = $('#dtpMullaenTarikh').val();
+                        var prmIsAssessmentCompleted = "1";
+                        var prmIsAssessmentSelectedByERPData = '1';
+                        var userLogin = $('#txtUnitManagerNam').val();
+                        var insertERPData = '';
+
+                        var rowsCount = $('#gvLoadRequestEntry tbody tr').length;
+                        var txtPraptoThreeMNoTotal = 0;
+                        for (var i = 1; i < rowsCount - 1; i++) {
+
+                            var tr = $("#gvLoadRequestEntry tbody tr:eq(" + i + ")");
+
+                            var assesmentOptionId1 = $(tr).find('td:eq(0)').text().trim();
+                            var weight1 = $(tr).find('td:eq(3)').text().trim();
+                            var pPurboPNo1 = $(tr).find('td:eq(6)').find('input').val();//$(tr).find('td:eq(4)').find('input').val().trim();
+                            // $(tr).find('td:eq(4)').find('input').val()
+                            var assesmentOptionCriteria1 = $(tr).find('td:eq(5) option:selected').val();
+                            var rowWiseRemarks1 = $(tr).find('td:eq(7)').find('input').val().trim();
+                            var erpData = $(tr).find('td:eq(4)').text().trim();
+                            if (assesmentOptionCriteria1 == "0") {
+                                assesmentOptionCriteria1 = "POOR0001";
+                            }
+                            else if (assesmentOptionCriteria1 == "1") {
+                                assesmentOptionCriteria1 = "FEAR0001";
+                            }
+                            else if (assesmentOptionCriteria1 == "2") {
+                                assesmentOptionCriteria1 = "GOOD0001";
+                            }
+                            else if (assesmentOptionCriteria1 == "3") {
+                                assesmentOptionCriteria1 = "VERYGOOD";
+                            }
+                            else if (assesmentOptionCriteria1 == "4") {
+                                assesmentOptionCriteria1 = "EXCELENT";
+                            }
+
+                            assesmentOptionId = assesmentOptionId + assesmentOptionId1 + "_";
+                            assesmentOptionCriteria = assesmentOptionCriteria + assesmentOptionCriteria1 + "_";
+                            weight = weight + weight1 + "_";
+                            pPurboPNo = pPurboPNo + pPurboPNo1 + "_";
+                            rowWiseRemarks = rowWiseRemarks + rowWiseRemarks1 + "_";
+                            insertERPData = insertERPData + erpData + "_";
+
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("SaveTrainingAssesmentEntry", "EmployeeDept")',
+                            dataType: "json",
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify({ ddlIdNo: ddlIdNo, empEvType: empEvType, empEvKal: empEvKal, trainingDate: trainingDate, assesmentDate: assesmentDate, prmIsAssessmentCompleted: prmIsAssessmentCompleted, txtUnitManagerMontobbo: txtUnitManagerMontobbo, chkbxVal: chkbxVal, aprovedDate: aprovedDate, assesmentOptionId: assesmentOptionId, assesmentOptionCriteria: assesmentOptionCriteria, weight: weight, pPurboPNo: pPurboPNo, prmIsAssessmentSelectedByERPData: prmIsAssessmentSelectedByERPData, userLogin: userLogin, insertERPData: insertERPData, gridLength: rowsCount, rowWiseRemarks: rowWiseRemarks }),
+                            cache: false,
+                            success: function (data) {
+
+                                if (data[0].messageCode == "success") {
+
+                                    //$('#loadingImage').hide();
+                                    alert("Save Is Succeed");
+
+                                    ClearAllControlForEntryEmployeeAssessment();
+                                }
+                                else {
+                                    alert(data[0].message);
+                                    // notSave = 1;
+
+                                }
+
+                            },
+                            error: function () {
+                                Helper.AlertMessage("", "Connection Failed. Please Try Again");
+                              
+                            }
+                        });
+
+                    }
+                    else {
+                        // alert('no confirm message');
+                        return false;
+                    }
+
+            }
+
+            else if (parseInt(txtPraptoTotal, 10) >= 60 || empEvType == 'EMPTRNEV')
+            {
+
+                var aprovedDate = $('#dtptarikhUmName').val();
+                //alert(aprovedDate);
+
+                var assesmentOptionId = "";
+                var assesmentOptionCriteria = "";
+                var weight = "";
+                var rowWiseRemarks = "";
+                var pPurboPNo = "";
+                var trainingDate = $('#dtpProshikhon').val();
+                var assesmentDate = $('#dtpMullaenTarikh').val();
+                var prmIsAssessmentCompleted = "1";
+                var prmIsAssessmentSelectedByERPData = '1';
+                var userLogin = $('#txtUnitManagerNam').val();
+                var insertERPData = '';
+
+                var rowsCount = $('#gvLoadRequestEntry tbody tr').length;
+                var txtPraptoThreeMNoTotal = 0;
+                for (var i = 1; i < rowsCount - 1; i++) {
+
+                    var tr = $("#gvLoadRequestEntry tbody tr:eq(" + i + ")");
+
+                    var assesmentOptionId1 = $(tr).find('td:eq(0)').text().trim();
+                    var weight1 = $(tr).find('td:eq(3)').text().trim();
+                    var pPurboPNo1 = $(tr).find('td:eq(6)').find('input').val();//$(tr).find('td:eq(4)').find('input').val().trim();
+                    // $(tr).find('td:eq(4)').find('input').val()
+                    var assesmentOptionCriteria1 = $(tr).find('td:eq(5) option:selected').val();
+                    var rowWiseRemarks1 = $(tr).find('td:eq(7)').find('input').val().trim();
+                    var erpData = $(tr).find('td:eq(4)').text().trim();
+                    if (assesmentOptionCriteria1 == "0") {
+                        assesmentOptionCriteria1 = "POOR0001";
+                    }
+                    else if (assesmentOptionCriteria1 == "1") {
+                        assesmentOptionCriteria1 = "FEAR0001";
+                    }
+                    else if (assesmentOptionCriteria1 == "2") {
+                        assesmentOptionCriteria1 = "GOOD0001";
+                    }
+                    else if (assesmentOptionCriteria1 == "3") {
+                        assesmentOptionCriteria1 = "VERYGOOD";
+                    }
+                    else if (assesmentOptionCriteria1 == "4") {
+                        assesmentOptionCriteria1 = "EXCELENT";
+                    }
+
+                    assesmentOptionId = assesmentOptionId + assesmentOptionId1 + "_";
+                    assesmentOptionCriteria = assesmentOptionCriteria + assesmentOptionCriteria1 + "_";
+                    weight = weight + weight1 + "_";
+                    pPurboPNo = pPurboPNo + pPurboPNo1 + "_";
+                    rowWiseRemarks = rowWiseRemarks + rowWiseRemarks1 + "_";
+                    insertERPData = insertERPData + erpData + "_";
+
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveTrainingAssesmentEntry", "EmployeeDept")',
+                            dataType: "json",
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify({ ddlIdNo: ddlIdNo, empEvType: empEvType, empEvKal: empEvKal, trainingDate: trainingDate, assesmentDate: assesmentDate, prmIsAssessmentCompleted: prmIsAssessmentCompleted, txtUnitManagerMontobbo: txtUnitManagerMontobbo, chkbxVal: chkbxVal, aprovedDate: aprovedDate, assesmentOptionId: assesmentOptionId, assesmentOptionCriteria: assesmentOptionCriteria, weight: weight, pPurboPNo: pPurboPNo, prmIsAssessmentSelectedByERPData: prmIsAssessmentSelectedByERPData, userLogin: userLogin, insertERPData: insertERPData, gridLength: rowsCount, rowWiseRemarks: rowWiseRemarks }),
+                            cache: false,
+                            success: function (data) {
+
+                                if (data[0].messageCode == "success") {
+
+                                    //$('#loadingImage').hide();
+                                    alert("Save Is Succeed");
+
+                                    ClearAllControlForEntryEmployeeAssessment();
+                                }
+                                else {
+                                    alert(data[0].message);
+                                    // notSave = 1;
+
+                                }
+
+                            },
+                            error: function () {
+                                Helper.AlertMessage("", "Connection Failed. Please Try Again");
+                       
+                            }
+                        });
+            }
+            //confirm("Do you want to save!");
+
+            //if()
+            //{
+            
+            //}
+
+            //end for confirmation
+
+
+           @* var aprovedDate = $('#dtptarikhUmName').val();
+            //alert(aprovedDate);
+
+            var assesmentOptionId = "";
+            var assesmentOptionCriteria = "";
+            var weight = "";
+            var rowWiseRemarks = "";
+            var pPurboPNo = "";
+            var trainingDate = $('#dtpProshikhon').val();
+            var assesmentDate = $('#dtpMullaenTarikh').val();
+            var prmIsAssessmentCompleted = "1";
+            var prmIsAssessmentSelectedByERPData = '1';
+            var userLogin = $('#txtUnitManagerNam').val();
+            var insertERPData = '';
+
+            var rowsCount = $('#gvLoadRequestEntry tbody tr').length;
+            var txtPraptoThreeMNoTotal = 0;
+            for (var i = 1; i < rowsCount-1; i++) {
+
+                var tr = $("#gvLoadRequestEntry tbody tr:eq(" + i + ")");
+
+                var assesmentOptionId1 = $(tr).find('td:eq(0)').text().trim();
+                var weight1 = $(tr).find('td:eq(3)').text().trim();
+                var pPurboPNo1 = $(tr).find('td:eq(6)').find('input').val();//$(tr).find('td:eq(4)').find('input').val().trim();
+               // $(tr).find('td:eq(4)').find('input').val()
+                var assesmentOptionCriteria1 = $(tr).find('td:eq(5) option:selected').val();
+                var rowWiseRemarks1 = $(tr).find('td:eq(7)').find('input').val().trim();
+                var erpData = $(tr).find('td:eq(4)').text().trim();
+                if (assesmentOptionCriteria1 == "0") {
+                    assesmentOptionCriteria1 = "POOR0001";
+                }
+                else if (assesmentOptionCriteria1 == "1") {
+                    assesmentOptionCriteria1 = "FEAR0001";
+                }
+                else if (assesmentOptionCriteria1 == "2") {
+                    assesmentOptionCriteria1 = "GOOD0001";
+                }
+                else if (assesmentOptionCriteria1 == "3") {
+                    assesmentOptionCriteria1 = "VERYGOOD";
+                }
+                else if (assesmentOptionCriteria1 == "4") {
+                    assesmentOptionCriteria1 = "EXCELENT";
+                }
+
+                assesmentOptionId = assesmentOptionId + assesmentOptionId1 + "_";
+                assesmentOptionCriteria = assesmentOptionCriteria + assesmentOptionCriteria1 + "_";
+                weight = weight + weight1 + "_";
+                pPurboPNo = pPurboPNo + pPurboPNo1 + "_";
+                rowWiseRemarks = rowWiseRemarks + rowWiseRemarks1 + "_";
+                insertERPData = insertERPData + erpData + "_";
+             
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveTrainingAssesmentEntry", "EmployeeDept")',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ ddlIdNo: ddlIdNo, empEvType: empEvType, empEvKal: empEvKal, trainingDate: trainingDate, assesmentDate: assesmentDate, prmIsAssessmentCompleted: prmIsAssessmentCompleted, txtUnitManagerMontobbo: txtUnitManagerMontobbo, chkbxVal: chkbxVal, aprovedDate: aprovedDate, assesmentOptionId: assesmentOptionId, assesmentOptionCriteria: assesmentOptionCriteria, weight: weight, pPurboPNo: pPurboPNo, prmIsAssessmentSelectedByERPData: prmIsAssessmentSelectedByERPData, userLogin: userLogin, insertERPData: insertERPData, gridLength: rowsCount, rowWiseRemarks: rowWiseRemarks }),
+                cache: false,
+                success: function (data) {
+
+                    if (data[0].messageCode == "success") {
+
+                        //$('#loadingImage').hide();
+                        alert("Save Is Succeed");
+
+                        ClearAllControlForEntryEmployeeAssessment();
+                    }
+                    else {
+                        alert(data[0].message);
+                        // notSave = 1;
+                        
+                    }
+
+                },
+                error: function () {
+                    Helper.AlertMessage("", "Connection Failed. Please Try Again");
+                    //notSave = 1;
+                    //$('#loadingImage').hide();
+                }
+            });*@
+
+            //alert(assesmentOptionId + "#" + assesmentOptionCriteria);
+        });
+
+
+    });
+
+
+    function ClearAllControlForEntryEmployeeAssessment() {
+
+        ////start for reload the url
+        $.ajax({
+            url: "",
+            context: document.body,
+            success: function (s, x) {
+                $(this).html(s);
+            }
+        });
+
+        ////end for reload the url
+
+        //$('#gvLoadRequestEntry').html('');
+        //$('#ddlMullaynerName').val('');
+        //$('#ddlIdNo').val('');
+        //$('#ddlMullaynerKal').val('');
+        //$('#txtName').val('');
+        //$('#txtPodobi').val('');
+        //$('#txtJogdanerTarikh').val('');
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>
+ 

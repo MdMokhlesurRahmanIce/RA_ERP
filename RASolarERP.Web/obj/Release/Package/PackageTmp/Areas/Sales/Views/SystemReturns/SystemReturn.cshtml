@@ -1,0 +1,814 @@
+﻿@using RASolarERP.Model;
+@{
+    ViewBag.Title = "System Return";
+
+
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfCustomerPrefix" type="hidden" value="@ViewBag.CustomerPrefix" />
+<input id="hfOpenDay" type="hidden"  value="@ViewBag.OpenDay"/>
+<input id="hfOpenBackDay" type="hidden"  value="@ViewBag.OpenBackDay"/>
+@using (Html.BeginForm("SystemReturn", "SystemReturns", FormMethod.Post, null))
+{ 
+    @Html.Hidden("hfCustomerOrRSF", "0")
+    @Html.Hidden("hfSystemReturnsItems", "0")
+    @Html.Hidden("hfIsPaidToCustomerOnApprovalByManagementWhenReceivable", "0")
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td>
+                <fieldset class="sagGroupBox">
+                    <legend>Customer Information</legend>
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td style="width: 33%;" align="left" valign="top">
+                                <table cellspacing="2" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" style="width: 100px;">
+                                            Customer Code
+                                        </td>
+                                        <td align="left" style="width: 100px;">
+                                            @Html.TextBox("txtCustomerCode", (string)ViewBag.CustomerCode, new { @style = "width:118px;", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 33%;" align="left" valign="top">
+                                <table cellspacing="2" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" style="width: 100px;">
+                                            Customer Name
+                                        </td>
+                                        <td align="left" style="width: 200px;">
+                                            @Html.TextBox("txtCutomerName", "", new { @style = "width:200px;", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 33%;" align="left">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td align="left" valign="top" style="width: 100px;">
+                                            Customer Address
+                                        </td>
+                                        <td align="left" style="width: 250px;">
+                                            @Html.TextArea("txtCustomerAddress", "", new { @class = "", @style = "width:250px; height:70px;", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset class="sagGroupBox">
+                    <legend>Agreement Info</legend>
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td style="width: 50%;" align="left" valign="top">
+                                <table cellspacing="2" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" style="width: 150px;">
+                                            Package
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtPackage", "", new { @style = "width:250px", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" style="width: 150px;">
+                                            Agreement Date
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtInstallationDate", "", new { @class = "", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 50%;" align="left" valign="top">
+                                <table cellspacing="2" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" valign="top" style="width: 150px;">
+                                            Return Date
+                                        </td>
+                                        <td align="left">
+                                            @(Html.Telerik().DatePicker().Name("dtpSystemReturn").Format("dd-MMM-yyyy").Max(new DateTime(2099, 12, 31)).ClientEvents(eventsS => eventsS.OnChange("onChangeDatePicker")).Value(ViewBag.OpenDay))
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="top" style="width: 150px;">
+                                            Usages Month
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtUsagesMonth", "", new { @style = "width:80px", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 50%;" align="left" valign="top">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @(Html.Telerik().Grid<PackageDetailsForSystemReturn>()
+                                        .Name("gvSystemReturnItems")
+                                        .DataKeys(keys => keys.Add(k => k.ItemCode))
+                                        .Columns(column =>
+                                        {
+                                            column.Bound(p => p.ItemCode).ClientTemplate("<input type=\"checkbox\" id=\"checkRecords<#=ItemCode#>\" onclick=\"return CheckRecords(<#=ItemCode#>)\" />").Title("").Width(30)
+                                                .HeaderTemplate("<input type=\"checkbox\" id=\"checkAllRecord\" onclick=\"return CheckAllRecordForSystemReturn()\" />");
+                                            column.Bound(p => p.ItemCode).Width(80);
+                                            column.Bound(p => p.ItemName).Width(250);
+                                            column.Bound(p => p.ItemQuantity).Title("Purchase Quantity").HtmlAttributes(new { @class = "GridColumnRightAlign" }).Width(100);
+                                            column.Bound(p => p.ItemCode).ClientTemplate("<input type=\"text\" id='returnQuantity<#=ItemCode#>' value=\"<#=ReturnQuantity#>\" style=\"text-align:right; width:50px;\" readonly=\"readonly\" onblur=\"return CalculateSystemReturnItemCost(<#=ItemCode#>, <#=ItemQuantity#>, this.value, <#=ReturnItemValue#>, <#=NonReturnItemValue#>)\" />").Title("Return Quantity").Width(100);
+                                            column.Bound(p => p.ItemCode).ClientTemplate("<select id='stockLocation<#=ItemCode#>' > <option value='2'> Old </option> </select>").Title("Store Location").Width(100);
+                                            column.Bound(p => p.ItemCode).ClientTemplate("<#if(IsItASerializableItem==1){#>  " +
+                                                                                         "<input type=\"text\" id='itemSerialNo<#=ItemCode#>' maxlength='25' style=\"width:160px;\" /> " +
+                                                                                         "<#}else{#>&nbsp;<#}#>").Title("Item Serial").Width(180);
+                                            column.Bound(p => p.ItemCode).ClientTemplate("<p id='nonReturnQuantity<#=ItemCode#>' style=\"text-align:right;\"><#=ItemQuantity#></p>").Title("Non Return Quantity").Width(100);
+                                            column.Bound(p => p.ItemCode).ClientTemplate("<p id='nonReturnValue<#=ItemCode#>' style=\"text-align:right;\"><#=NonReturnValue.toFixed(2)#></p>").Title("Non Return Value").Width(100);
+                                            column.Bound(p => p.ItemCode).ClientTemplate("<p id='returnValue<#=ItemCode#>' style=\"text-align:right;\">0</p>").Title("Return Value").Width(100).Hidden(true);
+                                            column.Bound(p => p.ItemSerialNo).Hidden(true);
+                                            column.Bound(p => p.UnitCost).Hidden(true);
+                                            column.Bound(p => p.UnitPriceIfSystemReturn).Hidden(true);
+                                            column.Bound(p => p.TotalPurchaePrice).Hidden(true);
+                                            column.Bound(p => p.TotalSystemPrice).Hidden(true);
+                                            column.Bound(p => p.ReturnValue).Hidden(true);
+                                            column.Bound(p => p.NonReturnValue).Hidden(true);
+                                            column.Bound(p => p.ReturnItemValue).Hidden(true);
+                                            column.Bound(p => p.NonReturnItemValue).Hidden(true);
+                                            column.Bound(p => p.IsItASerializableItem).Hidden(true);
+                                            column.Bound(p => p.ItemCategory).Hidden(true);
+                                        })
+                                            .DataBinding(dbBindings => dbBindings.Ajax().Select("__LoadPackageDetailsForSystemReturn", "SystemReturns"))
+                                            .Selectable()
+                                            .Footer(false)
+
+                                     )
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;" align="left" valign="top">
+                                <table cellspacing="2" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" style="width: 150px;">
+                                            Package Price
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtPackagePrice", "", new { @class = "", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="top" style="width: 150px;">
+                                            Monthly Service Charge
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtMonthlyServiceCharge", "", new { @class = "", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 50%;" align="left" valign="top">
+                                <table cellspacing="2" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td align="left" valign="top" style="width: 150px;">
+                                            Down Payment (DP)
+                                        </td>
+                                        <td align="left">
+                                            @Html.TextBox("txtDP", "", new { @class = "", @readOnly = true })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset class="sagGroupBox">
+                    <legend>Receivable/Payable Information</legend>
+                    <table cellspacing="2" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td align="left" style="width: 250px;">
+                                Depreciation (Usage Charge)
+                            </td>
+                            <td align="left">
+                                @Html.TextBox("txtUsageCharge", "", new { @style = "text-align:right; width:200px;", @readOnly = true })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" style="width: 250px;">
+                                Service Charge
+                            </td>
+                            <td align="left">
+                                @Html.TextBox("txtReceivableServiceCharge", "", new { @style = "text-align:right; width:200px;", @readOnly = true })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top" style="width: 250px;">
+                                Non Returned Item Value
+                            </td>
+                            <td align="left">
+                                @Html.TextBox("txtNonReturnItemsValue", "", new { @style = "text-align:right; width:200px;", @readOnly = true })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-color: Black; border-style: solid; border-width: 1px 0 0 0;
+                                height: 0px;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" style="width: 250px; font-weight: bold;">
+                                Total Receivable
+                            </td>
+                            <td align="left">
+                                @Html.TextBox("txtTotalReceivable", "", new { @style = "text-align:right; font-weight:bold; width:200px;", @readOnly = true })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" style="width: 250px;">
+                                Total Recovered (DP+Installment)
+                            </td>
+                            <td align="left">
+                                @Html.TextBox("txtTotalRecoveredDPAndInstallment", "", new { @style = "text-align:right; width:200px;", @readOnly = true })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-color: Black; border-style: solid; border-width: 1px 0 0 0;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" id="receivablePayable" style="width: 250px; font-weight: bold;">
+                                Receivable from Customer
+                            </td>
+                            <td align="left">
+                                @Html.TextBox("txtReceaviblePaybleAmount", "", new { @style = "text-align:right; font-weight:bold; width:200px;", @readOnly = true })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" id="actualPaidRSFORCustomer" style="width: 250px;">
+                                Actual Paid by Customer to RSF
+                            </td>
+                            <td align="left">
+                                @Html.TextBox("txtActualPaidRSFORCustomer", "", new { @style = "text-align:right; width:200px;" })
+                                <span id="receivedNote" style="display: none;"><strong style="color: Red; font-size: 14px;">
+                                    Note:</strong>&nbsp;Receive by Collection Page</span>
+                            </td>
+                        </tr>
+                        <tr id="isPaidToCustomerOnApprovalByManagementWhenReceivable">
+                            <td align="left" valign="top" style="width: 250px;">
+                                Paid To Customer And It Is Approved By ZM
+                            </td>
+                            <td>
+                                <input id="checkForApproved" onclick="CheckedForApproved()" type="checkbox" />
+                                <br />
+                                @Html.TextBox("txtApprovedAmount", "", new { @onblur = "CheckApprovedMoney()", @style = "text-align:right; width:200px; display: none;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-color: Black; border-style: solid; border-width: 1px 0 0 0;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" style="width: 250px;">
+                                Remaining Amount
+                            </td>
+                            <td align="left">
+                                @Html.TextBox("txtRemainingAmount", "", new { @style = "text-align:right; width:200px; ", @readOnly = true })
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <input id="btnSubmit" type="submit" value="Submit" />&nbsp;&nbsp;
+                <input type="button" id="resetSystemReturn" value="Cancel" />
+            </td>
+        </tr>
+    </table>
+}
+<script type="text/javascript">
+
+    $('#isPaidToCustomerOnApprovalByManagementWhenReceivable').css("display", "none");
+
+    function onChangeDatePicker(e) {
+
+        var startDate = Helper.DateCange($('#hfOpenBackDay').val());
+        var endDate = Helper.DateCange($('#hfOpenDay').val());
+
+        var selectedDate = Helper.DateCange($('#dtpSystemReturn').val());
+
+        if (selectedDate < startDate || selectedDate > endDate) {
+            alert("Return Date Should be in Current Month/Period");
+            $('#dtpSystemReturn').val("");
+            return false;
+        }
+
+        var params = {
+            customerCode: $('#txtCustomerCode').val(),
+            returnDate: $('#dtpSystemReturn').val()
+        };
+
+        LoadCustomerDetails();
+
+        var grid = $('#gvSystemReturnItems').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+    }
+
+    $(document).ready(function () {
+
+        LoadCustomerDetails();
+
+        $('#txtActualPaidRSFORCustomer').change(function () {
+
+            if ($('#txtActualPaidRSFORCustomer').val() == "") {
+                alert("Please Give Actual Payment");
+                return false;
+            }
+            else if (Helper.IsInt($('#txtActualPaidRSFORCustomer').val()) == false) {
+                alert("Actual Payment Cannot Be Negative/Character");
+                $('#txtActualPaidRSFORCustomer').val("0");
+                return false;
+            }
+
+            var totalRecovered = parseInt($('#txtTotalRecoveredDPAndInstallment').val());
+            var actualPayment = parseInt($('#txtActualPaidRSFORCustomer').val());
+
+            if ($('#hfCustomerOrRSF').val() != "0") {
+                if (actualPayment > totalRecovered) {
+                    alert("Actual Payment Cannot Be Greater Than Total Recovered Amount");
+                    return false;
+                }
+            }
+
+            var receaviblePaybleAmount = parseInt($('#txtReceaviblePaybleAmount').val());
+            var actualPaidRSFOrCustomer = parseInt(this.value);
+
+            $('#txtRemainingAmount').val(receaviblePaybleAmount - actualPaidRSFOrCustomer)
+        });
+
+        $('form').submit(function () {
+
+            if ($('#checkForApproved').is(":checked") == false) {
+
+                if ($('#txtActualPaidRSFORCustomer').val() == "") {
+                    alert("Please Give Actual Payment");
+                    return false;
+                }
+                else if (Helper.IsInt($('#txtActualPaidRSFORCustomer').val()) == false) {
+                    alert("Actual Payment Cannot Be Negative/Character");
+                    return false;
+                }
+            }
+
+            if ($('#dtpSystemReturn').val() == "") {
+                alert("Please Give Return Date");
+                return false;
+            }
+
+            var isPaidToCustomerOnApprovalByManagementWhenReceivable = 0;
+
+            if ($('#checkForApproved').is(":checked") == true) {
+                if ($('#txtApprovedAmount').val() == "") {
+                    alert("Please Give Approved Amount");
+                    return false;
+                }
+                isPaidToCustomerOnApprovalByManagementWhenReceivable = 1;
+            }
+
+            var startDate = Helper.DateCange($('#hfOpenBackDay').val());
+            var endDate = Helper.DateCange($('#hfOpenDay').val());
+            var selectedDate = Helper.DateCange($('#dtpSystemReturn').val());
+
+            if (selectedDate < startDate || selectedDate > endDate) {
+                alert("Return Date Should be in Current Month/Period");
+                $('#dtpSystemReturn').val("");
+                return false;
+            }
+
+            var totalRecovered = parseInt($('#txtTotalRecoveredDPAndInstallment').val());
+            var actualPayment = 0;
+
+            if ($('#checkForApproved').is(":checked") == true) {
+                actualPayment = parseInt($('#txtApprovedAmount').val());
+            }
+            else {
+                actualPayment = parseInt($('#txtActualPaidRSFORCustomer').val());
+            }
+
+            if ($('#hfCustomerOrRSF').val() != "0") {
+                if (actualPayment > totalRecovered) {
+                    alert("Actual Payment Cannot Be Greater Than Total Recovered Amount");
+                    return false;
+                }
+            }
+
+            var systemReturnsItems = "";
+            var itemCode = "";
+            var componentSequenceNumber = 1;
+            var soldQuantity = "";
+            var returnQuantity = "";
+            var unitCost = "";
+            var nonReturnItemsValue = "";
+            var returnItemsValue = "";
+            var serialNumber = "";
+            var stockLocation = "";
+            var itemCategory = "";
+
+            var gridLength = $('#gvSystemReturnItems tbody tr').length;
+            var i = 0;
+
+            for (i = 0; i < gridLength; i++) {
+
+                var tr = $("#gvSystemReturnItems tbody tr:eq(" + i + ")");
+
+                if ($(tr).find('td:eq(0)').find('input').is(':checked') == true) {
+
+                    itemCode = tr.find('td:eq(1)').text();
+                    soldQuantity = tr.find('td:eq(3)').text();
+                    returnQuantity = tr.find('td:eq(4)').find('input').val();
+                    nonReturnItemsValue = tr.find('td:eq(8)').text();
+                    returnItemsValue = tr.find('td:eq(15)').text();
+                    unitCost = tr.find('td:eq(11)').text();
+                    stockLocation = tr.find('td:eq(5)').find('select').val();
+                    itemCategory = tr.find('td:eq(20)').text();
+
+                    var serialNumberBox = tr.find('td:eq(6)');
+
+                    if (serialNumberBox.find('input').is('input')) {
+                        serialNumber = serialNumberBox.find('input').val();
+
+                        if ($.trim(serialNumber) == "") {
+                            alert("Please Give Serial");
+                            break;
+                        }
+                    }
+                    else
+                    { serialNumber = ""; }
+
+                    if (systemReturnsItems != "") {
+                        systemReturnsItems = systemReturnsItems + "#" + itemCode + "," + soldQuantity + "," + unitCost + "," + returnQuantity + "," + returnItemsValue + "," + nonReturnItemsValue + "," + componentSequenceNumber + "," + stockLocation + "," + serialNumber + "," + itemCategory;
+                    }
+                    else {
+                        systemReturnsItems = systemReturnsItems + itemCode + "," + soldQuantity + "," + unitCost + "," + returnQuantity + "," + returnItemsValue + "," + nonReturnItemsValue + "," + componentSequenceNumber + "," + stockLocation + "," + serialNumber + "," + itemCategory;
+                    }
+
+                    componentSequenceNumber = componentSequenceNumber + 1;
+                }
+            }
+
+            if (i != gridLength) {
+                return false;
+            }
+
+            if ($.trim(systemReturnsItems) == "") {
+                alert("Please Select Any Item For System Return");
+                return false;
+            }
+
+            $('#hfSystemReturnsItems').val(systemReturnsItems);
+            $('#hfIsPaidToCustomerOnApprovalByManagementWhenReceivable').val(isPaidToCustomerOnApprovalByManagementWhenReceivable);
+
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data[0].messageCode == "success") {
+                        alert(data[0].message);
+                        ClearControls();
+                        window.close();
+                    }
+                    else {
+                        alert(data[0].message);
+                    }
+                },
+                error: function () { alert("Connection Failed. Please Try Again."); }
+            });
+
+            return false;
+        });
+
+    });
+
+    function LoadCustomerDetails() {
+
+        var customerCode = $('#txtCustomerCode').val();
+        var returnDate = $('#dtpSystemReturn').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadCustomerDetails", "SystemReturns")',
+            data: "{'customerCode':'" + customerCode + "','returnDate':'" + returnDate + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+
+                if (data[0] != "NoFound") {
+
+                    $('#txtCutomerName').val(data[0].CustomerName);
+                    $('#txtCustomerAddress').val(data[0].CustomerAddress);
+                    $('#txtPackage').val(data[0].PackageName);
+                    $('#txtInstallationDate').val(data[0].AgreementDate);
+                    $('#txtUsagesMonth').val(data[0].UsagesMonth);
+                    $('#txtPackagePrice').val(data[0].PackagePrice);
+                    $('#txtDP').val(data[0].DownPaymentAmount);
+                    $('#txtMonthlyServiceCharge').val(data[0].MonthlyServiceCharge);
+
+                    $('#txtUsageCharge').val(data[0].Depreciation);
+                    $('#txtReceivableServiceCharge').val(data[0].ReceivableServiceCharge);
+                    $('#txtTotalRecoveredDPAndInstallment').val(data[0].TotalRecovered);
+
+                    CalculateSystemReturn();
+                }
+                else {
+                    alert("Customer Not Found");
+                }
+            },
+            error: function () {
+                alert("Load Failed. Please Try Again.");
+            }
+        });
+
+    }
+
+    function CalculateSystemReturnItemCost(itemCode, itemQuantity, returnQuantity, returnItemValue, nonReturnItemValue) {
+
+        var tr = $("#gvSystemReturnItems tbody tr:contains('" + itemCode + "')");
+
+        if ($(tr).find('td:eq(0)').find('input').is(':checked') == false) {
+            return false;
+        }
+
+        if (returnQuantity == "") {
+            alert("Please Give Return Quantity");
+            return false;
+        }
+        else if (returnQuantity > itemQuantity) {
+            alert("Return Quantity Cannot Be Greater Than Purchase Quantity");
+            tr.find('td:eq(4)').find('input').val(tr.find('td:eq(3)').text());
+            return false;
+        }
+        else if (Helper.IsInt(returnQuantity) == false) {
+            alert("Return Quantity Cannot Be Negative/Character");
+            tr.find('td:eq(4)').find('input').val(tr.find('td:eq(3)').text());
+            return false;
+        }
+
+        var nonReturnQuantity = itemQuantity - returnQuantity;
+        var returnValue = returnQuantity * returnItemValue;
+        var nonReturnValue = (nonReturnQuantity * nonReturnItemValue).toFixed(2);
+
+        $('#nonReturnValue' + itemCode).text(nonReturnValue);
+        $('#nonReturnQuantity' + itemCode).text(nonReturnQuantity);
+        $('#returnValue' + itemCode).text(returnValue.toFixed(2));
+
+        var depreciation = 0;
+        var nonReturnCost = 0;
+        var totalUsageCharge = 0;
+        var totalNonReturnValue = 0;
+
+        $("#gvSystemReturnItems tbody tr").each(function () {
+
+            if ($(this).find('td:eq(0)').find('input').is(':checked') == true) {
+
+                if ($.trim($(this).find('td:eq(18)').text()) == "")
+                    depreciation = 0;
+                else
+                    depreciation = parseFloat($(this).find('td:eq(18)').text());
+
+                if ($.trim($(this).find('td:eq(8)').text()) == "")
+                    nonReturnCost = 0;
+                else
+                    nonReturnCost = parseFloat($(this).find('td:eq(8)').text());
+
+                totalUsageCharge = totalUsageCharge + depreciation;
+                totalNonReturnValue = totalNonReturnValue + nonReturnCost;
+            }
+        });
+
+        var receivableServiceCharge = parseInt($('#txtReceivableServiceCharge').val());
+        var totalDepreciation = parseInt($('#txtUsageCharge').val());
+
+        totalNonReturnValue = Math.round(totalNonReturnValue);
+
+        $('#txtNonReturnItemsValue').val(totalNonReturnValue);
+        $('#txtTotalReceivable').val(totalDepreciation + totalNonReturnValue + receivableServiceCharge);
+
+        CalculateSystemReturn();
+    }
+
+    function CalculateSystemReturn() {
+
+        var nonReturnCost = 0;
+        var toalNonReturnValue = 0;
+
+        $("#gvSystemReturnItems tbody tr").each(function () {
+
+            if ($.trim($(this).find('td:eq(8)').text()) == "")
+                nonReturnCost = 0;
+            else
+                nonReturnCost = parseFloat($(this).find('td:eq(8)').text());
+
+            toalNonReturnValue = toalNonReturnValue + nonReturnCost;
+        });
+
+        var receivableServiceCharge = parseInt($('#txtReceivableServiceCharge').val());
+        var totalDepreciation = parseInt($('#txtUsageCharge').val());
+
+        toalNonReturnValue = Math.round(toalNonReturnValue);
+
+        $('#txtNonReturnItemsValue').val(toalNonReturnValue);
+        $('#txtTotalReceivable').val(totalDepreciation + toalNonReturnValue + receivableServiceCharge);
+
+        var totalRecovered = $('#txtTotalRecoveredDPAndInstallment').val();
+        var totalReceivable = totalDepreciation + toalNonReturnValue + receivableServiceCharge;
+        var receivablePayable = totalReceivable - totalRecovered;
+        var actualPaidRSFOrCustomer = 0;
+
+        if ($('#txtActualPaidRSFORCustomer').val() != "")
+            actualPaidRSFOrCustomer = parseInt($('#txtActualPaidRSFORCustomer').val());
+
+        if (receivablePayable < 0) {
+            $('#receivablePayable').text('Payable to Customer');
+            $('#actualPaidRSFORCustomer').text('Actual Paid by RSF to Customer');
+            $('#hfCustomerOrRSF').val("-1");
+
+            $('#txtActualPaidRSFORCustomer').attr('disabled', false);
+            $('#receivedNote').css('display', 'none');
+            $('#checkForApproved').attr("checked", false);
+            $('#isPaidToCustomerOnApprovalByManagementWhenReceivable').css("display", "none");
+        }
+        if (receivablePayable > 0) {
+            $('#receivablePayable').text('Receivable from Customer');
+            $('#actualPaidRSFORCustomer').text('Actual Paid by Customer to RSF');
+            $('#hfCustomerOrRSF').val("0");
+
+            $('#txtActualPaidRSFORCustomer').val("");
+            $('#receivedNote').css('display', '');
+            $('#isPaidToCustomerOnApprovalByManagementWhenReceivable').css("display", "");
+            $('#checkForApproved').attr("checked", true);
+            CheckedForApproved();
+            $('#checkForApproved').attr("disabled", true);
+        }
+
+        $('#txtReceaviblePaybleAmount').val(Math.abs(receivablePayable));
+        $('#txtRemainingAmount').val(Math.abs(receivablePayable) - actualPaidRSFOrCustomer);
+    }
+
+    function CheckRecords(itemCode) {
+
+        var tr = $("#gvSystemReturnItems tbody tr:contains('" + itemCode + "')");
+
+        if ($("#checkRecords" + itemCode).is(":checked") == true) {
+
+            $("#returnQuantity" + itemCode).attr('readonly', false);
+
+            var itemQuantity = tr.find('td:eq(3)').text();
+            var itemDepriciation = tr.find('td:eq(17)').text();
+            var itemDepriciationNonReturn = tr.find('td:eq(18)').text();
+
+            CalculateSystemReturnItemCost(itemCode, parseInt(itemQuantity), parseInt(itemQuantity), parseFloat(itemDepriciation), parseFloat(itemDepriciationNonReturn));
+        }
+        else if ($("#checkRecords" + itemCode).is(":checked") == false) {
+
+            $("#returnQuantity" + itemCode).attr('readonly', true);
+
+            var itemQuantity = tr.find('td:eq(3)').text();
+            var itemDepriciation = parseFloat(tr.find('td:eq(15)').text());
+            var itemDepriciationNonReturn = parseFloat(tr.find('td:eq(16)').text());
+
+            tr.find('td:eq(4)').find('input').val(itemQuantity);
+            tr.find('td:eq(8)').find('p').text(itemDepriciationNonReturn.toFixed(2));
+            tr.find('td:eq(9)').find('p').text(itemDepriciation.toFixed(2));
+
+            CalculateSystemReturn();
+        }
+    }
+
+    function CheckAllRecordForSystemReturn() {
+
+        if ($("#checkAllRecord").is(":checked") == true) {
+
+            $("#gvSystemReturnItems tbody input:checkbox").attr("checked", true);
+
+            $("#gvSystemReturnItems tbody tr").each(function () {
+                $(this).find('td:eq(4)').find('input').attr('readonly', false);
+                $(this).find('td:eq(8)').find('p').text("0");
+            });
+
+            CalculateSystemReturn();
+        }
+        else {
+            $("#gvSystemReturnItems tbody input:checkbox").attr("checked", false);
+
+            $("#gvSystemReturnItems tbody tr").each(function () {
+                $(this).find('td:eq(4)').find('input').attr('readonly', true);
+            });
+
+            var params = {
+                customerCode: $('#txtCustomerCode').val(),
+                returnDate: $('#dtpSystemReturn').val()
+            };
+
+            var grid = $('#gvSystemReturnItems').data('tGrid');
+            grid.dataSource._data = [];
+            grid.ajaxRequest(params);
+
+            LoadCustomerDetails();
+        }
+    }
+
+    function CheckedForApproved() {
+        if ($('#checkForApproved').is(":checked") == true) {
+            $('#txtApprovedAmount').css('display', '');
+            $('#txtActualPaidRSFORCustomer').attr('disabled', true);
+            $('#txtApprovedAmount').val("");
+        }
+        else {
+            $('#txtApprovedAmount').css('display', 'none');
+            $('#txtActualPaidRSFORCustomer').attr('disabled', false);
+            $('#txtApprovedAmount').val("");
+        }
+    }
+
+    function CheckApprovedMoney() {
+        if ($('#txtApprovedAmount').val() == "")
+            return false;
+
+        if (Helper.IsInt($('#txtApprovedAmount').val()) == false) {
+            alert("Approved Amount Cannot be Negative/Character");
+            $('#txtApprovedAmount').val("");
+            return false;
+        }
+
+        var remainingAmount = parseInt($('#txtReceaviblePaybleAmount').val(), 10) + parseInt($('#txtApprovedAmount').val(), 10);
+        $('#txtRemainingAmount').val(remainingAmount);
+    }
+
+    function ClearControls() {
+
+        $('input[type="text"]').each(function () {
+            $(this).val("");
+        });
+
+        $('#gvSystemReturnItems').data().tGrid.total = 0;
+        $('#gvSystemReturnItems').data().tGrid.dataBind([]);
+
+        $('#txtCustomerCode').val($('#hfCustomerPrefix').val());
+        $('#hfCustomerOrRSF').val("0");
+        $('#hfSystemReturnsItems').val("0");
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

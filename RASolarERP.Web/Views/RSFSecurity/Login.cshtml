@@ -1,0 +1,158 @@
+﻿@using model = RASolarERP.Web.Models;
+
+@{
+    ViewBag.Title = "User Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";  
+}
+<input id="hdfURL" type="hidden" value="" />
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+        <td style="width: 30%; border-right: 1px solid #DFDDDD; height: 550PX;" valign="top"
+            align="left">
+            @*@{                
+                Html.Telerik().Menu()
+                    .Name("VerticalLeftMenu")
+                    .Orientation(MenuOrientation.Vertical)
+                    .Items(menu =>
+                    {
+                        menu.Add()
+                            .Text("Inventory Reports")
+                            .ImageUrl("../Content/Images/InventoryVertical.png")
+                            .Items(item =>
+                            {
+                                item.Add().Text("Inventory Summary").ImageUrl("../Content/Images/InventoryVertical.png").Url("http://172.25.40.50/MonthlyEntryInventory/InventoryReports.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                item.Add().Text("Inventory Summary For Vendors").ImageUrl("../Content/Images/InventoryVertical.png").Url("http://172.25.40.50/MonthlyEntryInventory/InventoryReportsForVendor.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                item.Add().Text("Sales Agreement Vs Inventory Panel & Battery Posting").ImageUrl("../../Content/Images/InventoryVertical.png").Url("http://172.25.40.50/MonthlyEntryInventory/SalesVsInventory.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                item.Add().Text("Receive from HO Vs UO ERP Posting").ImageUrl("../../Content/Images/InventoryVertical.png").Url("http://172.25.40.50/MonthlyEntryInventory/HOVsUOERPPosting.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                item.Add().Text("New Item Receive from RRE Vs UO ERP Posting").ImageUrl("../Content/Images/InventoryVertical.png").Url("http://172.25.40.50/MonthlyEntryInventory/ReceiveFromRREVsUOERPPosting.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                            });
+
+
+                        menu.Add()
+                            .Text("Sales Reports ")
+                            .ImageUrl("../Content/Images/SalesAndBuy.png")
+                            .Items(item =>
+                            {
+                                item.Add().Text("Sales Summary").ImageUrl("../Content/Images/SalesAndBuy.png").Url("http://172.25.40.50/MonthlyEntrySales/SalesReports.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                item.Add().Text("Collection Efficiency Report").ImageUrl("../Content/Images/SalesAndBuy.png").Url("http://172.25.40.50/MonthlyEntrySales/CollectionEfficiencyReport.aspx");
+                                //item.Add().Text("Overdue Collection Target Vs Achievement By Unit Office").ImageUrl("../Content/Images/SalesAndBuy.png").Url("http://172.25.40.50/MonthlyEntrySales/OverdueCollectionTargetVsAchievementByUnitOfficeReport.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                //item.Add().Text("Sales Collection In Hard Copy Vs Posting In ERP").ImageUrl("../Content/Images/SalesAndBuy.png").Url("http://172.25.40.50/MonthlyEntrySales/SalesCollectionInHardCopyVsPostingInERP.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                //item.Add().Text("Customer Training Information Entry").ImageUrl("../Content/Images/SalesAndBuy.png").Url("http://172.25.40.50/MonthlyEntrySales/CustomerTrainingInformationEntry.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                item.Add().Text("Summary SheetRegional Sales Posting").ImageUrl("../Content/Images/SalesAndBuy.png").Url("http://172.25.40.50/MonthlyEntrySales/SummarySheetRegionalSalesPosting.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                            });
+
+                        menu.Add()
+                            .Text("Account Reports")
+                            .ImageUrl("../Content/Images/Accounting.png")
+                            .Items(item =>
+                            {
+                                item.Add().Text("Account Summary").ImageUrl("../Content/Images/Accounting.png").Url("http://172.25.40.50/rsfERP/SummaryReportAccounting.aspx").LinkHtmlAttributes(new { target = "_blank" });
+                                item.Add().Text("Trial Balance").ImageUrl("../Content/Images/Accounting.png").Url("http://172.25.40.50/RSFERP/TrialBalance.aspx").LinkHtmlAttributes(new { target = "_blank" });
+
+                            });
+
+                    }).Render();
+                    
+            }*@
+        </td>
+        <td style="width: 70%;">
+            <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                <tr>
+                    <td align="center" style="width: 100%; padding-top: 10px; height: 500px;" valign="top">
+                        @using (Html.BeginForm("Login", "RSFSecurity", FormMethod.Post, null))
+                        {
+                            <table id="loginBox" cellpadding="3" cellspacing="0" border="0">
+                                <tr>
+                                    <td colspan="2" class="HorizontalDivider"></td>
+                                </tr>
+                                <tr>
+                                    <td class="LoginTitle">User Name
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtUserName", "", new { @class = "LogInTextBox" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="LoginTitle">Password
+                                    </td>
+                                    <td class="LogInTextBox">
+                                        @Html.Password("txtPassword", "", new { @class = "LogInTextBox" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="2">
+                                        <input type="submit" onclick="return ValidationCheck();" name="Logged-In" value="Sign In" />
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+@section Footer
+{
+}
+<script type="text/javascript">
+
+    function ValidationCheck() {
+
+        var userId = $('#txtUserName').val();
+        var userPassword = $('#txtPassword').val();
+
+        if (userId == "") {
+            Helper.AlertMessage("", "Please Give User Id.");
+            return false;
+        }
+        else if (userPassword == "") {
+            Helper.AlertMessage("", "Please Give your Password.");
+            return false;
+        }
+        else {
+            return true;
+        }
+        return false;
+    }
+
+    $(document).ready(function () {
+
+        $('form').submit(function () {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (data) {
+
+                    if (data[0].messageCode == "Valid") {
+                        GoGO(data[0].id);
+                    }
+                    else {
+                        Helper.AlertMessage("", data[0].message);
+                    }
+                }
+            });
+            return false;
+        });
+
+    });
+
+    function GoGO(goUrl) {
+
+        var root = document.URL;
+        var slashIndex = root.lastIndexOf("/");
+
+        if (slashIndex <= 17) {
+            root = root + "/";
+        }
+
+        var url = root + goUrl;
+
+        if (url == "")
+            return false;
+        else
+            window.location.replace(url);
+    }
+
+</script>

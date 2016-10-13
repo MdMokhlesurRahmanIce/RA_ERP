@@ -1,0 +1,265 @@
+﻿@model RASolarERP.DomainModel.SalesModel.SalesRecoveryCommitmentByReviewViewModel
+@{
+    ViewBag.Title = "Sales and Recovery Commitment Review(As of Today)";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+    
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+
+@using (Html.BeginForm("SalesRecoveryCommitmentReview", "SalesMonitoring", FormMethod.Post))
+{
+
+    <table cellpadding="0" cellspacing="5" border="0" width="100%" id="reportMode">
+        <tr>
+            <td style="width: 33%;" valign="top">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="ODCustomerGradingLabel">OD Customer Grading
+                        </td>
+                        <td align="left">
+                            @Html.DropDownList("ODCustomerGrading", new List<SelectListItem> { 
+                                                new SelectListItem { Text = "--ALL--", Value = "ALL" },
+                                                new SelectListItem { Text = "D. 6+ Installment", Value= "DInstallment"},
+                                                new SelectListItem { Text = "C. 4-6 Installment", Value= "C"},
+                                                new SelectListItem { Text = "B. 2-3 Installment", Value= "B"},
+                                                new SelectListItem { Text = "A. 0-1 Installment", Value= "A"},
+                                            }, new { @style = "width:130px;" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 33%;" valign="top">
+
+                @if (ViewBag.Location == RASolarHelper.Helper.HeadOffice)
+                {
+                    <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                        <tr>
+                            <td align="left" class="ODCustomerGradingLabel">Zone Code
+                            </td>
+                            <td align="left">
+                                @Html.DropDownList("ZoneCode", new SelectList(Model.Zone, "LocationCode", "LocationName"), "--ALL--", new { @class = "SalesAgreementControl" })
+                            </td>
+                        </tr>
+                    </table>
+                }
+
+            </td>
+            <td style="width: 33%;" valign="top">
+                <input type="submit" value="Show" id="btnSalesRecoveryCommitmentByReview" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+
+                <div class="DataGridXScroll">
+
+                    @if (Model.SalesRecoveryCommitmentByReview.Count > 0)
+                    {
+
+                        @(Html.Telerik().Grid(Model.SalesRecoveryCommitmentByReview)
+    .Name("gvSalesRecoveryCommitmentReview")
+    .DataKeys(keys => keys.Add(k => k.UnitCode))
+    .Columns(column =>
+    {
+        column.Bound(c => c.ProgramCode).Hidden(true);
+        column.Bound(c => c.ProgramName).Width(90);
+        column.Bound(c => c.AreaCode).Hidden(true);
+        column.Bound(c => c.AreaName).Width(90).HtmlAttributes(new { @class = "GridColumnLeftAlign" });
+        column.Bound(c => c.UnitCode).Width(80);
+        column.Bound(c => c.UnitName).Width(130);
+        column.Bound(c => c.LastMonthODCollectionEfficiency).Width(70).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+        .Aggregate(aggreages => aggreages.Sum())
+            .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.CurrentCollectionTarget).Width(70).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+        .Aggregate(aggreages => aggreages.Sum())
+            .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.ThisMonthRecoveryFromCurrent).Width(70).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+        .Aggregate(aggreages => aggreages.Sum())
+            .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.PossibleODFromCurrent).Width(70).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+        .Aggregate(aggreages => aggreages.Sum())
+            .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.OverdueBalance).Width(70).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+            .Aggregate(aggreages => aggreages.Sum())
+            .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.ThisMonthRecoveryFromOD).Width(70).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+            .Aggregate(aggreages => aggreages.Sum())
+            .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+
+        column.Bound(c => c.RemainingODBalance).Width(70).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+            .Template(@<a href="@("ShowUnitWiseSalesStatus?unitCode=" + item.UnitCode + "&unitName=" + item.UnitName + "&defaultEmployeeAsFPR=" + item.DefaultEmployeeAsFPR  )" target="_blank">@(((decimal)item.RemainingODBalance).ToString("0,0"))</a>)
+            .Aggregate(aggreages => aggreages.Sum())
+            .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+
+        column.Bound(c => c.SalesTarget).Width(80).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+        column.Bound(c => c.SalesAchievement).Width(80).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+        column.Bound(c => c.UMLastOverallRemarks).Width(240).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+
+        column.Bound(c => c.AMLastRemarks).Width(150).Template(@<text>
+
+                        @if (ViewBag.Location == RASolarHelper.Helper.Region)
+                        { 
+                            <input type="text" id="@("AMCommitmenttoRecoverRemainingOD" + item.UnitCode)" value="@item.AMLastRemarks" maxlength="100" style="width:140px;" />
+                        }
+                        else
+                        {
+                            @item.AMLastRemarks
+                        }
+
+                        </text>).Title("AM Commitment to Recover Remaining OD");
+
+
+        column.Bound(c => c.AMLastRemarksEntryDate).Width(90).Format("{0:dd-MMM-yyyy}");
+
+        column.Bound(c => c.HOLastRemarks).Width(150).Template(@<text>
+
+                        @if (ViewBag.Location == RASolarHelper.Helper.HeadOffice)
+                        {
+                           <input type="text" id="@("HOCommitmenttoRecoverRemainingOD" + item.UnitCode)"  value="@item.HOLastRemarks" maxlength="100" style="width:140px;" />
+                        }
+                        else
+                        {
+                            @item.HOLastRemarks
+                        }
+
+                        </text>).Title("HO Commitment to Recover Remaining OD");
+
+        column.Bound(c => c.HOLastRemarksEntryDate).Width(90).Format("{0:dd-MMM-yyyy}");
+        column.Bound(c => c.UnitCode).Width(50).Template(@<text>
+
+                        @if (ViewBag.Location != RASolarHelper.Helper.HeadOffice)
+                        {
+                          <a href="#" id="@("saveComment" + item.UnitCode)" onclick="return SaveComment('@item.UnitCode','AMRemarks')">Save</a>
+                        }
+                        
+                        else
+                        {
+                            <label>Save</label>
+                        }
+
+                        </text>).Title("");
+
+
+        column.Bound(c => c.LastOpenDateByUO).Width(90).Format("{0:dd-MMM-yyyy}");                
+                 })
+                                   .DataBinding(dataBinding => dataBinding.Server().Select("SalesRecoveryCommitmentReviewGridPaging", "SalesMonitoring", Model))
+                                   .Scrollable(scroll => scroll.Height(300))
+                                   .Pageable(pages => pages.PageSize(100))
+                                   .Groupable(g => g.Visible(false))
+                                   .Selectable()
+                                   .Footer(true)
+                                   )
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+
+                <table cellpadding="0" cellspacing="5" border="0" width="100%">
+                    <tr>
+
+                        <td style="width: 50%; font-weight: bold;">Last Month OD Collection Efficiency:&nbsp;&nbsp;
+                @{
+                    decimal dc = (decimal)16.08;
+                    string ss = string.Empty;
+
+                    if (Model.SalesRecoveryCommitmentByReview.Count > 0)
+                    {
+                        ss = dc.ToString("0.00");
+                    }
+                }
+                            @ss%
+                        </td>
+                        <td style="width: 50%; font-weight: bold;">This Month OD Collection Efficiency:&nbsp;&nbsp;
+                @{
+                    dc = 0;
+                    ss = string.Empty;
+
+                    if (Model.SalesRecoveryCommitmentByReview.Count > 0)
+                    {
+                        decimal overdueBalance = (decimal)Model.SalesRecoveryCommitmentByReview.Where(w => w.OverdueBalance != null).Sum(s => s.OverdueBalance);
+                        decimal thisMonthRecoveryFromOD = (decimal)Model.SalesRecoveryCommitmentByReview.Where(w => w.ThisMonthRecoveryFromOD != null).Sum(s => s.ThisMonthRecoveryFromOD);
+
+                        overdueBalance = overdueBalance == 0 ? 1 : overdueBalance;
+
+                        dc = (decimal)((thisMonthRecoveryFromOD / overdueBalance) * 100);
+                        ss = dc.ToString("0.00");
+                    }
+                }
+                            @ss%
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+}
+
+<script type="text/javascript">
+
+    function SaveComment(unitCode,option) {
+
+        var amComment = "", zmComment = "";
+        amComment = $('#AMCommitmenttoRecoverRemainingOD' + unitCode).val();
+        zmComment = $('#HOCommitmenttoRecoverRemainingOD' + unitCode).val();
+
+        $.ajax({
+
+            type: 'POST',
+            url: '@Url.Action("SaveSalesRecoveryCommitment", "SalesMonitoring")',
+            data: { option: option, unitCode: unitCode, amComment: amComment, zmComment: zmComment },
+            cache: false,
+            success: function (data) {
+
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+                }
+                else {
+                    alert(data[0].message);
+                }
+
+            },
+            error: function () { }
+
+        });
+
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+</script>

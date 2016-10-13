@@ -1,0 +1,44 @@
+﻿@using RASolarERP.DomainModel.AMSModel;
+@model IEnumerable<VoucherTransaction>
+@{
+    List<VoucherTransaction> lstVoucherTransaction = new List<VoucherTransaction>();
+    lstVoucherTransaction = Model.ToList();
+
+    @(Html.Telerik().Grid(lstVoucherTransaction)
+          .Name("gvVoucherTransaction")
+          .Columns(column =>
+          {
+              column.Bound(v => v.TransactionNo).Title("Voucher No.");
+              column.Bound(v => v.TransactionDate).Title("Date").Format("{0:dd-MM-yyyy}");
+              column.Bound(v => v.AccountNo).Title("Account No.");
+              column.Bound(v => v.AccountName).Title("Account Name");
+              column.Bound(v => v.Particulars).Title("Particulars");
+              column.Bound(v => v.Amount)
+                  .Template(@<text>
+    @if (item.Amount < 0)
+    {
+
+    }
+    else
+    {
+        @item.Amount.ToString("0,0")
+    }
+    </text>)
+                  .Title("Debit");
+              column.Bound(v => v.Amount)
+                  .Template(@<text>
+    @if (item.Amount > 0)
+    {
+
+    }
+    else
+    {
+        @((item.Amount * -1).ToString("0,0"))
+    }
+    </text>).Title("Credit");
+              column.Bound(v => v.ProjectCode).Title("Project");
+          })
+          .Footer(false)
+
+                                )
+}

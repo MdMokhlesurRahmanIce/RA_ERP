@@ -1,0 +1,101 @@
+﻿@model IEnumerable<RASolarERP.DomainModel.SalesModel.TrackerLocationWiseWeeklyODCollectionTargetVsAchievement>
+@{
+    ViewBag.Title = "Weekly Overdue Collection Entry Status";
+    
+
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<div class="DataGridXScroll">
+    @(Html.Telerik().Grid(Model)
+    .Name("grvWeeklyCollectionEntryStatus")
+    .DataKeys(keys => keys.Add(k => k.Unit_Code))
+    .Columns(column =>
+    {
+        column.Bound(s => s.Zone_Name).Width(100).HtmlAttributes(new { @class = "GridColumnLeftAlign" }).Hidden(true)
+             .GroupHeaderTemplate(@<text>Zone: @item.Key</text>);
+        column.Bound(s => s.Region_Name).Width(100).HtmlAttributes(new { @class = "GridColumnLeftAlign" }).Hidden(true)
+            .GroupHeaderTemplate(@<text>Region: @item.Key</text>);
+        column.Bound(s => s.Unit_Code).Width(100).HtmlAttributes(new { @class = "GridColumnLeftAlign" }).Title("Unit Code");
+        column.Bound(s => s.Unit_Name).Width(150).HtmlAttributes(new { @class = "GridColumnLeftAlign" }).Title("Unit Name");
+
+        column.Bound(s => s.WeeklyTarget).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+             .Aggregate(aggreages => aggreages.Sum())
+                .Format("{0:N}")
+                .FooterTemplate(@<text> @item.Sum.Format("{0:N}") </text>)
+                .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+        column.Bound(s => s.WeeklyAchievement).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+             .Aggregate(aggreages => aggreages.Sum())
+                .Format("{0:N}")
+                .FooterTemplate(@<text> @item.Sum.Format("{0:N}") </text>)
+                .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+        column.Bound(s => s.WeeklyVarianceInAmount).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+             .Aggregate(aggreages => aggreages.Sum())
+                .Format("{0:N}")
+                .FooterTemplate(@<text> @item.Sum.Format("{0:N}") </text>)
+                .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+        column.Bound(s => s.WeeklyVarianceInPercentage).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+        column.Bound(s => s.CumulativeTarget).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+             .Aggregate(aggreages => aggreages.Sum())
+                .Format("{0:N}")
+                .FooterTemplate(@<text> @item.Sum.Format("{0:N}") </text>)
+                .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+        column.Bound(s => s.CumulativeAchievement).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+             .Aggregate(aggreages => aggreages.Sum())
+                .Format("{0:N}")
+                .FooterTemplate(@<text> @item.Sum.Format("{0:N}") </text>)
+                .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+        column.Bound(s => s.CumVarianceInAmount).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Aggregate(aggreages => aggreages.Sum())
+                .Format("{0:N}")
+                .FooterTemplate(@<text> @item.Sum.Format("{0:N}") </text>)
+                .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+        column.Bound(s => s.CumVarianceInPercentage).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+        column.Bound(s => s.Remarks).Width(310).Title("Remarks");
+    })
+    .Selectable()
+    .Scrollable(scroll => scroll.Height(300))
+    .Groupable(settings => settings.Groups(group =>
+    {
+        group.Add(g => g.Zone_Name);
+        group.Add(g => g.Region_Name);
+
+    }).Visible(false))
+    )
+</div>
+
+<script type="text/javascript">
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+</script>

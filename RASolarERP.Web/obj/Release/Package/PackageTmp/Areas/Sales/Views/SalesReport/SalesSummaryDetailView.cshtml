@@ -1,0 +1,146 @@
+﻿@using RASolarERP.Model;
+@{
+    ViewBag.Title = "Sales Summary Detail View";
+    
+    
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.5.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>    
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.LocationTitle&nbsp; @ViewBag.Location
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+        </tr>
+    </table>
+}
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                @using (Html.BeginForm("SalesSummaryDetailView", "SalesReport", FormMethod.Post))
+                { 
+                    <tr>
+                        <td style="width: 37%;" align="left">
+                            @Html.DropDownList("ddlYearMonth", new SelectList(@ViewBag.YearMonth, "YearMonthValue", "YearMonthName", TempData["SelectValue"]), new { @disabled = "disabled" })
+                        </td>
+                        <td style="width: 63%;" align="left">
+                            <input type="submit" value="Show" id="btnSearch" />
+                        </td>
+                    </tr>                    
+                }
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="HorizontalDivider">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="DataGridXScroll">
+                @{
+                    List<SalesSummaryToDetailView> saleDetailsView = new List<SalesSummaryToDetailView>();
+                    saleDetailsView = (List<SalesSummaryToDetailView>)TempData["SalesDetailView"];
+
+                    if (saleDetailsView != null)
+                    {
+    
+                    @(Html.Telerik().Grid(saleDetailsView)
+          .Name("gvSalesDetailView")
+          .DataKeys(keys => keys.Add(k => k.Unit_Code))
+          .Columns(column =>
+          {
+              column.Bound(s => s.Zone_Name).Width(100).Hidden(true)
+                  .GroupHeaderTemplate(@<text> Zone: @item.Key </text>);
+
+              column.Bound(s => s.Region_Name).Width(100).Hidden(true)
+                  .GroupHeaderTemplate(@<text> Region: @item.Key </text>);
+
+              column.Bound(s => s.Unit_Code).Width(100).Title("Unit Code");
+              column.Bound(s => s.Unit_Name).Width(100).Title("Unit Name");
+
+              column.Bound(s => s.TotalActiveCustomer).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                  .Aggregate(ag => ag.Sum())
+                  .FooterTemplate(@<text>@item.Sum</text>)
+                  .GroupFooterTemplate(@<text>@item.Sum</text>);
+
+              column.Bound(s => s.TotalReceivable_WithServiceCharge).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Total Receivable With Service Charge")
+              .Format("{0:N}")
+                  .Aggregate(ag => ag.Sum())
+                  .FooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>)
+                  .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+              column.Bound(s => s.TotalRecoveredWithoutDP).Width(150).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                  .Format("{0:N}")
+                  .Aggregate(ag => ag.Sum())
+                  .FooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>)
+                  .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+              column.Bound(s => s.TotalOverdue).Width(150).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                  .Format("{0:N}")
+                  .Aggregate(ag => ag.Sum())
+                  .FooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>)
+                  .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+              column.Bound(s => s.TotalAdvance).Width(150).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                  .Format("{0:N}")
+                  .Aggregate(ag => ag.Sum())
+                  .FooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>)
+                  .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+              column.Bound(s => s.TotalOutstanding).Width(150).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                  .Format("{0:N}")
+                  .Aggregate(ag => ag.Sum())
+                  .FooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>)
+                  .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+              column.Bound(s => s.AR_AsPerAccounts).Width(150).HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("AR As Per Accounts")
+                  .Format("{0:N}")
+                  .Aggregate(ag => ag.Sum())
+                  .FooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>)
+                  .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+          })
+        .Groupable(settings => settings.Groups(group =>
+        {
+            group.Add(g => g.Zone_Name);
+            group.Add(g => g.Region_Name);
+
+        }).Visible(false))
+        .Selectable()
+        .Scrollable(scroll => scroll.Height(300))
+    )
+    
+                    }
+                }
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+</script>

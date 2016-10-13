@@ -1,0 +1,12 @@
+﻿@using RASolarERP.DomainModel.InventoryModel;
+@model IEnumerable<ChallanOrMRRItemsSerial>
+@(Html.Telerik().Grid(Model)
+          .Name("gvVoucherTransaction")
+          .Columns(column =>
+          {
+              column.Bound(v => v.ItemCode).Hidden(true);
+              column.Bound(v => v.ItemName).Hidden(true);
+              column.Bound(v => v.ItemSerialNumber);
+          })
+          .Footer(false)
+  )

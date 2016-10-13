@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4E6B26F1-DC7A-4A9E-8B48-DBE0EF1F5651}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RASolarERP.DomainModel</RootNamespace>
+    <AssemblyName>RASolarERP.DomainModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AMSModel\AccountIncomeStatement.cs" />
+    <Compile Include="AMSModel\BankAccountType.cs" />
+    <Compile Include="AMSModel\BankBranchInfo.cs" />
+    <Compile Include="AMSModel\BankInformation.cs" />
+    <Compile Include="AMSModel\ChartOfAccounts.cs" />
+    <Compile Include="AMSModel\CheckDimensionData.cs" />
+    <Compile Include="AMSModel\EmployeeWiseSalaryPayment.cs" />
+    <Compile Include="AMSModel\GeneralLedger.cs" />
+    <Compile Include="AMSModel\ListOfBankAccountForPaymentPosting.cs" />
+    <Compile Include="AMSModel\ProjectInfo.cs" />
+    <Compile Include="AMSModel\SubLedgerHeadDetails.cs" />
+    <Compile Include="AMSModel\TrialBalanceReport.cs" />
+    <Compile Include="AMSModel\VoucherTransaction.cs" />
+    <Compile Include="AMSModel\VoucherTransactionAudit.cs" />
+    <Compile Include="AMSModel\VoucherTransactionNumber.cs" />
+    <Compile Include="HRMSModel\AuditingDetailsForAuditors.cs" />
+    <Compile Include="HRMSModel\AuditingMaster.cs" />
+    <Compile Include="HRMSModel\BankAdviceForSalaryReport.cs" />
+    <Compile Include="HRMSModel\BloodGroupInfo.cs" />
+    <Compile Include="HRMSModel\CashOrBankVoucherForAuditorAccountsDetails.cs" />
+    <Compile Include="HRMSModel\BankAdviceForSalaryLatterReport.cs" />
+    <Compile Include="HRMSModel\AssesmentGrid.cs" />
+    <Compile Include="HRMSModel\AssesmentCriteriaNScore.cs" />
+    <Compile Include="HRMSModel\ERPValueForAssessment.cs" />
+    <Compile Include="HRMSModel\EmployeeEvulationSubType.cs" />
+    <Compile Include="HRMSModel\EmployeeEvulationType.cs" />
+    <Compile Include="HRMSModel\EmployeeInfoForAssEntry.cs" />
+    <Compile Include="HRMSModel\PersonEmployeeDetailsInfo.cs" />
+    <Compile Include="HRMSModel\LatterToUpoZelaChairmanReport.cs" />
+    <Compile Include="HRMSModel\LatterToChairmanReport.cs" />
+    <Compile Include="HRMSModel\DepartmentInfo.cs" />
+    <Compile Include="HRMSModel\DistrictInfo.cs" />
+    <Compile Include="HRMSModel\EducationalQualification.cs" />
+    <Compile Include="HRMSModel\EducationInfo.cs" />
+    <Compile Include="HRMSModel\EmployeeDetails.cs" />
+    <Compile Include="HRMSModel\EmployeeDetailsInfo.cs" />
+    <Compile Include="HRMSModel\EmployeeTransferInfo.cs" />
+    <Compile Include="HRMSModel\EmploymentTypeInfo.cs" />
+    <Compile Include="HRMSModel\Experience.cs" />
+    <Compile Include="HRMSModel\GenderInfo.cs" />
+    <Compile Include="HRMSModel\HierarchicalDesignation.cs" />
+    <Compile Include="HRMSModel\JobGradeInfo.cs" />
+    <Compile Include="HRMSModel\LocationWiseEmployeeWithUnitManager.cs" />
+    <Compile Include="HRMSModel\MajorSubject.cs" />
+    <Compile Include="HRMSModel\MaritalStatusInfo.cs" />
+    <Compile Include="HRMSModel\OperationalRole.cs" />
+    <Compile Include="HRMSModel\OtherAccountDetailsForBankOrCashVouvher.cs" />
+    <Compile Include="HRMSModel\ProfessionalDegree.cs" />
+    <Compile Include="HRMSModel\ReligionInfo.cs" />
+    <Compile Include="HRMSModel\SalaryModeOfPayment.cs" />
+    <Compile Include="HRMSModel\TADADetails.cs" />
+    <Compile Include="HRMSModel\TrainingSummary.cs" />
+    <Compile Include="HRMSModel\UpazillaInfo.cs" />
+    <Compile Include="InventoryModel\AssetAssign.cs" />
+    <Compile Include="InventoryModel\AssignCashMemoBook.cs" />
+    <Compile Include="InventoryModel\AvailableNAssignFixedAsset.cs" />
+    <Compile Include="InventoryModel\CashMemoBookPagesStatus.cs" />
+    <Compile Include="InventoryModel\ChallanInbox.cs" />
+    <Compile Include="InventoryModel\ChallanInformationGlanceDetails.cs" />
+    <Compile Include="InventoryModel\ChallanOrMRRItemsSerial.cs" />
+    <Compile Include="InventoryModel\DeliveryPackageNoteReportSummary.cs" />
+    <Compile Include="InventoryModel\DeliveryItemNoteReportSummary.cs" />
+    <Compile Include="InventoryModel\DeliveryNoteSummary.cs" />
+    <Compile Include="InventoryModel\FixedAssetSerialList.cs" />
+    <Compile Include="InventoryModel\InventoryInTransitBalance.cs" />
+    <Compile Include="InventoryModel\IssueItem.cs" />
+    <Compile Include="InventoryModel\ItemCategory.cs" />
+    <Compile Include="InventoryModel\ItemInfo.cs" />
+    <Compile Include="InventoryModel\ItemLedgerReport.cs" />
+    <Compile Include="InventoryModel\ItemReceiveWithoutChallan.cs" />
+    <Compile Include="InventoryModel\ItemSerialCorrection.cs" />
+    <Compile Include="InventoryModel\ItemSerialInfo.cs" />
+    <Compile Include="InventoryModel\ItemSummaryReportV2.cs" />
+    <Compile Include="InventoryModel\LightInfo.cs" />
+    <Compile Include="InventoryModel\MaterialRecevingReportMrrDetails.cs" />
+    <Compile Include="InventoryModel\MrrInformationGlanceDetails.cs" />
+    <Compile Include="InventoryModel\PackageInformation.cs" />
+    <Compile Include="InventoryModel\ReceiveItem.cs" />
+    <Compile Include="InventoryModel\SHSDelivaryNoteChallan.cs" />
+    <Compile Include="InventoryModel\SHSDistributionPlan.cs" />
+    <Compile Include="InventoryModel\SHSDistributionPlanPackageORItem.cs" />
+    <Compile Include="InventoryModel\StockInTransitAtGlanceDetails.cs" />
+    <Compile Include="InventoryModel\Warrant ClaimNSettlementForIssue.cs" />
+    <Compile Include="InventoryModel\WarrantyClaimNSettlementForReceive.cs" />
+    <Compile Include="InventoryModel\WarrantyClaimReason.cs" />
+    <Compile Include="InventoryModel\WarrantyItemsDetails.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesModel\CollectionSheetForCustomerFPR.cs" />
+    <Compile Include="SalesModel\Common_PostOfficeInfo.cs" />
+    <Compile Include="SalesModel\CheckLoadRequestEntry.cs" />
+    <Compile Include="SalesModel\CheckLoadRequestEntryForLocationCode.cs" />
+    <Compile Include="SalesModel\PackageLightCapacityPop.cs" />
+    <Compile Include="SalesModel\ItemCatNDescription.cs" />
+    <Compile Include="SalesModel\EmployeeWiseSalesNColcTargetNAchievementForAUnit.cs" />
+    <Compile Include="SalesModel\LocationPart2Upo.cs" />
+    <Compile Include="SalesModel\LocationPart1District.cs" />
+    <Compile Include="SalesModel\LoadRequestEntryGet.cs" />
+    <Compile Include="SalesModel\TrackerLocationWiseWeeklyODCollectionTargetVsAchievement.cs" />
+    <Compile Include="SalesModel\CustomerCollectionAdjustmentForAudit.cs" />
+    <Compile Include="SalesModel\CustomerCollectionDetails.cs" />
+    <Compile Include="SalesModel\CustomerDataToCloseWithFullPaidOrWaive.cs" />
+    <Compile Include="SalesModel\CustomerDataToPersonalInformation.cs" />
+    <Compile Include="SalesModel\CustomerDetails.cs" />
+    <Compile Include="SalesModel\CustomerDisasterRecoveryDetails.cs" />
+    <Compile Include="SalesModel\CustomerFPRAndScheduledCollectionEntry.cs" />
+    <Compile Include="SalesModel\CustomerFPRNDayWiseRegularOrODTarget.cs" />
+    <Compile Include="SalesModel\CustomerNAgreementNItemDetails.cs" />
+    <Compile Include="SalesModel\CustomerWiseFPR.cs" />
+    <Compile Include="SalesModel\CustomerWiseOverdueBalanceTracker.cs" />
+    <Compile Include="SalesModel\DailyBusinessPerformanceMonitoringCollection.cs" />
+    <Compile Include="SalesModel\DailyBusinessPerformanceMonitoringNetODIncreaseOrDecreaseComperison.cs" />
+    <Compile Include="SalesModel\DailyBusinessPerformanceMonitoringOtherStatus.cs" />
+    <Compile Include="SalesModel\DailyBusinessPerformanceMonitoringSalesNCollectionTargetVsAchievement.cs" />
+    <Compile Include="SalesModel\DailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus.cs" />
+    <Compile Include="SalesModel\DailyPerformanceMonitoringForSales.cs" />
+    <Compile Include="SalesModel\DiscountPolicy.cs" />
+    <Compile Include="SalesModel\DownPaymentPolicy.cs" />
+    <Compile Include="SalesModel\ItemCapacity.cs" />
+    <Compile Include="SalesModel\LocationAndEmployeeWiseWeeklySalesAndCollectionReport.cs" />
+    <Compile Include="SalesModel\LocationNEmployeeDailyTargetEntry.cs" />
+    <Compile Include="SalesModel\SalesRecoveryCommitmentByReview.cs" />
+    <Compile Include="SalesModel\SalesRecoveryCommitmentByReviewViewModel.cs" />
+    <Compile Include="SalesModel\ODRecoveryCommitmentReview.cs" />
+    <Compile Include="SalesModel\ODRecoveryStatusMonitoring.cs" />
+    <Compile Include="SalesModel\PackagePricingDetailsForSalesAgreement.cs" />
+    <Compile Include="SalesModel\PanelSerialList.cs" />
+    <Compile Include="SalesModel\ProgressReviewGraph.cs" />
+    <Compile Include="SalesModel\SalesDay.cs" />
+    <Compile Include="SalesModel\SalesItemDetails.cs" />
+    <Compile Include="SalesModel\SalesRecoveryStatusEntryMonitoring.cs" />
+    <Compile Include="SalesModel\ServiceChargeInformation.cs" />
+    <Compile Include="SalesModel\SystemReturnOrFullPaidCustomers.cs" />
+    <Compile Include="SalesModel\UnitWiseCashMemoInformation.cs" />
+    <Compile Include="SalesModel\UnitWiseCustomerLedger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RASolarHelper\RASolarHelper.csproj">
+      <Project>{107b98ed-7cd4-4f2a-93a6-ac9590123c37}</Project>
+      <Name>RASolarHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,53 @@
+﻿        <tr>
+            <td align="left">
+                <input type="button" value="Add" id="btnAdd" class="button" />
+                <input type="button" value="Edit" id="btnEdit" class="button" />
+                <input type="button" value="Cancel" id="btnCancel" class="button" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right" style="padding-right: 2px;">Total Dr:&nbsp;<b id="totalDrAmount"></b>&nbsp;&nbsp;&nbsp;Total Cr:&nbsp;<b id="totalCrAmount"></b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.CashOrBankVoucherForAuditorAccountsDetails>()
+                         .Name("gvVoucherDetails")
+                         .DataKeys(keys => keys.Add(k => k.AccountNo))
+                         .Columns(column =>
+                         {
+                             column.Bound(m => m.AccountNo).Title("Account No");
+                             column.Bound(m => m.AccountName).Title("Account Name");
+                             column.Bound(m => m.Particulars).Title("Particulars");
+                             column.Bound(m => m.DrAmount).Title("Dr Amount");
+                             column.Bound(m => m.CrAmount).Title("Cr Amount");
+                             column.Bound(m => m.AccountNo).Title("DrOrCr").Hidden(true);
+                             column.Bound(m => m.DimensionCode).Hidden(true);
+                             column.Bound(m => m.AccountNo).Title("").Template(@<a href="javascript:void(0)" class="editVoucher">Edit</a>);
+                             column.Bound(m => m.AccountNo).Title("").Template(@<a href="javascript:void(0)" class="deleteVoucher">Delete</a>);
+                         })
+                                    .Selectable()
+                                    .Footer(false)
+                                 )
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="2" border="0" width="100%" id="">
+                    <tr>
+                        <td style="width: 66%;" valign="top">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%" id="">
+                                <tr>
+                                    <td align="left" class="VoucherTitleWide">General Particulars:
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtGeneralParticulars", "", new { @class = "VoucherTextBoxBig", maxlength = 100 })                                       
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 33%;" valign="top"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>

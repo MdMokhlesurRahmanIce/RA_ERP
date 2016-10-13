@@ -1,0 +1,151 @@
+﻿<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+        else {
+            e.data = {
+                itemType: $('#ddlItemType').val(),
+                dateFrom: $('#txtStartDate').val(),
+                dateTo: $('#txtEndDate').val()
+            };
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+</script>
+
+@{
+    ViewBag.Title = "MRR Information At A Glance";
+    Layout = "~/Areas/Inventory/Views/Shared/_InventoryLayout.cshtml";
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        Item Type
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlItemType", new SelectList(ViewBag.ItemType, "ItemTypeID", "Description"), "--Select--", new { @class = "IRDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        From Date
+                    </td>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        @(Html.Telerik().DatePicker()
+                            .Name("txtStartDate")
+                            .Max(new DateTime(2999, 12, 31))
+                            .Format("dd-MMM-yyyy")
+                            )
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        To Date
+                    </td>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        @(Html.Telerik().DatePicker()
+                            .Name("txtEndDate")
+                            .Max(new DateTime(2999, 12, 31))
+                        .Format("dd-MMM-yyyy")
+                        )
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="3" style="padding-top: 8px;">
+            <input id="btnShowtemList" type="submit" value="Show" onclick="return ShowItemList();"
+                style="width: 60px;" />
+        </td>
+    </tr>
+    <tr>
+       <td align="left" colspan="3" style="padding-top: 8px;">
+         @(Html.Telerik().Grid<RASolarERP.DomainModel.InventoryModel.MrrInformationGlanceDetails>()
+         .Name("gvMrrInformationGlance")
+         .DataKeys(keys => keys.Add( k => k.MRRSeqNo))
+         .Columns(column => 
+         {
+           column.Bound(s => s.TransDate).Title("Trans Date").Format("{0:dd-MMM-yyyy}").Width(100);
+           column.Bound(s => s.MRRType).Title("MRR Type").Width(250);
+           column.Bound(s => s.MRRNo).Title("MRR No").Width(100);
+           column.Bound(s => s.MRRSeqNo).Title("MRR Seq No").Width(150).ClientTemplate("<a href='../InventoryDailyTransaction/ChallanDetails?ChallanSeqNo=<#=MRRSeqNo#>&Challan=MRR&locationCode=' target=\"_blank\" ><#=MRRSeqNo#></a>");
+           column.Bound(s => s.ReceiveFrom).Title("Receive From").Width(200);
+           column.Bound(s => s.ChallanSeqNo).Title("Ref Challan No").Width(100).ClientTemplate("<a href='../InventoryDailyTransaction/ChallanDetails?ChallanSeqNo=<#=ChallanSeqNo#>&Challan=CHALLAN&locationCode=<#=ChallanLocationCode#>' target=\"_blank\" ><#=RefChallanNo#></a>");   
+         })
+         .DataBinding(settings => settings.Ajax().Select("LoadMrrInformation","InventoryAudit"))
+         .Scrollable(scorll => scorll.Height(250))
+         .ClientEvents(events =>
+         {
+             events.OnDataBinding("onDataBinding");
+             events.OnError("onError");
+         })
+         .Footer(true)
+         .Pageable(page => page.PageSize(100))
+         )
+       </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    function ShowItemList() {
+
+        var params = {
+            itemType: $('#ddlItemType').val(),
+            dateFrom: $('#txtStartDate').val(),
+            dateTo: $('#txtEndDate').val()
+        };
+
+        var grid = $('#gvMrrInformationGlance').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        return false;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

@@ -1,0 +1,596 @@
+﻿@using RASolarHelper;
+@model IEnumerable<RASolarERP.DomainModel.InventoryModel.SHSDistributionPlanPackageORItem>
+<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+</script>
+
+<style type="text/css">
+    .hideTdForPanelBatteryCode {
+        display: none;
+    }
+
+    #zoneName {
+        float: left;
+        width: 20%;
+        margin-left: 3%;
+        display: inline;
+    }
+
+    #regionName {
+        float: left;
+        width: 20%;
+        margin-left: 3%;
+        display: inline;
+    }
+
+    #unitName {
+        float: left;
+        width: 20%;
+        margin-left: 3%;
+        display: inline;
+    }
+
+    #openMothYear {
+        float: left;
+        width: 28%;
+        margin-left: 3%;
+        display: inline;
+    }
+
+   
+</style>
+
+@using RASolarERP.DomainModel.InventoryModel;
+@{
+    ViewBag.Title = "SHS Distribution Schedule Or Route Transfer";
+    Layout = "~/Areas/Inventory/Views/Shared/_InventoryLayout.cshtml";
+
+    if (false)
+    {
+        <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="~/Scripts/RASolarCustomFunction.js"></script>
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+
+@section LoginInfo
+{
+    <div style="border: 0; text-align: left; width: 100%;">
+        <div id="zoneName">
+            @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+        </div>
+        <div id="regionName">
+            @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+        </div>
+        <div id="unitName">
+            @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+        </div>
+        <div id="openMothYear">
+            @ViewBag.OpenMonthYear
+        </div>
+    </div>
+}
+<input id="hfChkDistribScheduleNo" type="hidden" value="@ViewBag.ChkDistribScheduleNo" />
+<input id="hfrootNameFromRootGrid" type="hidden" value="" />
+<input id="hfPackageCode" type="hidden" value="" />
+<input id="hfHeaderTag" type="hidden" value="" />
+<input id="hfOpenDay" type="hidden" value="@ViewBag.OpenDay" />
+<input id="hfOpenBackDay" type="hidden" value="@ViewBag.OpenBackDay" />
+<input id="hfToLocation" type="hidden" value="" />
+<input id="hfMultipleToLocation" type="hidden" value="0" />
+<input id="hfIsInventoryImplemented" type="hidden" value="@ViewBag.IsInventoryImplemented" />
+<input id="hfIsChallanLocationNeeded" type="hidden" value="0" />
+<input id="hfIsItVendorRelated" type="hidden" value="0" />
+<input id="hfResponsibilityTakenOrHandover" type="hidden" value="" />
+<input id="hfLocation" type="hidden" value="@ViewBag.Location"/>
+<input id="hfCurrentLocation" type="hidden" />
+<input id="hfRegionLocation" type="hidden" />
+<input id="hfLocationText" type="hidden" value="@ViewBag.Location"/>
+<input id="hfSearchOrTransferLocation" type="hidden" value="" />
+<input id="hfEmployeeStatus" type="hidden" value="" />
+<input id="hfSearchLocationCode" type="hidden" value="" />
+<input id="hfDistributionSchduleNO" type="hidden" value="@ViewBag.dataNotFound"/>
+<div>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td align="left" style="width: 33%;">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    @using (Html.BeginForm("SHSDistributionScheduleOrRouteTransfer", "InventoryDept", FormMethod.Post))
+                    {
+                        
+                        if (ViewBag.dataNotFound=="0") 
+                           
+                       {
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+
+                                    $('#txtDistributionScheduleNo').val('');
+                                    //$('#ddlRouteCategory').attr('disabled', true);
+                                    alert('Distribution Schedule Number not found');
+
+                                })
+
+
+                          </script>
+                       }
+                    <tr>
+                        <td align="left" class="IRCaptionLeftColumn">Delivery Schedule No
+
+                        </td>
+
+                        <td>
+                            @Html.TextBox("txtDeliveryScheduleNo", (string)@ViewBag.SHSDelivaryScheduleNo, new { @class = "IRControl", @disabled = true })
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td align="left" class="IRCaptionRightColumn">Date
+                        </td>
+                        <td align="left">
+
+                            @(Html.Telerik().DatePicker().Name("dtpDelivaryDate").Format("dd-MMM-yyyy").Max(new DateTime(2099, 12, 31)).Value((DateTime?)@ViewBag.StartDate).ClientEvents(events => events.OnChange("OnChange")).Enable(false))
+                            
+                        </td>
+
+                    </tr>
+                      
+                        <tr>
+                            <td>Distribution Schedule No
+
+                            </td>
+                            <td>
+                                @Html.TextBox("txtDistributionScheduleNo", (string)@ViewBag.DistributionScheduleNo, new { @onblur = "scriptNumeric(this);", @class = "ReportTextBox" }) &nbsp;&nbsp;&nbsp;&nbsp;
+                     
+
+                      
+                           <input id="btnSearch" type="submit" value="Search"
+                               onclick="return SearchDistributionSchedule();" />
+                            </td>
+
+                        </tr>
+                 
+                    }
+                </table>
+            </td>
+        </tr>
+        <tr>
+        </tr>
+
+        <tr>
+            <td align="left" style="width: 33%;" valign="top">
+                <fieldset class="sagGroupBox">
+                    <legend>Selected Route</legend>
+
+                    @{
+                        List<SHSDistributionPlanPackageORItem> lstRouteSHSDistributionPlanPackageORItem = new List<SHSDistributionPlanPackageORItem>();
+                        lstRouteSHSDistributionPlanPackageORItem = (List<SHSDistributionPlanPackageORItem>)TempData["ListRouteSHSDistributionPlanPackageORItem"];   
+                    }
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="color: Red; padding: 5px; font-weight: bold; font-size: 13px;" id="serialMessage"></td>
+                        </tr>
+                        <tr>
+                            <td width="100%">
+                                <table class="TableData" cellpadding="0" cellspacing="0" id="serialGridRootNo" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th align="center">Route Code
+                                            </th>
+                                            <th align="center">Route Name
+                                            </th>
+                                            <th align="center">Route Category
+                                            </th>
+                                            <th align="center">
+                                                <input type='checkbox' id='checkBoxAll' value="" onchange=" return checkAllRows(this.id);" />
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in lstRouteSHSDistributionPlanPackageORItem)
+                                        {
+                                            <tr>
+                                                <td>@item.RouteNo</td>
+                                                <td>@item.RouteNo-@item.RouteName</td>
+                                                <td>@item.RouteCategory</td>
+                                                <td align="center" >
+                                                    <input type='checkbox'  value='' id=@item.RouteNo onchange="return checkResult(this.id);"/></td>
+                                                @*  <td><input id=@item.RouteNo value="" type="checkbox" onchange="return checkAllRows();" /></td> *@
+                                            </tr>
+                                            
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" style="width: 33%;" valign="top">
+                <br />
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+
+<div>
+    <table>
+        <tr>
+            <td>Transferred to Schedule No: 
+
+            </td>
+            <td style="float: right;">
+                <img src="~/Content/Images/Triplex.gif" id="loadingImage" height="25" width="25" alt="tttt" style="display: none;" />
+
+                @Html.TextBox("txtDistributionScheduleNoNew", "", new { @onblur = "scriptNumericForNew(this);", @class = "ReportTextBox" }) &nbsp;&nbsp;&nbsp;&nbsp;
+                     
+                           <input id="btnSave" type="button" value="Save" name="saveButton" onclick="return SaveChecking();" />
+
+            </td>
+        </tr>
+       
+    </table>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+   $(document).ready(function () {
+
+        if ('@ViewBag.ChkDistribScheduleNo' == 1) {
+            //alert("This Delivery Schedule No. is Already Existed.");
+            // $('#txtDeliveryScheduleNo').val('');
+        }
+
+        var txtDeliveryScheduleNo = $('#txtDeliveryScheduleNo').val();
+        var dtpDelivaryDate = $('#dtpDelivaryDate').val();
+
+        $('#btnSave').click(function () {
+
+            var routeid = "";
+            $("#serialGridRootNo tbody tr").each(function () {
+                var routeIdControl = $(this).find('td:eq(0)').text();
+                if ($("#" + routeIdControl + "").is(':checked') == true) {
+                    routeid = routeid + $(this).find('td:eq(0)').text() + "_";
+                }
+
+            });
+
+            //alert(routeid);
+            var txtDistributionScheduleNoNew = $('#txtDistributionScheduleNoNew').val();
+            var txtDistributionScheduleNo = $('#txtDistributionScheduleNo').val();
+            if (routeid != "" && txtDistributionScheduleNoNew!="") {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveSHSDistributionRouteTransfer", "InventoryDept")',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ routeid: routeid, txtDistributionScheduleNo: txtDistributionScheduleNo, txtDistributionScheduleNoNew: txtDistributionScheduleNoNew, dtpDelivaryDate: dtpDelivaryDate, txtDeliveryScheduleNo: txtDeliveryScheduleNo }),
+                cache: false,
+                success: function (data) {
+                    //if (data[0].messageCode == "successAdd") {
+                    //    saveSuccess = 1;
+                    //}
+                    //else
+                        if (data[0].messageCode == "success") {
+                        //Helper.AlertMessage("", data[0].message);
+                        $('#loadingImage').hide();
+                        alert("Save Is Succeed");
+
+                        ClearAllControl();
+                    }
+                    else {
+                        Helper.AlertMessage("", data[0].message);
+                        $('#loadingImage').hide();
+                    }
+                },
+                error: function () {
+                    Helper.AlertMessage("", "Connection Failed. Please Try Again");
+                    notSave = 1;
+                    $('#loadingImage').hide();
+                }
+
+              });
+        }
+
+        });
+
+
+        //............................................................................start for check Distribution no.......................................................//
+       
+
+
+        function ClearAllControl() {
+           
+            $("#serialGridRootNo tbody").html('');
+            $("#btnSave").hide();
+            $("#txtDistributionScheduleNo").val('');
+            $("#txtDistributionScheduleNoNew").val('');
+        }
+   });
+
+
+    function OnChange(e) {
+        //RSF / SCH - 2014 - 0622
+        //6/23/2014
+        var d = new Date(e.date);
+        var StartDate = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+        var getMonth = (d.getMonth() + 1).toString();
+        var getDate = d.getDate().toString();
+        var getFullYear = d.getFullYear().toString();
+        var getMonth1 = "";
+        var getDate1 = "";
+        if (getMonth.length == 1) {
+            getMonth1 = "0" + getMonth.toString();
+        }
+        else {
+            getMonth1 = getMonth.toString();
+        }
+        if (getDate.length == 1) {
+            getDate1 = "0" + getDate.toString();
+        }
+
+        else {
+            getDate1 = getDate.toString();
+        }
+        var getDates = "RSF/SCH-" + getFullYear + "-" + getMonth1 + "" + getDate1 + "";
+        $('#txtDeliveryScheduleNo').val(getDates);
+        //................................................................................start CheckDistributionSchedule................................................................//
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CheckDistributionSchedule", "InventoryDept")',
+            data: "{'scheduleDate':'" + $('#dtpDelivaryDate').val() + "', 'refScheduleNo': '" + getDates + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                if (data.Count > 0) {
+
+                    alert("This Delivery Schedule No. is Already Existed.");
+                    $('#txtDeliveryScheduleNo').val('');
+                }
+
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again.");
+            }
+        });
+          //...................................................................................end CheckDistributionSchedule...............................................................//
+    }
+
+    function scriptNumeric(sourceVal) {
+        var getSourceVal = sourceVal.value;
+        if (Helper.IsNumeric(getSourceVal) == false) {
+            alert("Distribution Schedule No. Cannot Be Character");
+            $('#txtDistributionScheduleNo').val('');
+            return false;
+        }
+        else if (getSourceVal <= 0) {
+            alert("Distribution Schedule No. Cannot Be Nagative");
+            $('#txtDistributionScheduleNo').val('');
+            return false;
+        }
+        else if (getSourceVal.length != 6) {
+            alert("Distribution Schedule No. Must Be 6 Digits");
+            return false;
+        }
+        else if ((getSourceVal > 0) && (getSourceVal.length == 6)) {
+            var year = getSourceVal.substr(0, 2);
+            var month = getSourceVal.substr(2, 2);
+            var day = getSourceVal.substr(4, 2);
+            var monthSet = "";
+            switch (month) {
+                case "01":
+                    monthSet = "31";
+                    break;
+                case "02":
+                    monthSet = "28";
+                    break;
+                case "03":
+                    monthSet = "31";
+                    break;
+                case "04":
+                    monthSet = "30";
+                    break;
+                case "05":
+                    monthSet = "31";
+                    break;
+                case "06":
+                    monthSet = "30";
+                    break;
+                case "07":
+                    monthSet = "31";
+                    break;
+                case "08":
+                    monthSet = "31";
+                    break;
+                case "09":
+                    monthSet = "30";
+                    break;
+                case "10":
+                    monthSet = "31";
+                    break;
+                case "11":
+                    monthSet = "30";
+                    break;
+                case "12":
+                    monthSet = "31";
+                    break;
+                default:
+                    break;
+            }
+            if (month > 12 || day > monthSet) {
+                alert("Distribution Schedule No. Must Be yymmdd Date Format");
+                $('#txtDistributionScheduleNo').val('');
+                return false;
+            }
+        }
+       // alert('dfkhvkdfjh');
+    }
+
+    function scriptNumericForNew(sourceVal) {
+        var getSourceVal = sourceVal.value;
+        if (Helper.IsNumeric(getSourceVal) == false) {
+            alert("Transferred to Schedule No. Cannot Be Character");
+            $('#txtDistributionScheduleNoNew').val('');
+            return false;
+        }
+        else if (getSourceVal <= 0) {
+            alert("Transferred to Schedule No. Cannot Be Nagative");
+            $('#txtDistributionScheduleNoNew').val('');
+            return false;
+        }
+        else if (getSourceVal.length != 6) {
+            alert("Transferred to Schedule No. Must Be 6 Digits");
+            return false;
+        }
+        else if ((getSourceVal > 0) && (getSourceVal.length == 6)) {
+            var year = getSourceVal.substr(0, 2);
+            var month = getSourceVal.substr(2, 2);
+            var day = getSourceVal.substr(4, 2);
+            var monthSet = "";
+            switch (month) {
+                case "01":
+                    monthSet = "31";
+                    break;
+                case "02":
+                    monthSet = "28";
+                    break;
+                case "03":
+                    monthSet = "31";
+                    break;
+                case "04":
+                    monthSet = "30";
+                    break;
+                case "05":
+                    monthSet = "31";
+                    break;
+                case "06":
+                    monthSet = "30";
+                    break;
+                case "07":
+                    monthSet = "31";
+                    break;
+                case "08":
+                    monthSet = "31";
+                    break;
+                case "09":
+                    monthSet = "30";
+                    break;
+                case "10":
+                    monthSet = "31";
+                    break;
+                case "11":
+                    monthSet = "30";
+                    break;
+                case "12":
+                    monthSet = "31";
+                    break;
+                default:
+                    break;
+            }
+            if (month > 12 || day > monthSet) {
+                alert("Transferred to Schedule No. Must Be yymmdd Date Format");
+                $('#txtDistributionScheduleNoNew').val('');
+                return false;
+            }
+        }
+        // alert('dfkhvkdfjh');
+    }
+
+function checkAllRows(rtrt) {
+    $("#serialGridRootNo tbody tr").each(function () {
+        if ($('#checkBoxAll').is(':checked') == true) {
+            $(this).find('td:eq(3)').find('input').attr('checked', true);
+            $(this).find('td:eq(3)').find('input').val("1");
+        }
+        else {
+            $(this).find('td:eq(3)').find('input').attr('checked', false);
+            $(this).find('td:eq(3)').find('input').val('');
+        }
+
+        // alert($(this).find('td:eq(3)').find('input').val());
+    });
+}
+
+function SaveChecking() {
+    var routeid = "";
+    $("#serialGridRootNo tbody tr").each(function () {
+
+
+        var routeIdControl = $(this).find('td:eq(0)').text();
+
+        if ($("#" + routeIdControl + "").is(':checked') == true) {
+            routeid = routeid + $(this).find('td:eq(0)').text() + "_";
+        }
+
+    });
+
+
+
+    if (routeid == "") {
+        alert("Please Select Transferred To route");
+        return false;
+    }
+
+    var txtDistributionScheduleNoNew = $('#txtDistributionScheduleNoNew').val();
+    if (txtDistributionScheduleNoNew=="")
+    {
+        alert("Please Enter New DistributionScheduleNo.");
+        return false;
+    }
+}
+
+function checkResult(valofchkbox) {
+    //$("#serialGridRootNo tbody tr").each(function () {
+    //   // var chkBox = $(this).find('td:eq(3)').find('input').attr('id');
+    //    if ($("#" + valofchkbox + "").is(':checked') == true) {
+    //        $(this).find('td:eq(3)').find('input').attr('checked', true);
+    //        $(this).find('td:eq(3)').find('input').val("1");
+    //        return false;
+    //    }
+    //    else {
+    //        $(this).find('td:eq(3)').find('input').attr('checked', false);
+    //        $(this).find('td:eq(3)').find('input').val('');
+    //        return false;
+    //    }
+    //});
+    //if ($('#checkBoxAll').is(':checked') == true) {
+
+    //    $('#checkBoxAll').find('input').attr('checked', false);
+    //    $('#checkBoxAll').find('input').val('');
+    //    return false;
+
+    //}
+
+}
+
+function RSFMenu(goFor)
+{
+    window.location.replace(Helper.Menu("../../", goFor));
+    return false;
+
+}
+</script>

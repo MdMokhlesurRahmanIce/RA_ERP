@@ -1,0 +1,454 @@
+﻿<fieldset class="serialMapGroupBox">
+    <legend>Item Information</legend>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td align="left" style="width: 33%;">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Item Type
+                        </td>
+                        <td align="left">
+                            @Html.TextBox("txtItemType", (string)ViewBag.ItemType, new { @disabled = "disabled" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Item Code
+                        </td>
+                        <td align="left">
+                            @Html.TextBox("txtItemCode", (string)ViewBag.ItemCode, new { @disabled = "disabled" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td align="left" style="width: 33%;" class="IsrlMiddleColumn">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Item Category
+                        </td>
+                        <td align="left">
+                            @Html.TextBox("txtItemCategory", (string)ViewBag.ItemCategory, new { @disabled = "disabled" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Itame Name
+                        </td>
+                        <td align="left">
+                            @Html.TextBox("txtItemName", (string)ViewBag.ItemName, new { @disabled = "disabled" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td align="left" style="width: 33%;" class="IsrlRightColumn" valign="top">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Store Location
+                        </td>
+                        <td align="left">
+                            @Html.TextBox("txtStoreLocation", (string)ViewBag.StoreLocation, new { @disabled = "disabled" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Model/Capacity
+                        </td>
+                        <td align="left">
+                            <p id="modelCapacity" style="font-weight: bold; width: 143px; border: 1px solid #AFAFAF;">
+                                @ViewBag.CapacityModel
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="height: 3px;">
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<fieldset class="serialMapGroupBox">
+    <legend>Serial Information</legend>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td align="left" style="width: 33%;">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Serial No
+                        </td>
+                        <td align="left" id="SerialContainer">
+                            @Html.TextBox("txtSerialNo", "")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td align="left" style="width: 33%;" class="IsrlMiddleColumn">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Total Serial Quantity
+                        </td>
+                        <td align="left">
+                            @Html.TextBox("txtTotalSerialQuantity", "", new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td align="left" style="width: 33%;" class="IsrlRightColumn">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="IsrlLeftColumn">
+                            Available Qnty
+                        </td>
+                        <td align="left">
+                            @Html.TextBox("txtAvailableQuantity", (string)ViewBag.AvailableQuantity, new { @disabled = "disabled" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="height: 3px;">
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td style="height: 7px;">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td style="color: Red; padding: 5px; font-weight: bold; font-size: 13px;" id="serialMessage">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="TableData" cellpadding="0" cellspacing="0" id="serialGrid" width="100%">
+                <thead>
+                    <tr>
+                        <th align="center">
+                            Serial No
+                        </th>
+                        <th align="center">
+                            Audit Observation
+                        </th>
+                        <th align="center">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" style="padding-top: 8px;">
+            <input id="btnSaveAuditObservation" type="button" value="Save Audit Observation" onclick="return AuditObservation();" />
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $('#txtSerialNo').focus();
+    $('#serialMessage').text("");
+
+    if ($('#hfInventoryStockUpdateFinishClosed').val() == "True") {
+        $('#btnfinishMapping').attr("disabled", true)
+    }
+
+    $(document).ready(function () {
+
+        $("#txtSerialNo").keypress(function (event) {
+            if (event.keyCode == 13) {
+                AddToTable();
+            }
+        });
+
+        if ($('#hfDeleteFromClientOrDB').val() == "1") {
+
+            LoadSerialList($('#hfItemCode').val(), $('#hfauditObservationQuantity').val());
+            $('#txtTotalSerialQuantity').val($('#quantity' + $('#hfItemCode').val()).text());
+            $('#txtSerialNo').attr('disabled', true);
+            //$('#btnfinishMapping').attr('disabled', true);  // Desabled Temporaly
+        }
+
+        $('#serialGrid').delegate('a.deleteBtn', 'click', function () {
+            //$(this).parent().parent().fadeOut('slow').remove();
+            //alert($(this).parent().parent().find('td:eq(0)').text());
+
+            if (confirm("Do You Want To Delete Serial ?")) {
+
+                var isDeleteFormDB = $('#hfDeleteFromClientOrDB').val();
+                var itemCode = $('#hfItemCode').val();
+
+                if (isDeleteFormDB == "1") {
+                    DeleteItemSerial($(this).parent().parent().find('td:eq(0)').text(), $(this));
+                }
+                else {
+                    $(this).parent().parent().fadeOut('slow').remove();
+                    var totalSerial = parseInt($('#txtTotalSerialQuantity').val());
+                    totalSerial = totalSerial - 1;
+                    $('#txtTotalSerialQuantity').val(totalSerial);
+                    $('#hfTotalItemSerial').val(totalSerial);
+                }
+                $('#txtSerialNo').focus();
+            }
+
+            return false;
+        });
+
+    });
+
+    function DeleteItemSerial(itemSerial, aa) {
+
+        var storeLocation = $('#ddlStoreLocation').val();
+        var itemCode = $('#hfItemCode').val();
+        var itemCategory = $('#ddlItemCategory').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteItemSerial", "InventoryDailyTransaction")',
+            data: "{'storeLocation':'" + storeLocation + "','itemCode':'" + itemCode + "','itemSerial':'" + itemSerial + "','itemCategory':'" + itemCategory + "'}",
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+
+                    aa.parent().parent().fadeOut('slow').remove();
+                    var totalSerial = parseInt($('#txtTotalSerialQuantity').val());
+
+                    totalSerial = totalSerial - 1;
+                    $('#txtTotalSerialQuantity').val(totalSerial);
+                    $('#quantity' + itemCode).text(totalSerial);
+                    $('#serialAlreadyScanQuantity').val(totalSerial);
+                }
+                else {
+                    alert(data[0].message);
+                }
+            },
+            error: function () { alert("Delete Failed. Please Try Again"); }
+        });
+    }
+
+    function AuditObservation() {
+        var itemSerials = "";
+        var unCheckItemSerials = "";
+        var checkAuditObservation = 0;
+        //var lstOtherItemStockWithSerialNoByLocation = new Array();
+        $('#serialGrid tbody tr').each(function () {
+
+            if ($(this).find("td:eq(1)").find("input").is(":checked") == true) {
+                if (itemSerials != "") {
+                    itemSerials = itemSerials + "#" + $(this).find("td:eq(0)").text();
+                }
+                else {
+                    itemSerials = itemSerials + $(this).find("td:eq(0)").text();
+                }
+
+                checkAuditObservation++;
+            }
+
+            else {
+                if (unCheckItemSerials != "") {
+                    unCheckItemSerials = unCheckItemSerials + "#" + $(this).find("td:eq(0)").text();
+                }
+                else {
+                    unCheckItemSerials = unCheckItemSerials + $(this).find("td:eq(0)").text();
+                }
+            }
+
+            //lstOtherItemStockWithSerialNoByLocation.push({
+
+            //    ItemSerialNo: $(this).find("td:eq(0)").text(),
+            //    ItemCode: $('#hfItemCode').val()
+
+            //});
+
+
+        });
+
+        var itemCode = $('#hfItemCode').val();
+        var itemCategory = $('#ddlItemCategory').val();
+        var storeLocation = $('#ddlStoreLocation').val();
+        var auditObservationQty = $('#hfauditObservationQuantity').val();
+
+        //if (itemSerials == "") {
+        //    alert("Please Select Audit Observation For Submit");
+        //    return false;
+        //}
+
+        if (checkAuditObservation != parseInt(auditObservationQty)) {
+            alert("Selected serial qty and audit observation qty should be equal. Please Click On Serial Quantity(If Required)");
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AuditObservationSave","InventoryDailyTransaction")',
+            data: "{'itemSerials':'" + itemSerials + "', 'itemCode':'" + itemCode + "','itemCategory':'" + itemCategory + "','storeLocation':'" + storeLocation + "','auditObservationQty':'" + auditObservationQty + "','unCheckItemSerials': '" + unCheckItemSerials + "'}",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+                    ClearAllControl();
+                }
+                else {
+                    alert(data[0].message);
+                }
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+
+        });
+    }
+
+
+    @* function AuditObservation() {
+
+        var itemSerials = "";
+
+        $('#serialGrid tbody tr').each(function () {
+
+            if ($(this).index() != 0) {
+                itemSerials = itemSerials + '#' + $(this).find('td:eq(0)').text() + '_' + $(this).find('td:eq(1)').text();
+            }
+            else {
+                itemSerials = itemSerials + $(this).find('td:eq(0)').text() + '_' + $(this).find('td:eq(1)').text();
+            }
+        });
+
+        if (itemSerials == "") {
+            alert("No Serial MAP Yet. Please MAP Serial.");
+            return false;
+        }
+
+        var itemCode = $('#hfItemCode').val();
+        var itemCategory = $('#ddlItemCategory').val();
+        var storeLocation = $('#ddlStoreLocation').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SerialMappingSave", "InventoryDailyTransaction")',
+            data: "{'itemSerials':'" + itemSerials + "','itemCode':'" + itemCode + "','itemCategory':'" + itemCategory + "','storeLocation':'" + storeLocation + "'}",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+
+                $.map(data, function (item) {
+                    if (item.messageCode == "success") {
+                        alert(item.message);
+
+                        var dbQuantity = parseInt($('#quantity' + itemCode).text());
+
+                        dbQuantity = dbQuantity + parseInt($('#hfTotalItemSerial').val());
+                        $('#quantity' + itemCode).text(dbQuantity);
+                        $('#serialAlreadyScanQuantity').val(dbQuantity);
+                        $('#txtTotalSerialQuantity').val("");
+                        $('#serialGrid tbody').html('');
+                    }
+                    else {
+                        alert(item.message);
+                    }
+                });
+
+                $('#txtSerialNo').focus();
+            },
+            error: function (data) { alert("Save Is Not Succeeed"); }
+        });
+
+        $('#serialMessage').text("");
+        return false;
+    }*@
+
+
+    function ClearAllControl() {
+
+        //$('#ddlItemCategory').val("");
+        //$('#ddlStoreLocation').val("");
+        //$('#hfDeleteFromClientOrDB').val("0");
+        //$('#gvItemLocationWise').data().tGrid.total = 0;
+        //$('#gvItemLocationWise').data().tGrid.dataBind([]);
+        $('#SerialMappingContent').html("");
+        $('#serialGrid tbody').html("");
+
+
+        //location.reload();
+    }
+
+    function AddToTable() {
+
+        if ($('#txtSerialNo').val() == "") {
+            return false;
+        }
+
+        var duplicateSerials = "0";
+        var availableQuantity = $('#txtAvailableQuantity').val();
+        var totalSerialQuantity = 1;
+        var alreadyScanQUantity = $('#serialAlreadyScanQuantity').val();
+
+        $('#serialGrid tbody tr').each(function () {
+            var texto = $(this).find('td:eq(0)').text();
+
+            if ($('#txtSerialNo').val() == texto) {
+                duplicateSerials = texto;
+                //alert('Duplicate Serial Is Not Accepted');
+            }
+            if ($(this).index() != 0)
+                totalSerialQuantity = $(this).index() + 2;
+            else
+                totalSerialQuantity = 2;
+        });
+
+        if (duplicateSerials != "0") {
+            $('#serialMessage').text("Duplicate Serial Not Allowed");
+            $('#txtSerialNo').val("");
+            return false;
+        }
+
+        if ((parseInt(totalSerialQuantity) + parseInt($('#serialAlreadyScanQuantity').val())) > parseInt(availableQuantity)) {
+            $('#serialMessage').text("Number of Serial Cannot be Greater Than Available Item Quantity.");
+            $('#txtSerialNo').val("");
+            return false;
+        }
+
+        $('#hfTotalItemSerial').val(totalSerialQuantity);
+        $('#txtTotalSerialQuantity').val(totalSerialQuantity);
+
+        var trNew = "";
+
+        if (totalSerialQuantity % 2 == 0)
+            trNew = "<tr class=\"t-alt\"> <td>" + $('#txtSerialNo').val() + "</td>";
+        else
+            trNew = "<tr> <td>" + $('#txtSerialNo').val() + "</td>";
+
+        if ($('#chkIsItDamageRepairable').is(':checked')) {
+            trNew = trNew + "<td>Damage</td>";
+        }
+        else {
+            trNew = trNew + "<td>&nbsp;</td>";
+        }
+
+        trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + $('#txtSerialNo').val() + "\" class=\"deleteBtn\" >Delete</a> </td> </tr>";
+
+        $('#serialGrid tbody').append(trNew);
+
+        $('#txtSerialNo').val("");
+        $('#txtSerialNo').focus();
+        $('#serialMessage').text("");
+    }
+
+</script>

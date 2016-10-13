@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Inventory Advance Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section TopMenu
+{
+    @Html.Partial((string)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+    });
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../", goFor));
+        return false;
+    }  
+        
+</script>

@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7DF0F7EE-FB9F-4D90-BD98-EAC3611473AE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RASolarERP.Model</RootNamespace>
+    <AssemblyName>RASolarERP.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aud_AdjustmentReasonCodes.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Aud_AuditAdjustmentObservationOnSalesAgreement.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Aud_AuditAdjustmentRelatedChallanOrMRRForReference.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Aud_AuditAdjustmentRelatedCollectionFromCustomers.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChallanInboxForChallanWithMRR.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClosingInventoryValuation.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CollectionEfficiencyByCustomer.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CollectionEfficiencyByUnitOfficeSummary.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_CashMemoBookMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_CurrentYearMonthNWeek.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_DistrictInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_LocationInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_PeriodOpenClose.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_ProgramInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_ProjectInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_RegionInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_Sys_LocationType.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_Sys_StatusInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_Sys_SystemSettings.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_UnionInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_UnitInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_UpazillaInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common_ZoneInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerInfoNPackageDetailsForSystemReturn.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerLedgerReport.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerStatusListV2.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerTrainingDetails.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerTrainingInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerTrainingSummary.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DailyZonalPerformanceMonitoring.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DayEndProcess.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DepretiatedPackagePriceBySRPanelSerial.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fix_EmployeeWiseFixedAssetsAllocation.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fix_EmployeeWiseFixedAssetsAllocationWithSerialNo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCustomerFPRAndScheduledCollectionEntry.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCustomerListWithRecoveryStatus.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCustomerTransferredButNotYetAccepted.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetLocationNEmployeeWiseDailyEntry.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetLocationWiseEmployee.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetLocationWiseEmployeeTarget.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetUnitWiseCustomerTrainingSchedule.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hrm_LocationWiseEmployee.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvAvailableItemInALocation.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvChallanOrMRRDetailsForItemLedger.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryAtVendorValuationByStockLocation.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryAuditAdjustment.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryDataEntryStatus.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryERPVersusPhysicalBalance.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventorySummaryReportV2.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventorySummaryToDetailViewReport.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvItemInTransit.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ChallanDetails.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ChallanDetailsWithSerialNo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ChallanMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ChallanWithMultipleLocations.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ChallanWithMultipleLocationsWithItemWiseDistribution.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ERPVersusPhysicalBalance.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemCategorySubCategory.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemModel.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemNItemCategoryWithSerialNoMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemStockByLocation.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemStockWithSerialNoByLocation.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemTransactionDetails.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemTransactionDetailsWithSerialNo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_ItemTransactionTypes.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_MRRDetails.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_MRRDetailsWithSerialNo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_MRRMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_RouteDetail.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_RouteMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_StoreLocation.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_Sys_ItemType.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_Validation_SubstituteItemNMapping.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_VendorChallanWithItemReferenceToCheck.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inv_VendorInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IRASolarERPRepository.cs" />
+    <Compile Include="LocationAndEmployeeWiseWeeklySalesAndCollectionEntry.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LocationNEmployeeWiseDailySalesNCollectionTarget.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LocationWiseEmployeeTargetEntryCheck.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MRRDetails.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OverdueCollectionTargetVsAchievementByUnitOffice.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PackageDetails.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PackageDetailsForSystemReturn.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessTableData.cs" />
+    <Compile Include="ProgressReview.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProgressReviewDataEntryStatusDaily.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RASolarERPDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarERPDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarERPDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarERPDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RASolarERPDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="RASolarERPRepository.cs" />
+    <Compile Include="RASolarERPService.cs" />
+    <Compile Include="REPSummaryForTheDayClosingForSales.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REP_DailyBusinessPerformanceMonitoring_DailyZonalPerformanceReport_Result.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REP_GetEmployeeWiseSalesNColcTargetNAchievementForAUnit_Result.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesDataEntryStatus.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesSummaryToDetailView.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalGetAvailableSerialNoForMRR.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalSalesNCollectionTargetVsAchievementForGraph.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CollectionFromCustomers.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CollectionFromCustomersPrePost.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CollectionTypeInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Customer.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerFuelUsed.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerIncomeRange.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerInfoBackup.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerOccupations.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerPrePost.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerRelations.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerStatus.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerTrainingSchedule.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerTrainingTransDetails.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerTrainingTransMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerType.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_CustomerWiseOverdueBalanceForTracker.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_DailyBusinessPerformanceMonitoring_SalesAndRecoveryStatusByUnit.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_ItemSetDetail.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_ItemSetMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Light.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_ListedUnitPriceForSparePartsSales.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_LocationNEmployeeWiseActivityDaily.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_LocationNEmployeeWiseActivityMonthly.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_LocationNEmployeeWiseDailySalesNCollectionTarget.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_LocationWiseSalesNCollectionTarget.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_ModeOfPayment.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_ODCustomerGrading.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_ODRecoveryCommitmentByRMnZM.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_PackageDetail.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_PackageMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_PackageOrItemCapacity.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SalesAgreement.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SalesAgreementClosedWithFullPaidOrWaive.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SalesAgreementPrePost.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SalesAgreementPrePost_DataFromExternalSources.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SalesItems.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SalesItemsPrePost.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SalesItemsWithSerialNo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SalesItemsWithSerialNoPrePost.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SparePartsSalesItems.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SparePartsSalesItemsWithSerialNo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SparePartsSalesMaster.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SparePartsSales_DataFromExternalSources.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SystemReturn.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SystemReturnItems.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_SystemReturnItemsWithSerialNo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_TempApprovalForSalesAgreementClosed.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_CapacityVsLight.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_CustomerTypeVsModeOfPayment.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_CustomerTypeVsModeOfPaymentVsPackage.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_ModeOfPaymentNPackageVsDiscount.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_ModeOfPaymentNPackageWiseDownpaymentPolicy.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_ModeOfPaymentVsPackage.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_ModeOfPaymentWiseDiscountPolicy.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_ProgramVsCustomerTypeNModeOfPayment.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_ProgramVsCustomerTypeNModeOfPaymentWiseServiceChargePolicy.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sal_Validation_UnitVsUpazilla.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SHSDistributionPlan_IndividualItem.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SHSDistributionPlan_Master.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SHSDistributionPlan_RootWiseLocation.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SHSDistributionPlan_RootWiseLocationNPackage.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SparePartSetDetils.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_InvUpdateERPBalanceAndGetERPVersusPhysicalBalance_Result.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_PackageDetails1_Result.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_PackageDetails_Result.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_SalSparePartSetDetils_Result.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SummaryForTheDayClosingForAccountingInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SummaryForTheDayClosingForCollectionInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SummaryForTheDayClosingForInventoryInfo.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SummarySheetForRegionalSalesPosting.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SummarySheetForRegionalSalesPostingDetails.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemReturnOrFullPaidCustomers.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitCollectionVsHeadOfficePhysicalCashMovement.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitWiseCustomerRegisterReport.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeeklySalesNCollectionStatus.cs">
+      <DependentUpon>RASolarERPDB.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="RASolarERPDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RASolarERPDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="RASolarERPDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RASolarERPDB.edmx</DependentUpon>
+      <LastGenOutput>RASolarERPDB.Context.cs</LastGenOutput>
+    </None>
+    <None Include="RASolarERPDB.edmx.diagram">
+      <DependentUpon>RASolarERPDB.edmx</DependentUpon>
+    </None>
+    <None Include="RASolarERPDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RASolarERPDB.edmx</DependentUpon>
+      <LastGenOutput>RASolarERPDB.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RASolarERP.DomainModel\RASolarERP.DomainModel.csproj">
+      <Project>{4e6b26f1-dc7a-4a9e-8b48-dbe0ef1f5651}</Project>
+      <Name>RASolarERP.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RASolarHelper\RASolarHelper.csproj">
+      <Project>{107b98ed-7cd4-4f2a-93a6-ac9590123c37}</Project>
+      <Name>RASolarHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

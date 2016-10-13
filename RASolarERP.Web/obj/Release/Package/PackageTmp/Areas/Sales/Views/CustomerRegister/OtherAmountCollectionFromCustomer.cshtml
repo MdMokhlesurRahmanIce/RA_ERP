@@ -1,0 +1,477 @@
+﻿<script type="text/javascript">
+
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+        else {
+            e.data = {
+                collectionType: $('#ddlCollectionType').val(),
+                customerStatus: $('#ddlCustomerStatus').val(),
+                collectionDate: $('#dtpCollectionDate').val()
+            };
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+
+</script>
+@{
+    ViewBag.Title = "Other Amount Collection From Customer";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfOpenDay" type="hidden"  value="@ViewBag.OpenDay"/>
+<input id="hfOpenBackDay" type="hidden"  value="@ViewBag.OpenBackDay"/>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td style="width: 33%;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td class="IRCaptionLeftColumn">Collection Type
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlCollectionType", new List<SelectListItem> { 
+                       new SelectListItem { Text = "Disaster Recovery Fund", Value = "DRF" },
+                       new SelectListItem{Text="Service Agreement", Value="SAC"},
+                   })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 33%;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">Customer Status
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlCustomerStatus", new List<SelectListItem> { 
+                        new SelectListItem { Text = "Credit-Active", Value = "0" },
+                        new SelectListItem{Text="Credit-Full Paid", Value="5"},
+                        new SelectListItem{Text="Cash", Value="6"}
+                   })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 33%;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">Collection Date
+                    </td>
+                    <td align="left">
+                        @(Html.Telerik().DatePicker().Name("dtpCollectionDate").Format("dd-MMM-yyyy").Max(new DateTime(2999, 12, 31)).Value(ViewBag.TransactionOpenDate))
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="HorizontalDividerBIGWithoutBG"></td>
+    </tr>
+    <tr>
+        <td style="width: 33%;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td align="left">
+                        <input id="btnShow" type="button" value="Show" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="HorizontalDividerBIGWithoutBG"></td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            @(Html.Telerik().Grid<RASolarERP.DomainModel.SalesModel.CustomerDisasterRecoveryDetails>()
+              .Name("gvCustomerDisasterRecoveryDetails")
+              .DataKeys(keys => keys.Add(k => k.CustomerCode))
+              .Columns(column =>
+              {
+                  column.Bound(c => c.CustomerCode).ClientTemplate("<a href='#' onclick=\"return ShowCustomerLedgerForDisaster('<#=CustomerCode#>', '<#=CustomerFPREmployeeCode#>', '<#=CustomerFPREmployeeName#>')\"><#=CustomerCode#></a>");
+                  column.Bound(c => c.CustomerName);
+                  column.Bound(c => c.AgreementDate).Format("{0:dd-MMM-yyyy}");
+                  column.Bound(c => c.AgreementDuration).Hidden(true);
+                  column.Bound(c => c.CustomerFPREmployeeCode).Hidden(true);
+                  column.Bound(c => c.CustomerFPREmployeeName).Hidden(true);
+              })
+              .DataBinding(dbBindings => dbBindings.Ajax().Select("__CustomerDisasterRecoveryList", "CustomerRegister"))
+
+              .ClientEvents(events =>
+              {
+                  events.OnDataBinding("onDataBinding");
+                  events.OnError("onError");
+              })
+              .Scrollable(scroll => scroll.Height(300))
+              .Pageable(pages => pages.PageSize(100))
+        )
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="HorizontalDividerBIGWithoutBG"></td>
+    </tr>
+    <tr class="customerCollectionTr">
+        <td colspan="3">
+            <fieldset class="sagGroupBox">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td style="width: 33%" valign="top" align="left">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Customer Code:
+                                    </td>
+                                    <td>
+                                        <label id="customerCode">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Customer Name:
+                                    </td>
+                                    <td>
+                                        <label id="customerName">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Customer Type:
+                                    </td>
+                                    <td>
+                                        <label id="customerType">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Agreement Date:
+                                    </td>
+                                    <td>
+                                        <label id="agreementDate">
+                                            @*@ViewBag.AgreementDate*@
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Used Period:
+                                    </td>
+                                    <td>
+                                        <label id="usedPeriod">
+                                            @* @ViewBag.UsedPeriod*@
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 33%" valign="top" align="left">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Package:
+                                    </td>
+                                    <td>
+                                        <label id="package">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Payment Mode:
+                                    </td>
+                                    <td>
+                                        <label id="paymentMode">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Package Price:
+                                    </td>
+                                    <td>
+                                        <label id="packagePrice">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">DP Amount:
+                                    </td>
+                                    <td>
+                                        <label id="DPAmount">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Loan Amount:
+                                    </td>
+                                    <td>
+                                        <label id="loanAmount">
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 33%" valign="top" align="left">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Total Service Charge( 8%):
+                                    </td>
+                                    <td>
+                                        <label id="totalServiceCharge">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Installment Size/Amount:
+                                    </td>
+                                    <td>
+                                        <label id="installmentSizeAmount">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Panel Serial No:
+                                    </td>
+                                    <td>
+                                        <label id="panelSerialNo">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Address:
+                                    </td>
+                                    <td>
+                                        <label id="address">
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="HorizontalDividerBIGWithoutBG"></td>
+    </tr>
+    <tr class="customerCollectionTr">
+        <td colspan="3" valign="top" align="left">
+            <fieldset class="sagGroupBox">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td style="width: 33%" valign="top" align="left">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Collection Amount:
+                                    </td>
+                                    <td>
+                                        <label id="DRFAmount">
+                                            @Html.TextBox("txtDRFAmount", "", new { @readonly = true })
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 33%" valign="top" align="left">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left">Collected By
+                                    </td>
+                                    <td align="left">
+                                        @Html.Hidden("hfCustomerFprPersonCode", "")
+                                        @Html.TextBox("txtCustomerFprPerson", "", new { @readonly = true })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 33%" valign="top" align="left">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">Memo Number:
+                                    </td>
+                                    <td>
+                                        <label id="memoNumber">
+                                            @Html.TextBox("txtMemoNumber", "", new { })
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="left">
+                            <input id="btnSubmit" type="submit" value="Submit" onclick="return OtherAmountCollectionFromCustomerSave();" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.customerCollectionTr').hide();
+        $('#btnShow').click(function () {
+
+            var collectionDate = $("#dtpCollectionDate").val();
+            var selectedDate = Helper.DateCange(collectionDate);
+            var startDate = Helper.DateCange($('#hfOpenBackDay').val());
+            var endDate = Helper.DateCange($('#hfOpenDay').val());
+
+            if (selectedDate < startDate || selectedDate > endDate) {
+                alert("Collection Date Should be in Current Month/Period");
+                return false;
+            }
+            gridRebind();
+        });
+    });
+
+
+    function gridRebind() {
+        var params = {
+            collectionType: $('#ddlCollectionType').val(),
+            customerStatus: $('#ddlCustomerStatus').val(),
+            collectionDate: $('#dtpCollectionDate').val()
+        };
+
+        var grid = $('#gvCustomerDisasterRecoveryDetails').data("tGrid");
+        grid.rebind(params);
+        $('.customerCollectionTr').hide();
+    }
+
+
+
+    function ShowCustomerLedgerForDisaster(customerCode, customerFprPersonCode, customerFprPerson) {
+
+        $('.customerCollectionTr').show();
+
+        var customerStatus = $("#ddlCustomerStatus").val();
+        var collectionDate = $("#dtpCollectionDate").val();
+        var collectionType = $('#ddlCollectionType').val();
+
+        $.getJSON('@Url.Action("FundCollectionCustomerDetails", "CustomerRegister")', { 'collectionType': collectionType, 'customerCode': customerCode, 'collectionDate': collectionDate, 'customerStatus': customerStatus }, function (data) {
+
+            $("#customerCode").text(data[0].CustomerCode);
+            $("#customerName").text(data[0].CustomerName);
+            $("#customerType").text(data[0].CustomerType);
+            $("#package").text(data[0].Package);
+            $("#paymentMode").text(data[0].PaymentMode);
+            $("#packagePrice").text(data[0].PackagePrice);
+            $("#DPAmount").text(data[0].DownPaymentAmount);
+            $("#loanAmount").text(data[0].TotalPrincipalReceivable);
+            $("#totalServiceCharge").text(data[0].TotalServiceChargeReceivable);
+            $("#installmentSizeAmount").text(Math.round(data[0].InstallmentSize));
+            $("#panelSerialNo").text(data[0].PanelSerialNo);
+
+            $("#txtDRFAmount").val(data[1].AmountAfterDiscount);
+            $("#agreementDate").text(data[1].BatterySerialNo);
+            $("#address").text(data[1].PhoneNo);
+            $("#usedPeriod").text(data[1].Package);
+
+            ClearCollectionControl();
+
+        });
+
+        $('#txtCustomerFprPerson').val(customerFprPerson + " [" + customerFprPersonCode + "]");
+        $('#hfCustomerFprPersonCode').val(customerFprPersonCode);
+    }
+
+    function OtherAmountCollectionFromCustomerSave() {
+
+        var customerStatus = $("#ddlCustomerStatus").val();
+        var customerCode = $("#customerCode").html();
+        var DRFAmount = $("#txtDRFAmount").val();
+        var collectionDate = $("#dtpCollectionDate").val();
+        var memoNumber = $("#txtMemoNumber").val();
+        var selectedDate = Helper.DateCange(collectionDate);
+        var collectionType = $('#ddlCollectionType').val();
+        var customerFprPerson = $('#txtCustomerFprPerson').val();
+
+        var customerFprPersonCode = $('#hfCustomerFprPersonCode').val();
+
+        var startDate = Helper.DateCange($('#hfOpenBackDay').val());
+        var endDate = Helper.DateCange($('#hfOpenDay').val());
+
+        if (customerFprPerson == '')
+        {
+            alert("Please setup Customer FPR Firstly.");
+            return false;
+        }
+        else if (memoNumber == '') {
+            alert("Please insert memo number.");
+            return false;
+        }
+        else if (DRFAmount == "0") {
+            alert("DRF Amount cannot be zero.");
+        }
+        else if (selectedDate < startDate || selectedDate > endDate) {
+            alert("Collection Date Should be in Current Month/Period");
+            return false;
+        }
+        else if (customerFprPersonCode == "") {
+            alert("Customer FPR Do Not Set.");
+            return false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("OtherAmountCollectionFromCustomerSave", "CustomerRegister")',
+            data: { collectionType: collectionType, customerCode: customerCode, customerStatus: customerStatus, DRFAmount: DRFAmount, collectionDate: collectionDate, memoNumber: memoNumber, customerFprPersonCode: customerFprPersonCode },
+            cache: false,
+            success: function (data) {
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+                    gridRebind();
+                    ClearCollectionControl();
+                }
+                else {
+                    alert(data[0].message);
+                    ClearCollectionControl();
+                }
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+    }
+
+    function ClearCollectionControl() {
+        $("#txtMemoNumber").val("");
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

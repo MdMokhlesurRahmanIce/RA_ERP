@@ -1,0 +1,630 @@
+﻿<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+
+</script>
+@using RASolarERP.Model;
+@{
+    ViewBag.Title = "ERP Vs Physical Balance";
+    Layout = "~/Areas/Inventory/Views/Shared/_InventoryLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.5.1.min.js" type="text/javascript"></script>
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<table cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td>
+            <fieldset class="sagGroupBox">
+                <legend></legend>
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td style="width: 33%;" valign="top">
+                            <table cellspacing="0" cellpadding="2" width="100%">
+                                <tr>
+                                    <td align="left" class="IsrlLeftColumn">Item Type
+                                    </td>
+                                    <td align="left" class="IsrlLeftColumn">
+                                        @Html.DropDownList("ddlItemType", new SelectList(ViewBag.ItemType, "ItemTypeID", "Description"), "--Select--", new { @class = "IsrlDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="width: 150px">Report Type
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlReportType", new SelectList(ViewBag.ReportType, "ModuleTypeValue", "ModuleTypeName","INDIVIDUALUNIT"), "--Select--", new { @style = "width:150px;" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IsrlLeftColumn">Vendor
+                                    </td>
+                                    <td align="left" class="IsrlLeftColumn">
+                                        @Html.DropDownList("ddlVendor", new SelectList(ViewBag.VendorList, "VendorID", "VendorName"), "--Select--", new { @class = "IsrlDropDown" ,  @disabled = "disabled" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input id="btnShowSummbery" type="submit" value="Show" onclick="return ShowSummary();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 33%;" valign="top">
+                            <table cellspacing="2" cellpadding="0" width="100%">
+                                <tr>
+                                    <td align="left" style="width: 150px">Zone
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlZone", new SelectList (ViewBag.Zone,"LocationCode","LocationName",@ViewBag.ZoneCode), "--Select--", new { @style = "width:150px;" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="width: 150px">Region
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlRegion", new SelectList(ViewBag.Region,"LocationCode","LocationName",@ViewBag.RegionCode), "--Select--", new { @style = "width:150px;" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="width: 150px">Unit
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlUnit", new SelectList(ViewBag.Unit,"LocationCode","LocationName",@ViewBag.UnitCode), "--Select--", new { @style = "width:150px;" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 33%;" valign="top">
+                            <table>
+                                <tr>
+                                    <td align="left" style="width: 150px">Store Location
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlStoreLocation", Enumerable.Empty<SelectListItem>(), new { @style = "width:150px;" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IsrlLeftColumn"> Year/Month
+                                    </td>
+                                    <td style="width: 30%;" align="left">
+                                        @Html.DropDownList("ddlYearMonthFormat", new SelectList(ViewBag.YearMonthFormat, "YearMonthValue", "YearMonthName", @ViewBag.OpenMonthYearForDDl), new { @class = "DropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IsrlLeftColumn">
+                                    </td>
+                                    <td align="left" class="IsrlLeftColumn">
+                                       
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td class="HorizontalDivider"></td>
+    </tr>
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<InventoryERPVersusPhysicalBalance>()
+                 .Name("gvInventoryERPVersusPhysicalBalance")
+                 .DataKeys(keys => keys.Add(k => k.ItemCode))
+                 .Columns(column =>
+                 {
+                     column.Bound(s => s.ItemCode).Title("Item Code").Width(80);
+                     column.Bound(s => s.ItemName).Title("Item Name").Width(180);
+                     column.Bound(s => s.ItemCategory).Title("Item Category").Width(100);
+                     column.Bound(s => s.ItemModel).Title("Item Model").Width(170);
+                     column.Bound(s => s.ERPBalance).Title("Closing Balance").HtmlAttributes(new { @class = "GridColumnRightAlign" }).Width(75);
+                     column.Bound(s => s.ItemCode).ClientTemplate("<input type=\"text\" style=\"text-align:right\" value=\"<#=PhysicalBalance#>\" id=\"mrrReceive<#=ItemCode#>\" maxlength='10' onblur=\"CheckPhysicalQuantity('<#=ItemCode#>', this.value);\" />").Title("Physical Balance").HtmlAttributes(new {@class="GridColumnRightAlign" }).Width(180);
+                 })
+                .Selectable()
+                .Pageable(pages => pages.PageSize(350))
+                .Scrollable(scrolling => scrolling.Height(350))
+                .Footer(true)
+                .DataBinding(dbbindings => dbbindings.Ajax().Select("__InventoryERPVersusPhysicalBalance", "InventoryDept"))
+                .ClientEvents(events => events
+                   .OnDataBinding("onDataBinding")
+                   .OnError("onError")
+                )
+            )
+        </td>
+    </tr>
+    <tr>
+
+    
+             <td style="text-align:right">
+                            <input id="btnInventoryERPVersusPhysicalBalance" type="button" value="Save" onclick="return saveBtnInventoryERPVersusPhysicalBalance();" />
+                        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#ddlReportType').change(function () {
+
+            if (this.value == "RSFSUMMARY") {
+
+                $('#ddlZone').attr("disabled", true);
+                $('#ddlRegion').attr("disabled", true);
+                $('#ddlUnit').attr("disabled", true);
+                $('#ddlVendor').attr("disabled", true);
+                $('#ddlStoreLocation').attr("disabled", false);
+
+
+                $('#ddlZone').val("");
+                $('#ddlRegion').val("");
+                $('#ddlUnit').val("");
+                $('#ddlVendor').val("");
+            }
+            else if (this.value == "ZONESUMMARY") {
+                $('#ddlZone').attr("disabled", false);
+                $('#ddlRegion').attr("disabled", true);
+                $('#ddlUnit').attr("disabled", true);
+                $('#ddlVendor').attr("disabled", true);
+                $('#ddlStoreLocation').attr("disabled", false);
+
+                $('#ddlRegion').val("");
+                $('#ddlUnit').val("");
+                $('#ddlVendor').val("");
+
+                LoadZone();
+            }
+            else if (this.value == "REGIONSUMMARY") {
+
+                $('#ddlZone').attr("disabled", false);
+                $('#ddlRegion').attr("disabled", false);
+                $('#ddlUnit').attr("disabled", true);
+                $('#ddlVendor').attr("disabled", true);
+                $('#ddlStoreLocation').attr("disabled", false);
+
+                $('#ddlRegion').val("");
+                $('#ddlVendor').val("");
+                $('#ddlUnit').val("");
+
+                LoadZone();
+            }
+            else if (this.value == "INDIVIDUALUNIT") {
+
+                $('#ddlZone').attr("disabled", false);
+                $('#ddlRegion').attr("disabled", false);
+                $('#ddlUnit').attr("disabled", false);
+                $('#ddlStoreLocation').attr("disabled", false);
+                $('#ddlVendor').attr("disabled", true);
+
+                $('#ddlZone').val("");
+                $('#ddlRegion').val("");
+                $('#ddlUnit').val("");
+                $('#ddlVendor').val("");
+
+                LoadZone();
+            }
+            else if (this.value == "INDIVIDUALUNIT1") {
+
+                $('#ddlZone').attr("disabled", true);
+                $('#ddlRegion').attr("disabled", true);
+                $('#ddlUnit').attr("disabled", false);
+                $('#ddlStoreLocation').attr("disabled", false);
+                $('#ddlVendor').attr("disabled", true);
+
+                $('#ddlZone').val("");
+                $('#ddlRegion').val("");
+                $('#ddlUnit').val("");
+                $('#ddlVendor').val("");
+
+                LoadLocationInfo();
+            }
+            else if (this.value == "INVTORYATVENDR") {
+
+                $('#ddlZone').val("");
+                $('#ddlRegion').val("");
+                $('#ddlUnit').val("");
+
+                $('#ddlZone').attr("disabled", true);
+                $('#ddlRegion').attr("disabled", true);
+                $('#ddlUnit').attr("disabled", true);
+                $('#ddlStoreLocation').attr("disabled", false);
+                $('#ddlVendor').attr("disabled", false);
+            }
+        });
+
+        $('#ddlZone').change(function () {
+            if ($('#ddlReportType').val() == "REGIONSUMMARY" || $('#ddlReportType').val() == "INDIVIDUALUNIT") {
+                LoadRegion($('#ddlZone').val());
+            }
+        });
+
+        $('#ddlRegion').change(function () {
+            if ($('#ddlReportType').val() == "INDIVIDUALUNIT") {
+                LoadUnit($('#ddlRegion').val());
+            }
+        });
+
+        $('#ddlItemType').change(function () {
+            var itemTypeId = $(this).val();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("StoreLocationListByItemType", "InventoryDailyTransaction")',
+                data: "{'itemTypeId':'" + itemTypeId + "'}",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $('#ddlStoreLocation').get(0).options.length = 0;
+                    $('#ddlStoreLocation').get(0).options[0] = new Option('--Select--', '0');
+
+                    $.map(data, function (item) {
+                        $('#ddlStoreLocation').get(0).options[$('#ddlStoreLocation').get(0).options.length] = new Option(item.Display, item.Value);
+                        $('#ddlStoreLocation').val(item.IsSerializable);
+                    });
+                },
+                error: function () { alert("Item Does Not Load"); }
+            });
+        });
+
+    });
+
+    function saveBtnInventoryERPVersusPhysicalBalance() {
+        var openMonthYear = '@(ViewBag.OpenMonthYear)';
+
+        @*var openMonthYear = @Html.Raw(Json.Encode(ViewBag.OpenMonthYear))
+            openMonthYear;*@
+        openMonthYearFormat = openMonthYear.trim().replace("Month:","");
+        var ddlYearMonthFormat = $('#ddlYearMonthFormat').find("option:selected").text();
+        var ddlYearMonthFormatLength = ddlYearMonthFormat.length;
+        var ddlDateFormat = ddlYearMonthFormat.substr(ddlYearMonthFormatLength - 5, 3);
+        var ddlDate = ddlYearMonthFormat.replace(ddlDateFormat,"-");
+        //alert(openMonthYear + "hggggg" + ddlDate);
+        if (openMonthYearFormat.trim() != ddlDate.trim())
+        {
+            alert("Save is not allowed for your selected month : "+ ddlDate);
+            return false;
+        }
+
+
+        var mrrGridLength = $('#gvInventoryERPVersusPhysicalBalance').data('tGrid').data.length;
+
+        var lstInvERPVersusPhysicalBalance = new Array();
+
+        var i = 1;
+
+        for (i = 1; i <= mrrGridLength; i++) {
+
+            var tr = $("#gvInventoryERPVersusPhysicalBalance tbody tr:eq(" + i + ")");
+
+
+            lstInvERPVersusPhysicalBalance.push({
+
+                StoreLocation: $('#ddlStoreLocation').val(),
+                LocationCode: $('#ddlUnit ').val(),
+                YearMonth: $('#ddlYearMonthFormat').val(),
+                ItemCode: $.trim(tr.find("td:eq(0)").text()),
+                PhysicalBalance: $.trim(tr.find('td:eq(5)').find('input').val())
+
+
+            });
+
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SavePhysicalBalance", "InventoryDept")',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ lstInvERPVersusPhysicalBalance: lstInvERPVersusPhysicalBalance }),
+            cache: false,
+            success: function (data) {
+                if (data[0].messageCode == "success") {
+                    //Helper.AlertMessage("", data[0].message);
+                    alert("Save Is Succeed");
+                    ClearAllControl();
+                }
+                else {
+                    Helper.AlertMessage("", data[0].message);
+                }
+            },
+            error: function () {
+                Helper.AlertMessage("", "Connection Failed. Please Try Again");
+            }
+        });
+
+    }
+
+
+    function ShowSummary() {
+        var ReportType = $('#ddlReportType').val();
+        var ddlZone = $('#ddlZone').val();
+        var ddlRegion = $('#ddlRegion ').val();
+        var ddlUnit = $('#ddlUnit ').val();
+        var ddlStockLocation = $('#ddlStoreLocation').val();
+        //var ddlYearMonth = $('#ddlYearMonth ').val();
+        var ReportType = $('#ddlReportType ').val();
+
+        var ItemType = $('#ddlItemType').val();
+        var StartDate = $('#txtStartDate').val();
+        var EndDate = $('#txtEndDate').val();
+
+        var locationCode = "";
+
+        if (ReportType == "") {
+            alert("Please Select Report Type.");
+            return false;
+        }
+        if (ItemType == "") {
+            alert("Please Select Item Type.");
+            return false;
+        }
+        else {
+            if (ReportType == "RSFSUMMARY") {
+                if (ddlStockLocation == 0) {
+                    alert("Please Select Store Location.");
+                    return false;
+                }
+            }
+            else if (ReportType == "ZONESUMMARY") {
+                if (ddlZone == "") {
+                    alert("Please Select Zone.");
+                    return false;
+                }
+                else if (ddlStockLocation == 0) {
+                    alert("Please Select Store Location.");
+                    return false;
+                }
+                locationCode = $('#ddlZone').val();
+            }
+            else if (ReportType == "REGIONSUMMARY") {
+                if (ddlZone == "") {
+                    alert("Please Select Zone.");
+                    return false;
+                }
+                else if (ddlRegion == "") {
+                    alert("Please Select Region.");
+                    return false;
+                }
+                else if (ddlStockLocation == 0) {
+                    alert("Please Select Store Location.");
+                    return false;
+                }
+
+                locationCode = $('#ddlRegion ').val();
+            }
+            else if (ReportType == "INDIVIDUALUNIT") {
+                if (ddlZone == "") {
+                    alert("Please Select Zone.");
+                    return false;
+                }
+                else if (ddlRegion == "") {
+                    alert("Please Select Region.");
+                    return false;
+                }
+                else if (ddlUnit == "") {
+                    alert("Please Select Unit.");
+                    return false;
+                }
+                else if (ddlStockLocation == 0) {
+                    alert("Please Select Store Location.");
+                    return false;
+                }
+
+                locationCode = $('#ddlUnit ').val();
+            }
+            else if (ReportType == "INDIVIDUALUNIT1") {
+                if (ddlUnit == "") {
+                    alert("Please Select Unit.");
+                    return false;
+                }
+                else if (ddlStockLocation == 0) {
+                    alert("Please Select Store Location.");
+                    return false;
+                }
+                locationCode = $('#ddlUnit ').val();
+            }
+            else if (ReportType == "INVTORYATVENDR") {
+
+                if (ddlStockLocation == 0) {
+                    alert("Please Select Store Location.");
+                    return false;
+                }
+
+                locationCode = "";
+            }
+            else {
+                locationCode = "9000";
+            }
+        }
+
+        var params = {
+            reportType: $('#ddlReportType').val(),
+            itemType: $('#ddlItemType').val(),
+            storeLocation: $('#ddlStoreLocation').val(),
+            locationCode: locationCode,
+            yearMonth: $('#ddlYearMonthFormat').val(),
+            vendorType: $('#ddlVendor').val()
+
+        };
+
+        var grid = $('#gvInventoryERPVersusPhysicalBalance').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        return false;
+    }
+
+    function LoadZone() {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadZone", "InventoryDept")',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlZone').get(0).options.length = 0;
+                $('#ddlZone').get(0).options[0] = new Option("--Select--", "");
+
+                $.map(data, function (item) {
+                    $('#ddlZone').get(0).options[$('#ddlZone').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function LoadRegion(zoneCode) {
+
+        var zoneName = '@(ViewBag.ZoneName)'.trim();
+        if (zoneName != "") {
+            return false;
+        }
+        else if (zoneName == "")
+            {
+  
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("LoadRegion", "InventoryDept")',
+                data: "{'zoneCode':'" + zoneCode + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $('#ddlRegion').get(0).options.length = 0;
+                    $('#ddlRegion').get(0).options[0] = new Option("--Select--", "");
+
+                    $.map(data, function (item) {
+                        $('#ddlRegion').get(0).options[$('#ddlRegion').get(0).options.length] = new Option(item.Display, item.Value);
+                    });
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+    }
+   
+    }
+
+    function LoadUnit(regionCode) {
+        var RegionName = '@(ViewBag.RegionName)'.trim();
+        if (RegionName != "")
+        {
+            return false;
+        }
+        else if(RegionName=="")
+            {
+   
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("LoadUnit", "InventoryDept")',
+                data: "{'regionCode':'" + regionCode + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $('#ddlUnit').get(0).options.length = 0;
+                    $('#ddlUnit').get(0).options[0] = new Option("--Select--", "");
+
+                    $.map(data, function (item) {
+                        $('#ddlUnit').get(0).options[$('#ddlUnit').get(0).options.length] = new Option(item.Display, item.Value);
+                    });
+                },
+                error: function () {
+                    alert("Failed to load Item");
+                }
+            });
+    }
+    }
+
+    function LoadLocationInfo() {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("LoadLocationInfoWithHo", "InventoryDept")',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $('#ddlUnit').get(0).options.length = 0;
+                $('#ddlUnit').get(0).options[0] = new Option("--Select--", "");
+
+                $.map(data, function (item) {
+                    $('#ddlUnit').get(0).options[$('#ddlUnit').get(0).options.length] = new Option(item.Display, item.Value);
+                });
+            },
+            error: function () {
+                alert("Failed to load Item");
+            }
+        });
+    }
+
+    function CheckPhysicalQuantity(itemCode, physicalQuantity) {
+
+       
+        if (Helper.IsInt($.trim(physicalQuantity)) == false) {
+            alert("Physical quantity Cannot Be Negative/Character");
+            $('#mrrReceive' + itemCode).val("");
+        }
+    }
+
+    function ClearAllControl() {
+    
+       
+        //var gridLength = $('#gvInventoryERPVersusPhysicalBalance tbody tr').length;
+        //if (gridLength > 0) {
+        //    for (var k = 2; k < gridLength; k++) {
+        //        var tdItem = $("#gvInventoryERPVersusPhysicalBalance tbody tr:eq(" + k + ")").find("td:eq(0)").text().trim();
+
+        //        $("#gvInventoryERPVersusPhysicalBalance tbody tr:contains('" + tdItem + "')").remove();
+        //    }
+
+     
+        //}
+
+        var href = $('.t-refresh').attr('href');    // var href = $('.t-refresh').attr('href');
+        window.location.href=href                  // window.location.href = href;
+    }
+
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+</script>

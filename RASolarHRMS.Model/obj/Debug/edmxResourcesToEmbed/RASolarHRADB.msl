@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RASolarHRAModelStoreContainer" CdmEntityContainer="RASolarHRAEntities">
+    <EntitySetMapping Name="Aud_AuditingDetailsForAuditors">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Aud_AuditingDetailsForAuditors">
+        <MappingFragment StoreEntitySet="Aud_AuditingDetailsForAuditors">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="AuditSeqNo" ColumnName="AuditSeqNo" />
+          <ScalarProperty Name="AuditorsEmployeeID" ColumnName="AuditorsEmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Aud_AuditingMaster">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Aud_AuditingMaster">
+        <MappingFragment StoreEntitySet="Aud_AuditingMaster">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="AuditSeqNo" ColumnName="AuditSeqNo" />
+          <ScalarProperty Name="AuditStartDate" ColumnName="AuditStartDate" />
+          <ScalarProperty Name="AuditFinishDate" ColumnName="AuditFinishDate" />
+          <ScalarProperty Name="AuditPeriodFromDate" ColumnName="AuditPeriodFromDate" />
+          <ScalarProperty Name="AuditPeriodToDate" ColumnName="AuditPeriodToDate" />
+          <ScalarProperty Name="RefLastAuditSeqNo" ColumnName="RefLastAuditSeqNo" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Common_DistrictInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Common_DistrictInfo">
+        <MappingFragment StoreEntitySet="Common_DistrictInfo">
+          <ScalarProperty Name="DIST_CODE" ColumnName="DIST_CODE" />
+          <ScalarProperty Name="DIST_NAME" ColumnName="DIST_NAME" />
+          <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+          <ScalarProperty Name="MODIFIED" ColumnName="MODIFIED" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Common_LocationInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Common_LocationInfo">
+        <MappingFragment StoreEntitySet="Common_LocationInfo">
+          <ScalarProperty Name="ManagersEmployeeID" ColumnName="ManagersEmployeeID" />
+          <ScalarProperty Name="IsItPoorCollectionEfficiencyUnit" ColumnName="IsItPoorCollectionEfficiencyUnit" />
+          <ScalarProperty Name="ManagersMobileNo" ColumnName="ManagersMobileNo" />
+          <ScalarProperty Name="IDCOL_BranchName" ColumnName="IDCOL_BranchName" />
+          <ScalarProperty Name="IDCOL_BranchID" ColumnName="IDCOL_BranchID" />
+          <ScalarProperty Name="NewLocationCode" ColumnName="NewLocationCode" />
+          <ScalarProperty Name="ClosedOn" ColumnName="ClosedOn" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="LocationType" ColumnName="LocationType" />
+          <ScalarProperty Name="ParentLocation" ColumnName="ParentLocation" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="TempIsInventoryStockUpdateFinish" ColumnName="TempIsInventoryStockUpdateFinish" />
+          <ScalarProperty Name="BackDayAllowedForTransaction" ColumnName="BackDayAllowedForTransaction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Common_UpazillaInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Common_UpazillaInfo">
+        <MappingFragment StoreEntitySet="Common_UpazillaInfo">
+          <ScalarProperty Name="UPAZ_CODE" ColumnName="UPAZ_CODE" />
+          <ScalarProperty Name="UPAZ_NAME" ColumnName="UPAZ_NAME" />
+          <ScalarProperty Name="DIST_CODE" ColumnName="DIST_CODE" />
+          <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+          <ScalarProperty Name="MODIFIED" ColumnName="MODIFIED" />
+          <ScalarProperty Name="IDCOL_ThanaID" ColumnName="IDCOL_ThanaID" />
+          <ScalarProperty Name="IDCOL_ThanaName" ColumnName="IDCOL_ThanaName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_BankAdviceForSalaryMaster">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_BankAdviceForSalaryMaster">
+        <MappingFragment StoreEntitySet="Hrm_BankAdviceForSalaryMaster">
+          <ScalarProperty Name="YearMonth" ColumnName="YearMonth" />
+          <ScalarProperty Name="BankID" ColumnName="BankID" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="BankBranchID" ColumnName="BankBranchID" />
+          <ScalarProperty Name="BankBranchName" ColumnName="BankBranchName" />
+          <ScalarProperty Name="SalaryLocationCode" ColumnName="SalaryLocationCode" />
+          <ScalarProperty Name="SalaryDisbursementBankAccountNumber" ColumnName="SalaryDisbursementBankAccountNumber" />
+          <ScalarProperty Name="AdviceLetterReferenceSeqNo" ColumnName="AdviceLetterReferenceSeqNo" />
+          <ScalarProperty Name="AdviceLetterReferenceNo" ColumnName="AdviceLetterReferenceNo" />
+          <ScalarProperty Name="Signatory1Designation" ColumnName="Signatory1Designation" />
+          <ScalarProperty Name="Signatory1Name" ColumnName="Signatory1Name" />
+          <ScalarProperty Name="Signatory2Designation" ColumnName="Signatory2Designation" />
+          <ScalarProperty Name="Signatory2Name" ColumnName="Signatory2Name" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_BloodGroupInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_BloodGroupInfo">
+        <MappingFragment StoreEntitySet="Hrm_BloodGroupInfo">
+          <ScalarProperty Name="BloodGroupID" ColumnName="BloodGroupID" />
+          <ScalarProperty Name="BloodGroupDescription" ColumnName="BloodGroupDescription" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_DepartmentInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_DepartmentInfo">
+        <MappingFragment StoreEntitySet="Hrm_DepartmentInfo">
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_EducationInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EducationInfo">
+        <MappingFragment StoreEntitySet="Hrm_EducationInfo">
+          <ScalarProperty Name="EducationID" ColumnName="EducationID" />
+          <ScalarProperty Name="EducationName" ColumnName="EducationName" />
+          <ScalarProperty Name="EducationLevel" ColumnName="EducationLevel" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_EmployeeInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EmployeeInfo">
+        <MappingFragment StoreEntitySet="Hrm_EmployeeInfo">
+          <ScalarProperty Name="ContractualPeriodInMonth" ColumnName="ContractualPeriodInMonth" />
+          <ScalarProperty Name="DrivingLicenseNo" ColumnName="DrivingLicenseNo" />
+          <ScalarProperty Name="PassportExpiryDate" ColumnName="PassportExpiryDate" />
+          <ScalarProperty Name="PassportNo" ColumnName="PassportNo" />
+          <ScalarProperty Name="SpouseBloodGroup" ColumnName="SpouseBloodGroup" />
+          <ScalarProperty Name="EmployeeSpouseName" ColumnName="EmployeeSpouseName" />
+          <ScalarProperty Name="ResignDate" ColumnName="ResignDate" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeeFathersName" ColumnName="EmployeeFathersName" />
+          <ScalarProperty Name="EmployeeMothersName" ColumnName="EmployeeMothersName" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+          <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+          <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+          <ScalarProperty Name="Religion" ColumnName="Religion" />
+          <ScalarProperty Name="HighestEducation" ColumnName="HighestEducation" />
+          <ScalarProperty Name="MajorSubject" ColumnName="MajorSubject" />
+          <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+          <ScalarProperty Name="NationalIDCard" ColumnName="NationalIDCard" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="PresentDistrictCode" ColumnName="PresentDistrictCode" />
+          <ScalarProperty Name="PresentUpazillaCode" ColumnName="PresentUpazillaCode" />
+          <ScalarProperty Name="PresentPoliceStation" ColumnName="PresentPoliceStation" />
+          <ScalarProperty Name="PresentPostOffice" ColumnName="PresentPostOffice" />
+          <ScalarProperty Name="PresentStreetOrVillage" ColumnName="PresentStreetOrVillage" />
+          <ScalarProperty Name="PresentHouseNo" ColumnName="PresentHouseNo" />
+          <ScalarProperty Name="PresentMobileNo" ColumnName="PresentMobileNo" />
+          <ScalarProperty Name="PresentPhone" ColumnName="PresentPhone" />
+          <ScalarProperty Name="PermanentDistrictCode" ColumnName="PermanentDistrictCode" />
+          <ScalarProperty Name="PermanentUpazillaCode" ColumnName="PermanentUpazillaCode" />
+          <ScalarProperty Name="PermanentPoliceStation" ColumnName="PermanentPoliceStation" />
+          <ScalarProperty Name="PermanentPostOffice" ColumnName="PermanentPostOffice" />
+          <ScalarProperty Name="PermanentStreetVillage" ColumnName="PermanentStreetVillage" />
+          <ScalarProperty Name="PermanentHouseNo" ColumnName="PermanentHouseNo" />
+          <ScalarProperty Name="PermanentMobileNo" ColumnName="PermanentMobileNo" />
+          <ScalarProperty Name="PermanentPhone" ColumnName="PermanentPhone" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+          <ScalarProperty Name="LastDesignation" ColumnName="LastDesignation" />
+          <ScalarProperty Name="LastOperationalRole" ColumnName="LastOperationalRole" />
+          <ScalarProperty Name="LastDepartment" ColumnName="LastDepartment" />
+          <ScalarProperty Name="LastSection" ColumnName="LastSection" />
+          <ScalarProperty Name="LastEmploymentType" ColumnName="LastEmploymentType" />
+          <ScalarProperty Name="LastSalaryStructureSeqNo" ColumnName="LastSalaryStructureSeqNo" />
+          <ScalarProperty Name="ModeOfSalaryPayment" ColumnName="ModeOfSalaryPayment" />
+          <ScalarProperty Name="ProbationPeriodInMonth" ColumnName="ProbationPeriodInMonth" />
+          <ScalarProperty Name="ConfirmationDate" ColumnName="ConfirmationDate" />
+          <ScalarProperty Name="LastLocationCode" ColumnName="LastLocationCode" />
+          <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StatusChangedDate" ColumnName="StatusChangedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_EmployeeTransfer">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EmployeeTransfer">
+        <MappingFragment StoreEntitySet="Hrm_EmployeeTransfer">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="TransferSeqNo" ColumnName="TransferSeqNo" />
+          <ScalarProperty Name="TransferDate" ColumnName="TransferDate" />
+          <ScalarProperty Name="TransferFromLocation" ColumnName="TransferFromLocation" />
+          <ScalarProperty Name="TransferToLocation" ColumnName="TransferToLocation" />
+          <ScalarProperty Name="IsItLastTransfer" ColumnName="IsItLastTransfer" />
+          <ScalarProperty Name="NoteForTransfer" ColumnName="NoteForTransfer" />
+          <ScalarProperty Name="IsTransferAccepted" ColumnName="IsTransferAccepted" />
+          <ScalarProperty Name="RefAEProjectCode" ColumnName="RefAEProjectCode" />
+          <ScalarProperty Name="RefAETransNo" ColumnName="RefAETransNo" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_EmployeeTransferAdditionalInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EmployeeTransferAdditionalInfo">
+        <MappingFragment StoreEntitySet="Hrm_EmployeeTransferAdditionalInfo">
+          <ScalarProperty Name="NewOperationalRole" ColumnName="NewOperationalRole" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="TransferSeqNo" ColumnName="TransferSeqNo" />
+          <ScalarProperty Name="RequisitionReceivedOn" ColumnName="RequisitionReceivedOn" />
+          <ScalarProperty Name="OfficeOrderNo" ColumnName="OfficeOrderNo" />
+          <ScalarProperty Name="OfficeOrderDate" ColumnName="OfficeOrderDate" />
+          <ScalarProperty Name="TransferReleaseDate" ColumnName="TransferReleaseDate" />
+          <ScalarProperty Name="ResponsibilityHandoverTo" ColumnName="ResponsibilityHandoverTo" />
+          <ScalarProperty Name="ResponsibilityTakenoverFrom" ColumnName="ResponsibilityTakenoverFrom" />
+          <ScalarProperty Name="ReasonForLateTransferRelease" ColumnName="ReasonForLateTransferRelease" />
+          <ScalarProperty Name="ReasonForLateTransferJoining" ColumnName="ReasonForLateTransferJoining" />
+          <ScalarProperty Name="ActualTransferReleaseDate" ColumnName="ActualTransferReleaseDate" />
+          <ScalarProperty Name="ActualTransferJoiningDate" ColumnName="ActualTransferJoiningDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_EmploymentTypeInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EmploymentTypeInfo">
+        <MappingFragment StoreEntitySet="Hrm_EmploymentTypeInfo">
+          <ScalarProperty Name="EmploymentTypeID" ColumnName="EmploymentTypeID" />
+          <ScalarProperty Name="EmploymentTypeDescription" ColumnName="EmploymentTypeDescription" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_HierarchicalDesignation">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_HierarchicalDesignation">
+        <MappingFragment StoreEntitySet="Hrm_HierarchicalDesignation">
+          <ScalarProperty Name="HDesignationID" ColumnName="HDesignationID" />
+          <ScalarProperty Name="EmployeeGrade" ColumnName="EmployeeGrade" />
+          <ScalarProperty Name="HDesignationName" ColumnName="HDesignationName" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_HierarchicalDesignationVsOperationalRole">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_HierarchicalDesignationVsOperationalRole">
+        <MappingFragment StoreEntitySet="Hrm_HierarchicalDesignationVsOperationalRole">
+          <ScalarProperty Name="HDesignationID" ColumnName="HDesignationID" />
+          <ScalarProperty Name="OperationalRoleID" ColumnName="OperationalRoleID" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_LocationWiseEmployee">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_LocationWiseEmployee">
+        <MappingFragment StoreEntitySet="Hrm_LocationWiseEmployee">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_MajorSubject">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_MajorSubject">
+        <MappingFragment StoreEntitySet="Hrm_MajorSubject">
+          <ScalarProperty Name="MajorSubjectID" ColumnName="MajorSubjectID" />
+          <ScalarProperty Name="MajorSubjectName" ColumnName="MajorSubjectName" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_MaritalStatusInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_MaritalStatusInfo">
+        <MappingFragment StoreEntitySet="Hrm_MaritalStatusInfo">
+          <ScalarProperty Name="MaritalStatusID" ColumnName="MaritalStatusID" />
+          <ScalarProperty Name="MaritalStatusDescription" ColumnName="MaritalStatusDescription" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_OperationalRole">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_OperationalRole">
+        <MappingFragment StoreEntitySet="Hrm_OperationalRole">
+          <ScalarProperty Name="OperationalRoleID" ColumnName="OperationalRoleID" />
+          <ScalarProperty Name="OperationalRoleName" ColumnName="OperationalRoleName" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_ReligionInfo">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_ReligionInfo">
+        <MappingFragment StoreEntitySet="Hrm_ReligionInfo">
+          <ScalarProperty Name="ReligionID" ColumnName="ReligionID" />
+          <ScalarProperty Name="ReligionName" ColumnName="ReligionName" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_SubDepartmentOrSection">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_SubDepartmentOrSection">
+        <MappingFragment StoreEntitySet="Hrm_SubDepartmentOrSection">
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="SortingOrder" ColumnName="SortingOrder" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+        <MappingFragment StoreEntitySet="Hrm_Validation_EmployeeWiseDesignationVsEmploymentType">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="HDesignationID" ColumnName="HDesignationID" />
+          <ScalarProperty Name="EmploymentTypeID" ColumnName="EmploymentTypeID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sal_LocationWiseSalespersonForHOnZO">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Sal_LocationWiseSalespersonForHOnZO">
+        <MappingFragment StoreEntitySet="Sal_LocationWiseSalespersonForHOnZO">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="SalespersonCode" ColumnName="SalespersonCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetEmployeeTransferredButNotYetAccepted" FunctionName="RASolarHRAModel.Store.REP_GetEmployeeTransferredButNotYetAccepted">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarHRAModel.GetEmployeeTransferredButNotYetAccepted">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="TransferFromLocation" ColumnName="TransferFromLocation" />
+          <ScalarProperty Name="TransferDate" ColumnName="TransferDate" />
+          <ScalarProperty Name="NoteForTransfer" ColumnName="NoteForTransfer" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetLocationWiseEmployeeForEmployeeRegister" FunctionName="RASolarHRAModel.Store.REP_GetLocationWiseEmployeeRegister">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarHRAModel.GetLocationWiseEmployeeForEmployeeRegister">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="OperationalRoleName" ColumnName="OperationalRoleName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HrmEmployeeTransfer" FunctionName="RASolarHRAModel.Store.SP_HrmEmployeeTransfer" />
+    <EntitySetMapping Name="Hrm_EmployeeWiseBankAccount">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EmployeeWiseBankAccount">
+        <MappingFragment StoreEntitySet="Hrm_EmployeeWiseBankAccount">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="SalaryDisbursementBranchName" ColumnName="SalaryDisbursementBranchName" />
+          <ScalarProperty Name="SalaryDisbursementBankAccountNumber" ColumnName="SalaryDisbursementBankAccountNumber" />
+          <ScalarProperty Name="SalaryLocationCode" ColumnName="SalaryLocationCode" />
+          <ScalarProperty Name="AccountOpeningDate" ColumnName="AccountOpeningDate" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="BankAccountType" ColumnName="BankAccountType" />
+          <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+          <ScalarProperty Name="BankBranchID" ColumnName="BankBranchID" />
+          <ScalarProperty Name="BankID" ColumnName="BankID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_EmployeeWiseSalaryStructureDetails">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureDetails">
+        <MappingFragment StoreEntitySet="Hrm_EmployeeWiseSalaryStructureDetails">
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="RefEmploymentTypeID" ColumnName="RefEmploymentTypeID" />
+          <ScalarProperty Name="RefHDesignationID" ColumnName="RefHDesignationID" />
+          <ScalarProperty Name="SalaryComponentID" ColumnName="SalaryComponentID" />
+          <ScalarProperty Name="SalaryStructureSeqNo" ColumnName="SalaryStructureSeqNo" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_EmployeeWiseSalaryStructureMaster">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureMaster">
+        <MappingFragment StoreEntitySet="Hrm_EmployeeWiseSalaryStructureMaster">
+          <ScalarProperty Name="SSEffectiveToDate" ColumnName="SSEffectiveToDate" />
+          <ScalarProperty Name="SSEffectiveFromDate" ColumnName="SSEffectiveFromDate" />
+          <ScalarProperty Name="EmploymentTypeID" ColumnName="EmploymentTypeID" />
+          <ScalarProperty Name="HDesignationID" ColumnName="HDesignationID" />
+          <ScalarProperty Name="SalaryStructureSeqNo" ColumnName="SalaryStructureSeqNo" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+        <MappingFragment StoreEntitySet="Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="FixedAmount" ColumnName="FixedAmount" />
+          <ScalarProperty Name="MaxBandAmountTo" ColumnName="MaxBandAmountTo" />
+          <ScalarProperty Name="MaxBandAmountFrom" ColumnName="MaxBandAmountFrom" />
+          <ScalarProperty Name="MidBandAmountTo" ColumnName="MidBandAmountTo" />
+          <ScalarProperty Name="MidBandAmountFrom" ColumnName="MidBandAmountFrom" />
+          <ScalarProperty Name="MinBandAmountTo" ColumnName="MinBandAmountTo" />
+          <ScalarProperty Name="MinBandAmountFrom" ColumnName="MinBandAmountFrom" />
+          <ScalarProperty Name="SalaryComponentID" ColumnName="SalaryComponentID" />
+          <ScalarProperty Name="EmploymentTypeID" ColumnName="EmploymentTypeID" />
+          <ScalarProperty Name="HDesignationID" ColumnName="HDesignationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_EmployeeNDateWiseTADAEntry">
+      <EntityTypeMapping TypeName="RASolarHRAModel.Hrm_EmployeeNDateWiseTADAEntry">
+        <MappingFragment StoreEntitySet="Hrm_EmployeeNDateWiseTADAEntry">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="DaysOfPendingEntry" ColumnName="DaysOfPendingEntry" />
+          <ScalarProperty Name="ParticularsForDA" ColumnName="ParticularsForDA" />
+          <ScalarProperty Name="DAAmount" ColumnName="DAAmount" />
+          <ScalarProperty Name="ParticularsForTA" ColumnName="ParticularsForTA" />
+          <ScalarProperty Name="TAAmount" ColumnName="TAAmount" />
+          <ScalarProperty Name="DateOfTADA" ColumnName="DateOfTADA" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="YearMonth" ColumnName="YearMonth" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

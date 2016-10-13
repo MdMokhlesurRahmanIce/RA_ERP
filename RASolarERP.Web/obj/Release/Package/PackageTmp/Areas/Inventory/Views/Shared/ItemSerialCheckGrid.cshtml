@@ -1,0 +1,131 @@
+﻿<fieldset class="sagGroupBox">
+    <legend>Serial Information</legend>
+    <table cellpadding="0" cellspacing="1" border="0" width="100%">
+        <tr>
+            <td align="left" width="13%">
+                Serial No
+            </td>
+            <td align="left" width="44%" id="SerialContainer">
+                @Html.DropDownList("ddlAvailAbleItemSerials", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "IRDropDown" })
+            </td>
+            <td align="left" width="13%">
+                Total Serial Quantity
+            </td>
+            <td align="left" width="30%">
+                @Html.TextBox("txtTotalSerialQuantity", "", new { @readonly = "readonly" })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="height: 3px;">
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td style="color: Red; padding: 5px; font-weight: bold; font-size: 13px;" id="serialMessage">
+        </td>
+    </tr>
+    <tr>
+        <td width="100%">
+            <table class="TableData" cellpadding="0" cellspacing="0" id="serialGrid" width="100%">
+                <thead>
+                    <tr>
+                        <th align="center">
+                            Serial No
+                        </th>
+                        <th align="center">
+                            Status
+                        </th>
+                        <th align="center">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $('#serialMessage').text("");
+
+    $(document).ready(function () {
+
+        $('#ddlAvailAbleItemSerials').change(function () {
+            AddToSerialTable();
+        });
+
+        function AddToSerialTable() {
+
+            if ($('#ddlAvailAbleItemSerials').val() == "") {
+                return false;
+            }
+
+            var duplicateSerials = "0";
+            var availableQuantity = $('#txtDeliveryQuantity').val();
+            var totalSerialQuantity = 1;
+            var alreadyScanQUantity = $('#txtTotalSerialQuantity').val();
+
+            $('#serialGrid tbody tr').each(function () {
+                var texto = $(this).find('td:eq(0)').text();
+
+                if ($('#ddlAvailAbleItemSerials').val() == texto) {
+                    duplicateSerials = texto;
+                    //alert('Duplicate Serial Is Not Accepted');
+                }
+                if ($(this).index() != 0)
+                    totalSerialQuantity = $(this).index() + 2;
+                else
+                    totalSerialQuantity = 2;
+            });
+
+            if (duplicateSerials != "0") {
+                $('#serialMessage').text("Duplicate Serial Not Allowed");
+                $('#ddlAvailAbleItemSerials').val("");
+                return false;
+            }
+
+            if (parseInt(totalSerialQuantity) > parseInt(availableQuantity)) {
+                $('#serialMessage').text("Number of Serial Cannot be Greater Than Available/Delivery Quantity.");
+                $('#ddlAvailAbleItemSerials').val("");
+                return false;
+            }
+
+            $('#hfTotalItemSerial').val(totalSerialQuantity);
+            $('#txtTotalSerialQuantity').val(totalSerialQuantity);
+
+            var trNew = "";
+
+            if (totalSerialQuantity % 2 == 0)
+                trNew = "<tr class=\"t-alt\"> <td>" + $('#ddlAvailAbleItemSerials').val() + "</td>";
+            else
+                trNew = "<tr> <td>" + $('#ddlAvailAbleItemSerials').val() + "</td>";
+
+            trNew = trNew + "<td>&nbsp;</td>"; // damage
+
+            trNew = trNew + "<td align=\"center\"> <a href=\"#\" id=\"" + $('#ddlAvailAbleItemSerials').val() + "\" class=\"deleteSerialBtn\" >Delete</a> </td> </tr>";
+
+            $('#serialGrid tbody').append(trNew);
+
+            $('#ddlAvailAbleItemSerials').val("");            
+            $('#serialMessage').text("");
+        }
+
+
+        $('#serialGrid').delegate('a.deleteSerialBtn', 'click', function () {
+            //$(this).parent().parent().fadeOut('slow').remove();
+            //alert($(this).parent().parent().find('td:eq(0)').text());
+
+            if (confirm("Do You Want To Delete Serial ?")) {
+                $(this).parent().parent().fadeOut('slow').remove();
+                var totalSerial = parseInt($('#txtTotalSerialQuantity').val());
+                totalSerial = totalSerial - 1;
+                $('#txtTotalSerialQuantity').val(totalSerial);
+            }
+            return false;
+        });
+    });
+
+</script>

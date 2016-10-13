@@ -1,0 +1,447 @@
+﻿@model RASolarERP.DomainModel.HRMSModel.AuditingMaster
+@{
+    ViewBag.Title = "Audit Setup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    if (false)
+    {
+    <script src="../../Scripts/jquery-1.5.1.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>    
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp;@ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp;@ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp;@ViewBag.UnitName
+            </td>
+            <td style="width: 30%" align="left">
+                Day Open Date:&nbsp;@ViewBag.OpenMonthYear
+            </td>
+
+            <td style="width: 40%" align="left">&nbsp;
+            </td>
+        </tr>
+    </table>
+}
+@{
+    int auditStartDateEnableOrDisabled = 0;
+    int auditFromDateEnableOrDisabled = 0;
+    int auditPeriodToDateEnableOrDisabled = 0;
+        
+    if(Model.AuditStartDate==null)
+    {
+        auditStartDateEnableOrDisabled = 1;
+    }    
+     
+    if (Model.AuditPeriodFromDate == null)
+    {
+        auditFromDateEnableOrDisabled = 1;
+    }
+    
+    if(Model.AuditPeriodToDate==null)
+    {
+        auditPeriodToDateEnableOrDisabled = 1;
+    }
+    
+    <input id="hfAuditStartDateEnableOrDisabled" type="hidden" value="@auditStartDateEnableOrDisabled" />
+    <input id="hfAuditFromDateEnableOrdisabled" type="hidden" value="@auditFromDateEnableOrDisabled" />
+    <input id="hfAuditPeriodToDateEnableOrDisabled" type="hidden" value="@auditPeriodToDateEnableOrDisabled" />
+}
+<input id="hfOpenStartDay" type="hidden"  value="@ViewBag.OpenStartDay"/>
+<input id="hfOpenEndDay" type="hidden"  value="@ViewBag.OpenEndDay"/>
+<input id="hfDayOpenningDate" type="hidden"  value="@ViewBag.DayOpenningDate"/>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%" id="reportMode">
+    <tr>
+        <td style="width: 50%">
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left" width="36%">Start Date:
+                    </td>
+                    <td align="left" id="auditStartDateShowHide">
+                        @(Html.Telerik().DatePicker()
+                        .Name("txtAuditStartDate")
+                        .Max(new DateTime(2999, 12, 31))
+                        .Value(@Model.AuditStartDate)
+                        .Format("dd-MMM-yyyy")
+                        .ClientEvents(events=>events.OnLoad("OnStartDateLoad"))
+                        )
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 50%">
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left" width="36%">Period From Date:
+                    </td>
+                    <td align="left" id="auditPeriodShowHide">
+                        @(Html.Telerik().DatePicker()
+                        .Name("txtPeriodFromDate")
+                        .Max(new DateTime(2999, 12, 31))
+                        .Value(@Model.AuditPeriodFromDate)
+                        .Format("dd-MMM-yyyy")
+                        .ClientEvents(events => events.OnLoad("OnPeriodFromDateLoad"))
+                        )
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 50%">
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left" width="36%">End Date:
+                    </td>
+                    <td align="left">
+                        @(Html.Telerik().DatePicker()
+                        .Name("txtAuditEndDate")
+                        .Max(new DateTime(2999, 12, 31))
+                        .Value(@Model.AuditFinishDate)
+                        .Format("dd-MMM-yyyy")
+                      )
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 50%">
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left" width="36%">Period To Date:
+                    </td>
+                     <td align="left" id="auditPeriodToDateShowHide">
+                        @(Html.Telerik().DatePicker()
+                        .Name("txtPeriodToDate")
+                        .Max(new DateTime(2999, 12, 31))
+                        .Value(@Model.AuditPeriodToDate)
+                        .Format("dd-MMM-yyyy")
+                        .ClientEvents(events=>events.OnLoad("OnPeriodToDateLoad"))
+                      )
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 50%">
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left" width="36%">Employee Name
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlEmployeeID", new SelectList(ViewBag.Employee, "EmployeeID", "EmployeeName"), "--Select--", new { @class = "IRDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 50%">
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left" width="36%">Audit Sequence No
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtAuditSeqNo", @Model.AuditSeqNo, new { @class = "IRControl", @readonly = true })
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                <tr>
+                    <td align="left" width="18%">Remarks
+                    </td>
+                    <td align="left">
+                        @Html.TextBox("txtRemarks", @Model.Remarks, new { @maxLength = 100, @style = "width:480px;" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <input type="button" value="Add Audit Employee" id="btnAddAuditEmployee" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                <tr>
+                    <td>
+                        @(Html.Telerik().Grid(Model.AuditingDetails.ToList())
+                    .Name("gvAudingMaster")
+                    .DataKeys(keys => keys.Add(k => k.AuditorsEmployeeID))
+                    .Columns(column =>
+                    {
+                        column.Bound(m => m.AuditorsEmployeeID);
+                        column.Bound(m => m.EmployeeName);
+                        column.Bound(m => m.AuditorsEmployeeID).Title("Action").Template(@<a href="javascript:void(0)"
+                            class="deleteAuditEmployee">Delete</a>).Visible((bool)ViewBag.EditPermission);
+                    })
+                    .Selectable()
+                    .Footer(false)
+                )
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <input type="button" value="Save" id="btnSave" />
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    function OnStartDateLoad() {
+        if (($('#hfAuditStartDateEnableOrDisabled').val() == "0") && ($("#hfAuditPeriodToDateEnableOrDisabled").val() == "1")) {
+            $('#txtAuditStartDate').attr("readonly", false);
+            $('#auditStartDateShowHide> div > div .t-select').show();
+        }
+
+        else if (($('#hfAuditStartDateEnableOrDisabled').val() == "0") && ($("#hfAuditPeriodToDateEnableOrDisabled").val() == "0")) {
+            $('#txtAuditStartDate').attr("readonly", true);
+            $('#auditStartDateShowHide> div > div .t-select').hide();
+        }
+    }
+
+    function OnPeriodFromDateLoad() {
+
+        if ($("#hfAuditFromDateEnableOrdisabled").val() == "1") {
+            $("#txtPeriodFromDate").attr("readonly", false);
+            $('#auditPeriodShowHide > div > div .t-select').show();
+        }
+        else if ($("#hfAuditFromDateEnableOrdisabled").val() == "0") {
+            $("#txtPeriodFromDate").attr("readonly", true);
+            $('#auditPeriodShowHide > div > div .t-select').hide();
+        }
+
+    }
+
+    function OnPeriodToDateLoad() {
+
+        if ($("#hfAuditPeriodToDateEnableOrDisabled").val() == "1") {
+            $("#txtPeriodToDate").attr("readonly", false);
+            $('#auditPeriodToDateShowHide> div> div .t-select').show();
+        }
+
+        else if ($('#hfAuditPeriodToDateEnableOrDisabled').val() == "0") {
+            $('#txtPeriodToDate').attr("readonly", true);
+            $('#auditPeriodToDateShowHide> div> div .t-select').hide();
+        }
+    }
+
+    $(document).ready(function () {
+
+        $('#btnAddAuditEmployee').click(function () {
+
+            var dayOpenDate = Helper.DateCange($('#hfDayOpenningDate').val());
+
+            if ($('#txtAuditStartDate').val() == '') {
+                alert('Please Insert Start Date.');
+                return false;
+            }
+            else if ($('#txtLocationCode').val() == '') {
+                alert('Please Insert Location Code.');
+                return false;
+            }
+            else if ($('#txtPeriodFromDate').val() == '') {
+                alert('Please Insert Period From Date.');
+                return false;
+            }
+            else if ($('#txtPeriodToDate').val() == '') {
+                alert('Please Insert Period To Date.');
+                return false;
+            }
+
+            else if (dayOpenDate <= Helper.DateCange($('#txtPeriodToDate').val())) {
+
+                alert("Period To Date should not be greater or equal than Day Open Date");
+                return false;
+            }
+
+            else if ($("#ddlEmployeeID").val() == '') {
+                alert('Please Select Employee Name.');
+                return false;
+            }
+
+            if ($('#txtAuditEndDate').val() != '') {
+                if ($('#txtRemarks').val() == '') {
+                    alert('Please Insert Remarks.');
+                    return false;
+                }
+            }
+
+            var employeeID = $("#ddlEmployeeID").val();
+            var employeeName = $("#ddlEmployeeID option:selected").text();
+            var deleteAction = '<a href="javascript:void(0)" class="deleteAuditEmployee">Delete</a>';
+
+            if ($("#gvAudingMaster tbody tr.t-no-data") != null) {
+                $("#gvAudingMaster tbody tr.t-no-data").remove();
+            }
+
+            var lastGridRow = $("#gvAudingMaster tbody tr:last");
+            var gridItems = $("#gvAudingMaster tbody");
+            var lastIsAlternateRow = lastGridRow.hasClass("t-alt");
+
+            var rowClass = "";
+            if (!lastIsAlternateRow)
+                rowClass = "t-alt";
+
+            gridItems.append("<tr class='" + rowClass + "'><td>" + employeeID + "</td><td>" + employeeName + "</td><td>" + deleteAction + "</td></tr>");
+        });
+
+        $("#gvAudingMaster").delegate("a.deleteAuditEmployee", "click", function () {
+            $(this).parent().parent().remove();
+        });
+
+
+        $('#btnSave').click(function () {
+
+            if ($("#gvAudingMaster table > tbody tr").hasClass("t-no-data")) {
+                alert('Please Add Audit Employee.');
+                return false;
+            }
+
+            var auditStartDate = $('#txtAuditStartDate').val();
+            var auditFinishedDate = null;
+            var periodFromDate = $('#txtPeriodFromDate').val();
+            var periodToDate = $('#txtPeriodToDate').val();
+            var auditSeqNo = $('#txtAuditSeqNo').val();
+            var remarks = $('#txtRemarks').val();
+
+            var selectedAuditFinishedDate = null, selectedAuditFinishedDateMonth = null;
+
+            if ($('#txtAuditEndDate').val() != "") {
+                auditFinishedDate = $('#txtAuditEndDate').val();
+                selectedAuditFinishedDate = Helper.DateCange(auditFinishedDate);
+                selectedAuditFinishedDateMonth = Helper.MonthNameToMonthDigit(auditFinishedDate)
+            }
+
+            var startDate = Helper.DateCange($('#hfOpenStartDay').val());
+            var endDate = Helper.DateCange($('#hfOpenEndDay').val());
+            var startMonth = Helper.MonthNameToMonthDigit($('#hfOpenEndDay').val());
+            var selectedAuditStartMonth = Helper.MonthNameToMonthDigit(auditStartDate);
+
+            var selectedAuditStartDate = Helper.DateCange(auditStartDate);
+
+            var selectedPeriodFromDate = Helper.DateCange(periodFromDate);
+            var selectedPeriodToDate = Helper.DateCange(periodToDate);
+            var dayOpenDate = Helper.DateCange($('#hfDayOpenningDate').val());
+
+            //if ((selectedAuditStartDate < startDate || selectedAuditStartDate > endDate) && (startMonth != selectedAuditStartMonth)) {
+            //    alert("Audit Start Date Should be in Current Month/Period");
+            //    return false;
+            //}
+            //else if (selectedAuditFinishedDate != null && (selectedAuditFinishedDate < startDate)) {
+            //    alert("Audit Finished Date Should be in Current Month/Period");
+            //    return false;
+            //}
+
+            //else if (selectedAuditFinishedDate != null && (selectedAuditFinishedDate < startDate || selectedAuditFinishedDate > endDate) && (startMonth != selectedAuditFinishedDateMonth)) {
+            //    alert("Audit Finished Date Should be in Current Month/Period");
+            //    return false;
+            //}
+
+            if (selectedPeriodFromDate > selectedPeriodToDate) {
+                alert("Period From Date should not be greater than Period To Date");
+                return false;
+            }
+
+            //            else if (selectedPeriodFromDate < startDate || selectedPeriodFromDate > endDate) {
+            //                alert("Period From Date Should be in Current Month/Period");
+            //                return false;
+            //            }
+            //            else if (selectedPeriodToDate < startDate || selectedPeriodToDate > endDate) {
+            //                alert("Period To Date Should be in Current Month/Period");
+            //                return false;
+            //            }
+
+            else if (dayOpenDate <= selectedPeriodToDate) {
+
+                alert("Period To Date should not be greater or equal than Day Open Date");
+                return false;
+            }
+
+
+            var auditingDetails = new Array();
+
+            $("#gvAudingMaster table tbody tr").each(function () {
+
+                auditingDetails.push({
+                    AuditorsEmployeeID: $(this).find("td:eq(0)").text(),
+                    EmployeeName: $(this).find("td:eq(1)").text()
+                });
+
+            });
+
+            var auditingMaster = {
+
+                AuditSeqNo: auditSeqNo,
+                AuditStartDate: auditStartDate,
+                AuditFinishDate: auditFinishedDate,
+                AuditPeriodFromDate: periodFromDate,
+                AuditPeriodToDate: periodToDate,
+                Remarks: remarks,
+                AuditingDetails: auditingDetails
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AuditSetupSave", "Auditor")',
+                data: JSON.stringify(auditingMaster),
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                success: function (data) {
+                    if (data[0].messageCode == "success") {
+                        alert(data[0].message);
+                        $('#txtAuditSeqNo').val(data[0].id);
+                        ClearAllControl();
+                    }
+                    else {
+                        alert(data[0].message);
+                    }
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+
+    });
+
+    function ClearAllControl() {
+        $('#txtAuditStartDate').val('');
+        $('#txtAuditEndDate').val('');
+        $('#txtPeriodFromDate').val('');
+        $('#txtPeriodToDate').val('');
+        $('#txtRemarks').val('');
+        $('#gvAudingMaster').data().tGrid.total = 0;
+        $('#gvAudingMaster').data().tGrid.dataBind([]);
+
+        $('#ddlEmployeeID').get(0).options.length = 0;
+        $('#ddlEmployeeID').get(0).options[0] = new Option('--Select--', '');
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../", goFor));
+        return false;
+    }
+
+</script>

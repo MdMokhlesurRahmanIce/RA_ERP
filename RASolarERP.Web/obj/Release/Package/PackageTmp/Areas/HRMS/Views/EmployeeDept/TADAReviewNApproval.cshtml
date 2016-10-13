@@ -1,0 +1,314 @@
+﻿@using RASolarERP.DomainModel.HRMSModel;
+
+<script type="text/javascript">
+
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+
+    var firstTimeApproval = true;
+
+    function onDataBindingApproval(e) {
+        if (firstTimeApproval) {
+            e.preventDefault();
+            firstTimeApproval = false;
+        }
+        else {
+            e.data = {
+                tADAAprrovalMonth: $("#TADAAprovalEntryMonth").val()
+            };
+        }
+    }
+
+    function onErrorApproval(e) {
+        e.preventDefault();
+    }
+
+</script>
+
+@{
+    ViewBag.Title = "TA/DA Review And Approval";
+    Layout = "~/Areas/HRMS/Views/Shared/_HrmsLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+    
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input type="hidden" id="hfTADAAprovalEntryMonth" name="hfTADAAprovalEntryMonth" value="" />
+<table cellpadding="0" cellspacing="3" border="0" width="100%">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                <tr>
+                    <td align="left" class="TaDaInfoFieldLabel">TA/DA Entry Month</td>
+                    <td align="left">
+                        @Html.DropDownList("TADAAprovalEntryMonth", new SelectList(ViewBag.YearMonthFormat, "YearMonthValue", "YearMonthName"), "--Select--", new { @class = "TaDaTextFieldSmall" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="btnShowTaDaDetails" type="button" value="Show" class="t-button" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.TADADetails>()
+                                  .Name("gvTADAReviewNApproval")
+                                  .DataKeys(keys => keys.Add(k => k.UnitCode))
+                                  .Columns(column =>
+                                  {
+                                      column.Bound(t => t.ZoneName).Hidden(true).ClientGroupHeaderTemplate("Zone:  <#= Key #>");
+                                      column.Bound(t => t.RegionName).Hidden(true).ClientGroupHeaderTemplate("Region:  <#= Key #>");
+                                      column.Bound(t => t.UnitName).Hidden(true).ClientGroupHeaderTemplate("Unit: <#= Key #>");
+
+                                      column.Bound(t => t.EmployeeName);
+
+                                      column.Bound(t => t.TAAmount).Format("{0:0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                 .Aggregate(aggreages => aggreages.Sum())
+                                                 .ClientFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                 .ClientGroupFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                      column.Bound(t => t.TotalDaysForTA).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .Aggregate(aggreages => aggreages.Sum())
+                                                  .ClientFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .ClientGroupFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                      column.Bound(t => t.DAAmount).Format("{0:0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .Aggregate(aggreages => aggreages.Sum())
+                                                  .ClientFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .ClientGroupFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                      column.Bound(t => t.TotalDaysForDA).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .Aggregate(aggreages => aggreages.Sum())
+                                                  .ClientFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .ClientGroupFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                      column.Bound(t => t.TotalTADAAmount)
+                                                .ClientTemplate("<a href='TADA' onclick=\"return LoadTADAGrid('<#= EmployeeID #>', '<#= EmployeeName #>');\" style='text-align:right;'> <#= $.telerik.formatString('{0:0}',TotalTADAAmount) #></a>")
+                                                .Format("{0:0}").Title("Total TA/DA Amount").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                .Aggregate(aggreages => aggreages.Sum())
+                                                .ClientFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                .ClientGroupFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+
+                                      column.Bound(t => t.TotalSales).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .Aggregate(aggreages => aggreages.Sum())
+                                                  .ClientFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .ClientGroupFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                                     
+                                      column.Bound(t => t.TotalCollection).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .Aggregate(aggreages => aggreages.Sum())
+                                                  .ClientFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                  .ClientGroupFooterTemplate("<#= $.telerik.formatString('{0:0}',Sum) #>").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+ 
+                                      column.Bound(t => t.EmployeeID).Hidden(true);
+                                  })
+                                  .Selectable()
+                                  .Pageable(pages => pages.PageSize(15))
+                                  .DataBinding(dbBindings => dbBindings.Ajax().Select("TADAReviewNApprovalDetails", "EmployeeDept"))
+                                  .Scrollable(scroll => scroll.Height(400))
+                                  .Groupable(settigns => settigns.Groups(groups =>
+                                  {
+                                      groups.Add(g => g.ZoneName);
+                                      groups.Add(g => g.RegionName);
+                                      groups.Add(g => g.UnitName);
+                                  }).Visible(false))
+                                  .ToolBar(commands =>
+                                  {
+                                      commands.Custom().HtmlAttributes(new { id = "exportTADAReviewNApprovalToCSV", onclick = "return SetParamaterForTADAReviewNApproval();" }).Text("Export To Excel").Action("ExportToTADAReviewNApproval", "EmployeeDept", new { page = 1, groupby = "~", orderby = "~", filter = "~", tADAAprrovalMonth = "~" });
+                                  })
+                                  .Footer(true)
+                                  .ClientEvents(events =>
+                                  {
+                                      events.OnDataBinding("onDataBindingApproval");
+                                      events.OnError("onErrorApproval");
+                                  })
+                            )
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @(Html.Telerik().Window()
+                  .Name("dialogEmployeeTADA")
+                  .Title("Employee Wise TA/DA")
+                  .Buttons(b => b.Close())
+                  .Draggable(false)
+                  .Resizable(resizing =>
+                                        resizing.Enabled(false)
+                                        .MinHeight(200)
+                                        .MinWidth(970)
+                                        .MaxHeight(500)
+                                        .MaxWidth(970)
+                             )
+                  .Modal(true)
+                  .Content(@<p id="LoadEmployeeWiseTADA" style="margin: 0; padding: 0; width: 970px; height: auto;">
+
+                      @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.TADADetails>()
+                                  .Name("gvTADADetails")
+                                  .DataKeys(keys => keys.Add(k => k.DateOfTADA))
+                                  .Columns(column =>
+                                  {
+
+                                      column.Bound(t => t.DateOfTADA).Format("{0:dd-MMM-yyyy}").Title("Date Of TA/DA")
+                                                   .ClientFooterTemplate("<b>Total: </b>");
+
+                                      column.Bound(t => t.TAAmount).Format("{0:0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                    .ClientFooterTemplate("<b id=\"taTotalAmount\"></b>");
+
+                                      column.Bound(t => t.ParticularsForTA).Title("Reason For TA");
+                                      column.Bound(t => t.DAAmount).Format("{0:0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                    .ClientFooterTemplate("<b id=\"daTotalAmount\"></b>");
+
+                                      column.Bound(t => t.ParticularsForDA).Title("Reason For DA");
+                                      column.Bound(t => t.DaysOfPendingEntry).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+
+                                      column.Bound(t => t.TotalTADAAmount).Title("Total TA/DA Amount").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                                                    .ClientFooterTemplate("<b id=\"TotalTADAAmount\"></b>");
+                                  })
+                                  .Selectable()
+                                  .Pageable(pages => pages.PageSize(50))
+                                  .DataBinding(dbBindings => dbBindings.Ajax().Select("TADADetails", "EmployeeDept"))
+                                  .ClientEvents(events =>
+                                  {
+                                      events.OnDataBinding("onDataBinding");
+                                      events.OnRowDataBound("onRowDataBound");
+                                      events.OnDataBound("onDataBound");
+                                      events.OnError("onError");
+                                  })
+                            )
+
+                  </p>)
+                  .Visible(false)
+            )
+
+
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+
+    $('#gvTADADetails .t-status').hide();
+
+    $('#btnShowTaDaDetails').click(function () {
+
+        var tADAAprovalEntryMonth = $("#TADAAprovalEntryMonth").val();
+
+        if (tADAAprovalEntryMonth == "") {
+            alert("Please Select A Month To See TA/DA Approval Details.");
+            return false;
+        }
+
+        $('#hfTADAAprovalEntryMonth').val(tADAAprovalEntryMonth);
+        LoadTADAApprovalGrid(tADAAprovalEntryMonth);
+    });
+
+
+    function LoadTADAApprovalGrid(tADAAprrovalMonth) {
+        var params = {
+            tADAAprrovalMonth: tADAAprrovalMonth,
+        };
+
+        var grid = $("#gvTADAReviewNApproval").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+    }
+
+    var totalTAAmount = 0, totalDAAmount = 0, totalTADAAmount = 0;
+    function onRowDataBound(e) {
+        var row = e.row;
+        var dataItem = e.dataItem;
+
+        totalTAAmount += dataItem.TAAmount;
+        totalDAAmount += dataItem.DAAmount;
+        totalTADAAmount += dataItem.TotalTADAAmount;
+    }
+
+    function onDataBound(e) {
+        $('#taTotalAmount').text(totalTAAmount);
+        $('#daTotalAmount').text(totalDAAmount);
+        $('#TotalTADAAmount').text(totalTADAAmount);
+
+        totalTAAmount = 0;
+        totalDAAmount = 0;
+        totalTADAAmount = 0;
+    }
+
+    function LoadTADAGrid(employeeID, employeeName) {
+
+        var tADAYearMonth = $('#hfTADAAprovalEntryMonth').val();
+
+        var params = {
+            TADAYearMonth: tADAYearMonth,
+            employeeID: employeeID
+        };
+
+        var grid = $("#gvTADADetails").data("tGrid");
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        var detailWindow = $("#dialogEmployeeTADA").data("tWindow");
+        detailWindow.title("TA/DA Details Of the Employee " + employeeName + " [" + employeeID + "]");
+        detailWindow.center().open();
+
+        return false;
+    }
+
+    function SetParamaterForTADAReviewNApproval() {
+
+        var grid = $("#gvTADADetails").data("tGrid");
+        var $exportToPdf = $('#exportTADAReviewNApprovalToCSV');
+        var href = $exportToPdf.attr("href");
+        var tADAAprrovalMonth = $("#TADAAprovalEntryMonth").val();
+
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'orderby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+        href = href.replace(/tADAAprrovalMonth=([^&]*)/, 'tADAAprrovalMonth=' + (tADAAprrovalMonth || '~'));
+
+        $exportToPdf.attr("href", href);
+
+        return true;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

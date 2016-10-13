@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RASolarERP_SecurityAdminModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="RASolarERP_SecurityAdminEntities" p1:LazyLoadingEnabled="false">
+    <EntitySet Name="ListOfRASolarERPPages" EntityType="RASolarERP_SecurityAdminModel.ListOfRASolarERPPages" />
+    <EntitySet Name="LocationInformation" EntityType="RASolarERP_SecurityAdminModel.LocationInformation" />
+    <EntitySet Name="Sys_StatusInfo" EntityType="RASolarERP_SecurityAdminModel.Sys_StatusInfo" />
+    <EntitySet Name="UserInformation" EntityType="RASolarERP_SecurityAdminModel.UserInformation" />
+    <EntitySet Name="UserLocationMapping" EntityType="RASolarERP_SecurityAdminModel.UserLocationMapping" />
+    <EntitySet Name="UserRoleOrGroupInformation" EntityType="RASolarERP_SecurityAdminModel.UserRoleOrGroupInformation" />
+    <EntitySet Name="UserRoleOrGroupWisePermission" EntityType="RASolarERP_SecurityAdminModel.UserRoleOrGroupWisePermission" />
+    <AssociationSet Name="FK_UserRoleOrGroupWisePermission_ListOfRASolarERPPages" Association="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupWisePermission_ListOfRASolarERPPages">
+      <End Role="ListOfRASolarERPPages" EntitySet="ListOfRASolarERPPages" />
+      <End Role="UserRoleOrGroupWisePermission" EntitySet="UserRoleOrGroupWisePermission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LocationInformation_Sys_StatusInfo" Association="RASolarERP_SecurityAdminModel.FK_LocationInformation_Sys_StatusInfo">
+      <End Role="Sys_StatusInfo" EntitySet="Sys_StatusInfo" />
+      <End Role="LocationInformation" EntitySet="LocationInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLocationMapping_LocationInformation" Association="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_LocationInformation">
+      <End Role="LocationInformation" EntitySet="LocationInformation" />
+      <End Role="UserLocationMapping" EntitySet="UserLocationMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserInformation_Sys_StatusInfo" Association="RASolarERP_SecurityAdminModel.FK_UserInformation_Sys_StatusInfo">
+      <End Role="Sys_StatusInfo" EntitySet="Sys_StatusInfo" />
+      <End Role="UserInformation" EntitySet="UserInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoleOrGroupInformation_Sys_StatusInfo" Association="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupInformation_Sys_StatusInfo">
+      <End Role="Sys_StatusInfo" EntitySet="Sys_StatusInfo" />
+      <End Role="UserRoleOrGroupInformation" EntitySet="UserRoleOrGroupInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserInformation_UserRoleOrGroupInformation" Association="RASolarERP_SecurityAdminModel.FK_UserInformation_UserRoleOrGroupInformation">
+      <End Role="UserRoleOrGroupInformation" EntitySet="UserRoleOrGroupInformation" />
+      <End Role="UserInformation" EntitySet="UserInformation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLocationMapping_UserInformation" Association="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_UserInformation">
+      <End Role="UserInformation" EntitySet="UserInformation" />
+      <End Role="UserLocationMapping" EntitySet="UserLocationMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLocationMapping_UserInformation1" Association="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_UserInformation1">
+      <End Role="UserInformation" EntitySet="UserInformation" />
+      <End Role="UserLocationMapping" EntitySet="UserLocationMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoleOrGroupWisePermission_UserRoleOrGroupInformation" Association="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupWisePermission_UserRoleOrGroupInformation">
+      <End Role="UserRoleOrGroupInformation" EntitySet="UserRoleOrGroupInformation" />
+      <End Role="UserRoleOrGroupWisePermission" EntitySet="UserRoleOrGroupWisePermission" />
+    </AssociationSet>
+    <FunctionImport Name="ListOfPagesWithAccessRightsForThisUser" ReturnType="Collection(RASolarERP_SecurityAdminModel.ListOfPagesWithAccessRightsForThisUser)">
+      <Parameter Name="prmUserID" Mode="In" Type="String" />
+      <Parameter Name="prmPageOption" Mode="In" Type="String" />
+      <Parameter Name="prmPageID" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="ListOfRASolarERPPages">
+    <Key>
+      <PropertyRef Name="ModuleID" />
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="ModuleID" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="true" />
+    <Property Name="PageID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="PageNameToLink" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PageName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ModuleName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="MessageToShow" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="UserRoleOrGroupWisePermission" Relationship="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupWisePermission_ListOfRASolarERPPages" FromRole="ListOfRASolarERPPages" ToRole="UserRoleOrGroupWisePermission" />
+  </EntityType>
+  <EntityType Name="LocationInformation">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+    </Key>
+    <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="LocationName" Type="String" MaxLength="35" Unicode="true" FixedLength="false" />
+    <Property Name="LocationType" Type="Byte" />
+    <Property Name="ParentLocation" Type="String" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="UserID" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="EntryTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Sys_StatusInfo" Relationship="RASolarERP_SecurityAdminModel.FK_LocationInformation_Sys_StatusInfo" FromRole="LocationInformation" ToRole="Sys_StatusInfo" />
+    <NavigationProperty Name="UserLocationMapping" Relationship="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_LocationInformation" FromRole="LocationInformation" ToRole="UserLocationMapping" />
+  </EntityType>
+  <EntityType Name="Sys_StatusInfo">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Byte" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="35" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="LocationInformation" Relationship="RASolarERP_SecurityAdminModel.FK_LocationInformation_Sys_StatusInfo" FromRole="Sys_StatusInfo" ToRole="LocationInformation" />
+    <NavigationProperty Name="UserInformation" Relationship="RASolarERP_SecurityAdminModel.FK_UserInformation_Sys_StatusInfo" FromRole="Sys_StatusInfo" ToRole="UserInformation" />
+    <NavigationProperty Name="UserRoleOrGroupInformation" Relationship="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupInformation_Sys_StatusInfo" FromRole="Sys_StatusInfo" ToRole="UserRoleOrGroupInformation" />
+  </EntityType>
+  <EntityType Name="UserInformation">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="35" Unicode="true" FixedLength="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="UserRoleOrGroupID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="IsLocationDependent" Type="Boolean" />
+    <Property Name="OnlyForLocation" Type="String" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="IsAuthenticApproverForThisLocation" Type="Boolean" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="EntryTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Sys_StatusInfo" Relationship="RASolarERP_SecurityAdminModel.FK_UserInformation_Sys_StatusInfo" FromRole="UserInformation" ToRole="Sys_StatusInfo" />
+    <NavigationProperty Name="UserRoleOrGroupInformation" Relationship="RASolarERP_SecurityAdminModel.FK_UserInformation_UserRoleOrGroupInformation" FromRole="UserInformation" ToRole="UserRoleOrGroupInformation" />
+    <NavigationProperty Name="UserLocationMapping" Relationship="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_UserInformation" FromRole="UserInformation" ToRole="UserLocationMapping" />
+    <NavigationProperty Name="UserLocationMapping1" Relationship="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_UserInformation1" FromRole="UserInformation" ToRole="UserLocationMapping" />
+  </EntityType>
+  <EntityType Name="UserLocationMapping">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="LocationCode" />
+    </Key>
+    <Property Name="UserID" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="LocationCode" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="true" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="EntryUserID" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="EntryTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="LocationInformation" Relationship="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_LocationInformation" FromRole="UserLocationMapping" ToRole="LocationInformation" />
+    <NavigationProperty Name="UserInformation" Relationship="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_UserInformation" FromRole="UserLocationMapping" ToRole="UserInformation" />
+    <NavigationProperty Name="UserInformation1" Relationship="RASolarERP_SecurityAdminModel.FK_UserLocationMapping_UserInformation1" FromRole="UserLocationMapping" ToRole="UserInformation" />
+  </EntityType>
+  <EntityType Name="UserRoleOrGroupInformation">
+    <Key>
+      <PropertyRef Name="RoleOrGroupID" />
+    </Key>
+    <Property Name="RoleOrGroupID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="RoleOrGroupName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="EntryTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Sys_StatusInfo" Relationship="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupInformation_Sys_StatusInfo" FromRole="UserRoleOrGroupInformation" ToRole="Sys_StatusInfo" />
+    <NavigationProperty Name="UserInformation" Relationship="RASolarERP_SecurityAdminModel.FK_UserInformation_UserRoleOrGroupInformation" FromRole="UserRoleOrGroupInformation" ToRole="UserInformation" />
+    <NavigationProperty Name="UserRoleOrGroupWisePermission" Relationship="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupWisePermission_UserRoleOrGroupInformation" FromRole="UserRoleOrGroupInformation" ToRole="UserRoleOrGroupWisePermission" />
+  </EntityType>
+  <EntityType Name="UserRoleOrGroupWisePermission">
+    <Key>
+      <PropertyRef Name="RoleOrGroupID" />
+      <PropertyRef Name="ModuleID" />
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="RoleOrGroupID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="ModuleID" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="true" />
+    <Property Name="PageID" Type="String" Nullable="false" MaxLength="6" Unicode="true" FixedLength="true" />
+    <Property Name="IsGrantedForSelect" Type="Boolean" />
+    <Property Name="IsGrantedForInsert" Type="Boolean" />
+    <Property Name="IsGrantedForUpdate" Type="Boolean" />
+    <Property Name="IsGrantedForDelete" Type="Boolean" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="EntryTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ListOfRASolarERPPages" Relationship="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupWisePermission_ListOfRASolarERPPages" FromRole="UserRoleOrGroupWisePermission" ToRole="ListOfRASolarERPPages" />
+    <NavigationProperty Name="UserRoleOrGroupInformation" Relationship="RASolarERP_SecurityAdminModel.FK_UserRoleOrGroupWisePermission_UserRoleOrGroupInformation" FromRole="UserRoleOrGroupWisePermission" ToRole="UserRoleOrGroupInformation" />
+  </EntityType>
+  <Association Name="FK_UserRoleOrGroupWisePermission_ListOfRASolarERPPages">
+    <End Role="ListOfRASolarERPPages" Type="RASolarERP_SecurityAdminModel.ListOfRASolarERPPages" Multiplicity="1" />
+    <End Role="UserRoleOrGroupWisePermission" Type="RASolarERP_SecurityAdminModel.UserRoleOrGroupWisePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ListOfRASolarERPPages">
+        <PropertyRef Name="ModuleID" />
+        <PropertyRef Name="PageID" />
+      </Principal>
+      <Dependent Role="UserRoleOrGroupWisePermission">
+        <PropertyRef Name="ModuleID" />
+        <PropertyRef Name="PageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LocationInformation_Sys_StatusInfo">
+    <End Role="Sys_StatusInfo" Type="RASolarERP_SecurityAdminModel.Sys_StatusInfo" Multiplicity="1" />
+    <End Role="LocationInformation" Type="RASolarERP_SecurityAdminModel.LocationInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sys_StatusInfo">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="LocationInformation">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLocationMapping_LocationInformation">
+    <End Role="LocationInformation" Type="RASolarERP_SecurityAdminModel.LocationInformation" Multiplicity="1" />
+    <End Role="UserLocationMapping" Type="RASolarERP_SecurityAdminModel.UserLocationMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LocationInformation">
+        <PropertyRef Name="LocationCode" />
+      </Principal>
+      <Dependent Role="UserLocationMapping">
+        <PropertyRef Name="LocationCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserInformation_Sys_StatusInfo">
+    <End Role="Sys_StatusInfo" Type="RASolarERP_SecurityAdminModel.Sys_StatusInfo" Multiplicity="1" />
+    <End Role="UserInformation" Type="RASolarERP_SecurityAdminModel.UserInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sys_StatusInfo">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="UserInformation">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoleOrGroupInformation_Sys_StatusInfo">
+    <End Role="Sys_StatusInfo" Type="RASolarERP_SecurityAdminModel.Sys_StatusInfo" Multiplicity="1" />
+    <End Role="UserRoleOrGroupInformation" Type="RASolarERP_SecurityAdminModel.UserRoleOrGroupInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sys_StatusInfo">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="UserRoleOrGroupInformation">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserInformation_UserRoleOrGroupInformation">
+    <End Role="UserRoleOrGroupInformation" Type="RASolarERP_SecurityAdminModel.UserRoleOrGroupInformation" Multiplicity="1" />
+    <End Role="UserInformation" Type="RASolarERP_SecurityAdminModel.UserInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRoleOrGroupInformation">
+        <PropertyRef Name="RoleOrGroupID" />
+      </Principal>
+      <Dependent Role="UserInformation">
+        <PropertyRef Name="UserRoleOrGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLocationMapping_UserInformation">
+    <End Role="UserInformation" Type="RASolarERP_SecurityAdminModel.UserInformation" Multiplicity="1" />
+    <End Role="UserLocationMapping" Type="RASolarERP_SecurityAdminModel.UserLocationMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInformation">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserLocationMapping">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLocationMapping_UserInformation1">
+    <End Role="UserInformation" Type="RASolarERP_SecurityAdminModel.UserInformation" Multiplicity="1" />
+    <End Role="UserLocationMapping" Type="RASolarERP_SecurityAdminModel.UserLocationMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInformation">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserLocationMapping">
+        <PropertyRef Name="EntryUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoleOrGroupWisePermission_UserRoleOrGroupInformation">
+    <End Role="UserRoleOrGroupInformation" Type="RASolarERP_SecurityAdminModel.UserRoleOrGroupInformation" Multiplicity="1" />
+    <End Role="UserRoleOrGroupWisePermission" Type="RASolarERP_SecurityAdminModel.UserRoleOrGroupWisePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRoleOrGroupInformation">
+        <PropertyRef Name="RoleOrGroupID" />
+      </Principal>
+      <Dependent Role="UserRoleOrGroupWisePermission">
+        <PropertyRef Name="RoleOrGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="ListOfPagesWithAccessRightsForThisUser">
+    <Property Type="String" Name="PageID" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="PageName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ModuleID" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="IsAccessibleForThisUser" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="MessageToShow" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

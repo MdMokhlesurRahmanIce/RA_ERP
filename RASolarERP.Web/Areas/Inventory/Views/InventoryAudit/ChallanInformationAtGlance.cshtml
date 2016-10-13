@@ -1,0 +1,154 @@
+﻿<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+        else {
+            e.data = {
+                itemType: $('#ddlItemType').val(),
+                dateFrom: $('#txtStartDate').val(),
+                dateTo: $('#txtEndDate').val()
+            };
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+
+</script>
+
+
+@{
+    ViewBag.Title = "Challan Information At A Glance";
+    Layout = "~/Areas/Inventory/Views/Shared/_InventoryLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.5.1.js" type="text/javascript"></script>
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">Item Type
+                    </td>
+                    <td align="left">
+                        @Html.DropDownList("ddlItemType", new SelectList(ViewBag.ItemType, "ItemTypeID", "Description"), "--Select--", new { @class = "IRDropDown" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">From Date
+                    </td>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        @(Html.Telerik().DatePicker()
+                            .Name("txtStartDate")
+                            .Max(new DateTime(2999, 12, 31))
+                            .Format("dd-MMM-yyyy")
+                            )
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="width: 33%">
+            <table cellpadding="0" cellspacing="2" style="width: 100%">
+                <tr>
+                    <td align="left" class="IRCaptionLeftColumn">To Date
+                    </td>
+                    <td align="left" class="IRCaptionLeftColumn">
+                        @(Html.Telerik().DatePicker()
+                            .Name("txtEndDate")
+                            .Max(new DateTime(2999, 12, 31))
+                        .Format("dd-MMM-yyyy")
+                        )
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="3" style="padding-top: 8px;">
+            <input id="btnShowtemList" type="submit" value="Show" onclick="return ShowItemList();"
+                style="width: 60px;" />
+        </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="3" style="padding-top: 8px;">
+            @(Html.Telerik().Grid<RASolarERP.DomainModel.InventoryModel.ChallanInformationGlanceDetails>()
+         .Name("gvChallanInformationGlance")
+         .DataKeys(keys => keys.Add(k => k.ChallanSeqNo))
+         .Columns(column =>
+         {
+             column.Bound(s => s.TransDate).Format("{0:dd-MMM-yyyy}").Title("Trans Date").Width(150);
+             column.Bound(s => s.ChallanType).Title("Challan Type").Width(250);
+             column.Bound(s => s.ChallanNo).Title("Challan No").Width(100);
+             column.Bound(s => s.ChallanSeqNo).Title("Challan Seq No").Width(100).ClientTemplate("<a href='../InventoryDailyTransaction/ChallanDetails?ChallanSeqNo=<#=ChallanSeqNo#>&Challan=CHALLAN&locationCode=' target=\"_blank\"><#=ChallanSeqNo#></a>");
+             column.Bound(s => s.IssuedTo).Title("Issued To").Width(200);
+         })
+         .DataBinding(dbBindings => dbBindings.Ajax().Select("LoadChallanInformation", "InventoryAudit"))
+          .Scrollable(scorll => scorll.Height(250))
+         .ClientEvents(events =>
+         {
+             events.OnDataBinding("onDataBinding");
+             events.OnError("onError");
+         })
+         .Selectable()
+         .Pageable(pages => pages.PageSize(100))
+         .Footer(true)
+         )
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    function ShowItemList() {
+        var params = {
+            itemType: $('#ddlItemType').val(),
+            dateFrom: $('#txtStartDate').val(),
+            dateTo: $('#txtEndDate').val()
+        };
+
+        var grid = $('#gvChallanInformationGlance').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        return false;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

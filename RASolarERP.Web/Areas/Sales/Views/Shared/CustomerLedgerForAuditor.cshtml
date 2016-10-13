@@ -1,0 +1,258 @@
+﻿@using RASolarERP.Model;
+@model IEnumerable<CustomerLedgerReport>
+@{
+    CustomerLedgerReport objCustomerLedger = new CustomerLedgerReport();
+    objCustomerLedger = Model.LastOrDefault();
+
+    if (objCustomerLedger != null)
+    {
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="width: 33%" valign="top" align="left">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Customer Code:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.CustomerCode
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Customer Name:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.CustomerName
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Customer Type:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.CustomerType
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Phone/Mobile:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.PhoneNo
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Agreement Date:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.AgreementDate.ToString("dd-MMM-yyyy")
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Package:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.Package
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Payment Mode:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.PaymentMode
+                            </label>
+                        </td>
+
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 33%" valign="top" align="left">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Package Price:
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.PackagePrice).ToString("0"))
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Discount Amount( @(Convert.ToDecimal(objCustomerLedger.DiscountPercentage).ToString("0"))%):
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.DiscountAmount).ToString("0"))
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Amount After Discount:
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.AmountAfterDiscount).ToString("0"))
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">DP Amount( @(Convert.ToDecimal(objCustomerLedger.STDDownPaymentPercentage).ToString("0"))%):
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.DownPaymentAmount).ToString("0"))
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Loan Amount:
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.TotalPrincipalReceivable).ToString("0"))
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Total Service Charge( @(Convert.ToDecimal(objCustomerLedger.ServiceChargePercentage).ToString("0"))%):
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.TotalServiceChargeReceivable).ToString("0"))
+                            </label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Installment Size/Amount:
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.InstallmentSize).ToString("0.00"))
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 33%" valign="top" align="left">
+                <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Panel Serial No.:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.PanelSerialNo
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Battery Serial No.:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.BatterySerialNo
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                @(Html.Telerik().Grid(Model)
+                        .Name("gvCustomerLedger")
+                        .DataKeys(keys => keys.Add(k => k.CustomerCode))
+                        .Columns(column =>
+                        {
+                            column.Bound(c => c.CollectionType);
+                            column.Bound(c => c.RefMemoNo).Title("Memo No");
+                            column.Bound(c => c.CollectionDate).Format("{0:dd-MMM-yyy}").Title("Date");
+
+                            column.Bound(c => c.CollectionAmount).Title("Amount")
+                                .Template(@<text>
+
+                @if (item.CollectionAmount > 0)
+                {
+                    <a href="@item.CustomerCode" onclick="return CollectionUpdateNDelete('@item.CustomerCode', '@item.CustomerName' , ' @(Convert.ToDecimal(item.CollectionAmount).ToString("0"))', '@(Convert.ToDateTime(item.CollectionDate).ToString("dd-MMM-yyyy"))', '@item.RefMemoNo', '@item.YearMonth', '@item.SerialNo','@item.CollectionType')">@(Convert.ToDecimal(item.CollectionAmount).ToString("0"))</a>
+                }
+                else
+                {
+                    @(Convert.ToDecimal(item.CollectionAmount).ToString("0"))
+                }
+
+                </text>)
+                                .HtmlAttributes(new { @class = "A. GridColumnRightAlign" })
+
+                            .FooterTemplate(@<b>@ViewBag.TotalCollection</b>);
+                            column.Bound(c => c.TotalPrincipalPlusServiceChargeReceivable).Title("Outstanding").Format("{0:0}").HtmlAttributes(new { @class = "A. GridColumnRightAlign" });
+                            column.Bound(c => c.YearMonth).Hidden(true);
+                            column.Bound(c => c.SerialNo).Hidden(true);
+                        })
+                        .Selectable()
+            )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%" valign="top" align="left">
+                <table cellpadding="0" cellspacing="2" border="0">
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Overdue/Advance:
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.OverdueOrAdvanceBalance).ToString("0"))
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Outstanding Balance:
+                        </td>
+                        <td>
+                            <label>
+                                @(Convert.ToDecimal(objCustomerLedger.OutstandingBalance).ToString("0"))
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="IRCaptionLeftColumn">Current Status:
+                        </td>
+                        <td>
+                            <label>
+                                @objCustomerLedger.Status
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 33%"></td>
+            <td style="width: 33%"></td>
+        </tr>
+    </table>
+    <br />
+    }
+    else
+    {
+    <div>
+        No Customer Information Found
+    </div>
+    }
+}
+<script type="text/javascript">
+
+    var tr = $("#gvCustomerLedger tbody tr:eq(0)");
+    $(tr).find('td:eq(0)').css("font-weight", "bold");
+    $(tr).find('td:eq(3)').css("font-weight", "bold");
+    $(tr).find('td:eq(1)').text("");
+    $(tr).find('td:eq(2)').text("");
+
+</script>

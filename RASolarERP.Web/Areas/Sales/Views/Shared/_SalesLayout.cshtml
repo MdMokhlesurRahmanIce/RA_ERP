@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=100">
+    <title>@ViewBag.Title</title>
+    @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.vista.css").Combined(true).Compress(true)))
+
+    @Styles.Render("~/Content/themes/custom-theme/css")
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/RASolarCustomJS")
+
+</head>
+<body>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td class="HeaderBackGround" style="width: 100%;" align="center">
+                <table cellpadding="0" cellspacing="0" border="0" style="width: 1005px;">
+                    <tr>
+                        <td style="width: 1005px;">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr class="PageTitle">
+                                    <td style="width: 5%;" align="left" valign="middle">
+                                        <div style="height: 3px;">
+                                            &nbsp;
+                                        </div>
+                                        <img src="~/Content/Images/RSFLogo.png" width="43" height="37" alt="Rural Service Foundation" />
+                                    </td>
+                                    <td style="width: 15%" valign="middle" align="left">RA Solar ERP for RSF
+                                        <div class="ModuleTitle">@ViewBag.ModuleName</div>
+                                    </td>
+                                    <td style="width: 80%;" align="right">
+                                        @ViewBag.Title
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="RSFTopMenu">
+                            @RenderSection("TopMenu", false)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="LoginInfo">
+                            <table cellpadding="0" cellspacing="0" border="0" style="text-align: left;" width="100%">
+                                <tr>
+                                    <td style="width: 90%;" align="left">
+                                        @RenderSection("LoginInfo", false)
+                                    </td>
+                                    <td style="width: 10%;" align="right">
+                                        @Html.ActionLink("Log Out", "LogOut", "../RSFSecurity")
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="BodyBackGround" style="width: 100%;" align="center">
+                <table cellpadding="0" cellspacing="0" border="0" style="width: 1005px;">
+                    <tr>
+                        <td style="width: 1005px; height: 500px; padding-top: 10px;" valign="top">
+                            @RenderBody()
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="FooterBackGround" style="width: 100%;" align="center">
+                <table cellpadding="0" cellspacing="0" border="0" style="width: 1005px;">
+                    <tr>
+                        <td style="width: 1005px; height: 60px;">
+                            @RenderSection("Footer", false)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="display:none;">
+                <div id="AlertMessageBox" style="clear:both; min-width: 300px; max-width: 990px; min-height: 200px; max-height: 300px;"></div>
+            </td>
+        </tr>
+    </table>
+    @(Html.Telerik().ScriptRegistrar().jQuery(false).DefaultGroup(group => group.Combined(true).Compress(true)))
+    @* @(Html.Telerik().ScriptRegistrar().DefaultGroup(group => group.Compress(true).Combined(true)).jQuery(false))*@
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿@using RASolarAMS.Model
+@{
+    //ViewBag.Title = "Acc GetMonthly Expenses In Detail";
+    Layout = "~/Areas/Financial/Views/Shared/_AccountingLayout.cshtml";
+}
+@{
+    List<AccGetMonthlyExpensesInDetail> lstGetMonthlyExpensesInDetail = new List<AccGetMonthlyExpensesInDetail>();
+    lstGetMonthlyExpensesInDetail = (List<AccGetMonthlyExpensesInDetail>)TempData["AccGetMonthlyExpensesInDetail"];
+ }
+<table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td>
+                <div class="DataGridXScroll">
+                    @(Html.Telerik().Grid(lstGetMonthlyExpensesInDetail)
+                    .Name("gvAccGetMonthlyExpensesInDetail")
+                    .DataKeys(keys => keys.Add(k => k.AccountNo))
+                    .Columns(column =>
+                    {
+                        column.Bound(c => c.AccountNo).Title("Account No");
+                        column.Bound(c => c.AccountName).Format("{0:dd-MMM-yyyy}").Title("Account Name");
+                        column.Bound(c => c.Amount).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Amount");
+                   
+                    })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(100))
+                    .Scrollable(scroll => scroll.Height(350))
+                    )
+                </div>
+            </td>
+        </tr>
+    </table>

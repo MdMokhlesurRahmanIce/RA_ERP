@@ -1,0 +1,1189 @@
+﻿@using RASolarERP.Model;
+@{
+    ViewBag.Title = "Daily Progress Entry";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.5.1.min.js" type="text/javascript"></script>
+
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+   <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfCountEmployee" type="hidden"  value="@ViewBag.CountEmployee"/>
+<input id="hfMEmployee" type="hidden" value="@((string)ViewBag.UnitManager)"/>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    @using (Html.BeginForm("SalesMonitoringEntry", "SalesMonitoring", FormMethod.Post))
+    {
+           <tr>
+            <td width="10%" align="left">
+                Employee Name
+            </td>
+            <td width="30%" align="left">
+                @Html.DropDownList("ddlEmployee", new SelectList(@ViewBag.GetLocationWiseEmployee, "EmployeeID", "EmployeeName", (string)TempData["LocationWiseEmployeeSelected"]), "--Select--")
+            </td>
+            <td width="50%" align="left">
+                <input id="btnSearchEmployee" type="submit" value="Show" />
+            </td>
+            @*<td width="10%" style="">
+                <a href="../../SalesMonitoringGuide.html" style="font-size: 14px; font-weight: bold;"
+                    target="_blank">Guide Line</a>
+            </td>*@
+        </tr>
+        <tr>
+            <td colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        <tr align="left">
+            <td align="left">
+                Day Open
+            </td>
+            <td colspan="3" width="30%" align="left" style="background-color: #DBD7D9">
+                @* @Html.Label("lblTransactionDate", TempData["PeriodOpenClose"].ToString() != null ? TempData["PeriodOpenClose"].ToString() : "")*@
+                <span id="lblTransactionDate" style="font-size: medium">@(TempData["PeriodOpenClose"].ToString() != null ? TempData["PeriodOpenClose"].ToString() : "")</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                &nbsp;
+            </td>
+        </tr>
+        
+        <tr>
+            <td align="left" style="background-color: #DBD7D9" colspan="4">
+                <span id="IsEmployeeWiseTargetSettingCompleted" style="font-size: medium; background-color: #FFFF00;">@ViewBag.IsEmployeeWiseTargetSettingCompleted</span>
+            </td>
+        </tr>
+
+        
+    }
+</table>
+@{
+
+    GetLocationNEmployeeWiseDailyEntry objLocationNEmployeeWiseDailyEntry = new GetLocationNEmployeeWiseDailyEntry();
+    objLocationNEmployeeWiseDailyEntry = (GetLocationNEmployeeWiseDailyEntry)TempData["LocationNEmployeeWiseDailyEntry"];    
+}
+<form id="form1" action="SaveSalesMonitoringEntry" method="post">
+<input id="hfEmployeeID" type="hidden" />
+@if (objLocationNEmployeeWiseDailyEntry != null)
+{ 
+    <table class="hh1" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td class="salmonitoringHead2" width="25%" align="left">
+                Overall Unit:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table id="hhh1" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="TitleSubHeaderStarting" width="25%">
+                            Target vs Achievement
+                        </td>
+                        <td class="TitleSubHeader" width="25%">
+                            Sales
+                        </td>
+                        <td class="TitleSubHeader" width="25%">
+                            Current Collection
+                        </td>
+                        <td class="TitleSubHeader" width="25%">
+                            Overdue Collection
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr style="background-color: #F3F4F8;">
+                        <td align="left" width="25%" style="background-color: #DBD7D9">
+                            Current Month Sales Target
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblCurrentMonthSalesTargetUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationSalesCurrentMonthTarget != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationSalesCurrentMonthTarget).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblCurrentMonthCollectionTargetUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationRegColcCurrentMonthTarget != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationRegColcCurrentMonthTarget).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblCurrentMonthOverdueTargetUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationOverdueColcCurrentMonthTarget != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationOverdueColcCurrentMonthTarget).ToString("0.") : "0")
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" width="25%" style="background-color: #DBD7D9">
+                            Achievement upto Last Day
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementUptoTodaySalesUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationSalesAchievementUptoLastDay != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationSalesAchievementUptoLastDay).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementUptoTodayCollectionUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationRegColcAchievementUptoLastDay != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationRegColcAchievementUptoLastDay).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementUptoTodayOverdueUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationOverdueColcAchievementUptoLastDay != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationOverdueColcAchievementUptoLastDay).ToString("0.") : "0")
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" width="25%" style="background-color: #DBD7D9">
+                            Achievement Today
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementTodaySalesUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationSalesAchievementToday != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationSalesAchievementToday).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementTodayCollectionUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationRegColcAchievementToday != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationRegColcAchievementToday).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementTodayOverdueUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationOverdueColcAchievementToday != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.LocationOverdueColcAchievementToday).ToString("0.") : "0")
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" width="25%" style="background-color: #DBD7D9">
+                            Achievement Status %
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementStatusSalesUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationSalesAchievementStatus != null ? objLocationNEmployeeWiseDailyEntry.LocationSalesAchievementStatus.ToString() : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementStatusCollectionUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationRegColcAchievementStatus != null ? objLocationNEmployeeWiseDailyEntry.LocationRegColcAchievementStatus.ToString() : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementStatusOverdueUnit">
+                                @(objLocationNEmployeeWiseDailyEntry.LocationOverdueColcAchievementStatus != null ? objLocationNEmployeeWiseDailyEntry.LocationOverdueColcAchievementStatus.ToString() : "0")
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" width="25%">
+                            System Return (Unit Total)
+                        </td>
+                        <td width="25%">
+                            @Html.TextBox("txtSystemReturn", objLocationNEmployeeWiseDailyEntry.LocationSystemReturn != null ? objLocationNEmployeeWiseDailyEntry.LocationSystemReturn.ToString() : "0", new { @style = "text-align: right; width: 247px;" })
+                        </td>
+                        <td width="25%" align="left">
+                            System Re-Sale (Unit Total)
+                        </td>
+                        <td width="25%">
+                            @Html.TextBox("txtSystemReSale", objLocationNEmployeeWiseDailyEntry.LocationSystemReSale != null ? objLocationNEmployeeWiseDailyEntry.LocationSystemReSale.ToString() : "0", new { @style = "text-align: right; width: 247px;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" align="left">
+                            Customer Training (Unit Total)
+                        </td>
+                        <td width="25%">
+                            @Html.TextBox("txtCustomerTraining", objLocationNEmployeeWiseDailyEntry.LocationCustomerTraining != null ? objLocationNEmployeeWiseDailyEntry.LocationCustomerTraining.ToString() : "0", new { @style = "text-align: right; width: 247px;" })
+                        </td>
+                        <td width="25%" align="left">
+                            Bio-Gas Plant Installation (Unit Total)
+                        </td>
+                        <td width="25%">
+                            @Html.TextBox("txtBioGasSale", objLocationNEmployeeWiseDailyEntry.LocationBioGasSales != null ? objLocationNEmployeeWiseDailyEntry.LocationBioGasSales.ToString() : "0", new { @style = "text-align: right; width: 247px;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%" align="left">
+                            RSF Battery Sales (Unit Total)
+                        </td>
+                        <td width="25%">
+                            @Html.TextBox("txtRSFBatterySales", objLocationNEmployeeWiseDailyEntry.LocationRSFBatterySales != null ? objLocationNEmployeeWiseDailyEntry.LocationRSFBatterySales.ToString() : "0", new { @style = "text-align: right; width: 247px;" })
+                        </td>
+                        <td align="left" width="25%">
+                            @Html.Label("lblRSFBatterySales", "")
+                        </td>
+                        <td width="25%">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="25%">
+                        </td>
+                        <td width="25%">
+                        </td>
+                        <td width="25%">
+                        </td>
+                        <td width="25%" align="right" >
+                       @* @if(objLocationNEmployeeWiseDailyEntry==null)
+                        {
+                            <table cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <label for="checkBox">
+                                            Close This Day</label>
+                                        <input id="checkBox" name="checkBox" type="checkbox" value="true" />
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+*@                      
+                        <table cellpadding="0" cellspacing="0">
+                            <tr id="DayClosing">
+                                <td>
+                                    <a href="../SalesMonitoring/SummaryForTheDayClosing" target="_blank"><strong>Day(Open/Close)</strong></a>
+                                </td>
+                            </tr>
+                        </table>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table> 
+}
+<br />
+@if (objLocationNEmployeeWiseDailyEntry != null)
+{
+    <table class="hh12" width="100%" cellpadding="" cellspacing="0" border="0">
+        <tr>
+            <td class="salmonitoringHead2" width="25%" align="left">
+                Employee Wise Entry:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table id="hhh2" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="TitleSubHeaderStarting" width="25%">
+                            <u>Today's update: </u>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TitleSubHeaderStarting" width="25%">
+                            Target vs Achievement
+                        </td>
+                        <td class="TitleSubHeader" width="25%">
+                            Sales
+                        </td>
+                        <td class="TitleSubHeader" width="25%">
+                            Current Collection
+                        </td>
+                        <td class="TitleSubHeader" width="25%">
+                            Overdue Collection
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" width="25%" style="background-color: #DBD7D9">
+                            Current Month Sales Target
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblCurrentMonthSalesTarget">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_SalesCurrentMonthTarget != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.EMP_SalesCurrentMonthTarget).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblCurrentMonthCollectionTarget">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_RegColcCurrentMonthTarget != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.EMP_RegColcCurrentMonthTarget).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblCurrentMonthOverdueTarget">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_OverdueColcCurrentMonthTarget != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.EMP_OverdueColcCurrentMonthTarget).ToString("0.") : "0")
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" width="25%" style="background-color: #DBD7D9">
+                            Achievement upto Last Day
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementUptoTodaySales">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_SalesAchievementUptoLastDay != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.EMP_SalesAchievementUptoLastDay).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementUptoTodayCollection">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_RegColcAchievementUptoLastDay != null ?Convert.ToDecimal(objLocationNEmployeeWiseDailyEntry.EMP_RegColcAchievementUptoLastDay).ToString("0.") : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementUptoTodayOverdue">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_OverdueColcAchievementUptoLastDay != null ? objLocationNEmployeeWiseDailyEntry.EMP_OverdueColcAchievementUptoLastDay.ToString() : "0")
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" width="25%">
+                            Achievement Today
+                        </td>
+                        <td width="25%" align="left">
+                            @Html.TextBox("txtAchievementTodaySales", objLocationNEmployeeWiseDailyEntry.EMP_SalesAchievementToday != null ? Convert.ToDouble(objLocationNEmployeeWiseDailyEntry.EMP_SalesAchievementToday) : 0, new { @style = "text-align: right; width: 247px;" })
+                        </td>
+                        <td width="25%" align="left">
+                            @Html.TextBox("txtAchievementTodayCollection", objLocationNEmployeeWiseDailyEntry.EMP_RegColcAchievementToday != null ? Convert.ToDouble(objLocationNEmployeeWiseDailyEntry.EMP_RegColcAchievementToday) : 0, new { @style = "text-align: right; width: 247px;" })
+                        </td>
+                        <td width="25%" align="left">
+                            @Html.TextBox("txtAchievementTodayOverdue", objLocationNEmployeeWiseDailyEntry.EMP_OverdueColcAchievementToday != null ? Convert.ToDouble(objLocationNEmployeeWiseDailyEntry.EMP_OverdueColcAchievementToday) : 0, new { @style = "text-align: right; width: 247px;" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" width="25%" style="background-color: #DBD7D9">
+                            Achievement Status %
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementStatusSales">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_SalesAchievementStatus != null ? objLocationNEmployeeWiseDailyEntry.EMP_SalesAchievementStatus.ToString() : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementStatusCollection">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_RegColcAchievementStatus != null ? objLocationNEmployeeWiseDailyEntry.EMP_RegColcAchievementStatus.ToString() : "0")
+                            </p>
+                        </td>
+                        <td width="25%" style="background-color: #DBD7D9" align="right">
+                            <p id="lblAchievementStatusOverdue">
+                                @(objLocationNEmployeeWiseDailyEntry.EMP_OverdueColcAchievementStatus != null ? objLocationNEmployeeWiseDailyEntry.EMP_OverdueColcAchievementStatus.ToString() : "0")
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="height: 1px;">
+                        </td>
+                    </tr>
+                    @*<tr>
+                    <td colspan="4">
+                        <table width="100%">
+                            <tr>
+                                <td align="left" width="25%">
+                                    TA
+                                </td>
+                                <td width="25%">
+                                    @Html.TextBox("txtTA", objLocationNEmployeeWiseDailyEntry.EMP_TAToday != null ? Convert.ToInt32(objLocationNEmployeeWiseDailyEntry.EMP_TAToday) : 0, new { @style = "text-align: right; width: 247px;" })
+                                </td>
+                                <td width="25%">
+                                    @Html.DropDownList("ddlTA", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select Reason For TA--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == null ? true : false},
+                                        new SelectListItem{Text="Sales", Value="Sales", Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Sales" ? true : false},
+                                        new SelectListItem{Text="Collection", Value="Collection",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Collection" ? true : false},
+                                        new SelectListItem{Text="Servicing", Value="Servicing", Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Servicing" ? true : false},
+                                        new SelectListItem{Text="Bank", Value="Collection",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Bank" ? true : false},
+                                        new SelectListItem{Text="Others", Value="Others",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Others" ? true : false}
+                                   })
+                                </td>
+                                <td width="25%">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>                        
+                    </tr>*@
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="height: 2px;">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="TitleSubHeader" style="text-align: left" width="100%">
+                            Today's Activity
+                        </td>
+                    </tr>
+                    <tr>
+                    <td colspan="4">
+                        <table width="100%">
+                            <tr>
+                                <td align="left" width="25%">
+                                    TA
+                                </td>
+                                <td width="25%">
+                                    @Html.TextBox("txtTA", objLocationNEmployeeWiseDailyEntry.EMP_TAToday != null ? Convert.ToInt32(objLocationNEmployeeWiseDailyEntry.EMP_TAToday) : 0, new { @style = "text-align: right; width: 247px;" })
+                                </td>
+                                <td width="25%">
+                                    @Html.DropDownList("ddlTA", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select Reason For TA--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == null ? true : false},
+                                        new SelectListItem{Text="Sales", Value="Sales", Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Sales" ? true : false},
+                                        new SelectListItem{Text="Collection", Value="Collection",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Collection" ? true : false},
+                                        new SelectListItem{Text="Servicing", Value="Servicing", Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Servicing" ? true : false},
+                                        new SelectListItem{Text="Bank", Value="Collection",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Bank" ? true : false},
+                                        new SelectListItem{Text="Others", Value="Others",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTAToday == "Others" ? true : false}
+                                   })
+                                </td>
+                                <td width="25%">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>                        
+                    </tr>
+                    <tr>
+                        <td valign="top" width="100%">
+                            <table id="hh3" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="left" width="25%">
+                                        System Installation
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlSystemInstallation", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationToday == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Installment Collection
+                                    </td>
+                                    <td width="25%" class="DropDown" align="left">
+                                        @Html.DropDownList("ddlInstallmentCollection", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationToday == false ? true : false}
+                                        
+                               })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="height: 1px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="25%">
+                                        Customer visit for marketing
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlCustomerVisit", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_CustomerVisitForMarketingToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_CustomerVisitForMarketingToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_CustomerVisitForMarketingToday == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Meeting
+                                    </td>
+                                    <td width="25%" class="DropDown" align="left">
+                                        @Html.DropDownList("ddlMeeting", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_MeetingToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_MeetingToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_MeetingToday == false ? true : false}
+                                   })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="height: 1px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="25%">
+                                        Maintenance/ Servicing
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlMaintenance", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_MaintenanceServicingToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_MaintenanceServicingToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_MaintenanceServicingToday == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Leave
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlLeave", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_WasInLeaveToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_WasInLeaveToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_WasInLeaveToday == false ? true : false}
+                                   })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="height: 1px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="25%">
+                                        Bank Operation %
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlBankOperation", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_BankOperationToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_BankOperationToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_BankOperationToday == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Desk Works
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlDeskWork", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_DeskWorksToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_DeskWorksToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_DeskWorksToday == false ? true : false}
+                                   })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="height: 1px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="25%">
+                                        Official visit to other location
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlOfficialVisit", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_OfficialVisitToOtherUnitToday == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_OfficialVisitToOtherUnitToday == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_OfficialVisitToOtherUnitToday == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Remarks
+                                    </td>
+                                    <td width="25%">
+                                        @Html.TextBox("txtRemarks", objLocationNEmployeeWiseDailyEntry.EMP_RemarksToday != null ? objLocationNEmployeeWiseDailyEntry.EMP_RemarksToday : "", new { @style = "width: 247px;" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="TitleSubHeader" style="text-align: left" width="100%">
+                            Next Day Activity
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" width="100%">
+                            <table id="hh4" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                
+                                @*<tr>
+                                    <td align="left" width="25%">
+                                        TA
+                                    </td>
+                                    <td width="25%">
+                                        @Html.TextBox("txtTAForNextDay", objLocationNEmployeeWiseDailyEntry.EMP_TATomorrow != null ? Convert.ToInt32(objLocationNEmployeeWiseDailyEntry.EMP_TATomorrow) : 0, new { @style = "text-align: right; width: 247px;" })
+                                    </td>
+                                    <td width="25%">
+                                        @Html.DropDownList("ddlTAReasonForNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select Reason For TA--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTATomorrow == null ? true : false},
+                                        new SelectListItem{Text="Sales", Value="Sales", Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTATomorrow == "Sales" ? true : false},
+                                        new SelectListItem{Text="Collection", Value="Collection",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTATomorrow == "Collection" ? true : false},
+                                        new SelectListItem{Text="Servicing", Value="Servicing", Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTATomorrow == "Servicing" ? true : false},
+                                        new SelectListItem{Text="Bank", Value="Collection",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTATomorrow == "Bank" ? true : false},
+                                        new SelectListItem{Text="Others", Value="Others",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_ReasonForTATomorrow == "Others" ? true : false}
+                                    })
+                                    </td>
+                                    <td width="25%">
+                                    </td>
+                                </tr>*@
+                                <tr>
+                                    <td align="left" width="25%">
+                                        System Installation
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlSystemInstallationNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_SystemInstallationTomorrow == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Installment Collection
+                                    </td>
+                                    <td width="25%" class="DropDown" align="left">
+                                        @Html.DropDownList("ddlInstallmentCollectionNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_InstallmentCollectionTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_InstallmentCollectionTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_InstallmentCollectionTomorrow == false ? true : false}
+                                        
+                               })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="height: 1px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="25%">
+                                        Customer visit for marketing
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlCustomerVisitNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_CustomerVisitForMarketingTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_CustomerVisitForMarketingTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_CustomerVisitForMarketingTomorrow == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Meeting
+                                    </td>
+                                    <td width="25%" class="DropDown" align="left">
+                                        @Html.DropDownList("ddlMeetingNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_MeetingTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_MeetingTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_MeetingTomorrow == false ? true : false}
+                                   })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="height: 1px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="25%">
+                                        Maintenance / Servicing
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlMaintenanceNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_MaintenanceServicingTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_MaintenanceServicingTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_MaintenanceServicingTomorrow == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Leave
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlLeaveNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_WillBeInLeaveTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_WillBeInLeaveTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_WillBeInLeaveTomorrow == false ? true : false}
+                                   })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="height: 1px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="25%">
+                                        Bank Operation %
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlBankOperationNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_BankOperationTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_BankOperationTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_BankOperationTomorrow == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Desk Works
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlDeskWorkNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_DeskWorksTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_DeskWorksTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_DeskWorksTomorrow == false ? true : false}
+                                   })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="height: 1px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="25%">
+                                        Official visit to other location
+                                    </td>
+                                    <td width="25%" align="left">
+                                        @Html.DropDownList("ddlOfficialVisitNextDay", new List<SelectListItem>{
+                               
+                                        new SelectListItem{Text="--Select--",Value="" , Selected= objLocationNEmployeeWiseDailyEntry.EMP_OfficialVisitToOtherUnitTomorrow == null ? true : false},
+                                        new SelectListItem{Text="Yes", Value="1", Selected= objLocationNEmployeeWiseDailyEntry.EMP_OfficialVisitToOtherUnitTomorrow == true ? true : false},
+                                        new SelectListItem{Text="No", Value="0",  Selected= objLocationNEmployeeWiseDailyEntry.EMP_OfficialVisitToOtherUnitTomorrow == false ? true : false}
+                                   })
+                                    </td>
+                                    <td align="left" width="25%">
+                                        Remarks
+                                    </td>
+                                    <td width="25%">
+                                        @Html.TextBox("txtRemarksNextDay", objLocationNEmployeeWiseDailyEntry.EMP_RemarksTomorrow != null ? objLocationNEmployeeWiseDailyEntry.EMP_RemarksTomorrow : "", new { @style = "width: 247px;" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>   
+}
+@if (objLocationNEmployeeWiseDailyEntry != null)
+{   
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td width="25%">
+                &nbsp;
+            </td>
+            <td width="25%">
+                &nbsp;
+            </td>
+            <td width="25%">
+                &nbsp;
+            </td>
+            <td width="25%" align="right">
+                <input id="btnSaveEmployee" type="submit" value="Save" @((string)ViewBag.EnableDisable) onclick="return SalesMonitoringValidation();" />
+            </td>
+        </tr>
+    </table>   
+    
+}
+</form>
+<script type="text/javascript">
+   
+    if ($('#hfMEmployee').val() != $('#ddlEmployee').val()) {
+
+        $('#DayClosing').css('display', 'none');
+    }
+    else {
+        $('#DayClosing').css('display', '')
+    }
+    
+
+    $('#txtAchievementTodaySales').attr('disabled', true);
+
+    function SalesMonitoringValidation() {
+        var taAmount = $('#txtTA').val();
+        var taAmountNextDay = 0;
+        //$('#txtTAForNextDay').val();
+
+        var TAReason = $('#ddlTA').val();
+        var TAReasonNextDay = $('#ddlTAForNextDay').val();
+
+        var Leave = $('#ddlLeave').val();
+        var leaveNextDay = $('#ddlLeave').val();
+
+        if (parseInt(taAmount) >= 1) {
+
+            if ((TAReason).toString() == "") {
+                alert("Please Select Reason For TA ");
+                return false;
+            }
+        }
+
+        if ((TAReason).toString() != "") {
+            if (parseInt(taAmount) <= 1) {
+                alert("Please Enter TA Amount For This Selected Reason For TA");
+                return false;
+            }
+        }
+
+        if (parseInt(taAmount) < 0 || taAmount == "") {
+            alert("Negative/Empty Value Is Not Supported For TA");
+            return false;
+        }
+        else if (parseInt($('#txtAchievementTodaySales').val()) > 5) {
+            alert("Achievement Today's Sales Cannot Be Greater Than (5). Please Check.");
+            return false;
+         }
+        else if (parseInt($('#txtAchievementTodaySales').val()) < 0 || $('#txtAchievementTodaySales').val() == "") {
+            alert("Negative/Empty Value Is Not Supported For Achievement Sales");
+            return false;
+        }
+        else if (parseInt($('#txtAchievementTodayCollection').val()) < 0 || $('#txtAchievementTodayCollection').val() == "") {
+            alert("Negative/Empty Value Is Not Supported For Achievement Collection");
+            return false;
+        }
+        else if (parseInt($('#txtAchievementTodayOverdue').val()) < 0 || $('#txtAchievementTodayOverdue').val() == "") {
+            alert("Negative/Empty Value Is Not Supported For Achievement Overdue");
+            return false;
+        }
+        else if (parseInt($('#txtSystemReturn').val()) < 0 || $('#txtSystemReturn').val() == "") {
+            alert("Negative/Empty Value Is Not Supported For System Return");
+            return false;
+        }
+        else if (parseInt($('#txtCustomerTraining').val()) < 0 || $('#txtCustomerTraining').val() == "") {
+            alert("Negative/Empty Value Is Not Supported For Customer Training");
+            return false;
+        }
+        else if (parseInt($('#txtRSFBatterySales').val()) < 0 || $('#txtRSFBatterySales').val() == "") {
+            alert("Negative/Empty Value Is Not Supported For RSF Battery Sales");
+            return false;
+        }
+        else if (parseInt($('#txtSystemReSale').val()) < 0 || $('#txtSystemReSale').val() == "") {
+            alert("Negative/Empty Value Is Not Supported For System ReSale");
+            return false;
+        }
+        else if (parseInt($('#txtBioGasSale').val()) < 0 || $('#txtBioGasSale').val() == "") {
+            alert("Negative/Empty Value Is Not Supported For BioGas Sale");
+            return false;
+        }
+
+        if (Leave == true) {
+
+            var SystemInstallation = $('#ddlSystemInstallation').val();
+            var SystemInstallationNextDay = $('#ddlSystemInstallationNextDay').val();
+                        
+            var CustomerVisit = $('#ddlCustomerVisit').val();
+            var CustomerVisitNextDay = $('#ddlCustomerVisitNextDay').val();
+
+            var Maintenance = $('#ddlMaintenance').val();
+            var MaintenanceNextDay = $('#ddlMaintenanceNextDay').val();
+
+            var BankOperation = $('#ddlBankOperation').val();
+            var BankOperationNextDay = $('#ddlBankOperationNextDay').val();
+
+            var OfficialVisit = $('#ddlOfficialVisit').val();
+            var OfficialVisitNextDay = $('#ddlOfficialVisitNextDay').val();
+
+            var Meeting = $('#ddlMeeting').val();
+            var MeetingNextDay = $('#ddlMeetingNextDay').val();
+
+            var InstallmentCollection = $('#ddlInstallmentCollection').val();
+            var InstallmentCollectionNextDay = $('#ddlInstallmentCollectionNextDay').val();
+            
+            var Leave = $('#ddlLeave').val();
+            var LeaveNextDay = $('#ddlLeaveNextDay').val();
+
+
+            var DeskWork = $('#ddlDeskWork').val();
+            var DeskWorkNextDay = $('#ddlDeskWorkNextDay').val();
+
+            var Remarks = $('#txtRemarks').val();
+            var RemarksNextDay = $('#txtRemarksNextDay').val();
+
+            if (SystemInstallation != "") {
+                alert("Invalid Data For Leave Entry. Please check..");
+                return false;
+            }
+            else if (CustomerVisit != "") {
+                alert("Invalid Data For Leave Entry. Please check..");
+                return false;
+            }
+            else if (Maintenance != "") {
+                alert("Invalid Data For Leave Entry. Please check..");
+                return false;
+            }
+            else if (BankOperation != "") {
+                alert("Invalid Data For Leave Entry. Please check..");
+                return false;
+            }
+            else if (OfficialVisit != "") {
+                alert("Invalid Data For Leave Entry. Please check..");
+                return false;
+            }
+            else if (Meeting != "") {
+                alert("Invalid Data For Leave Entry. Please check..");
+                return false;
+            }
+            else if (InstallmentCollection != "") {
+                alert("Invalid Data For Leave Entry. Please check..");
+                return false;
+            }
+            else if (DeskWork != "") {
+                alert("Invalid Data For Leave Entry. Please check..");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    if ($('#hfMEmployee').val() != "0") {
+
+        var vs = $('#hfMEmployee').val();
+
+        if ($('#ddlEmployee').val() == vs) {
+            $('#txtSystemReturn').attr('disabled', false);
+            $('#txtSystemReSale').attr('disabled', false);
+            $('#txtCustomerTraining').attr('disabled', false);
+            $('#txtBioGasSale').attr('disabled', false);
+            $('#txtRSFBatterySales').attr('disabled', false);
+            $('#txtAchievementTodayCollection').attr('disabled', false);
+            $('#txtAchievementTodayOverdue').attr('disabled', false);
+        }
+        else {
+            $('#txtSystemReturn').attr('disabled', true);
+            $('#txtSystemReSale').attr('disabled', true);
+            $('#txtCustomerTraining').attr('disabled', true);
+            $('#txtBioGasSale').attr('disabled', true);
+            $('#txtRSFBatterySales').attr('disabled', true);
+            $('#txtAchievementTodayCollection').attr('disabled', true);
+            $('#txtAchievementTodayOverdue').attr('disabled', true);
+        }
+    }
+    else {
+        alert("No Manager is Found");
+    }
+
+    if ($('#IsEmployeeWiseTargetSettingCompleted').text() != "") {
+
+        $('#btnSearchEmployee').attr('disabled', true);
+    }
+
+    $(document).ready(function () {
+
+        $('#ddlEmployee').change(function () {
+
+            var vs = $('#hfMEmployee').val();
+            ClearControlData();
+
+            if (vs != $('#ddlEmployee').val()) {
+                DisableControl();
+            }
+
+            if ($('#hfMEmployee').val() != $('#ddlEmployee').val()) {
+
+                $('#DayClosing').css('display', 'none');
+            }
+            else {
+                $('#DayClosing').css('display', '')
+            }
+        });
+
+        $('#form1').submit(function () {
+
+            $('#hfEmployeeID').val = $('#ddlEmployee').val();
+            var EmployeeID = $('#ddlEmployee').val();
+            var SystemInstallation = $('#ddlSystemInstallation').val();
+            var CustomerVisit = $('#ddlCustomerVisit').val();
+            var Maintenance = $('#ddlMaintenance').val();
+            var BankOperation = $('#ddlBankOperation').val();
+            var OfficialVisit = $('#ddlOfficialVisit').val();
+            var Meeting = $('#ddlMeeting').val();
+            var TAAmount = $('#txtTA').val();
+            var TAReason = $('#ddlTA').val();
+
+            var InstallmentCollection = $('#ddlInstallmentCollection').val();
+            var Leave = $('#ddlLeave').val();
+            var DeskWork = $('#ddlDeskWork').val();
+            var Remarks = $('#txtRemarks').val();
+            var DataEntryinERP = $('#ddlDataEntryinERP').val();
+            var SystemReturn = $('#txtSystemReturn').val();
+            var SystemReSale = $('#txtSystemReSale').val();
+            var CustomerTraining = $('#txtCustomerTraining').val();
+            var BioGasSale = $('#txtBioGasSale').val();
+            var RSFBatterySales = $('#txtRSFBatterySales').val();
+            var hfCountEmployee = $('#hfCountEmployee').val();
+            var TransactionDate = $('#lblTransactionDate').text();
+
+            //------------
+            var SystemInstallationNextDay = $('#ddlSystemInstallationNextDay').val();
+            var CustomerVisitNextDay = $('#ddlCustomerVisitNextDay').val();
+            var MaintenanceNextDay = $('#ddlMaintenanceNextDay').val();
+            var BankOperationNextDay = $('#ddlBankOperationNextDay').val();
+            var OfficialVisitNextDay = $('#ddlOfficialVisitNextDay').val();
+            var MeetingNextDay = $('#ddlMeetingNextDay').val();
+            var InstallmentCollectionNextDay = $('#ddlInstallmentCollectionNextDay').val();
+            var LeaveNextDay = $('#ddlLeaveNextDay').val();
+            var DeskWorkNextDay = $('#ddlDeskWorkNextDay').val();
+            var RemarksNextDay = $('#txtRemarksNextDay').val();
+            var taAmountNextDay = 0;
+            var taReasonNextDay = "";
+            //var taAmountNextDay = $('#txtTAForNextDay').val();
+
+            //var taReasonNextDay = $('#ddlTAReasonForNextDay').val();
+
+            $.post('@Url.Action("SaveSalesMonitoringEntry", "SalesMonitoring")', { EmployeeID: $('#ddlEmployee').val(), AchievementTodaySales: $('#txtAchievementTodaySales').val(),
+                AchievementTodayCollection: $('#txtAchievementTodayCollection').val(), AchievementTodayOverdue: $('#txtAchievementTodayOverdue').val(), SystemInstallation: SystemInstallation,
+                CustomerVisit: CustomerVisit, Maintenance: Maintenance, BankOperation: BankOperation, OfficialVisit: OfficialVisit, Meeting: Meeting, TAAmount: TAAmount, Leave: Leave,
+                DeskWork: DeskWork, Remarks: Remarks, DataEntryinERP: DataEntryinERP, SystemReturn: SystemReturn, SystemReSale: SystemReSale, CustomerTraining: CustomerTraining, BioGasSale: BioGasSale,
+                RSFBatterySales: RSFBatterySales, TransactionDate: TransactionDate, TAReason: TAReason, InstallmentCollection: InstallmentCollection, hfCountEmployee: hfCountEmployee,
+
+                SystemInstallationNextDay: SystemInstallationNextDay, CustomerVisitNextDay: CustomerVisitNextDay, MaintenanceNextDay: MaintenanceNextDay, BankOperationNextDay: BankOperationNextDay,
+                OfficialVisitNextDay: OfficialVisitNextDay, MeetingNextDay: MeetingNextDay, InstallmentCollectionNextDay: InstallmentCollectionNextDay, LeaveNextDay: LeaveNextDay, DeskWorkNextDay: DeskWorkNextDay,
+                RemarksNextDay: RemarksNextDay, taAmountNextDay: taAmountNextDay, taReasonNextDay: taReasonNextDay
+
+
+            }, function (data) {
+
+                alert(data)
+                ClearControlData();
+            });
+            return false;
+
+        });
+    });
+
+    function ClearControlData() {
+
+        $('#txtSystemReturn').val("0");
+        $('#txtCustomerTraining').val("0");
+        $('#txtRSFBatterySales').val("0");
+        $('#txtSystemReSale').val("0");
+        $('#txtBioGasSale').val("0");
+        $('#txtAchievementTodaySales').val("0");
+        $('#txtAchievementTodayCollection').val("0");
+        $('#txtAchievementTodayOverdue').val("0");
+        $('#txtTA').val("0");
+        $('#txtTAForNextDay').val("0");
+        $('#ddlTA').val("");
+        $('#ddlTAReasonForNextDay').val("");
+
+        $('#ddlSystemInstallation').val("");
+        $('#ddlSystemInstallationNextDay').val("");
+
+        $('#ddlCustomerVisit').val("");
+        $('#ddlCustomerVisitNextDay').val("");
+
+        $('#ddlMaintenance').val("");
+        $('#ddlMaintenanceNextDay').val("");
+
+        $('#ddlBankOperation').val("");
+        $('#ddlBankOperationNextDay').val("");
+
+        $('#ddlOfficialVisit').val("");
+        $('#ddlOfficialVisitNextDay').val("");
+
+        $('#ddlInstallmentCollection').val("");
+        $('#ddlInstallmentCollectionNextDay').val("");
+
+        $('#ddlMeeting').val("");
+        $('#ddlMeetingNextDay').val("");
+
+        $('#ddlLeave').val("");
+        $('#ddlLeaveNextDay').val("");
+
+        $('#ddlDeskWork').val("");
+        $('#ddlDeskWorkNextDay').val("");
+
+        $('#txtRemarks').val("");
+        $('#txtRemarksNextDay').val("");
+
+        $('#checkBox').attr("checked", false);
+
+        $('#lblCurrentMonthSalesTargetUnit').text("0");
+        $('#lblAchievementUptoTodaySalesUnit').text("0");
+        $('#lblAchievementTodaySalesUnit').text("0");
+        $('#lblAchievementStatusSalesUnit').text("0%");
+        $('#lblCurrentMonthCollectionTargetUnit').text("0");
+        $('#lblAchievementUptoTodayCollectionUnit').text("0");
+        $('#lblAchievementTodayCollectionUnit').text("0");
+        $('#lblAchievementStatusCollectionUnit').text("0%");
+        $('#lblCurrentMonthOverdueTargetUnit').text("0");
+        $('#lblAchievementUptoTodayOverdueUnit').text("0");
+        $('#lblAchievementTodayOverdueUnit').text("0");
+        $('#lblAchievementStatusOverdueUnit').text("0%");
+        $('#lblCurrentMonthSalesTarget').text("0");
+        $('#lblAchievementUptoTodaySales').text("0");
+        $('#lblAchievementStatusSales').text("0%");
+        $('#lblCurrentMonthCollectionTarget').text("0");
+        $('#lblAchievementUptoTodayCollection').text("0");
+        $('#lblAchievementStatusCollection').text("0%");
+        $('#lblCurrentMonthOverdueTarget').text("0");
+        $('#lblAchievementUptoTodayOverdue').text("0");
+        $('#lblAchievementStatusOverdue').text("0%");
+
+    }
+
+    function DisableControl() {
+
+        $('#txtSystemReturn').attr('disabled', true);
+        $('#txtSystemReSale').attr('disabled', true);
+        $('#txtCustomerTraining').attr('disabled', true);
+        $('#txtBioGasSale').attr('disabled', true);
+        $('#txtRSFBatterySales').attr('disabled', true);
+        $('#checkBox').attr('disabled', true);
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+
+</script>

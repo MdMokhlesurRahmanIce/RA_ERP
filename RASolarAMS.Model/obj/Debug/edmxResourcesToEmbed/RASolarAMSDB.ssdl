@@ -1,0 +1,714 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RASolarAMSModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="RASolarAMSModelStoreContainer">
+    <EntitySet Name="Acc_ChartOfAccounts" EntityType="RASolarAMSModel.Store.Acc_ChartOfAccounts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_FinalTransDetail" EntityType="RASolarAMSModel.Store.Acc_FinalTransDetail" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_FinalTransMaster" EntityType="RASolarAMSModel.Store.Acc_FinalTransMaster" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_FiscalYearInfo" EntityType="RASolarAMSModel.Store.Acc_FiscalYearInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_GLAccountVsDimension" EntityType="RASolarAMSModel.Store.Acc_GLAccountVsDimension" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_LocationWiseDailySummary" EntityType="RASolarAMSModel.Store.Acc_LocationWiseDailySummary" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_MonthlyCashReceiptPaymentTransaction" EntityType="RASolarAMSModel.Store.Acc_MonthlyCashReceiptPaymentTransaction" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_PrePostTransDetail" EntityType="RASolarAMSModel.Store.Acc_PrePostTransDetail" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_PrePostTransDetailByDimension" EntityType="RASolarAMSModel.Store.Acc_PrePostTransDetailByDimension" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_PrePostTransMaster" EntityType="RASolarAMSModel.Store.Acc_PrePostTransMaster" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_SpecialAccount" EntityType="RASolarAMSModel.Store.Acc_SpecialAccount" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Acc_TransNoCount" EntityType="RASolarAMSModel.Store.Acc_TransNoCount" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Aud_AuditAdjustmentRelatedAccountingTransaction" EntityType="RASolarAMSModel.Store.Aud_AuditAdjustmentRelatedAccountingTransaction" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Common_BankAccountType" EntityType="RASolarAMSModel.Store.Common_BankAccountType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Common_BankBranchInfo" EntityType="RASolarAMSModel.Store.Common_BankBranchInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Common_BankInfo" EntityType="RASolarAMSModel.Store.Common_BankInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Common_LocationWiseBankAccountInfo" EntityType="RASolarAMSModel.Store.Common_LocationWiseBankAccountInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Common_ProjectInfo" EntityType="RASolarAMSModel.Store.Common_ProjectInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Hrm_SalaryPayRegisterByMonthNEmployee" EntityType="RASolarAMSModel.Store.Hrm_SalaryPayRegisterByMonthNEmployee" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Acc_FinalTransDetail_Acc_ChartOfAccounts" Association="RASolarAMSModel.Store.FK_Acc_FinalTransDetail_Acc_ChartOfAccounts">
+      <End Role="Acc_ChartOfAccounts" EntitySet="Acc_ChartOfAccounts" />
+      <End Role="Acc_FinalTransDetail" EntitySet="Acc_FinalTransDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_FinalTransMaster_tbl_Project" Association="RASolarAMSModel.Store.FK_Acc_FinalTransMaster_tbl_Project">
+      <End Role="Common_ProjectInfo" EntitySet="Common_ProjectInfo" />
+      <End Role="Acc_FinalTransMaster" EntitySet="Acc_FinalTransMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_GLAccountVsDimension_Acc_ChartOfAccounts" Association="RASolarAMSModel.Store.FK_Acc_GLAccountVsDimension_Acc_ChartOfAccounts">
+      <End Role="Acc_ChartOfAccounts" EntitySet="Acc_ChartOfAccounts" />
+      <End Role="Acc_GLAccountVsDimension" EntitySet="Acc_GLAccountVsDimension" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_LocationWiseDailySummary_Acc_ChartOfAccounts" Association="RASolarAMSModel.Store.FK_Acc_LocationWiseDailySummary_Acc_ChartOfAccounts">
+      <End Role="Acc_ChartOfAccounts" EntitySet="Acc_ChartOfAccounts" />
+      <End Role="Acc_LocationWiseDailySummary" EntitySet="Acc_LocationWiseDailySummary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_LocationWiseDailySummary_tbl_Project" Association="RASolarAMSModel.Store.FK_Acc_LocationWiseDailySummary_tbl_Project">
+      <End Role="Common_ProjectInfo" EntitySet="Common_ProjectInfo" />
+      <End Role="Acc_LocationWiseDailySummary" EntitySet="Acc_LocationWiseDailySummary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_PrePostTransDetail_Acc_ChartOfAccounts" Association="RASolarAMSModel.Store.FK_Acc_PrePostTransDetail_Acc_ChartOfAccounts">
+      <End Role="Acc_ChartOfAccounts" EntitySet="Acc_ChartOfAccounts" />
+      <End Role="Acc_PrePostTransDetail" EntitySet="Acc_PrePostTransDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_PrePostTransDetail_Acc_PrePostTransMaster1" Association="RASolarAMSModel.Store.FK_Acc_PrePostTransDetail_Acc_PrePostTransMaster1">
+      <End Role="Acc_PrePostTransMaster" EntitySet="Acc_PrePostTransMaster" />
+      <End Role="Acc_PrePostTransDetail" EntitySet="Acc_PrePostTransDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_PrePostTransDetailByDimension_Acc_GLAccountVsDimension" Association="RASolarAMSModel.Store.FK_Acc_PrePostTransDetailByDimension_Acc_GLAccountVsDimension">
+      <End Role="Acc_GLAccountVsDimension" EntitySet="Acc_GLAccountVsDimension" />
+      <End Role="Acc_PrePostTransDetailByDimension" EntitySet="Acc_PrePostTransDetailByDimension" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_PrePostTransDetailByDimension_Acc_PrePostTransDetail" Association="RASolarAMSModel.Store.FK_Acc_PrePostTransDetailByDimension_Acc_PrePostTransDetail">
+      <End Role="Acc_PrePostTransDetail" EntitySet="Acc_PrePostTransDetail" />
+      <End Role="Acc_PrePostTransDetailByDimension" EntitySet="Acc_PrePostTransDetailByDimension" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acc_SpecialAccount_Acc_ChartOfAccounts" Association="RASolarAMSModel.Store.FK_Acc_SpecialAccount_Acc_ChartOfAccounts">
+      <End Role="Acc_ChartOfAccounts" EntitySet="Acc_ChartOfAccounts" />
+      <End Role="Acc_SpecialAccount" EntitySet="Acc_SpecialAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Common_BankBranchInfo_Common_BankInfo" Association="RASolarAMSModel.Store.FK_Common_BankBranchInfo_Common_BankInfo">
+      <End Role="Common_BankInfo" EntitySet="Common_BankInfo" />
+      <End Role="Common_BankBranchInfo" EntitySet="Common_BankBranchInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Common_LocationWiseBankAccountInfo_Acc_ChartOfAccounts" Association="RASolarAMSModel.Store.FK_Common_LocationWiseBankAccountInfo_Acc_ChartOfAccounts">
+      <End Role="Acc_ChartOfAccounts" EntitySet="Acc_ChartOfAccounts" />
+      <End Role="Common_LocationWiseBankAccountInfo" EntitySet="Common_LocationWiseBankAccountInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Common_LocationWiseBankAccountInfo_Common_BankAccountType" Association="RASolarAMSModel.Store.FK_Common_LocationWiseBankAccountInfo_Common_BankAccountType">
+      <End Role="Common_BankAccountType" EntitySet="Common_BankAccountType" />
+      <End Role="Common_LocationWiseBankAccountInfo" EntitySet="Common_LocationWiseBankAccountInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Common_LocationWiseBankAccountInfo_Common_BankBranchInfo" Association="RASolarAMSModel.Store.FK_Common_LocationWiseBankAccountInfo_Common_BankBranchInfo">
+      <End Role="Common_BankBranchInfo" EntitySet="Common_BankBranchInfo" />
+      <End Role="Common_LocationWiseBankAccountInfo" EntitySet="Common_LocationWiseBankAccountInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Common_LocationWiseBankAccountInfo_Common_BankInfo" Association="RASolarAMSModel.Store.FK_Common_LocationWiseBankAccountInfo_Common_BankInfo">
+      <End Role="Common_BankInfo" EntitySet="Common_BankInfo" />
+      <End Role="Common_LocationWiseBankAccountInfo" EntitySet="Common_LocationWiseBankAccountInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_t_FinalTransDetail_t_FinalTransMaster" Association="RASolarAMSModel.Store.FK_t_FinalTransDetail_t_FinalTransMaster">
+      <End Role="Acc_FinalTransMaster" EntitySet="Acc_FinalTransMaster" />
+      <End Role="Acc_FinalTransDetail" EntitySet="Acc_FinalTransDetail" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Acc_ChartOfAccounts">
+    <Key>
+      <PropertyRef Name="AccountNo" />
+    </Key>
+    <Property Name="AccountNo" Type="nchar" Nullable="false" MaxLength="9" />
+    <Property Name="AccountName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="AccountType" Type="nvarchar" Nullable="false" MaxLength="11" />
+    <Property Name="ParentAccountNo" Type="nchar" MaxLength="9" />
+    <Property Name="AccountLevel" Type="tinyint" Nullable="false" />
+    <Property Name="OnlyForLocation" Type="nchar" MaxLength="6" />
+    <Property Name="OnlyForProject" Type="nchar" MaxLength="6" />
+    <Property Name="OnlyForAutoEntry" Type="bit" />
+    <Property Name="IsValidForUnitOffice" Type="bit" />
+    <Property Name="IsValidForZonalOffice" Type="bit" />
+    <Property Name="IsValidForHeadOffice" Type="bit" />
+    <Property Name="ParCapSub" Type="char" Nullable="false" MaxLength="1" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="EntryTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Acc_FinalTransDetail">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="TransDate" />
+      <PropertyRef Name="ProjectCode" />
+      <PropertyRef Name="TransNo" />
+      <PropertyRef Name="SerialNo" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransDate" Type="date" Nullable="false" />
+    <Property Name="ProjectCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransNo" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="SerialNo" Type="int" Nullable="false" />
+    <Property Name="AccountNo" Type="nchar" Nullable="false" MaxLength="9" />
+    <Property Name="Particulars" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Amount" Type="money" Nullable="false" />
+    <Property Name="RefEntrySource" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Acc_FinalTransMaster">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="TransDate" />
+      <PropertyRef Name="ProjectCode" />
+      <PropertyRef Name="TransNo" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransDate" Type="date" Nullable="false" />
+    <Property Name="ProjectCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransNo" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="GenParticulars" Type="nvarchar" MaxLength="100" />
+    <Property Name="CBVoucher" Type="bit" Nullable="false" />
+    <Property Name="CBVType" Type="nchar" MaxLength="1" />
+    <Property Name="IsAutoEntry" Type="bit" Nullable="false" />
+    <Property Name="EntrySource" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="EntryIdentFlag" Type="nvarchar" MaxLength="20" />
+    <Property Name="ReversalTransNo" Type="nchar" MaxLength="10" />
+    <Property Name="ReversalOrOriginalFlag" Type="nchar" MaxLength="1" />
+    <Property Name="RefDocType" Type="nvarchar" MaxLength="20" />
+    <Property Name="RefDocNo" Type="nchar" MaxLength="12" />
+    <Property Name="RefMRRSeqNo" Type="nchar" MaxLength="9" />
+    <Property Name="RefChallanSeqNo" Type="nchar" MaxLength="9" />
+    <Property Name="RefSPSSeqNo" Type="nchar" MaxLength="9" />
+    <Property Name="RefCustomerCode" Type="nchar" MaxLength="9" />
+    <Property Name="RefVendorID" Type="nchar" MaxLength="9" />
+    <Property Name="RefEmployeeID" Type="nchar" MaxLength="8" />
+    <Property Name="SenderOrReceiverFlag" Type="nchar" MaxLength="1" />
+    <Property Name="SenderOrReceiverLocationCode" Type="nchar" MaxLength="6" />
+    <Property Name="SenderOrReceiverTransNo" Type="nchar" MaxLength="10" />
+    <Property Name="RefEntryNo" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="EntryTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Acc_FiscalYearInfo">
+    <Key>
+      <PropertyRef Name="FYID" />
+    </Key>
+    <Property Name="FYID" Type="nchar" Nullable="false" MaxLength="9" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="EndDate" Type="date" Nullable="false" />
+    <Property Name="ActualMaxClosingTransDate" Type="date" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="EntryTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Acc_GLAccountVsDimension">
+    <Key>
+      <PropertyRef Name="AccountNo" />
+      <PropertyRef Name="DimensionCode" />
+    </Key>
+    <Property Name="AccountNo" Type="nchar" Nullable="false" MaxLength="9" />
+    <Property Name="DimensionCode" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="IsTheDimensionMandatory" Type="bit" Nullable="false" />
+    <Property Name="IsItTheDefaultDimension" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Acc_LocationWiseDailySummary">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="TransDate" />
+      <PropertyRef Name="ProjectCode" />
+      <PropertyRef Name="AccountNo" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransDate" Type="date" Nullable="false" />
+    <Property Name="ProjectCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="AccountNo" Type="nchar" Nullable="false" MaxLength="9" />
+    <Property Name="Amount" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Acc_MonthlyCashReceiptPaymentTransaction">
+    <Key>
+      <PropertyRef Name="YearMonth" />
+      <PropertyRef Name="LocationCode" />
+    </Key>
+    <Property Name="YearMonth" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="Received_SHSMainProject" Type="money" Nullable="false" />
+    <Property Name="Received_SHSIDCOLProject" Type="money" />
+    <Property Name="Received_SparePartsSalesForSHS" Type="money" />
+    <Property Name="Received_BioGas" Type="money" />
+    <Property Name="Received_TechnicalFeeForBioGas" Type="money" />
+    <Property Name="Received_SparePartsSalesForBioGas" Type="money" />
+    <Property Name="Received_SecurityDepositFromJTC" Type="money" />
+    <Property Name="Received_BandhuBatti" Type="money" />
+    <Property Name="Received_FromSubletRent" Type="money" />
+    <Property Name="Received_DRFAgreement" Type="money" />
+    <Property Name="Received_InstantRelease" Type="money" />
+    <Property Name="Received_AuditClaim" Type="money" />
+    <Property Name="Received_AuditClaimRemarks" Type="nvarchar" MaxLength="50" />
+    <Property Name="Received_FromOtherUnit" Type="money" />
+    <Property Name="Payment_BankDeposit" Type="money" />
+    <Property Name="Payment_OnlineTransfer" Type="money" />
+    <Property Name="Payment_MonthlyExpenses" Type="money" />
+    <Property Name="Payment_ToCustomerForSystemReturn" Type="money" />
+    <Property Name="Payment_ExpensesForBioGasConstruction" Type="money" />
+    <Property Name="Payment_AdvanceForBioGasConstruction" Type="money" />
+    <Property Name="Payment_ToOtherUnit" Type="money" />
+    <Property Name="Payment_CashShortageAndAuditClaimReceivable" Type="money" />
+    <Property Name="Payment_AdvanceOfficeRent" Type="money" Nullable="false" />
+    <Property Name="CheckedNFinalizedByUM" Type="datetime" />
+    <Property Name="FinalizedByUM_UserName" Type="nvarchar" MaxLength="20" />
+    <Property Name="CheckedNFinalizedByAM" Type="datetime" />
+    <Property Name="FinalizedByAM_UserName" Type="nvarchar" MaxLength="20" />
+    <Property Name="CheckedNFinalizedByHO" Type="datetime" />
+    <Property Name="FinalizedByHO_UserName" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Acc_PrePostTransDetail">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="TransDate" />
+      <PropertyRef Name="ProjectCode" />
+      <PropertyRef Name="TransNo" />
+      <PropertyRef Name="SerialNo" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransDate" Type="date" Nullable="false" />
+    <Property Name="ProjectCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransNo" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="SerialNo" Type="int" Nullable="false" />
+    <Property Name="AccountNo" Type="nchar" Nullable="false" MaxLength="9" />
+    <Property Name="Particulars" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Amount" Type="money" Nullable="false" />
+    <Property Name="TransProjectCode" Type="nchar" MaxLength="6" />
+    <Property Name="TransLocationCode" Type="nchar" MaxLength="6" />
+    <Property Name="RefEntrySource" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Acc_PrePostTransDetailByDimension">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="TransDate" />
+      <PropertyRef Name="ProjectCode" />
+      <PropertyRef Name="TransNo" />
+      <PropertyRef Name="SerialNo" />
+      <PropertyRef Name="DimensionCode" />
+      <PropertyRef Name="DimensionValueID" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransDate" Type="date" Nullable="false" />
+    <Property Name="ProjectCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransNo" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="SerialNo" Type="int" Nullable="false" />
+    <Property Name="DimensionCode" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="DimensionValueID" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Amount" Type="money" Nullable="false" />
+    <Property Name="RefAccountNo" Type="nchar" Nullable="false" MaxLength="9" />
+  </EntityType>
+  <EntityType Name="Acc_PrePostTransMaster">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="TransDate" />
+      <PropertyRef Name="ProjectCode" />
+      <PropertyRef Name="TransNo" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransDate" Type="date" Nullable="false" />
+    <Property Name="ProjectCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransNo" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="GenParticulars" Type="nvarchar" MaxLength="100" />
+    <Property Name="CBVoucher" Type="bit" Nullable="false" />
+    <Property Name="CBVType" Type="nchar" MaxLength="1" />
+    <Property Name="IsAutoEntry" Type="bit" Nullable="false" />
+    <Property Name="EntrySource" Type="nchar" MaxLength="10" />
+    <Property Name="EntryIdentFlag" Type="nvarchar" MaxLength="20" />
+    <Property Name="ReversalTransNo" Type="nchar" MaxLength="10" />
+    <Property Name="ReversalOrOriginalFlag" Type="nchar" MaxLength="1" />
+    <Property Name="RefDocType" Type="nvarchar" MaxLength="20" />
+    <Property Name="RefDocNo" Type="nchar" MaxLength="12" />
+    <Property Name="RefMRRSeqNo" Type="nchar" MaxLength="9" />
+    <Property Name="RefChallanSeqNo" Type="nchar" MaxLength="9" />
+    <Property Name="RefSPSSeqNo" Type="nchar" MaxLength="9" />
+    <Property Name="RefCustomerCode" Type="nchar" MaxLength="9" />
+    <Property Name="RefVendorID" Type="nchar" MaxLength="9" />
+    <Property Name="RefEmployeeID" Type="nchar" MaxLength="8" />
+    <Property Name="SenderOrReceiverFlag" Type="nchar" MaxLength="1" />
+    <Property Name="SenderOrReceiverLocationCode" Type="nchar" MaxLength="6" />
+    <Property Name="SenderOrReceiverTransNo" Type="nchar" MaxLength="10" />
+    <Property Name="UserID" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="EntryTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Acc_SpecialAccount">
+    <Key>
+      <PropertyRef Name="SAIID" />
+      <PropertyRef Name="AccountNo" />
+    </Key>
+    <Property Name="SAIID" Type="tinyint" Nullable="false" />
+    <Property Name="AccountNo" Type="nchar" Nullable="false" MaxLength="9" />
+  </EntityType>
+  <EntityType Name="Acc_TransNoCount">
+    <Key>
+      <PropertyRef Name="EntrySerial" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransDate" Type="date" Nullable="false" />
+    <Property Name="TransNo" Type="nchar" MaxLength="10" />
+    <Property Name="TransCount" Type="int" />
+    <Property Name="EntrySerial" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Aud_AuditAdjustmentRelatedAccountingTransaction">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="TransDate" />
+      <PropertyRef Name="ProjectCode" />
+      <PropertyRef Name="TransNo" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransDate" Type="date" Nullable="false" />
+    <Property Name="ProjectCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="TransNo" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="AuditSeqNo" Type="nchar" Nullable="false" MaxLength="9" />
+    <Property Name="ReasonCode" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="RefVoucherDate" Type="date" />
+    <Property Name="ResponsibleEmployeeID" Type="nchar" MaxLength="8" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Common_BankAccountType">
+    <Key>
+      <PropertyRef Name="BankAccountTypeID" />
+    </Key>
+    <Property Name="BankAccountTypeID" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="BATypeDescription" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="BATypeDescriptionInBangla" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Common_BankBranchInfo">
+    <Key>
+      <PropertyRef Name="BankID" />
+      <PropertyRef Name="BankBranchID" />
+    </Key>
+    <Property Name="BankID" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="BankBranchID" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="BankBranchName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="BankBranchNameInBangla" Type="nvarchar" MaxLength="50" />
+    <Property Name="LetterAddressTo" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LetterAddressToInBangla" Type="nvarchar" MaxLength="50" />
+    <Property Name="BankAddress1" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="BankAddress1InBangla" Type="nvarchar" MaxLength="50" />
+    <Property Name="BankAddress2" Type="nvarchar" MaxLength="50" />
+    <Property Name="BankAddress2InBangla" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsItAOnlineBranch" Type="bit" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Common_BankInfo">
+    <Key>
+      <PropertyRef Name="BankID" />
+    </Key>
+    <Property Name="BankID" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="BankName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsItAOnlineBank" Type="bit" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Common_LocationWiseBankAccountInfo">
+    <Key>
+      <PropertyRef Name="LocationCode" />
+      <PropertyRef Name="BankID" />
+      <PropertyRef Name="BankBranchID" />
+      <PropertyRef Name="BankAccountNumber" />
+    </Key>
+    <Property Name="LocationCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="BankID" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="BankBranchID" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="BankAccountNumber" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="BranchName" Type="nvarchar" MaxLength="50" />
+    <Property Name="BankAccountType" Type="nvarchar" MaxLength="10" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="AccountOpeningDate" Type="date" />
+    <Property Name="GLAccountNo" Type="nchar" MaxLength="9" />
+    <Property Name="Signatory1" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Signatory2" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Common_ProjectInfo">
+    <Key>
+      <PropertyRef Name="ProjectCode" />
+    </Key>
+    <Property Name="ProjectCode" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="ProjectName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Project_Status" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="Prog_Code" Type="nchar" MaxLength="6" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+    <Property Name="EntryTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Hrm_SalaryPayRegisterByMonthNEmployee">
+    <Key>
+      <PropertyRef Name="YearMonth" />
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="YearMonth" Type="nchar" Nullable="false" MaxLength="6" />
+    <Property Name="EmployeeID" Type="nchar" Nullable="false" MaxLength="8" />
+    <Property Name="SalaryLocationCode" Type="nchar" MaxLength="6" />
+    <Property Name="EmployeeLocationCode" Type="nchar" MaxLength="6" />
+    <Property Name="ModeOfSalaryPayment" Type="nchar" MaxLength="4" />
+    <Property Name="GrossAmount" Type="money" />
+    <Property Name="TotalAdditionAmount" Type="money" />
+    <Property Name="TotalDeductionAmount" Type="money" />
+    <Property Name="TotalTakeHomeAmount" Type="money" />
+    <Property Name="PayableSalaryOtherThanTADAAmount" Type="money" />
+    <Property Name="PayableTADAAmount" Type="money" />
+    <Property Name="PayableBonusAmount" Type="money" />
+    <Property Name="PayableTotalSalaryAmount" Type="money" />
+    <Property Name="PaidSalaryOtherThanTADAAmount" Type="money" />
+    <Property Name="PaidTADAAmount" Type="money" />
+    <Property Name="PaidBonusAmount" Type="money" />
+    <Property Name="PaidTotalSalaryAmount" Type="money" />
+    <Property Name="PaidInYearMonth" Type="nchar" MaxLength="6" />
+    <Property Name="PaidDate" Type="date" />
+    <Property Name="RefAELocationCode" Type="nchar" MaxLength="6" />
+    <Property Name="RefAETransDate" Type="date" />
+    <Property Name="RefAEProjectCode" Type="nchar" MaxLength="6" />
+    <Property Name="RefAETransNo" Type="nchar" MaxLength="10" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Acc_FinalTransDetail_Acc_ChartOfAccounts">
+    <End Role="Acc_ChartOfAccounts" Type="RASolarAMSModel.Store.Acc_ChartOfAccounts" Multiplicity="1" />
+    <End Role="Acc_FinalTransDetail" Type="RASolarAMSModel.Store.Acc_FinalTransDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_ChartOfAccounts">
+        <PropertyRef Name="AccountNo" />
+      </Principal>
+      <Dependent Role="Acc_FinalTransDetail">
+        <PropertyRef Name="AccountNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_FinalTransMaster_tbl_Project">
+    <End Role="Common_ProjectInfo" Type="RASolarAMSModel.Store.Common_ProjectInfo" Multiplicity="1" />
+    <End Role="Acc_FinalTransMaster" Type="RASolarAMSModel.Store.Acc_FinalTransMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_ProjectInfo">
+        <PropertyRef Name="ProjectCode" />
+      </Principal>
+      <Dependent Role="Acc_FinalTransMaster">
+        <PropertyRef Name="ProjectCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_GLAccountVsDimension_Acc_ChartOfAccounts">
+    <End Role="Acc_ChartOfAccounts" Type="RASolarAMSModel.Store.Acc_ChartOfAccounts" Multiplicity="1" />
+    <End Role="Acc_GLAccountVsDimension" Type="RASolarAMSModel.Store.Acc_GLAccountVsDimension" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_ChartOfAccounts">
+        <PropertyRef Name="AccountNo" />
+      </Principal>
+      <Dependent Role="Acc_GLAccountVsDimension">
+        <PropertyRef Name="AccountNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_LocationWiseDailySummary_Acc_ChartOfAccounts">
+    <End Role="Acc_ChartOfAccounts" Type="RASolarAMSModel.Store.Acc_ChartOfAccounts" Multiplicity="1" />
+    <End Role="Acc_LocationWiseDailySummary" Type="RASolarAMSModel.Store.Acc_LocationWiseDailySummary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_ChartOfAccounts">
+        <PropertyRef Name="AccountNo" />
+      </Principal>
+      <Dependent Role="Acc_LocationWiseDailySummary">
+        <PropertyRef Name="AccountNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_LocationWiseDailySummary_tbl_Project">
+    <End Role="Common_ProjectInfo" Type="RASolarAMSModel.Store.Common_ProjectInfo" Multiplicity="1" />
+    <End Role="Acc_LocationWiseDailySummary" Type="RASolarAMSModel.Store.Acc_LocationWiseDailySummary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_ProjectInfo">
+        <PropertyRef Name="ProjectCode" />
+      </Principal>
+      <Dependent Role="Acc_LocationWiseDailySummary">
+        <PropertyRef Name="ProjectCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_PrePostTransDetail_Acc_ChartOfAccounts">
+    <End Role="Acc_ChartOfAccounts" Type="RASolarAMSModel.Store.Acc_ChartOfAccounts" Multiplicity="1" />
+    <End Role="Acc_PrePostTransDetail" Type="RASolarAMSModel.Store.Acc_PrePostTransDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_ChartOfAccounts">
+        <PropertyRef Name="AccountNo" />
+      </Principal>
+      <Dependent Role="Acc_PrePostTransDetail">
+        <PropertyRef Name="AccountNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_PrePostTransDetail_Acc_PrePostTransMaster1">
+    <End Role="Acc_PrePostTransMaster" Type="RASolarAMSModel.Store.Acc_PrePostTransMaster" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Acc_PrePostTransDetail" Type="RASolarAMSModel.Store.Acc_PrePostTransDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_PrePostTransMaster">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="TransDate" />
+        <PropertyRef Name="ProjectCode" />
+        <PropertyRef Name="TransNo" />
+      </Principal>
+      <Dependent Role="Acc_PrePostTransDetail">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="TransDate" />
+        <PropertyRef Name="ProjectCode" />
+        <PropertyRef Name="TransNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_PrePostTransDetailByDimension_Acc_GLAccountVsDimension">
+    <End Role="Acc_GLAccountVsDimension" Type="RASolarAMSModel.Store.Acc_GLAccountVsDimension" Multiplicity="1" />
+    <End Role="Acc_PrePostTransDetailByDimension" Type="RASolarAMSModel.Store.Acc_PrePostTransDetailByDimension" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_GLAccountVsDimension">
+        <PropertyRef Name="AccountNo" />
+        <PropertyRef Name="DimensionCode" />
+      </Principal>
+      <Dependent Role="Acc_PrePostTransDetailByDimension">
+        <PropertyRef Name="RefAccountNo" />
+        <PropertyRef Name="DimensionCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_PrePostTransDetailByDimension_Acc_PrePostTransDetail">
+    <End Role="Acc_PrePostTransDetail" Type="RASolarAMSModel.Store.Acc_PrePostTransDetail" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Acc_PrePostTransDetailByDimension" Type="RASolarAMSModel.Store.Acc_PrePostTransDetailByDimension" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_PrePostTransDetail">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="TransDate" />
+        <PropertyRef Name="ProjectCode" />
+        <PropertyRef Name="TransNo" />
+        <PropertyRef Name="SerialNo" />
+      </Principal>
+      <Dependent Role="Acc_PrePostTransDetailByDimension">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="TransDate" />
+        <PropertyRef Name="ProjectCode" />
+        <PropertyRef Name="TransNo" />
+        <PropertyRef Name="SerialNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acc_SpecialAccount_Acc_ChartOfAccounts">
+    <End Role="Acc_ChartOfAccounts" Type="RASolarAMSModel.Store.Acc_ChartOfAccounts" Multiplicity="1" />
+    <End Role="Acc_SpecialAccount" Type="RASolarAMSModel.Store.Acc_SpecialAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_ChartOfAccounts">
+        <PropertyRef Name="AccountNo" />
+      </Principal>
+      <Dependent Role="Acc_SpecialAccount">
+        <PropertyRef Name="AccountNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Common_BankBranchInfo_Common_BankInfo">
+    <End Role="Common_BankInfo" Type="RASolarAMSModel.Store.Common_BankInfo" Multiplicity="1" />
+    <End Role="Common_BankBranchInfo" Type="RASolarAMSModel.Store.Common_BankBranchInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_BankInfo">
+        <PropertyRef Name="BankID" />
+      </Principal>
+      <Dependent Role="Common_BankBranchInfo">
+        <PropertyRef Name="BankID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Common_LocationWiseBankAccountInfo_Acc_ChartOfAccounts">
+    <End Role="Acc_ChartOfAccounts" Type="RASolarAMSModel.Store.Acc_ChartOfAccounts" Multiplicity="0..1" />
+    <End Role="Common_LocationWiseBankAccountInfo" Type="RASolarAMSModel.Store.Common_LocationWiseBankAccountInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_ChartOfAccounts">
+        <PropertyRef Name="AccountNo" />
+      </Principal>
+      <Dependent Role="Common_LocationWiseBankAccountInfo">
+        <PropertyRef Name="GLAccountNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Common_LocationWiseBankAccountInfo_Common_BankAccountType">
+    <End Role="Common_BankAccountType" Type="RASolarAMSModel.Store.Common_BankAccountType" Multiplicity="0..1" />
+    <End Role="Common_LocationWiseBankAccountInfo" Type="RASolarAMSModel.Store.Common_LocationWiseBankAccountInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_BankAccountType">
+        <PropertyRef Name="BankAccountTypeID" />
+      </Principal>
+      <Dependent Role="Common_LocationWiseBankAccountInfo">
+        <PropertyRef Name="BankAccountType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Common_LocationWiseBankAccountInfo_Common_BankBranchInfo">
+    <End Role="Common_BankBranchInfo" Type="RASolarAMSModel.Store.Common_BankBranchInfo" Multiplicity="1" />
+    <End Role="Common_LocationWiseBankAccountInfo" Type="RASolarAMSModel.Store.Common_LocationWiseBankAccountInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_BankBranchInfo">
+        <PropertyRef Name="BankID" />
+        <PropertyRef Name="BankBranchID" />
+      </Principal>
+      <Dependent Role="Common_LocationWiseBankAccountInfo">
+        <PropertyRef Name="BankID" />
+        <PropertyRef Name="BankBranchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Common_LocationWiseBankAccountInfo_Common_BankInfo">
+    <End Role="Common_BankInfo" Type="RASolarAMSModel.Store.Common_BankInfo" Multiplicity="1" />
+    <End Role="Common_LocationWiseBankAccountInfo" Type="RASolarAMSModel.Store.Common_LocationWiseBankAccountInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Common_BankInfo">
+        <PropertyRef Name="BankID" />
+      </Principal>
+      <Dependent Role="Common_LocationWiseBankAccountInfo">
+        <PropertyRef Name="BankID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_t_FinalTransDetail_t_FinalTransMaster">
+    <End Role="Acc_FinalTransMaster" Type="RASolarAMSModel.Store.Acc_FinalTransMaster" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Acc_FinalTransDetail" Type="RASolarAMSModel.Store.Acc_FinalTransDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acc_FinalTransMaster">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="TransDate" />
+        <PropertyRef Name="ProjectCode" />
+        <PropertyRef Name="TransNo" />
+      </Principal>
+      <Dependent Role="Acc_FinalTransDetail">
+        <PropertyRef Name="LocationCode" />
+        <PropertyRef Name="TransDate" />
+        <PropertyRef Name="ProjectCode" />
+        <PropertyRef Name="TransNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="REP_AccBalanceSheet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmChartNo" Type="tinyint" Mode="In" />
+    <Parameter Name="prmReportID" Type="nchar" Mode="In" />
+    <Parameter Name="prmReportSetNo" Type="tinyint" Mode="In" />
+    <Parameter Name="prmAsOnDate" Type="date" Mode="In" />
+    <Parameter Name="prmProjectCode" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="REP_AccGetMonthlyExpensesInDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmLocationCode" Type="nchar" Mode="In" />
+    <Parameter Name="prmProjectCode" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="REP_AccIncomeStatementForMonthlyMIS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmFromDate" Type="nchar" Mode="In" />
+    <Parameter Name="prmToDate" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="REP_AccShowAccountWiseBreakdown" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmLocationCode" Type="nchar" Mode="In" />
+    <Parameter Name="prmYearMonth" Type="nchar" Mode="In" />
+    <Parameter Name="prmTransType" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="REP_AccTrialBalanceInDetailByAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmFromDate" Type="date" Mode="In" />
+    <Parameter Name="prmToDate" Type="date" Mode="In" />
+    <Parameter Name="prmProjectCode" Type="nchar" Mode="In" />
+    <Parameter Name="prmAccountNo" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="REP_AccTrialBalanceV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmReportType" Type="nvarchar" Mode="In" />
+    <Parameter Name="prmLocationCode" Type="nchar" Mode="In" />
+    <Parameter Name="prmFromDate" Type="date" Mode="In" />
+    <Parameter Name="prmToDate" Type="date" Mode="In" />
+    <Parameter Name="prmProjectCode" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="REP_GLAccountLedger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmLocationCode" Type="varchar" Mode="In" />
+    <Parameter Name="prmFromDate" Type="char" Mode="In" />
+    <Parameter Name="prmToDate" Type="char" Mode="In" />
+    <Parameter Name="prmAccountNo" Type="char" Mode="In" />
+    <Parameter Name="prmProjectCode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="REP_MonthlyAccountingSummaryStatement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmLocationCode" Type="nchar" Mode="In" />
+    <Parameter Name="prmFromDate" Type="nchar" Mode="In" />
+    <Parameter Name="prmToDate" Type="nchar" Mode="In" />
+  </Function>
+  <Function Name="SP_AccountingDataEntryStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prmReportType" Type="nvarchar" Mode="In" />
+    <Parameter Name="prmLocationCode" Type="nchar" Mode="In" />
+    <Parameter Name="prmYearMonth" Type="nchar" Mode="In" />
+  </Function>
+</Schema>

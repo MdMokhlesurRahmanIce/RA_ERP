@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RASolarAMSModelStoreContainer" CdmEntityContainer="RASolarAMSEntities">
+    <EntitySetMapping Name="Acc_ChartOfAccounts">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_ChartOfAccounts">
+        <MappingFragment StoreEntitySet="Acc_ChartOfAccounts">
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+          <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+          <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+          <ScalarProperty Name="ParentAccountNo" ColumnName="ParentAccountNo" />
+          <ScalarProperty Name="AccountLevel" ColumnName="AccountLevel" />
+          <ScalarProperty Name="OnlyForLocation" ColumnName="OnlyForLocation" />
+          <ScalarProperty Name="OnlyForProject" ColumnName="OnlyForProject" />
+          <ScalarProperty Name="OnlyForAutoEntry" ColumnName="OnlyForAutoEntry" />
+          <ScalarProperty Name="IsValidForUnitOffice" ColumnName="IsValidForUnitOffice" />
+          <ScalarProperty Name="IsValidForZonalOffice" ColumnName="IsValidForZonalOffice" />
+          <ScalarProperty Name="IsValidForHeadOffice" ColumnName="IsValidForHeadOffice" />
+          <ScalarProperty Name="ParCapSub" ColumnName="ParCapSub" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_FinalTransDetail">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_FinalTransDetail">
+        <MappingFragment StoreEntitySet="Acc_FinalTransDetail">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="TransNo" ColumnName="TransNo" />
+          <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+          <ScalarProperty Name="Particulars" ColumnName="Particulars" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="RefEntrySource" ColumnName="RefEntrySource" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_FinalTransMaster">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_FinalTransMaster">
+        <MappingFragment StoreEntitySet="Acc_FinalTransMaster">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="TransNo" ColumnName="TransNo" />
+          <ScalarProperty Name="GenParticulars" ColumnName="GenParticulars" />
+          <ScalarProperty Name="CBVoucher" ColumnName="CBVoucher" />
+          <ScalarProperty Name="CBVType" ColumnName="CBVType" />
+          <ScalarProperty Name="IsAutoEntry" ColumnName="IsAutoEntry" />
+          <ScalarProperty Name="EntrySource" ColumnName="EntrySource" />
+          <ScalarProperty Name="EntryIdentFlag" ColumnName="EntryIdentFlag" />
+          <ScalarProperty Name="ReversalTransNo" ColumnName="ReversalTransNo" />
+          <ScalarProperty Name="ReversalOrOriginalFlag" ColumnName="ReversalOrOriginalFlag" />
+          <ScalarProperty Name="RefDocType" ColumnName="RefDocType" />
+          <ScalarProperty Name="RefDocNo" ColumnName="RefDocNo" />
+          <ScalarProperty Name="RefMRRSeqNo" ColumnName="RefMRRSeqNo" />
+          <ScalarProperty Name="RefChallanSeqNo" ColumnName="RefChallanSeqNo" />
+          <ScalarProperty Name="RefSPSSeqNo" ColumnName="RefSPSSeqNo" />
+          <ScalarProperty Name="RefCustomerCode" ColumnName="RefCustomerCode" />
+          <ScalarProperty Name="RefVendorID" ColumnName="RefVendorID" />
+          <ScalarProperty Name="RefEmployeeID" ColumnName="RefEmployeeID" />
+          <ScalarProperty Name="SenderOrReceiverFlag" ColumnName="SenderOrReceiverFlag" />
+          <ScalarProperty Name="SenderOrReceiverLocationCode" ColumnName="SenderOrReceiverLocationCode" />
+          <ScalarProperty Name="SenderOrReceiverTransNo" ColumnName="SenderOrReceiverTransNo" />
+          <ScalarProperty Name="RefEntryNo" ColumnName="RefEntryNo" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_FiscalYearInfo">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_FiscalYearInfo">
+        <MappingFragment StoreEntitySet="Acc_FiscalYearInfo">
+          <ScalarProperty Name="FYID" ColumnName="FYID" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="ActualMaxClosingTransDate" ColumnName="ActualMaxClosingTransDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_LocationWiseDailySummary">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_LocationWiseDailySummary">
+        <MappingFragment StoreEntitySet="Acc_LocationWiseDailySummary">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_PrePostTransDetail">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_PrePostTransDetail">
+        <MappingFragment StoreEntitySet="Acc_PrePostTransDetail">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="TransNo" ColumnName="TransNo" />
+          <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+          <ScalarProperty Name="Particulars" ColumnName="Particulars" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="TransProjectCode" ColumnName="TransProjectCode" />
+          <ScalarProperty Name="TransLocationCode" ColumnName="TransLocationCode" />
+          <ScalarProperty Name="RefEntrySource" ColumnName="RefEntrySource" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_PrePostTransMaster">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_PrePostTransMaster">
+        <MappingFragment StoreEntitySet="Acc_PrePostTransMaster">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="TransNo" ColumnName="TransNo" />
+          <ScalarProperty Name="GenParticulars" ColumnName="GenParticulars" />
+          <ScalarProperty Name="CBVoucher" ColumnName="CBVoucher" />
+          <ScalarProperty Name="CBVType" ColumnName="CBVType" />
+          <ScalarProperty Name="IsAutoEntry" ColumnName="IsAutoEntry" />
+          <ScalarProperty Name="EntrySource" ColumnName="EntrySource" />
+          <ScalarProperty Name="EntryIdentFlag" ColumnName="EntryIdentFlag" />
+          <ScalarProperty Name="ReversalTransNo" ColumnName="ReversalTransNo" />
+          <ScalarProperty Name="ReversalOrOriginalFlag" ColumnName="ReversalOrOriginalFlag" />
+          <ScalarProperty Name="RefDocType" ColumnName="RefDocType" />
+          <ScalarProperty Name="RefDocNo" ColumnName="RefDocNo" />
+          <ScalarProperty Name="RefMRRSeqNo" ColumnName="RefMRRSeqNo" />
+          <ScalarProperty Name="RefChallanSeqNo" ColumnName="RefChallanSeqNo" />
+          <ScalarProperty Name="RefSPSSeqNo" ColumnName="RefSPSSeqNo" />
+          <ScalarProperty Name="RefCustomerCode" ColumnName="RefCustomerCode" />
+          <ScalarProperty Name="RefVendorID" ColumnName="RefVendorID" />
+          <ScalarProperty Name="RefEmployeeID" ColumnName="RefEmployeeID" />
+          <ScalarProperty Name="SenderOrReceiverFlag" ColumnName="SenderOrReceiverFlag" />
+          <ScalarProperty Name="SenderOrReceiverLocationCode" ColumnName="SenderOrReceiverLocationCode" />
+          <ScalarProperty Name="SenderOrReceiverTransNo" ColumnName="SenderOrReceiverTransNo" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_SpecialAccount">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_SpecialAccount">
+        <MappingFragment StoreEntitySet="Acc_SpecialAccount">
+          <ScalarProperty Name="SAIID" ColumnName="SAIID" />
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Aud_AuditAdjustmentRelatedAccountingTransaction">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Aud_AuditAdjustmentRelatedAccountingTransaction">
+        <MappingFragment StoreEntitySet="Aud_AuditAdjustmentRelatedAccountingTransaction">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="TransNo" ColumnName="TransNo" />
+          <ScalarProperty Name="AuditSeqNo" ColumnName="AuditSeqNo" />
+          <ScalarProperty Name="ReasonCode" ColumnName="ReasonCode" />
+          <ScalarProperty Name="RefVoucherDate" ColumnName="RefVoucherDate" />
+          <ScalarProperty Name="ResponsibleEmployeeID" ColumnName="ResponsibleEmployeeID" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Common_BankInfo">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Common_BankInfo">
+        <MappingFragment StoreEntitySet="Common_BankInfo">
+          <ScalarProperty Name="IsItAOnlineBank" ColumnName="IsItAOnlineBank" />
+          <ScalarProperty Name="BankID" ColumnName="BankID" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Common_LocationWiseBankAccountInfo">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Common_LocationWiseBankAccountInfo">
+        <MappingFragment StoreEntitySet="Common_LocationWiseBankAccountInfo">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="BankID" ColumnName="BankID" />
+          <ScalarProperty Name="BankBranchID" ColumnName="BankBranchID" />
+          <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="BankAccountType" ColumnName="BankAccountType" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="AccountOpeningDate" ColumnName="AccountOpeningDate" />
+          <ScalarProperty Name="GLAccountNo" ColumnName="GLAccountNo" />
+          <ScalarProperty Name="Signatory1" ColumnName="Signatory1" />
+          <ScalarProperty Name="Signatory2" ColumnName="Signatory2" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Common_ProjectInfo">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Common_ProjectInfo">
+        <MappingFragment StoreEntitySet="Common_ProjectInfo">
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="Project_Status" ColumnName="Project_Status" />
+          <ScalarProperty Name="Prog_Code" ColumnName="Prog_Code" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AccGetMonthlyExpensesInDetail" FunctionName="RASolarAMSModel.Store.REP_AccGetMonthlyExpensesInDetail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.AccGetMonthlyExpensesInDetail">
+          <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AccIncomeStatementForMonthlyMIS" FunctionName="RASolarAMSModel.Store.REP_AccIncomeStatementForMonthlyMIS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.AccIncomeStatementForMonthlyMIS" />
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AccountBalanceSheet" FunctionName="RASolarAMSModel.Store.REP_AccBalanceSheet">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.AccountBalanceSheet">
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+          <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="ParCapSub" ColumnName="ParCapSub" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AccountingDataEntryStatus" FunctionName="RASolarAMSModel.Store.SP_AccountingDataEntryStatus">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.AccountingDataEntryStatus">
+          <ScalarProperty Name="Zone_Name" ColumnName="Zone_Name" />
+          <ScalarProperty Name="Region_Name" ColumnName="Region_Name" />
+          <ScalarProperty Name="Unit_Code" ColumnName="Unit_Code" />
+          <ScalarProperty Name="Unit_Name" ColumnName="Unit_Name" />
+          <ScalarProperty Name="Cash_OpeningBalance" ColumnName="Cash_OpeningBalance" />
+          <ScalarProperty Name="Cash_Received" ColumnName="Cash_Received" />
+          <ScalarProperty Name="Cash_PaymentOrBankDeposit" ColumnName="Cash_PaymentOrBankDeposit" />
+          <ScalarProperty Name="Cash_ClosingBalance" ColumnName="Cash_ClosingBalance" />
+          <ScalarProperty Name="Bank_OpeningBalance" ColumnName="Bank_OpeningBalance" />
+          <ScalarProperty Name="Bank_Deposit" ColumnName="Bank_Deposit" />
+          <ScalarProperty Name="Bank_TT_DD_Others" ColumnName="Bank_TT_DD_Others" />
+          <ScalarProperty Name="Bank_ClosingBalance" ColumnName="Bank_ClosingBalance" />
+          <ScalarProperty Name="CollectionReconciliationBalance" ColumnName="CollectionReconciliationBalance" />
+          <ScalarProperty Name="NoOfSales_SHS" ColumnName="NoOfSales_SHS" />
+          <ScalarProperty Name="InventoryClosingBalance" ColumnName="InventoryClosingBalance" />
+          <ScalarProperty Name="FinalizedByRM" ColumnName="FinalizedByRM" />
+          <ScalarProperty Name="FinalizedByZM" ColumnName="FinalizedByZM" />
+          <ScalarProperty Name="FinalizedByHO" ColumnName="FinalizedByHO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AccShowAccountWiseBreakdown" FunctionName="RASolarAMSModel.Store.REP_AccShowAccountWiseBreakdown">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.AccShowAccountWiseBreakdown">
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+          <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AccTrialBalanceInDetailByAccount" FunctionName="RASolarAMSModel.Store.REP_AccTrialBalanceInDetailByAccount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.AccTrialBalanceInDetailByAccount">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+          <ScalarProperty Name="DebitAmount" ColumnName="DebitAmount" />
+          <ScalarProperty Name="CreditAmount" ColumnName="CreditAmount" />
+          <ScalarProperty Name="ClosingBalance" ColumnName="ClosingBalance" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GLAccountLedger" FunctionName="RASolarAMSModel.Store.REP_GLAccountLedger">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.GLAccountLedger">
+          <ScalarProperty Name="RecordOrd" ColumnName="RecordOrd" />
+          <ScalarProperty Name="TransNo" ColumnName="TransNo" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="Particulars" ColumnName="Particulars" />
+          <ScalarProperty Name="DrAmount" ColumnName="DrAmount" />
+          <ScalarProperty Name="CrAmount" ColumnName="CrAmount" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="MonthlyAccountingSummaryStatement" FunctionName="RASolarAMSModel.Store.REP_MonthlyAccountingSummaryStatement">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.MonthlyAccountingSummaryStatement">
+          <ScalarProperty Name="SalesQuantitySHS" ColumnName="SalesQuantitySHS" />
+          <ScalarProperty Name="SalesAmountSHS" ColumnName="SalesAmountSHS" />
+          <ScalarProperty Name="SalesQuantityBioGAS" ColumnName="SalesQuantityBioGAS" />
+          <ScalarProperty Name="SalesAmountBioGAS" ColumnName="SalesAmountBioGAS" />
+          <ScalarProperty Name="CashInHandOpeningBalance" ColumnName="CashInHandOpeningBalance" />
+          <ScalarProperty Name="CollectionDPSHS" ColumnName="CollectionDPSHS" />
+          <ScalarProperty Name="CollectionPrincipalSHS" ColumnName="CollectionPrincipalSHS" />
+          <ScalarProperty Name="CollectionServiceChrgeSHS" ColumnName="CollectionServiceChrgeSHS" />
+          <ScalarProperty Name="CollectionAsAdvanceSHS" ColumnName="CollectionAsAdvanceSHS" />
+          <ScalarProperty Name="CollectionSparePartsSHS" ColumnName="CollectionSparePartsSHS" />
+          <ScalarProperty Name="CollectionReconSHS" ColumnName="CollectionReconSHS" />
+          <ScalarProperty Name="CollectionTotalSHS" ColumnName="CollectionTotalSHS" />
+          <ScalarProperty Name="CollectionDPBioGAS" ColumnName="CollectionDPBioGAS" />
+          <ScalarProperty Name="CollectionPrincipalBioGAS" ColumnName="CollectionPrincipalBioGAS" />
+          <ScalarProperty Name="CollectionServiceChrgeBioGAS" ColumnName="CollectionServiceChrgeBioGAS" />
+          <ScalarProperty Name="CollectionAsAdvanceBioGAS" ColumnName="CollectionAsAdvanceBioGAS" />
+          <ScalarProperty Name="CollectionSparePartsBioGAS" ColumnName="CollectionSparePartsBioGAS" />
+          <ScalarProperty Name="CollectionReconBioGAS" ColumnName="CollectionReconBioGAS" />
+          <ScalarProperty Name="CollectionTotalBioGAS" ColumnName="CollectionTotalBioGAS" />
+          <ScalarProperty Name="NoticePaySalary" ColumnName="NoticePaySalary" />
+          <ScalarProperty Name="AuditClaimReceivable" ColumnName="AuditClaimReceivable" />
+          <ScalarProperty Name="OthersIncome" ColumnName="OthersIncome" />
+          <ScalarProperty Name="TotalCashInflowInThisPeriod" ColumnName="TotalCashInflowInThisPeriod" />
+          <ScalarProperty Name="BankDeposit" ColumnName="BankDeposit" />
+          <ScalarProperty Name="OnlineTransfer" ColumnName="OnlineTransfer" />
+          <ScalarProperty Name="InterUnitTransfer" ColumnName="InterUnitTransfer" />
+          <ScalarProperty Name="MonthlyExpensesSHS" ColumnName="MonthlyExpensesSHS" />
+          <ScalarProperty Name="MonthlyExpensesBioGAS" ColumnName="MonthlyExpensesBioGAS" />
+          <ScalarProperty Name="TotalCashOutflowSHS" ColumnName="TotalCashOutflowSHS" />
+          <ScalarProperty Name="TotalCashOutflowBioGAS" ColumnName="TotalCashOutflowBioGAS" />
+          <ScalarProperty Name="TotalCashOutflowInThisPeriod" ColumnName="TotalCashOutflowInThisPeriod" />
+          <ScalarProperty Name="CashInHandClosingBalance" ColumnName="CashInHandClosingBalance" />
+          <ScalarProperty Name="CashInHandClosingBalanceCalculative" ColumnName="CashInHandClosingBalanceCalculative" />
+          <ScalarProperty Name="DifferenceInActualVsCalculativeCashInHand" ColumnName="DifferenceInActualVsCalculativeCashInHand" />
+          <ScalarProperty Name="CashAtBankOpeningBalance" ColumnName="CashAtBankOpeningBalance" />
+          <ScalarProperty Name="CashDeposit" ColumnName="CashDeposit" />
+          <ScalarProperty Name="TTnDD" ColumnName="TTnDD" />
+          <ScalarProperty Name="SalaryPayable" ColumnName="SalaryPayable" />
+          <ScalarProperty Name="BankCharge" ColumnName="BankCharge" />
+          <ScalarProperty Name="CashAtBankClosingBalance" ColumnName="CashAtBankClosingBalance" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="TrialBalance" FunctionName="RASolarAMSModel.Store.REP_AccTrialBalanceV2">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarAMSModel.TrialBalance">
+          <ScalarProperty Name="AccNo" ColumnName="AccNo" />
+          <ScalarProperty Name="AccName" ColumnName="AccName" />
+          <ScalarProperty Name="AccLevel" ColumnName="AccLevel" />
+          <ScalarProperty Name="Leaf" ColumnName="Leaf" />
+          <ScalarProperty Name="ParentNo" ColumnName="ParentNo" />
+          <ScalarProperty Name="SortCol" ColumnName="SortCol" />
+          <ScalarProperty Name="OpeningB" ColumnName="OpeningB" />
+          <ScalarProperty Name="Debit" ColumnName="Debit" />
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+          <ScalarProperty Name="ClosingB" ColumnName="ClosingB" />
+          <ScalarProperty Name="ParCapSub" ColumnName="ParCapSub" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Common_BankAccountType">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Common_BankAccountType">
+        <MappingFragment StoreEntitySet="Common_BankAccountType">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BATypeDescriptionInBangla" ColumnName="BATypeDescriptionInBangla" />
+          <ScalarProperty Name="BATypeDescription" ColumnName="BATypeDescription" />
+          <ScalarProperty Name="BankAccountTypeID" ColumnName="BankAccountTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Common_BankBranchInfo">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Common_BankBranchInfo">
+        <MappingFragment StoreEntitySet="Common_BankBranchInfo">
+          <ScalarProperty Name="IsItAOnlineBranch" ColumnName="IsItAOnlineBranch" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BankAddress2InBangla" ColumnName="BankAddress2InBangla" />
+          <ScalarProperty Name="BankAddress2" ColumnName="BankAddress2" />
+          <ScalarProperty Name="BankAddress1InBangla" ColumnName="BankAddress1InBangla" />
+          <ScalarProperty Name="BankAddress1" ColumnName="BankAddress1" />
+          <ScalarProperty Name="LetterAddressToInBangla" ColumnName="LetterAddressToInBangla" />
+          <ScalarProperty Name="LetterAddressTo" ColumnName="LetterAddressTo" />
+          <ScalarProperty Name="BankBranchNameInBangla" ColumnName="BankBranchNameInBangla" />
+          <ScalarProperty Name="BankBranchName" ColumnName="BankBranchName" />
+          <ScalarProperty Name="BankBranchID" ColumnName="BankBranchID" />
+          <ScalarProperty Name="BankID" ColumnName="BankID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_PrePostTransDetailByDimension">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_PrePostTransDetailByDimension">
+        <MappingFragment StoreEntitySet="Acc_PrePostTransDetailByDimension">
+          <ScalarProperty Name="RefAccountNo" ColumnName="RefAccountNo" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DimensionValueID" ColumnName="DimensionValueID" />
+          <ScalarProperty Name="DimensionCode" ColumnName="DimensionCode" />
+          <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+          <ScalarProperty Name="TransNo" ColumnName="TransNo" />
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_TransNoCount">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_TransNoCount">
+        <MappingFragment StoreEntitySet="Acc_TransNoCount">
+          <ScalarProperty Name="EntrySerial" ColumnName="EntrySerial" />
+          <ScalarProperty Name="TransCount" ColumnName="TransCount" />
+          <ScalarProperty Name="TransNo" ColumnName="TransNo" />
+          <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hrm_SalaryPayRegisterByMonthNEmployee">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Hrm_SalaryPayRegisterByMonthNEmployee">
+        <MappingFragment StoreEntitySet="Hrm_SalaryPayRegisterByMonthNEmployee">
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="RefAETransNo" ColumnName="RefAETransNo" />
+          <ScalarProperty Name="RefAEProjectCode" ColumnName="RefAEProjectCode" />
+          <ScalarProperty Name="RefAETransDate" ColumnName="RefAETransDate" />
+          <ScalarProperty Name="RefAELocationCode" ColumnName="RefAELocationCode" />
+          <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+          <ScalarProperty Name="PaidInYearMonth" ColumnName="PaidInYearMonth" />
+          <ScalarProperty Name="PaidTotalSalaryAmount" ColumnName="PaidTotalSalaryAmount" />
+          <ScalarProperty Name="PaidBonusAmount" ColumnName="PaidBonusAmount" />
+          <ScalarProperty Name="PaidTADAAmount" ColumnName="PaidTADAAmount" />
+          <ScalarProperty Name="PaidSalaryOtherThanTADAAmount" ColumnName="PaidSalaryOtherThanTADAAmount" />
+          <ScalarProperty Name="PayableTotalSalaryAmount" ColumnName="PayableTotalSalaryAmount" />
+          <ScalarProperty Name="PayableBonusAmount" ColumnName="PayableBonusAmount" />
+          <ScalarProperty Name="PayableTADAAmount" ColumnName="PayableTADAAmount" />
+          <ScalarProperty Name="PayableSalaryOtherThanTADAAmount" ColumnName="PayableSalaryOtherThanTADAAmount" />
+          <ScalarProperty Name="TotalTakeHomeAmount" ColumnName="TotalTakeHomeAmount" />
+          <ScalarProperty Name="TotalDeductionAmount" ColumnName="TotalDeductionAmount" />
+          <ScalarProperty Name="TotalAdditionAmount" ColumnName="TotalAdditionAmount" />
+          <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+          <ScalarProperty Name="ModeOfSalaryPayment" ColumnName="ModeOfSalaryPayment" />
+          <ScalarProperty Name="EmployeeLocationCode" ColumnName="EmployeeLocationCode" />
+          <ScalarProperty Name="SalaryLocationCode" ColumnName="SalaryLocationCode" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="YearMonth" ColumnName="YearMonth" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_GLAccountVsDimension">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_GLAccountVsDimension">
+        <MappingFragment StoreEntitySet="Acc_GLAccountVsDimension">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IsItTheDefaultDimension" ColumnName="IsItTheDefaultDimension" />
+          <ScalarProperty Name="IsTheDimensionMandatory" ColumnName="IsTheDimensionMandatory" />
+          <ScalarProperty Name="DimensionCode" ColumnName="DimensionCode" />
+          <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_MonthlyCashReceiptPaymentTransaction">
+      <EntityTypeMapping TypeName="RASolarAMSModel.Acc_MonthlyCashReceiptPaymentTransaction">
+        <MappingFragment StoreEntitySet="Acc_MonthlyCashReceiptPaymentTransaction">
+          <ScalarProperty Name="FinalizedByHO_UserName" ColumnName="FinalizedByHO_UserName" />
+          <ScalarProperty Name="CheckedNFinalizedByHO" ColumnName="CheckedNFinalizedByHO" />
+          <ScalarProperty Name="FinalizedByAM_UserName" ColumnName="FinalizedByAM_UserName" />
+          <ScalarProperty Name="CheckedNFinalizedByAM" ColumnName="CheckedNFinalizedByAM" />
+          <ScalarProperty Name="FinalizedByUM_UserName" ColumnName="FinalizedByUM_UserName" />
+          <ScalarProperty Name="CheckedNFinalizedByUM" ColumnName="CheckedNFinalizedByUM" />
+          <ScalarProperty Name="Payment_AdvanceOfficeRent" ColumnName="Payment_AdvanceOfficeRent" />
+          <ScalarProperty Name="Payment_CashShortageAndAuditClaimReceivable" ColumnName="Payment_CashShortageAndAuditClaimReceivable" />
+          <ScalarProperty Name="Payment_ToOtherUnit" ColumnName="Payment_ToOtherUnit" />
+          <ScalarProperty Name="Payment_AdvanceForBioGasConstruction" ColumnName="Payment_AdvanceForBioGasConstruction" />
+          <ScalarProperty Name="Payment_ExpensesForBioGasConstruction" ColumnName="Payment_ExpensesForBioGasConstruction" />
+          <ScalarProperty Name="Payment_ToCustomerForSystemReturn" ColumnName="Payment_ToCustomerForSystemReturn" />
+          <ScalarProperty Name="Payment_MonthlyExpenses" ColumnName="Payment_MonthlyExpenses" />
+          <ScalarProperty Name="Payment_OnlineTransfer" ColumnName="Payment_OnlineTransfer" />
+          <ScalarProperty Name="Payment_BankDeposit" ColumnName="Payment_BankDeposit" />
+          <ScalarProperty Name="Received_FromOtherUnit" ColumnName="Received_FromOtherUnit" />
+          <ScalarProperty Name="Received_AuditClaimRemarks" ColumnName="Received_AuditClaimRemarks" />
+          <ScalarProperty Name="Received_AuditClaim" ColumnName="Received_AuditClaim" />
+          <ScalarProperty Name="Received_InstantRelease" ColumnName="Received_InstantRelease" />
+          <ScalarProperty Name="Received_DRFAgreement" ColumnName="Received_DRFAgreement" />
+          <ScalarProperty Name="Received_FromSubletRent" ColumnName="Received_FromSubletRent" />
+          <ScalarProperty Name="Received_BandhuBatti" ColumnName="Received_BandhuBatti" />
+          <ScalarProperty Name="Received_SecurityDepositFromJTC" ColumnName="Received_SecurityDepositFromJTC" />
+          <ScalarProperty Name="Received_SparePartsSalesForBioGas" ColumnName="Received_SparePartsSalesForBioGas" />
+          <ScalarProperty Name="Received_TechnicalFeeForBioGas" ColumnName="Received_TechnicalFeeForBioGas" />
+          <ScalarProperty Name="Received_BioGas" ColumnName="Received_BioGas" />
+          <ScalarProperty Name="Received_SparePartsSalesForSHS" ColumnName="Received_SparePartsSalesForSHS" />
+          <ScalarProperty Name="Received_SHSIDCOLProject" ColumnName="Received_SHSIDCOLProject" />
+          <ScalarProperty Name="Received_SHSMainProject" ColumnName="Received_SHSMainProject" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="YearMonth" ColumnName="YearMonth" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

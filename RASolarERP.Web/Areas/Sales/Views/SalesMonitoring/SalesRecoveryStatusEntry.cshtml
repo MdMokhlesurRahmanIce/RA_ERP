@@ -1,0 +1,527 @@
+﻿@using RASolarERP.Model
+@model IEnumerable<RASolarERP.DomainModel.SalesModel.SalesRecoveryStatusEntryMonitoring>
+@{
+    ViewBag.Title = "Sales and Recovery Status Entry";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+    
+}@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+
+@using (Html.BeginForm("SalesRecoveryStatusEntry", "SalesMonitoring", FormMethod.Post, new { @id = "frmSalesRecoveryStatusEntry" }))
+{       
+    <table cellpadding="0" cellspacing="5" border="0" width="100%" id="reportMode">
+        <tr>
+            <td style="width: 33%;" valign="top">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="ODCustomerGradingLabel">Only Collection Date Passed 
+                        </td>
+                        <td align="left">
+                            @{ 
+                               if (Model == null)
+                                {                                   
+                                  @Html.Hidden("IsOnlyForCollectionDatePassedChecked", "1")
+                                }
+                              else
+                               {
+                                  @Html.Hidden("IsOnlyForCollectionDatePassedChecked", "1")
+                               }
+                            }
+                            @Html.CheckBox("IsOnlyForCollectionDatePassed", new { @id = "IsOnlyForCollectionDatePassed",@disabled = "disabled" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 33%;" valign="top">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="ODCustomerGradingLabel">OD Customer Grading
+                        </td>
+                        <td align="left">
+                            @Html.DropDownList("OdCustomerGrading", new List<SelectListItem> { 
+                                                new SelectListItem { Text = "--ALL--", Value = "" },
+                                                new SelectListItem { Text = "D. 6+ Installment", Value= "D"},
+                                                new SelectListItem { Text = "C. 4-6 Installment", Value= "C"},
+                                                new SelectListItem { Text = "B. 2-3 Installment", Value= "B"},
+                                                new SelectListItem { Text = "A. 0-1 Installment", Value= "A"},
+                                            }, new { @style = "width:130px;" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 33%;" valign="top">
+                <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                    <tr>
+                        <td align="left" class="ODCustomerGradingLabel">Customer FPR
+                        </td>
+                        <td align="left">
+                            @Html.DropDownList("CustomerFPR", new SelectList(ViewBag.CustomerFPR, "EmployeeID", "EmployeeName"), "--Select--", new { @class = "SalesAgreementControl" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top" class="VoucherTitleWide">Day
+                        </td>
+                        <td align="left" valign="top">
+                            @Html.DropDownList("CollectionDayScheduledDay", new SelectList(ViewBag.CollectionDay, "VisitDayValue", "VisitDay"), "--ALL--", new { @style = "width:80px; text-align:center;}" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="3">
+                @* @if (ViewBag.Location == RASolarHelper.Helper.Unit)
+                {
+                    
+                }*@
+                <input type="submit" value="Show" id="btnSalesRecoveryStatusEntry" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+
+
+                <div class="DataGridXScroll">
+                    @if (Model != null)
+                    {
+                        if (Model.Count() > 0)
+                        {
+                            if (ViewBag.Location != RASolarHelper.Helper.Unit)
+                            {                     
+                            @Html.Hidden("UnitCode", Model.First().UnitCode)
+                           @Html.Hidden("UnitName", Model.First().UnitName)
+                            }
+
+                            if (Model.First().CustomerCode != null)
+                            {
+                               
+                        @(Html.Telerik().Grid(Model)
+    .Name("gvSalesRecoveryStatusMonitoring")
+    .DataKeys(keys => keys.Add(k => k.CustomerCode))
+    .Columns(column =>
+    {
+        column.Bound(c => c.CustomerCode).Title("Customer ID").Width(70);
+        column.Bound(c => c.CustomerName).Width(140);
+        column.Bound(c => c.MonthlyCollectionDay).Width(50).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+        column.Bound(c => c.CurrentCollectionTarget).Width(60).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+            .Aggregate(aggregates => aggregates.Sum())
+             .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.CollectionFromCurrent).Title("This Month Recovery From Current").Width(60).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnMiddleAlign" })
+            .Aggregate(aggregates => aggregates.Sum())
+             .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.PossibleODFromCurrent).Width(60).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+            .Aggregate(aggregates => aggregates.Sum())
+             .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.OverdueBalance).Width(60).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+            .Aggregate(aggregates => aggregates.Sum())
+            .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.ThisMonthRecoveryFromOD).Width(60).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+            .Aggregate(aggregates => aggregates.Sum())
+             .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.RemainingODBalance).Width(60).Title("Remaining OD Amount").Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" })
+             .Aggregate(aggregates => aggregates.Sum())
+             .FooterTemplate(@<b> @item.Sum.Format("{0:0,0}") </b>);
+        column.Bound(c => c.CustomerCode).Template(@<text>
+                            @if (item.UMLastNextRecoveryDate == null)
+                            {
+                              @Html.Telerik().DatePicker().Name("dtpCommitmentDate" + item.CustomerCode.Replace(" ", string.Empty).Replace("-", string.Empty)).Format("dd-MMM-yyyy").Value(DateTime.Now.Date.AddDays(1.0))
+                            }
+
+                            else
+                            {
+                             @Html.Telerik().DatePicker().Name("dtpCommitmentDate" + item.CustomerCode.Replace(" ", string.Empty).Replace("-", string.Empty)).Format("dd-MMM-yyyy").Value(@item.UMLastNextRecoveryDate)
+                            }
+
+
+                        </text>)
+       .Title("Last Next Recovery Date").Width(100);
+
+        column.Bound(c => c.CustomerCode).Template(@<text>
+
+                        @if (ViewBag.Location == RASolarHelper.Helper.Unit)
+                        {
+                           <input type="text" id="@("UMRemarks" + item.CustomerCode)" value="@item.UMLastRemarks" maxlength='115' style="width:115px;" />
+                        }
+                        else
+                        {
+                            @item.UMLastRemarks                        
+                        }
+                        </text>).Title("Last Remarks").Width(115);
+
+        column.Bound(c => c.UMLastRemarksEntryDate).Width(75).Title("Last Remarks Entry Date").Format("{0:dd-MMM-yyyy}");
+        column.Bound(c => c.RecoveryCommitmentHistory).Width(100);
+        column.Bound(c => c.VillageName).Width(100);
+        column.Bound(c => c.UnionName).Width(100);
+        column.Bound(c => c.CustomerMobileNo).Title("Customer Mobile") .Width(90);
+
+        column.Template(@<text>
+
+                        @if (ViewBag.Location == RASolarHelper.Helper.Unit)
+                        {
+                             <a href="#" onclick="return SaveSalesRecoveryStatusEntry('UMRemarksForCustomer', '@item.CustomerCode.Trim()', '@item.ODGradeThisMonth');">Save</a>
+                        }
+                        else
+                        {
+                             <label>Save</label>
+                        }
+
+                        </text>).Width(50);
+        column.Bound(c => c.ODGradeThisMonth).Title("Grade").Width(50).HtmlAttributes(new { @class = "GridColumnMiddleAlign" });
+        column.Bound(c => c.EmployeeAsFPR).Width(60);
+        column.Bound(c => c.EmployeeAsFPRName).Title("FPR Employee Name").Width(120);
+        column.Bound(c => c.EmployeeAsFPRMobileNo).Title("FPR Employee Mobile").Width(90);
+
+        // column.Bound(c => c.CustomerCode).Template(@<text>
+
+        //                @Html.CheckBox("chkbIsCustomerPoliticallyInfluential" + item.CustomerCode.Replace(" ", string.Empty).Replace("-", string.Empty), item.IsCustomerPoliticallyInfluential ?? false, new { @onclick = "return CheckRecordsPliticalInflence('" + item.CustomerCode + "');", @value = @item.CustomerCode })
+
+
+        //               </text>).Title("Is Customer Politically Influential").Width(80).HtmlAttributes(new { @align = "middle" });
+
+        //column.Bound(c => c.CustomerCode).Template(@<text>
+
+        //               @Html.CheckBox("chkbIsCustomerALocalMuscleMan" + item.CustomerCode.Replace(" ", string.Empty).Replace("-", string.Empty), item.IsCustomerALocalMuscleMan ?? false, new { @onclick = "return CheckRecordsALocalMuscleMan('" + item.CustomerCode + "');", @value = @item.CustomerCode })
+
+
+        //               </text>).Title("Is Customer A Local Muscle Man").Width(80).HtmlAttributes(new { @align = "middle" });
+
+
+        //column.Bound(c => c.CustomerCode).Template(@<text>
+
+        //               @Html.CheckBox("chkbIsCustomerNotWillingToPay" + item.CustomerCode.Replace(" ", string.Empty).Replace("-", string.Empty), item.IsCustomerNotWillingToPay ?? false, new { @onclick = "return CheckRecordsCustomerNotWillingToPay('" + item.CustomerCode + "');", @value = @item.CustomerCode })
+
+
+        //               </text>).Title("Is Customer Not Willing To Pay").Width(80).HtmlAttributes(new { @align = "middle" });
+
+        //column.Bound(c => c.CustomerCode).Template(@<a href="#" onclick="return SaveCustomerStatusForSalesMonitoring('@item.CustomerCode.Trim()');">Save</a>).Title("").Width(50);
+
+        column.Bound(c => c.CricCustCategory).Width(150);
+    })
+                                       .DataBinding(bindings => bindings.Server().Select("SalesRecoveryStatusMonitoringGridPaging", "SalesMonitoring", Model.FirstOrDefault()))
+                                       .Scrollable(scroll => scroll.Height(300))
+                                       .Pageable(pages => pages.PageSize(100))
+                                       .Selectable()
+                                       .Groupable(g => g.Visible(false))
+                                       .Footer(true)
+
+                                       )
+                            }
+                        }
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%; font-weight: bold;">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td align="left" valign="top">Last Month OD Collection Efficiency&nbsp;&nbsp; %
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+            <td style="width: 33%; font-weight: bold;">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td align="left" valign="top">This Month OD Collection Efficiency&nbsp;&nbsp;
+                          @{
+                    decimal dc = 0;
+                    string ss = string.Empty;
+
+                    if (Model != null)
+                    {
+                        if (Model.Count() > 0)
+                        {
+                            decimal thisMonthRecoveryFromOD = (decimal)Model.Where(s => s.ThisMonthRecoveryFromOD != null).Sum(s => s.ThisMonthRecoveryFromOD);
+                            decimal overdueBalance = (decimal)Model.Where(s => s.OverdueBalance != null).Sum(s => s.OverdueBalance);
+
+                            if (overdueBalance != 0)
+                            {
+                                dc = (thisMonthRecoveryFromOD / overdueBalance) * 100;
+                            }
+                            ss = dc.ToString("0.00");
+                        }
+                    }
+                          }
+                            @ss%
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr style="height:15px; ">
+
+            <td style="width:50%; font-weight: bold;"></td>
+
+            <td style="width: 33%; font-weight: bold;"></td>
+
+        </tr>
+
+        <tr>
+               <td colspan="2" style="width:90%; font-weight: bold;">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+                    <tr>
+
+                        <td align="left" valign="top">Overall Status by UM&nbsp;&nbsp;
+
+                               @*  <input type="text" id="txtOverallStatus" value="<%=ViewBag.UMLastOverallRemarks.ToString() %>"  maxlength='100' style="width:100px;" />&nbsp;&nbsp;*@
+                                    
+                                  @Html.TextBox("txtOverallStatus", (string)@ViewBag.UMLastOverallRemarks, new { style = "width:480px;" })&nbsp;&nbsp; 
+                            
+                                 @if(ViewBag.Location==RASolarHelper.Helper.Unit) 
+                                 {
+
+                                 <input id="btnSave" type="button"  onclick="return SaveSalesRecoveryStatusEntry('UMOverallRemarks', '', '');" value="Save" name="saveButton" />
+                                 }
+                                 
+                                              
+
+                            </td>
+
+                    </tr>
+                 </table>
+
+            </td>
+        </tr>
+    </table>
+    
+}
+<script type="text/javascript">
+
+    if ($('#IsOnlyForCollectionDatePassedChecked').val() == "1") {
+        $('#IsOnlyForCollectionDatePassed').attr("checked", true);
+    }
+
+    $(document).ready(function () {
+
+        $('#btnSalesRecoveryStatusEntry').click(function () {
+            var customerFPR = $('#CustomerFPR').val();
+            if (customerFPR.trim() == "") {
+                $('#IsOnlyForCollectionDatePassed').attr("checked", true);
+                alert("Select Customer FPR. ");
+                return false;
+            }
+            else
+                $('#IsOnlyForCollectionDatePassed').attr("checked", true);
+                return true;
+        });
+
+        $("#CollectionDayScheduledDay").change(function () {
+
+            $("#IsOnlyForCollectionDatePassed").attr("checked", false);
+
+        });
+
+    });
+
+    function SaveSalesRecoveryStatusEntry(option, customerCode, ODGradeThisMonth) {
+
+        var dateCheck=true;
+
+        if (option == 'UMRemarksForCustomer') {
+            //................................................................................................. Start of validation for commentDate.....................................//
+         var checkit = 0;
+        var dateTimeNow = new Date();
+        var dateFromDateTimeNow = dateTimeNow.getDate();//15-Aug-2014
+        var gridTr = $("#gvSalesRecoveryStatusMonitoring tbody tr:contains('" + customerCode + "')");
+        var openMonthYearForValidation = '@ViewBag.OpenMonthYearForValidation';
+        var dtpCommitmentDate = gridTr.find("td:eq(9)").find("input").val();
+        var yearFromdtpCommitmentDate = dtpCommitmentDate.substr(7, 4);
+        var dateFromdtpCommitmentDate = dtpCommitmentDate.substr(0, 2);
+        var monthFromdtpCommitmentDate = dtpCommitmentDate.substr(3, 3);
+
+        var yearFromOpenMonthYearForValidation = openMonthYearForValidation.substr(7, 4);
+        var dateFromOpenMonthYearForValidation = openMonthYearForValidation.substr(0, 2);
+        var monthFromOpenMonthYearForValidation = openMonthYearForValidation.substr(3, 3);
+        //alert("dateFromDateTimeNow: " + dateFromDateTimeNow + "dtpCommitmentDate : " + dtpCommitmentDate + "yearFromdtpCommitmentDate: " + yearFromdtpCommitmentDate + "dateFromdtpCommitmentDate : " + dateFromdtpCommitmentDate + "monthFromdtpCommitmentDate : " + monthFromdtpCommitmentDate + "yearFromOpenMonthYearForValidation : " + yearFromOpenMonthYearForValidation+"dateFromOpenMonthYearForValidation : "+dateFromOpenMonthYearForValidation+"monthFromOpenMonthYearForValidatio: "+monthFromOpenMonthYearForValidation);
+
+        var validDate = 0;
+        if (yearFromdtpCommitmentDate == yearFromOpenMonthYearForValidation && monthFromdtpCommitmentDate == monthFromOpenMonthYearForValidation && dateFromdtpCommitmentDate > dateFromDateTimeNow) {
+            if (monthFromdtpCommitmentDate == "Jan" || monthFromdtpCommitmentDate == "Mar" || monthFromdtpCommitmentDate == "May" || monthFromdtpCommitmentDate == "Jul" || monthFromdtpCommitmentDate == "Aug" || monthFromdtpCommitmentDate == "Oct" || monthFromdtpCommitmentDate == "Dec") {
+                if (dateFromdtpCommitmentDate > dateFromDateTimeNow && dateFromdtpCommitmentDate <= 31) {
+                    validDate = dateFromdtpCommitmentDate + "-" + monthFromdtpCommitmentDate + "-" + yearFromdtpCommitmentDate;
+                    checkit = 1;
+                }
+                else
+                    alert("Given Date Must Be Greater Than Current Date Within OpenMonthYear.");
+                 
+            }
+            if (monthFromdtpCommitmentDate == "Feb") {
+                if (dateFromdtpCommitmentDate > dateFromDateTimeNow && dateFromdtpCommitmentDate <= 28) {
+                    validDate = dateFromdtpCommitmentDate + "-" + monthFromdtpCommitmentDate + "-" + yearFromdtpCommitmentDate;
+                    checkit = 1;
+                }
+                else
+                    alert("Given Date Must Be Greater Than Current Date Within OpenMonthYear.");
+            }
+            if (monthFromdtpCommitmentDate == "Apr" || monthFromdtpCommitmentDate == "Jun" || monthFromdtpCommitmentDate == "Sep" || monthFromdtpCommitmentDate == "Nov") {
+                if (dateFromdtpCommitmentDate > dateFromDateTimeNow && dateFromdtpCommitmentDate <= 30) {
+                    validDate = dateFromdtpCommitmentDate + "-" + monthFromdtpCommitmentDate + "-" + yearFromdtpCommitmentDate;
+                    checkit = 1;
+                }
+                else
+                    alert("Given Date Must Be Greater Than Current Date Within OpenMonthYear.");
+            }
+            //alert(validDate);
+        }
+        else if (checkit==0)
+        {
+            alert("Given Valid Date.");
+            dateCheck = false;
+            return false;
+        }
+
+            //................................................................................................. End of validation for commentDate.....................................//
+        }
+
+        if (dateCheck == true) {
+
+            var cCode = Helper.WhiteSpaceRemove(customerCode);
+            cCode = Helper.CustomerIdWithoutHiPen(cCode);
+
+            var UMRemarks = $('#UMRemarks' + customerCode).val();
+            var UMNextRecoveryDateIfRemainingODBalance = $('#dtpCommitmentDate' + cCode).val();
+
+            var objSalesRecoveryStatusEntryMonitoring = {
+                CustomerCode: customerCode,
+                UMLastRemarks: UMRemarks,
+                UMNextRecoveryDateIfRemainingODBalance: UMNextRecoveryDateIfRemainingODBalance,
+                ODGradeThisMonth: ODGradeThisMonth
+            };
+
+            var umOverallRemarks = '';
+
+            if (option == 'UMOverallRemarks') {
+                umOverallRemarks = $('#txtOverallStatus').val();
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveSalesRecoveryStatusEntry", "SalesMonitoring")',
+                data: JSON.stringify({ option: option, objSalesRecoveryStatusEntryMonitoring: objSalesRecoveryStatusEntryMonitoring, umOverallRemarks: umOverallRemarks }),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                    if (data[0].messageCode == "success") {
+                        alert(data[0].message);
+                    }
+                    else {
+                        alert(data[0].message);
+                    }
+                },
+                error: function () {
+                    alert("Connection Is Not Avaiable. Try Later.");
+                }
+            });
+        }
+
+    }
+
+    function CheckRecordsPliticalInflence(customerCode) {
+
+        var customerIdForCheckboxId = Helper.WhiteSpaceRemove(customerCode);
+        customerIdForCheckboxId = Helper.CustomerIdWithoutHiPen(customerIdForCheckboxId);
+
+        $("#chkbIsCustomerALocalMuscleMan" + customerIdForCheckboxId).attr("checked", false);
+        $("#chkbIsCustomerNotWillingToPay" + customerIdForCheckboxId).attr("checked", false);
+    }
+
+    function CheckRecordsALocalMuscleMan(customerCode) {
+
+        var customerIdForCheckboxId = Helper.WhiteSpaceRemove(customerCode);
+        customerIdForCheckboxId = Helper.CustomerIdWithoutHiPen(customerIdForCheckboxId);
+
+        $("#chkbIsCustomerPoliticallyInfluential" + customerIdForCheckboxId).attr("checked", false);
+        $("#chkbIsCustomerNotWillingToPay" + customerIdForCheckboxId).attr("checked", false);
+    }
+
+    function CheckRecordsCustomerNotWillingToPay(customerCode) {
+
+        var customerIdForCheckboxId = Helper.WhiteSpaceRemove(customerCode);
+        customerIdForCheckboxId = Helper.CustomerIdWithoutHiPen(customerIdForCheckboxId);
+
+        $("#chkbIsCustomerPoliticallyInfluential" + customerIdForCheckboxId).attr("checked", false);
+        $("#chkbIsCustomerALocalMuscleMan" + customerIdForCheckboxId).attr("checked", false);
+    }
+
+
+    function SaveCustomerStatusForSalesMonitoring(customerCode) {
+
+        var IsCustomerPoliticallyInfluential = 0, IsCustomerALocalMuscleMan = 0, IsCustomerNotWillingToPay = 0;
+        var customerIdForCheckboxId = Helper.WhiteSpaceRemove(customerCode);
+        customerIdForCheckboxId = Helper.CustomerIdWithoutHiPen(customerIdForCheckboxId);
+
+        if ($("#chkbIsCustomerPoliticallyInfluential" + customerIdForCheckboxId).is(":checked") == false && $("#chkbIsCustomerNotWillingToPay" + customerIdForCheckboxId).is(":checked") == false && $("#chkbIsCustomerALocalMuscleMan" + customerIdForCheckboxId).is(":checked") == false) {
+            alert("Please Select any of those three Customer Status and then try to save.");
+            return false;
+        }
+
+
+
+        if ($("#chkbIsCustomerPoliticallyInfluential" + customerIdForCheckboxId).is(":checked") == true) {
+            IsCustomerPoliticallyInfluential = 1;
+        }
+        else if ($("#chkbIsCustomerNotWillingToPay" + customerIdForCheckboxId).is(":checked") == true) {
+            IsCustomerNotWillingToPay = 1;
+        }
+        else if ($("#chkbIsCustomerALocalMuscleMan" + customerIdForCheckboxId).is(":checked") == true) {
+            IsCustomerALocalMuscleMan = 1;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveCustomerStatusForSalesMonitoring", "SalesMonitoring")',
+            data: { customerCode: customerCode, IsCustomerPoliticallyInfluential: IsCustomerPoliticallyInfluential, IsCustomerALocalMuscleMan: IsCustomerALocalMuscleMan, IsCustomerNotWillingToPay: IsCustomerNotWillingToPay },
+            cache: false,
+            success: function (data) {
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+                }
+                else {
+                    alert(data[0].message);
+                }
+            },
+            error: function () { }
+        });
+
+
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+</script>

@@ -1,0 +1,1865 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_GlobalResources/EditorLocalization.bg-BG.resx">
+      <publishTime>09/12/2013 17:55:23</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.da-DK.resx">
+      <publishTime>09/12/2013 17:55:23</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.de-DE.resx">
+      <publishTime>09/12/2013 17:55:22</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.en-US.resx">
+      <publishTime>09/12/2013 17:55:22</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.fr-FR.resx">
+      <publishTime>09/12/2013 17:55:21</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.nl-NL.resx">
+      <publishTime>09/12/2013 17:55:20</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.pl-PL.resx">
+      <publishTime>09/12/2013 17:55:20</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.pt-BR.resx">
+      <publishTime>09/12/2013 17:55:19</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.pt-PT.resx">
+      <publishTime>09/12/2013 17:55:18</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.resx">
+      <publishTime>09/12/2013 17:55:18</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.ru-RU.resx">
+      <publishTime>09/12/2013 17:55:17</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.uk-UA.resx">
+      <publishTime>09/12/2013 17:55:16</publishTime>
+    </File>
+    <File Include="App_GlobalResources/EditorLocalization.zh-CN.resx">
+      <publishTime>09/12/2013 17:55:16</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.bg-BG.resx">
+      <publishTime>09/12/2013 17:55:15</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.da-DK.resx">
+      <publishTime>09/12/2013 17:55:15</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.de-DE.resx">
+      <publishTime>09/12/2013 17:55:14</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.en-US.resx">
+      <publishTime>09/12/2013 17:55:13</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.es-ES.resx">
+      <publishTime>09/12/2013 17:55:13</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.fr-FR.resx">
+      <publishTime>09/12/2013 17:55:12</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.nl-NL.resx">
+      <publishTime>09/12/2013 17:55:11</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.pl-PL.resx">
+      <publishTime>09/12/2013 17:55:11</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.pt-BR.resx">
+      <publishTime>09/12/2013 17:55:10</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.pt-PT.resx">
+      <publishTime>09/12/2013 17:55:10</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.resx">
+      <publishTime>09/12/2013 17:55:09</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.ru-RU.resx">
+      <publishTime>09/12/2013 17:55:08</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.uk-UA.resx">
+      <publishTime>09/12/2013 17:55:08</publishTime>
+    </File>
+    <File Include="App_GlobalResources/GridLocalization.zh-CN.resx">
+      <publishTime>09/12/2013 17:55:07</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.bg-BG.resx">
+      <publishTime>09/12/2013 17:55:06</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.da-DK.resx">
+      <publishTime>09/12/2013 17:55:06</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.en-US.resx">
+      <publishTime>09/12/2013 17:55:05</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.fr-FR.resx">
+      <publishTime>09/12/2013 17:55:04</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.nl-NL.resx">
+      <publishTime>09/12/2013 17:55:04</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.pl-PL.resx">
+      <publishTime>09/12/2013 17:55:03</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.pt-BR.resx">
+      <publishTime>09/12/2013 17:55:02</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.pt-PT.resx">
+      <publishTime>09/12/2013 17:55:02</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.ru-RU.resx">
+      <publishTime>09/12/2013 17:55:01</publishTime>
+    </File>
+    <File Include="App_GlobalResources/UploadLocalization.zh-CN.resx">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Areas/Financial/Reports/ReportViewerAccountFinance.aspx">
+      <publishTime>08/31/2013 14:57:04</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountDept/CustomerTrainingModule.cshtml">
+      <publishTime>08/31/2013 14:57:04</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/AccGetMonthlyExpensesInDetail.cshtml">
+      <publishTime>08/31/2013 14:57:04</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/AccountingSummary.cshtml">
+      <publishTime>09/12/2013 16:07:54</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/CustomerTrainingDetailsReport.cshtml">
+      <publishTime>08/31/2013 14:57:04</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/CustomerTrainingSummaryReport.cshtml">
+      <publishTime>08/31/2013 14:57:04</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/GeneralLedger.cshtml">
+      <publishTime>09/17/2013 10:10:17</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/IncomeStatement.cshtml">
+      <publishTime>10/21/2013 17:14:54</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/MonthlyAccountSummaryStatement.cshtml">
+      <publishTime>08/31/2013 14:57:04</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/TrialBalance.cshtml">
+      <publishTime>09/24/2013 12:42:52</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountingReport/UnitWiseBreakupAnAccountHead.cshtml">
+      <publishTime>08/31/2013 14:57:04</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountVoucher/ContraVoucherForAuditor.cshtml">
+      <publishTime>09/17/2013 10:54:49</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountVoucher/NonCashVoucherForAuditor.cshtml">
+      <publishTime>09/17/2013 10:54:49</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountVoucher/PaymentVoucherForAuditor.cshtml">
+      <publishTime>09/17/2013 10:54:49</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/AccountVoucher/ReceiveVoucherForAuditor.cshtml">
+      <publishTime>09/17/2013 10:54:49</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/ReportAccountFinance/ReportIncomeStatement.cshtml">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/ReportAccountFinance/ReportViewerAccountFinance.cshtml">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/Shared/OtherAccountSelectionPartial.cshtml">
+      <publishTime>09/17/2013 10:56:49</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/Shared/TransactionDetailListByTransactionNo.cshtml">
+      <publishTime>09/12/2013 16:07:54</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/Shared/_AccountingLayout.cshtml">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/Financial/Views/Web.config">
+      <publishTime>08/31/2013 14:57:04</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Reports/ReportView.aspx">
+      <publishTime>09/26/2013 14:39:23</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/Employee/AddEditEmployee.cshtml">
+      <publishTime>10/28/2013 16:26:48</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/Employee/EmployeeCV.cshtml">
+      <publishTime>09/12/2013 16:09:43</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/Employee/EmployeeDetails.cshtml">
+      <publishTime>10/28/2013 16:26:48</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/EmployeeDept/EmployeeSeach.cshtml">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/EmployeeDept/EmployeeSearch.cshtml">
+      <publishTime>09/17/2013 10:59:48</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/EmployeeRegister/EmployeeAcceptReject.cshtml">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/EmployeeRegister/EmployeeRegister.cshtml">
+      <publishTime>09/17/2013 10:14:36</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/EmployeeRegister/EmployeeTransfer.cshtml">
+      <publishTime>10/28/2013 16:26:48</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/HrmReport/SalaryAdviceForBank.cshtml">
+      <publishTime>10/27/2013 10:36:24</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/Shared/EmployeeDetailSearch.cshtml">
+      <publishTime>09/17/2013 10:57:51</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/Shared/EmployeeLocationSelection.cshtml">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/Shared/EmployeeTransferLocationSelection.cshtml">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/Shared/_HrmsLayout.cshtml">
+      <publishTime>09/26/2013 14:44:50</publishTime>
+    </File>
+    <File Include="Areas/HRMS/Views/Web.config">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Reports/ReportView.aspx">
+      <publishTime>09/10/2013 12:32:03</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/AuditAdjustmentCustomerSupportItem.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/AuditAdjustmentNewItem.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/AuditAdjustmentSystemReturnItem.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/ChallanInformationAtGlance.cshtml">
+      <publishTime>09/17/2013 10:47:44</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/Index.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/ItemIssueForAuditAdjustment.cshtml">
+      <publishTime>10/09/2013 15:14:37</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/ItemReceiveForAuditAdjustment.cshtml">
+      <publishTime>10/09/2013 13:58:12</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/MRRInformationAtGlance.cshtml">
+      <publishTime>10/08/2013 13:06:14</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryAudit/StockInTransitAtGlance.cshtml">
+      <publishTime>10/19/2013 10:23:31</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDailyTransaction/ChallanReceive.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDailyTransaction/ChallanWithMultipleLocation.cshtml">
+      <publishTime>10/09/2013 13:57:51</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDailyTransaction/InventoryLedger.cshtml">
+      <publishTime>10/09/2013 14:21:27</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDailyTransaction/ItemIssue.cshtml">
+      <publishTime>10/10/2013 09:10:12</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDailyTransaction/ItemReceiveWithChallan.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDailyTransaction/ItemReceiveWithoutChallan.cshtml">
+      <publishTime>10/10/2013 14:20:26</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDailyTransaction/SerialMapping.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDailyTransaction/StockPositionViewNUpdate.cshtml">
+      <publishTime>09/30/2013 17:53:32</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDept/InventoryDataEntryStatusReport.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDept/InventorySummary.cshtml">
+      <publishTime>10/05/2013 13:44:13</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDept/ItemSummary.cshtml">
+      <publishTime>10/05/2013 13:44:33</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryDept/VendorChallanVMrrVerification.cshtml">
+      <publishTime>09/12/2013 16:08:43</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryManagement/CashMemoBookAllocation.cshtml">
+      <publishTime>09/21/2013 16:15:25</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryManagement/FixedAssetRegister.cshtml">
+      <publishTime>09/21/2013 16:15:39</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryReport/InventoryInTransitReport.cshtml">
+      <publishTime>10/09/2013 14:21:29</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryReport/InventorySummaryToDetailView.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/InventoryReport/ReportViewer.cshtml">
+      <publishTime>09/10/2013 12:30:57</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/ChallanOrMrrItemSerialDisplay.cshtml">
+      <publishTime>09/12/2013 16:08:44</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/IssueItemGrid.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/ItemSerialCheckGrid.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/ItemSerialCheckGridWithoutChallan.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/ItemSerialChekGridMRR.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/MRRItemGridWithoutChallan.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/SerialMappingWithItem.cshtml">
+      <publishTime>09/30/2013 17:48:33</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/UserLocationSelection.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/UserLocationSelectionZoneReagonUnitWise.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Shared/_InventoryLayout.cshtml">
+      <publishTime>08/31/2013 14:57:06</publishTime>
+    </File>
+    <File Include="Areas/Inventory/Views/Web.config">
+      <publishTime>08/31/2013 14:57:05</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/CustomerRegister/CashMemoInformation.cshtml">
+      <publishTime>10/06/2013 15:00:02</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/CustomerRegister/CustomerTrainingEntry.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/CustomerRegister/CustomerWiseFPREntry.cshtml">
+      <publishTime>10/23/2013 15:14:24</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/CustomerRegister/OtherAmountCollectionFromCustomer.cshtml">
+      <publishTime>09/17/2013 09:57:59</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/CustomerRegister/UnitWiseCustomerReceive.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/CustomerRegister/UnitWiseCustomerRegister.cshtml">
+      <publishTime>10/08/2013 14:23:18</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/CustomerRegister/UnitWiseEmployeeAcceptReject.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesAudit/CustomerRegisterForAuditor.cshtml">
+      <publishTime>10/19/2013 10:23:31</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesAudit/Index.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesAudit/SalesAuditAdjsutment.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesDept/OtherSalesReSalesAgreement.cshtml">
+      <publishTime>10/26/2013 15:38:42</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesDept/SalesAgreement.cshtml">
+      <publishTime>09/10/2013 09:49:06</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesDept/SalesReSalesAgreement.cshtml">
+      <publishTime>10/26/2013 15:35:35</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesDept/SalesSummary.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesDept/SpareSales.cshtml">
+      <publishTime>09/25/2013 14:33:02</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesDept/SpareSalesByItemSet.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesDept/UnitCollectionVsHeadOfficePhysicalCashMovementReport.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesDept/UOCollectionVsHOPhysicalCashMovementReport.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/DailyProgressReviewDataEntryStatus.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/EmployeeWiseDailySalesTargetSetup.cshtml">
+      <publishTime>09/10/2013 09:46:51</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/EmployeeWiseMonthlyTargetView.cshtml">
+      <publishTime>09/10/2013 09:49:06</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/LocationNEmployeeWiseSalesNCollectionEntry.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/LocationNEmployeeWiseWeeklySalesNCollectionReport.cshtml">
+      <publishTime>10/05/2013 15:13:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/ODRecoveryCommitmentReview.cshtml">
+      <publishTime>10/22/2013 11:00:59</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/ODRecoveryStatus.cshtml">
+      <publishTime>10/28/2013 16:26:48</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/ProgressReviewGraph.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/ProgressReviewGraphicalPresentation.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/SalesMonitoringEntry.cshtml">
+      <publishTime>09/10/2013 09:49:06</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/SummaryForTheDayClosing.cshtml">
+      <publishTime>09/16/2013 17:38:00</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesMonitoring/WeeklySalesNCollectionEntryStatus.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesReport/CollectionEfficiencySummary.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesReport/CustomerCollectionEfficiencyReport.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesReport/OverdueCollectionTargetVsAchievementByUnitOfficeReport.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesReport/SalesMonitoringEntry.cshtml">
+      <publishTime>09/10/2013 09:49:06</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesReport/SalesSummaryDetailView.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SalesReport/SummarySheetForRegionalSalesPosting.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/Shared/AuditAdjustmentForSales.cshtml">
+      <publishTime>10/05/2013 13:46:17</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/Shared/AuditAdjustmentForSalesAgreement.cshtml">
+      <publishTime>10/10/2013 14:41:03</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/Shared/CustomerLedger.cshtml">
+      <publishTime>10/07/2013 17:25:26</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/Shared/CustomerLedgerForAuditor.cshtml">
+      <publishTime>10/07/2013 17:19:42</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/Shared/IssueItemGrid.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/Shared/ItemSerialCheckGrid.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/Shared/_SalesLayout.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SystemReturns/CustomersOtherView.cshtml">
+      <publishTime>09/17/2013 10:01:47</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SystemReturns/SystemReturn.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/SystemReturns/SystemReturnCustomersReview.cshtml">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Areas/Sales/Views/Web.config">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:52:52</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>08/27/2013 21:32:53</publishTime>
+    </File>
+    <File Include="bin/es/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:51:00</publishTime>
+    </File>
+    <File Include="bin/fr/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:49:30</publishTime>
+    </File>
+    <File Include="bin/it/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:51:32</publishTime>
+    </File>
+    <File Include="bin/iTextSharp.dll">
+      <publishTime>08/28/2013 14:51:03</publishTime>
+    </File>
+    <File Include="bin/ja/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:57:20</publishTime>
+    </File>
+    <File Include="bin/ko/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:50:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ReportViewer.WebForms.dll">
+      <publishTime>06/24/2012 13:52:52</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>08/27/2013 20:06:34</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/27/2013 20:06:34</publishTime>
+    </File>
+    <File Include="bin/pt/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:52:50</publishTime>
+    </File>
+    <File Include="bin/RASolarAMS.Model.dll">
+      <publishTime>10/28/2013 16:27:23</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.CommonModels.dll">
+      <publishTime>10/28/2013 16:27:24</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.DomainModel.dll">
+      <publishTime>10/28/2013 16:27:18</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.FinancialControllers.dll">
+      <publishTime>10/28/2013 16:27:26</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.FinancialModels.dll">
+      <publishTime>10/28/2013 16:27:24</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.HRMSControllers.dll">
+      <publishTime>10/28/2013 16:27:25</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.HRMSModels.dll">
+      <publishTime>10/28/2013 16:27:24</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.InventoryControllers.dll">
+      <publishTime>10/28/2013 16:27:27</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.InventoryModels.dll">
+      <publishTime>10/28/2013 16:27:25</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.Model.dll">
+      <publishTime>10/28/2013 16:27:22</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.SalesControllers.dll">
+      <publishTime>10/28/2013 16:27:27</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.SalesModels.dll">
+      <publishTime>10/28/2013 16:27:25</publishTime>
+    </File>
+    <File Include="bin/RASolarERP.Web.dll">
+      <publishTime>10/28/2013 16:27:29</publishTime>
+    </File>
+    <File Include="bin/RASolarHelper.dll">
+      <publishTime>10/27/2013 17:20:47</publishTime>
+    </File>
+    <File Include="bin/RASolarHRMS.Model.dll">
+      <publishTime>10/28/2013 16:27:22</publishTime>
+    </File>
+    <File Include="bin/RASolarSecurity.Model.dll">
+      <publishTime>10/27/2013 17:20:48</publishTime>
+    </File>
+    <File Include="bin/ru/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:53:08</publishTime>
+    </File>
+    <File Include="bin/System.Net.dll">
+      <publishTime>07/09/2012 00:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.dll">
+      <publishTime>07/09/2012 00:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>08/27/2013 20:06:36</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.WebRequest.dll">
+      <publishTime>07/09/2012 00:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.Abstractions.dll">
+      <publishTime>07/09/2012 00:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>08/27/2013 20:06:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>08/27/2013 20:06:37</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>08/27/2013 20:06:36</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>08/28/2013 10:16:57</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>08/27/2013 20:06:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.Routing.dll">
+      <publishTime>07/09/2012 00:40:10</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>08/27/2013 20:06:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>08/27/2013 20:06:35</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>08/27/2013 20:06:35</publishTime>
+    </File>
+    <File Include="bin/Telerik.Web.Mvc.dll">
+      <publishTime>09/12/2013 14:23:51</publishTime>
+    </File>
+    <File Include="bin/zh-CHS/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:53:48</publishTime>
+    </File>
+    <File Include="bin/zh-CHT/Microsoft.ReportViewer.WebForms.resources.dll">
+      <publishTime>06/24/2012 13:50:22</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/editor.png">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/imagebrowser.png">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/loading.gif">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/slider-h.gif">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/slider-v.gif">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/sprite-vertical.png">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/sprite.png">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/treeview-line.png">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Black/treeview-nodes.png">
+      <publishTime>09/12/2013 17:55:00</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/editor.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/loading.gif">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/slider-h.gif">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/slider-v.gif">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/sprite.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/treeview-line.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Default/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/editor.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/loading.gif">
+      <publishTime>09/12/2013 17:54:59</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/slider-h.gif">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/slider-v.gif">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/sprite.png">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/treeview-line.png">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Forest/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/editor.png">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/loading.gif">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/slider-h.gif">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/slider-v.gif">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/sprite.png">
+      <publishTime>09/12/2013 17:54:58</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/treeview-line.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Hay/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Metro/editor.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Metro/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Metro/loading.gif">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Metro/slider-h.gif">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Metro/slider-v.gif">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Metro/sprite.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/editor.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:57</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/loading.gif">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/slider-h.gif">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/slider-v.gif">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/sprite.png">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/treeview-line.png">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2007/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/editor.png">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/loading.gif">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/slider-h.gif">
+      <publishTime>09/12/2013 17:54:56</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/slider-v.gif">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/sprite.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/treeview-line.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Black/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Blue/editor.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Blue/gradient.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Blue/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Blue/loading.gif">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Blue/slider-h.gif">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Blue/slider-v.gif">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Blue/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Blue/sprite.png">
+      <publishTime>09/12/2013 17:54:55</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Silver/editor.png">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Silver/gradient.png">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Silver/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Silver/loading.gif">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Silver/slider-h.gif">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Silver/slider-v.gif">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Silver/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Office2010Silver/sprite.png">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/editor.png">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/loading.gif">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/slider-h.gif">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/slider-v.gif">
+      <publishTime>09/12/2013 17:54:54</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/sprite.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/treeview-line.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Outlook/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/editor.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/loading.gif">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/slider-h.gif">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/slider-v.gif">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/sprite.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/treeview-line.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Simple/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:53</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/editor.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/loading.gif">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/slider-h.gif">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/slider-v.gif">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/sprite.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/treeview-line.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sitefinity/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/editor.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:52</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/loading.gif">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/slider-h.gif">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/slider-v.gif">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/sprite.png">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/treeview-line.png">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Sunset/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.black.min.css">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.common.min.css">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.default.min.css">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.forest.min.css">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.hay.min.css">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.metro.min.css">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.office2007.min.css">
+      <publishTime>09/12/2013 17:54:51</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.office2010black.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.office2010blue.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.office2010silver.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.outlook.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.rtl.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.simple.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.sitefinity.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.sunset.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.telerik.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.transparent.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.vista.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.web20.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.webblue.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/telerik.windows7.min.css">
+      <publishTime>09/12/2013 17:54:50</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/editor.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/loading.gif">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/slider-h.gif">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/slider-v.gif">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/sprite.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/treeview-line.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Telerik/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/active.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/editor.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/gradient.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/group.png">
+      <publishTime>09/12/2013 17:54:49</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/hover.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/loading.gif">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/selected.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/slider-h.gif">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/slider-v.gif">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/sprite.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/toolbar.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Transparent/widget.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Vista/editor.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Vista/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Vista/loading.gif">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Vista/slider-h.gif">
+      <publishTime>09/12/2013 17:54:48</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Vista/slider-v.gif">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Vista/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Vista/sprite.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/editor.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/loading.gif">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/slider-h.gif">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/slider-v.gif">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/sprite.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/treeview-line.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Web20/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:47</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/editor.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/loading.gif">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/slider-h.gif">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/slider-v.gif">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/sprite.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/treeview-line.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/treeview-nodes-rtl.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/WebBlue/treeview-nodes.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Windows7/editor.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Windows7/imagebrowser.png">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Windows7/loading.gif">
+      <publishTime>09/12/2013 17:54:46</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Windows7/slider-h.gif">
+      <publishTime>09/12/2013 17:54:45</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Windows7/slider-v.gif">
+      <publishTime>09/12/2013 17:54:45</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Windows7/sprite-vertical.png">
+      <publishTime>09/12/2013 17:54:45</publishTime>
+    </File>
+    <File Include="Content/2013.2.611/Windows7/sprite.png">
+      <publishTime>09/12/2013 17:54:45</publishTime>
+    </File>
+    <File Include="Content/EmployeeImages/NoEmployeeImage.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/EmployeeImages/NoSignature.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/EmployeeImages/RSF-4899-Img.jpg">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/EmployeeImages/RSF-4899-Sin.jpg">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/Accounting.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/AccountingIcon.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/Auditor.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/BackButton.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/bg_all.jpg">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/bg_c.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/bg_c2.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/delete.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/first_header.jpg">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/footerInner.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/header_01.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/header_02.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/header_03.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/HomePageHeaderBG.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/HRAdmin.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/Inventory.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/InventoryVertical.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/PageTitleBG.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/PreviousPage.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/ProgressReview.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/RASolarBodyBG.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/RASolarFooterBG.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/RASolarHeaderBG.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/RSFLogo.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/SalesAndBuy.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/SalesIcon.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/second_header.jpg">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/third_header.jpg">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/Images/Training.png">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/RASolarERP.css">
+      <publishTime>08/31/2013 14:57:07</publishTime>
+    </File>
+    <File Include="Content/RASolarERPSecurity.css">
+      <publishTime>10/26/2013 17:59:39</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>10/07/2013 09:17:31</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_flat_75_ffffff_40x100.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_222222_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_2e83ff_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_454545_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_888888_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/images/ui-icons_cd0a0a_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery-ui.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.accordion.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.all.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.autocomplete.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.base.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.button.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.core.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.datepicker.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.dialog.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.progressbar.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.resizable.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.selectable.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.slider.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.tabs.css">
+      <publishTime>08/31/2013 14:57:08</publishTime>
+    </File>
+    <File Include="Content/themes/base/jquery.ui.theme.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-bg_flat_75_ffffff_40x100.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-bg_glass_55_fbf9ee_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-bg_glass_65_ffffff_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-bg_glass_75_dadada_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-bg_glass_75_e6e6e6_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-bg_glass_95_fef1ec_1x400.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-icons_222222_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-icons_2e83ff_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-icons_454545_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-icons_888888_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/images/ui-icons_cd0a0a_256x240.png">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery-ui.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.accordion.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.autocomplete.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.button.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.core.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.datepicker.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.dialog.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.progressbar.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.resizable.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.selectable.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.slider.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.tabs.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Content/themes/base/minified/jquery.ui.theme.min.css">
+      <publishTime>08/31/2013 14:57:09</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>09/12/2013 17:45:04</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>09/12/2013 17:55:25</publishTime>
+    </File>
+    <File Include="RASolarERPDataSet.xsc">
+      <publishTime>09/02/2013 15:04:10</publishTime>
+    </File>
+    <File Include="RASolarERPDataSet.xss">
+      <publishTime>09/02/2013 15:04:09</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetd.xsc">
+      <publishTime>09/26/2013 13:54:35</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetd.xss">
+      <publishTime>09/26/2013 13:54:35</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetgfgg.xsc">
+      <publishTime>09/26/2013 14:14:52</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetgfgg.xss">
+      <publishTime>09/26/2013 14:14:52</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetHRMSalaryDisburse.xsc">
+      <publishTime>09/26/2013 13:53:25</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetHRMSalaryDisburse.xss">
+      <publishTime>09/26/2013 13:53:25</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetHRMSalaryGenerate.xsc">
+      <publishTime>09/26/2013 13:55:52</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetHRMSalaryGenerate.xss">
+      <publishTime>09/26/2013 13:55:52</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetSadaKaloGreen.xsc">
+      <publishTime>09/26/2013 14:03:37</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetSadaKaloGreen.xss">
+      <publishTime>09/26/2013 14:03:37</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetSalaryAdviceFor.xsc">
+      <publishTime>09/26/2013 13:58:22</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetSalaryAdviceFor.xss">
+      <publishTime>09/26/2013 13:58:22</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetSalaryAdviceWithBonus.xsc">
+      <publishTime>10/26/2013 17:07:09</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetSalaryAdviceWithBonus.xss">
+      <publishTime>10/26/2013 17:07:09</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetSalaryAdviceWithoutBonus.xsc">
+      <publishTime>10/26/2013 17:05:36</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetSalaryAdviceWithoutBonus.xss">
+      <publishTime>10/26/2013 17:05:36</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetTusala.xsc">
+      <publishTime>09/26/2013 14:10:14</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetTusala.xss">
+      <publishTime>09/26/2013 14:10:14</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetTusalaSalary.xsc">
+      <publishTime>09/26/2013 14:13:58</publishTime>
+    </File>
+    <File Include="RASolarERPDataSetTusalaSalary.xss">
+      <publishTime>09/26/2013 14:13:58</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/jquery-1.7.1.min.js">
+      <publishTime>09/12/2013 17:54:45</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/jquery.validate.min.js">
+      <publishTime>09/12/2013 17:54:45</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.all.min.js">
+      <publishTime>09/12/2013 17:54:45</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.autocomplete.min.js">
+      <publishTime>09/12/2013 17:54:44</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.calendar.min.js">
+      <publishTime>09/12/2013 17:54:44</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.chart.min.js">
+      <publishTime>09/12/2013 17:54:44</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.combobox.min.js">
+      <publishTime>09/12/2013 17:54:44</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.common.min.js">
+      <publishTime>09/12/2013 17:54:44</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.datepicker.min.js">
+      <publishTime>09/12/2013 17:54:43</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.datetimepicker.min.js">
+      <publishTime>09/12/2013 17:54:43</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.draganddrop.min.js">
+      <publishTime>09/12/2013 17:54:43</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.editor.min.js">
+      <publishTime>09/12/2013 17:54:43</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.grid.editing.min.js">
+      <publishTime>09/12/2013 17:54:43</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.grid.filtering.min.js">
+      <publishTime>09/12/2013 17:54:42</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.grid.grouping.min.js">
+      <publishTime>09/12/2013 17:54:42</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.grid.min.js">
+      <publishTime>09/12/2013 17:54:42</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.grid.reordering.min.js">
+      <publishTime>09/12/2013 17:54:42</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.grid.resizing.min.js">
+      <publishTime>09/12/2013 17:54:42</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.imagebrowser.min.js">
+      <publishTime>09/12/2013 17:54:42</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.list.min.js">
+      <publishTime>09/12/2013 17:54:41</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.menu.min.js">
+      <publishTime>09/12/2013 17:54:41</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.panelbar.min.js">
+      <publishTime>09/12/2013 17:54:41</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.slider.min.js">
+      <publishTime>09/12/2013 17:54:41</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.splitter.min.js">
+      <publishTime>09/12/2013 17:54:41</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.tabstrip.min.js">
+      <publishTime>09/12/2013 17:54:40</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.textbox.min.js">
+      <publishTime>09/12/2013 17:54:40</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.timepicker.min.js">
+      <publishTime>09/12/2013 17:54:40</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.treeview.min.js">
+      <publishTime>09/12/2013 17:54:40</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.upload.min.js">
+      <publishTime>09/12/2013 17:54:40</publishTime>
+    </File>
+    <File Include="Scripts/2013.2.611/telerik.window.min.js">
+      <publishTime>09/12/2013 17:54:37</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.7.1.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.7.1.min.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.8.20.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui-1.8.20.min.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery.cookie.js">
+      <publishTime>09/26/2013 14:37:52</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/knockout-2.1.0.debug.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/knockout-2.1.0.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.5.3.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Scripts/RASolarCustomFunction.js">
+      <publishTime>10/07/2013 17:12:17</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>09/16/2013 09:29:27</publishTime>
+    </File>
+    <File Include="Views/Auditor/AuditSetup.cshtml">
+      <publishTime>09/17/2013 10:51:30</publishTime>
+    </File>
+    <File Include="Views/ErrorHnadle/ErrorMessage.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/Auditor.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/HOACCAdvanceUsers.cshtml">
+      <publishTime>09/16/2013 15:32:31</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/HOACCEntryUsers.cshtml">
+      <publishTime>09/16/2013 15:32:31</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/HOAccountFinance.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/HOHumanResourceAdmin.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/HOInventory.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/HOSales.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/Index.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/INVAdvanceUsers.cshtml">
+      <publishTime>09/21/2013 10:14:14</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/INVEntryUsers.cshtml">
+      <publishTime>09/21/2013 10:14:14</publishTime>
+    </File>
+    <File Include="Views/HeadOffice/RSFExecutiveCommittee.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/RACO/Reviewer.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/RegionalOffice/Index.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/RegionalOffice/RegionManager.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/RSFSecurity/Index.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/RSFSecurity/LocationSelection.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/RSFSecurity/Login.cshtml">
+      <publishTime>10/09/2013 12:28:05</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Currency.cshtml">
+      <publishTime>06/11/2013 11:39:00</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Date.cshtml">
+      <publishTime>06/11/2013 11:39:00</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/DateTime.cshtml">
+      <publishTime>06/11/2013 11:39:00</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/GridForeignKey.cshtml">
+      <publishTime>06/11/2013 11:39:00</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Integer.cshtml">
+      <publishTime>06/11/2013 11:39:00</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Number.cshtml">
+      <publishTime>06/11/2013 11:39:00</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTemplates/Time.cshtml">
+      <publishTime>06/11/2013 11:39:00</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/AccountAdvenceUserMenuHO.cshtml">
+      <publishTime>09/26/2013 17:32:18</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/AccountEntryUserMenuHO.cshtml">
+      <publishTime>09/16/2013 15:32:32</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/AccountFinanceMenuHO.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/HRAdminMenuHO.cshtml">
+      <publishTime>10/28/2013 16:26:48</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/InventoryMenuHO.cshtml">
+      <publishTime>09/21/2013 16:37:02</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/InventroyAdvanceUsersMenuHO.cshtml">
+      <publishTime>10/06/2013 15:16:40</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/InventroyEntryUsersMenuHO.cshtml">
+      <publishTime>10/06/2013 15:16:40</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/RACOReviewInventoryMenu.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/RegionManagerMenu.cshtml">
+      <publishTime>09/29/2013 18:19:12</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/RSFExecutiveCommitteeMenu.cshtml">
+      <publishTime>09/26/2013 17:32:18</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/SalesMenuHO.cshtml">
+      <publishTime>09/29/2013 18:42:10</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/UnitAuditorMenu.cshtml">
+      <publishTime>09/21/2013 16:33:28</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/UnitUserMenu.cshtml">
+      <publishTime>10/19/2013 10:23:31</publishTime>
+    </File>
+    <File Include="Views/Shared/SiteMenu/ZoneManagerMenu.cshtml">
+      <publishTime>09/29/2013 18:41:13</publishTime>
+    </File>
+    <File Include="Views/Shared/UnitSelection.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/Shared/UserControl/UnitSelectionWithLocationType.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/Shared/UserControl/UserLocationSelection.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/Shared/_LayoutLogin.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/UnitOfficeUser/UnitOfficeUsers.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/ZonalOffice/Index.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/ZonalOffice/ZoneManager.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>08/31/2013 14:57:12</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>10/28/2013 16:27:52</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

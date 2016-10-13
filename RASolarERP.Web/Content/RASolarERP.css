@@ -1,0 +1,272 @@
+﻿/* ---------------------------- Sales Agreement Style -------------------------------- */
+
+.SalesAgreementCaptionLeftColumn
+{
+    width: 135px;
+}
+
+.SalesAgreementCaptionMiddleColumn
+{
+    width: 145px;
+}
+
+.SalesAgreementCaptionRightColumn
+{
+    width: 217px;
+}
+
+.SalesAgreementDropDown
+{
+    width: 147px;
+}
+
+.SalesAgreementDropDown option
+{
+    width: auto;
+}
+
+.SalesAgreementControl
+{
+    width: 145px;
+}
+
+.t-picker-wrap .t-icon
+{
+    margin-top: 1px;
+}
+
+.t-picker-wrap .t-input
+{
+    margin: 0;
+    padding: 0;
+}
+
+.sagGroupBox
+{
+    border: 2px outset #A4D3DB;
+}
+
+.sagGroupBox legend
+{
+    padding: 5px;
+    margin-left: 30px;
+    font-size: 13px;
+    font-weight: bold;
+}
+.TableHeader
+{
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    background: #CEEDFD;
+    height: 25px;
+}
+
+/*---------------------------- Sales Agreement Style Ending--------------------------------
+  -------------------------------------------------------------------------------------------*/
+
+/* ---------------------------- Item Serial Mapping Style -------------------------------- */
+.IsrlLeftColumn
+{
+    width: 145px;
+}
+
+.IsrlMiddleColumn
+{
+    width: 145px;
+}
+
+.IsrlRightColumn
+{
+    width: 145px;
+}
+
+.IsrlDropDown
+{
+    width: 145px;
+}
+
+.IsrlControl
+{
+    width: 145px;
+}
+
+.serialMapGroupBox
+{
+    border: 2px outset #A4D3DB;
+}
+
+.serialMapGroupBox legend
+{
+    padding: 5px;
+    margin-left: 30px;
+    font-size: 14px;
+}
+
+/*---------------------------- Item Serial Mapping Style Ending--------------------------------
+  -------------------------------------------------------------------------------------------*/
+
+/* ---------------------------- Table Grid Style -------------------------------- */
+.TableData
+{
+    background-color: #FFFFFF;
+    border-color: #A7BAC5;
+    border-style: solid;
+    border-width: 1px 1px 0px 0px;
+    font-family: "Segoe UI" , Arial, sans-serif;
+    font-size: 12px;
+    color: #000000;
+    border-collapse: separate;
+}
+
+.TableData thead
+{
+    background: url("/Content/2013.2.611/Vista/sprite.png") repeat-x scroll 0 -852px #A6D9F4;
+    border-color: #A7BAC5;
+    height: 25px;
+    color: #000000;
+    text-align: center;
+    clear: both;
+    font-weight: normal;
+}
+
+.TableData thead th
+{
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    border-color: #A7BAC5;
+}
+
+.TableData tbody
+{
+    text-align: left;
+    color: #000000;
+}
+
+.TableData tbody td
+{
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    border-color: #A7BAC5;
+    padding: 3px 3px 3px 3px;
+}
+
+.TdDisplayNone
+{
+    display: none;
+}
+
+.TdAlignRight
+{
+    text-align: right;
+}
+
+/*---------------------------- Table Grid Style Ending--------------------------------
+  -------------------------------------------------------------------------------------------*/
+
+
+/* ---------------------------- Issue/Received Style -------------------------------- */
+
+.IRCaptionLeftColumn
+{
+    width: 150px;
+}
+
+.IRCaptionMiddleColumn
+{
+    width: 150px;
+}
+
+.IRCaptionRightColumn
+{
+    width: 150px;
+}
+
+.IRDropDown
+{
+    width: 155px;
+}
+
+.IRDropDown option
+{
+    width: auto;
+}
+
+.IRControl
+{
+    width: 150px;
+}
+
+/*---------------------------- Issue/Received Style Ending--------------------------------
+  -------------------------------------------------------------------------------------------*/
+
+.HrEmployeeTransferLeftColumn
+{
+    width: 170px;
+}
+
+.EmployeeTransferIsrlControl
+{
+    width: 308px;
+}
+
+/*---------------------------- HR Report Style--------------------------------
+  -------------------------------------------------------------------------------------------*/
+
+.ReportTextBox
+{
+    width: 245px;
+}
+
+.ReportDropDown
+{
+    width: 250px;
+    height: 23px;
+}
+
+/*---------------------------- Account Module Style--------------------------------
+  -------------------------------------------------------------------------------------------*/
+
+.VoucherTextBoxBig
+{
+    width: 520px;
+}
+
+.VoucherTextBox
+{
+    width: 190px;
+}
+
+.VoucherDropDownBig
+{
+    width: 120px;
+}
+
+.VoucherDropDown
+{
+    width: 195px;
+}
+
+.VoucherTitleWide
+{
+    width: 120px;
+}
+.VoucherInputField
+{
+    width: 205px;
+}
+.LblUnitWiseCustomerRegisterForFullPaid
+{
+    width: 290px;
+}
+
+.LabelForDisplayDataTADA {
+    display: block;
+    background-color: #fafafa;
+    line-height: 20px;
+    width: 42%;
+    padding-left:5px;
+    padding-right:2px;
+}
+
+

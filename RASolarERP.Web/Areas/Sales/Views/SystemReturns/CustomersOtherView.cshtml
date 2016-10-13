@@ -1,0 +1,189 @@
+﻿@model IEnumerable<RASolarERP.DomainModel.SalesModel.SystemReturnOrFullPaidCustomers>
+@{
+    ViewBag.Title = "Customers Other View";
+
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>      
+    }
+}
+<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime == true) {
+            e.preventDefault();
+            firstTime = false;
+        }
+        else {
+            e.data = {
+
+                fromDate: $('#txtStartDate').val(),
+                todate: $('#txtEndDate').val(),
+                reportMode: $('#ddlReportMode').val()
+            }
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+
+</script>
+
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+  <input id="hfReportMode" type="hidden" name="hfReportMode" value="@ViewBag.ReportMode"/>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" id="reportMode">
+        <tr>
+            <td>
+                Customer/View Type:
+            </td>
+            <td align="left" class="IsrlMiddleColumn">
+                @Html.DropDownList("ddlReportMode", new List<SelectListItem> { 
+                    new SelectListItem { Text = "System Return", Value = "SYSTEMRETURNED" },
+                    new SelectListItem{Text="Closed By Full Paid", Value="FULLPAID"},
+                    new SelectListItem{Text="Closed By Waive", Value="CLOSEDWITHWAIVE"},
+                    new SelectListItem { Text = "Cash", Value= "CASHSALES"},
+                    new SelectListItem { Text = "DRF Collected", Value= "DRFCOLLECTED"},
+                    new SelectListItem { Text = "Service Agreement", Value= "SERVAGRCOLLECTED"},
+                    new SelectListItem{Text ="Transferred Customer", Value="TRANSFERRED"}
+            }, new { @style = "width:150px;" })
+            </td>
+            <td align="right" width="15%">
+                From Date:
+            </td>
+            <td align="right" width="15%">
+                @(Html.Telerik().DatePicker()
+                .Name("txtStartDate")
+                .Max(new DateTime(2999, 12, 31))
+                .Value(@ViewBag.fromDate)
+                .Format("dd-MMM-yyyy")
+                )
+            </td>
+            <td align="right" width="15%">
+                To Date:
+            </td>
+            <td align="right" width="15%">
+                @(Html.Telerik().DatePicker()
+                .Name("txtEndDate")
+                .Max(new DateTime(2999, 12, 31))
+                .Value(@ViewBag.toDate)
+                .Format("dd-MMM-yyyy")
+            )
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <input type="submit" value="Show Report" id="btnSystemReturnCustomerReview" onclick="return CustomerOtherViewShow();" />
+            </td>
+        </tr>
+    </table>
+
+<div class="DataGridXScroll">
+    @(Html.Telerik().Grid(Model)
+    .Name("gvFullPaidSystemReturnCustomers")
+    .DataKeys(keys => keys.Add(k => k.CustomerCode))
+    .Columns(column =>
+    {
+        //column.Bound(c => c.CustomerCode).Format("{0:0}").Template(@<a href="#" onclick="return ShowCustomerLedger('@item.CustomerCode')">@item.CustomerCode</a>).Title("Customer Code").Width(80);
+        column.Bound(c => c.CustomerCode).Title("Customer Code")
+                  .ClientTemplate("<a id=\"trn<#=CustomerCode#>\" href='#' onclick=\"ShowCustomerLedger('<#=CustomerCode#>')\"><#=CustomerCode#></a>").Width(100);
+        column.Bound(c => c.CustomerName).Format("{0:0}").Width(180);
+        column.Bound(c => c.AgreementDate).Format("{0:dd-MMM-yyyy}").Width(90);
+        column.Bound(c => c.NoOfMonthAtCustomerEnd).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+        column.Bound(c => c.Package).Width(180);
+        column.Bound(c => c.OverdueOrAdvanceBalanceUpToDate).Format("{0:0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+        column.Bound(c => c.OutstandingBalance).Format("{0:0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+        column.Bound(c => c.CollectionAmount).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+        column.Bound(c => c.ReasonForSystemReturn).Title("Reason").Width(150);
+    })
+        .DataBinding(bindings => bindings.Ajax().Select("_CustomerOtherViewShow", "SystemReturns"))
+        .Selectable()
+        //.Footer(false)
+        .Scrollable(scroll => scroll.Height(300))
+        .Pageable(pages => pages.PageSize(100))
+        .ClientEvents(events =>
+                 {
+                     events.OnDataBinding("onDataBinding");
+                     events.OnError("onError");
+                 })
+       )
+</div>
+<table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+    <tr>
+        <td id="CustomerLedgerContainer" style="width: 100%">
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+
+    var reportMode = $('#hfReportMode').val();
+    $('#ddlReportMode').val(reportMode);
+    function ShowCustomerLedger(customerCode) {
+        $('#customerCollectionTr').css('display', 'none');
+        $('#systemReturnContainer').css('display', 'none');
+        $('#fullPaidCustomerContainer').css('display', 'none');
+        $('#customerTransferTr').css('display', 'none');
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("CustomerLedger", "CustomerRegister")',
+            data: { customerCode: customerCode },
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#CustomerLedgerContainer').html(data);
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+    }
+
+    function CustomerOtherViewShow() {
+        var fromDate = $('#txtStartDate').val();
+        var todate = $('#txtEndDate').val();
+        var reportMode = $('#ddlReportMode').val();
+
+        var params = {
+            fromDate: fromDate,
+            todate: todate,
+            reportMode: reportMode
+        };
+
+        var grid = $('#gvFullPaidSystemReturnCustomers').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

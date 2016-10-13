@@ -1,0 +1,1240 @@
+﻿@using RASolarERP.DomainModel.HRMSModel;
+@model EmployeeDetails
+@{
+    ViewBag.Title = "Employee Details";
+    Layout = "~/Areas/HRMS/Views/Shared/_HrmsLayout.cshtml";
+
+    if (false)
+    {
+    <script src="../../../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/RASolarCustomFunction.js" type="text/javascript"></script>    
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfLocation" type="hidden" value="@ViewBag.Location"/>
+<input id="hfCurrentLocation" type="hidden" />
+<input id="hfSearchLocationCode" type="hidden" value="" />
+<fieldset>
+    <legend>Employee Search</legend>
+    @using (Html.BeginForm("EmployeeDetails", "Employee"))
+    {
+        @Html.Hidden("hfSearchEmployeeId", "")
+        <table cellpadding="0" cellspacing="3" border="0" style="text-align: right;" width="100%">
+            <tr>
+                <td align="left" style="width: 150px;">Employee ID
+                </td>
+                <td align="left" style="width: 350px;">
+                    @Html.TextBox("txtEmployeeId", (string)ViewBag.EmployeeId, new { @class = "EmployeeTransferIsrlControl" })
+                    @(Html.Telerik().Window().Name("dialogEmployeeLocationSelection")
+                .Title("Select A Location For Load Employee")
+                .ClientEvents(events => events.OnClose("CloseDialogEmployeeLocationSelection"))
+                .Draggable(false)
+                .Resizable(resizing => resizing.Enabled(false)
+                                                .MinHeight(155)
+                                                .MinWidth(355)
+                                                .MaxHeight(500)
+                                                .MaxWidth(500)
+                                                )
+                .Modal(true)
+                .Buttons(b => b.Close())
+                .Content(@<p id="LoadEmployeeLocationSelectionWindow" style="height: 153px; width: 342px; padding: 0; margin: 0;">
+                </p>
+                )
+                .Visible(false)
+            )
+                </td>
+                <td align="left" style="width: 150px;">Employee
+                </td>
+                <td style="width: 350px;" align="left">
+                    @Html.TextBox("txtSearchEmployeeId", (string)ViewBag.EmployeeSearchId, new { @class = "EmployeeTransferIsrlControl", @readonly = true })
+                    @(Html.Telerik().Window()
+                .Name("dialogEmployeeSelection")
+                .Title("Select An Employee")
+                .ClientEvents(evenets => evenets.OnClose("CloseDialogEmployeeSelection"))
+                .Draggable(false)
+                .Resizable(resizing =>
+                        resizing.Enabled(false)
+                                .MinHeight(500)
+                                .MinWidth(970)
+                                .MaxHeight(500)
+                                .MaxWidth(970)
+                )
+                .Modal(true)
+                .Buttons(b => b.Close())
+                .Content(@<p id="LoadEmployeeSelection" style="margin: 0; padding: 0; width: 970px; height: 425px;">
+                </p>)
+                .Visible(false)
+                )
+                </td>
+                <td style="width: 150px;" align="right">
+                    <input id="btnShowEmployeeDetails" type="submit" value="Show" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" style="color: red; text-align: left;">
+                    @if (string.IsNullOrEmpty(Model.EmployeeName) && ViewBag.EmployeeId != ViewBag.EmployeeSearchId)
+                    {
+                        <text>This Empoyee ID is not found.</text>
+                        Model.EmployeeID = null;
+                    }
+                </td>
+            </tr>
+        </table>        
+    }
+</fieldset>
+<br />
+@{
+    Html.Telerik().TabStrip()
+      .Name("tabEmployeeDetailsView")
+      .Items(tabstrip =>
+      {
+
+          tabstrip.Add()
+              .Text("Employee Info")
+              .Content(@<table cellpadding="0" cellspacing="0" border="0" width="100%">
+                  @* Start Employee personal information tab *@
+                  <tr>
+                      <td>
+                          <fieldset>
+                              <legend>Employee's Personal Details</legend>
+                              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                  <tr>
+                                      <td style="width: 50%;" valign="top">
+                                          <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Employee ID:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="employeeId" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.EmployeeID
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Employee Name:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="employeeName" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.EmployeeName
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Date Of Birth:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="dateOfBirth" class="labelEmployeeInfoForDisplayValue">
+                                                          @{
+                                                              if (Model.DateOfBirth != null)
+                                                              {
+                                                              @(Convert.ToDateTime(Model.DateOfBirth).ToString("dd-MMMM-yyyy"))
+                                                              }                                              
+                                                          }
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Home District:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="homeDistrict" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.PermanentDistrict
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Nationality:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="nationality" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.Nationality
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Highest Education:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="highestEducation" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.EducationName
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Highest Education Label:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="HighesteducationLabel" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.EducationLevel
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Blood Group:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="bloodGroup" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.BloodGroupDescription
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">National ID:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="nationalID" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.NationalIDCard
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Passport No:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="passportNO" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.PassportNo
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">E-mail:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="email" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.EmailID
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                      <td style="width: 50%;" valign="top">
+                                          <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Father's Name:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="fatherName" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.EmployeeFathersName
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Mother's Name:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="motherName" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.EmployeeMothersName
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Gender:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="gender" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.GenderDescription
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Marital Status:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="maritalStatus" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.MaritalStatusDescription
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Religion:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="religion" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.ReligionName
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Major Subject/Group:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="majorSubject" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.MajorSubjectName
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Spouse Name:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="spouseName" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.EmployeeSpouseName
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Spouse Blood Group:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="spouseBloodGroup" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.SpouseBloodGroup
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">Driving License:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="drivingLicense" class="labelEmployeeInfoForDisplayValue">
+                                                          @Model.DrivingLicenseNo
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td align="left" class="employeeInfoFieldLabel">PP Exp. Date:
+                                                  </td>
+                                                  <td align="left">
+                                                      <label id="ppExpDate" class="labelEmployeeInfoForDisplayValue">
+                                                         @{
+                                                             if (Model.PassportExpiryDate != null)
+                                                              {
+                                                              @(Convert.ToDateTime(Model.PassportExpiryDate).ToString("dd-MMMM-yyyy"))
+                                                              }                                              
+                                                          }
+                                                      </label>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </table>
+                          </fieldset>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <fieldset>
+                              <legend>Residence Information</legend>
+                              <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                  <tr>
+                                      <td>
+                                          <span class="employeeInfoTitle">Present Address</span>
+                                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                              <tr>
+                                                  <td style="width: 50%;" valign="top">
+                                                      <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">House No:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="houseNo:" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PresentHouseNo
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Post Office:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="postOffice:" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PresentPostOffice
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">City/Dist:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="cityOrDist" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PresentDistrict
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Phone:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="phone" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PresentPhone
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                      </table>
+                                                  </td>
+                                                  <td style="width: 50%;" valign="top">
+                                                      <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Street/Village:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="streetOrVillage" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PresentStreetOrVillage
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Upzilla:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="policeStationOrUpzilla" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PresentUpazilla
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Police Station:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="PresentPoliceStation" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PresentPoliceStation
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Mobile:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="mobile" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PresentMobileNo
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                      </table>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td>
+                                          <span class="employeeInfoTitle">Parmanent Address</span>
+                                          <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                              <tr>
+                                                  <td style="width: 50%;" valign="top">
+                                                      <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">House:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="house:" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PermanentHouseNo
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Post Office:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="permanetPostOffice:" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PermanentPostOffice
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">City/Dist:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="permanetCityOrDist" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PermanentDistrict
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Phone:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="pPhone" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PermanentPhone
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                      </table>
+                                                  </td>
+                                                  <td style="width: 50%;" valign="top">
+                                                      <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Street/Village:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="permanetStreetOrVillage" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PermanentStreetVillage
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Upzilla:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="permanetUpzilla" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PermanentUpazilla
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Police Station:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="PermanentPoliceStation" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PermanentPoliceStation
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Mobile:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="pMobile" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.PermanentMobileNo
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                      </table>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </td>
+                                  </tr>
+                              </table>
+                          </fieldset>
+                      </td>
+                  </tr>
+                  @* End Employee personal information tab *@
+              </table>    
+);
+
+          tabstrip.Add()
+              .Text("Employment Info")
+              .Content(@<table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+                  <tr>
+                      <td>
+                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                              <tr>
+                                  <td>
+                                      <fieldset>
+                                          <legend>Employement Information</legend>
+                                          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                              <tr>
+                                                  <td style="width: 50%" valign="top">
+                                                      <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Joining Date:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="JoiningDate" class="labelEmployeeInfoForDisplayValue">
+                                                                      @{
+                                                                          string joiningDate = string.Empty;
+                                                                          if (Model.JoiningDate != null)
+                                                                          {
+                                                                              joiningDate = Convert.ToDateTime(Model.JoiningDate).ToString("dd-MMMM-yyyy");
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              joiningDate = string.Empty;
+                                                                          }
+                                                                      }
+                                                                      @joiningDate
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Employment Type:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="EmploymentType" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.EmploymentTypeDescription
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Department:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="Department" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.DepartmentName
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Designation:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="Designation" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.HDesignationName
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Operational Role:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="OperationalRole" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.OperationalRoleName
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Mode Of Salary Payment:</td>
+                                                              <td align="left">
+                                                                  <label id="ModeOfSalaryPayment" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.ModeOfSalaryPayment
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                      </table>
+                                                  </td>
+
+                                                  <td style="width: 50%" valign="top">
+                                                      <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Confirmation Date:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="JoiningAt" class="labelEmployeeInfoForDisplayValue">
+
+                                                                      @{
+                                                                          string confirmationDate = string.Empty;
+
+                                                                          if (Model.ConfirmationDate != null)
+                                                                          {
+                                                                              confirmationDate = Convert.ToDateTime(Model.ConfirmationDate).ToString("dd-MMMM-yyyy");
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              confirmationDate = string.Empty;
+                                                                          }
+                                                                      }
+                                                                      @confirmationDate
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Probation Period:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="ProbationPeriodInMonth" class="labelEmployeeInfoForDisplayValue">
+                                                                      @{
+                                                                          string probationPeriod = string.Empty;
+
+                                                                          if (Model.ProbationPeriodInMonth != null)
+                                                                          {
+                                                                              probationPeriod = Convert.ToByte(Model.ProbationPeriodInMonth).ToString() + " Months";
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              probationPeriod = " ";
+                                                                          }                                                                                                                                            
+                                                                      }
+                                                                      @probationPeriod
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Contractual Period:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="ContractualPeriodInMonth" class="labelEmployeeInfoForDisplayValue">
+                                                                      @{
+                                                                          string contractPeriod = string.Empty;
+
+                                                                          if (Model.ContractualPeriodInMonth != null)
+                                                                          {
+                                                                              contractPeriod = Convert.ToByte(Model.ContractualPeriodInMonth).ToString() + " Months";
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              contractPeriod = " ";
+                                                                          }                                                                                                                                            
+                                                                      }
+                                                                      @contractPeriod
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Posting To:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="PostingTo" class="labelEmployeeInfoForDisplayValue">
+                                                                      @(Model.LocationName + " [" + Model.LastLocationCode + "]")
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td align="left" class="employeeInfoFieldLabel">Job Grade:
+                                                              </td>
+                                                              <td align="left">
+                                                                  <label id="JobGrade" class="labelEmployeeInfoForDisplayValue">
+                                                                      @Model.EmployeeGrade
+                                                                  </label>
+                                                              </td>
+                                                          </tr>
+                                                      </table>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                      </fieldset>
+                                  </td>
+                              </tr>
+                          </table>
+                      </td>
+                  </tr>
+                  @* End Employee info tab *@
+              </table>
+);
+
+          tabstrip.Add()
+             .Text("Educational Qualification")
+             .Content(@<table cellpadding="0" cellspacing="0" border="0" width="100%">
+                 @* Start Educational Qualification tab *@
+                 <tr>
+                     <td>
+                         <fieldset>
+                             <legend>Educational Qualification</legend>
+                             <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                 <tr>
+                                     <td style="width: 100%;" colspan="2">
+                                         @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.EducationalQualification>()
+                                            .Name("gvEducationalQualification")
+                                            .DataKeys(keys => keys.Add(k => k.LevelofEdu))
+                                            .Columns(column =>
+                                            {
+                                                column.Bound(s => s.LevelofEdu).Title("Level of Edu.");
+                                                column.Bound(s => s.NameOfDegree).Title("Name of Degree");
+                                                column.Bound(s => s.FacultyOrBoard).Title("Faculty/Board");
+                                                column.Bound(s => s.NameOfInstitution).Title("Name of Institution");
+                                                column.Bound(s => s.MajorSujectOrGroup).Title("Major Suject/Group");
+                                                column.Bound(s => s.CGPAOrDivision).Title("CGPA/Division");
+                                                column.Bound(s => s.PassingYear).Title("Passing Year");
+                                            })
+                                         .ClientEvents(events =>
+                                         {
+                                         })
+                                         )
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td class="employeeInfoFieldLabel">Extra Curricular Act
+                                     </td>
+                                     <td>
+                                         <label id="ExtraCurricularAct" class="labelEmployeeInfoForDisplayValueBig">
+                                             &nbsp;
+                                         </label>
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td class="employeeInfoFieldLabel">Academic Achievement
+                                     </td>
+                                     <td>
+                                         <label id="AcademicAchievement" class="labelEmployeeInfoForDisplayValueBig">
+                                             &nbsp;
+                                         </label>
+                                     </td>
+                                 </tr>
+                             </table>
+                         </fieldset>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td>
+                         <fieldset>
+                             <legend>Professional Degree</legend>
+                             <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                 <tr>
+                                     <td style="width: 100%;" colspan="2">
+                                         @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.ProfessionalDegree>()
+                                            .Name("gvProfessionalDegree")
+                                            .DataKeys(keys => keys.Add(k => k.Certification))
+                                            .Columns(column =>
+                                            {
+                                                column.Bound(s => s.Certification).Title("Certification");
+                                                column.Bound(s => s.Institution).Title("Institution");
+                                                column.Bound(s => s.Country).Title("Country");
+                                                column.Bound(s => s.Location).Title("Location");
+                                                column.Bound(s => s.StartsOn).Title("StartsOn");
+                                                column.Bound(s => s.EndsOn).Title("EndsOn");
+                                                column.Bound(s => s.Duration).Title("Duration");
+                                                column.Bound(s => s.Remarks).Title("Remarks");
+                                            })
+                                         .ClientEvents(events =>
+                                         {
+                                         })
+                                         )
+                                     </td>
+                                 </tr>
+                             </table>
+                         </fieldset>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td>
+                         <fieldset>
+                             <legend>Training Summary</legend>
+                             <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                 <tr>
+                                     <td style="width: 100%;" colspan="2">
+                                         @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.TrainingSummary>()
+                                            .Name("gvTrainingSummary")
+                                            .DataKeys(keys => keys.Add(k => k.TrainingTitle))
+                                            .Columns(column =>
+                                            {
+                                                column.Bound(s => s.TrainingTitle).Title("Certification");
+                                                column.Bound(s => s.TopicsCovered).Title("Certification");
+                                                column.Bound(s => s.Institute).Title("Institution");
+                                                column.Bound(s => s.Country).Title("Country");
+                                                column.Bound(s => s.Location).Title("Location");
+                                                column.Bound(s => s.TrainingYear).Title("Location");
+                                                column.Bound(s => s.StartsOn).Title("StartsOn");
+                                                column.Bound(s => s.EndsOn).Title("EndsOn");
+                                                column.Bound(s => s.Duration).Title("Duration");
+                                                column.Bound(s => s.Remarks).Title("Remarks");
+                                            })
+                                         .ClientEvents(events =>
+                                         {
+                                         })
+                                         )
+                                     </td>
+                                 </tr>
+                             </table>
+                         </fieldset>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td>
+                         <fieldset>
+                             <legend>Experience</legend>
+                             <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                 <tr>
+                                     <td style="width: 100%;" colspan="2">
+                                         @(Html.Telerik().Grid<RASolarERP.DomainModel.HRMSModel.Experience>()
+                                            .Name("gvExperience")
+                                            .DataKeys(keys => keys.Add(k => k.CompanyName))
+                                            .Columns(column =>
+                                            {
+                                                column.Bound(s => s.CompanyName).Title("Company Name");
+                                                column.Bound(s => s.CompanyBusiness).Title("Company Business");
+                                                column.Bound(s => s.CompanyLocation).Title("Company Location");
+                                                column.Bound(s => s.JobLocation).Title("Job Location");
+                                                column.Bound(s => s.Designation).Title("Designation");
+                                                column.Bound(s => s.Department).Title("Department");
+                                                column.Bound(s => s.JoiningDate).Title("Joining Date");
+                                                column.Bound(s => s.ReleaseDate).Title("Release Date");
+                                                column.Bound(s => s.JobDuration).Title("Job Duration");
+                                                column.Bound(s => s.JobResponsibilities).Title("Job Responsibilities");
+                                            })
+                                         .ClientEvents(events =>
+                                         {
+                                         })
+                                         )
+                                     </td>
+                                 </tr>
+                             </table>
+                         </fieldset>
+                     </td>
+                 </tr>
+                 @* End Educational Qualification tab *@
+             </table>
+
+);
+
+          tabstrip.Add()
+             .Text("Interview Status")
+             .Content(@<table cellpadding="0" cellspacing="0" border="0" width="100%">
+                 @* Start Interview Status tab *@
+                 <tr>
+                     <td>
+                         <fieldset>
+                             <legend>Interview Status</legend>
+                             <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                 <tr>
+                                     <td style="width: 50%;" valign="top">
+                                         <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                             <tr>
+                                                 <td align="left" class="employeeInfoFieldLabel">Interview Date
+                                                 </td>
+                                                 <td align="left">
+                                                     <label id="InterviewDate" class="labelEmployeeInfoForDisplayValue">
+                                                         &nbsp;
+                                                     </label>
+                                                 </td>
+                                             </tr>
+                                             <tr>
+                                                 <td align="left" class="employeeInfoFieldLabel">Assessment Result
+                                                 </td>
+                                                 <td align="left">
+                                                     <label id="AssessmentResult" class="labelEmployeeInfoForDisplayValue">
+                                                         &nbsp;
+                                                     </label>
+                                                 </td>
+                                             </tr>
+                                             <tr>
+                                                 <td align="left" class="employeeInfoFieldLabel">Offering Letter
+                                                 </td>
+                                                 <td align="left">
+                                                     <label id="OfferingLetter" class="labelEmployeeInfoForDisplayValue">
+                                                         &nbsp;
+                                                     </label>
+                                                 </td>
+                                             </tr>
+                                         </table>
+                                     </td>
+                                     <td style="width: 50%;" valign="top">
+                                         <table cellpadding="0" cellspacing="3" border="0" width="100%">
+                                             <tr>
+                                                 <td align="left" class="employeeInfoFieldLabel">Position Applied For
+                                                 </td>
+                                                 <td align="left">
+                                                     <label id="PositionAppliedFor" class="labelEmployeeInfoForDisplayValue">
+                                                         &nbsp;
+                                                     </label>
+                                                 </td>
+                                             </tr>
+                                             <tr>
+                                                 <td align="left" class="employeeInfoFieldLabel">Panel Members
+                                                 </td>
+                                                 <td align="left">
+                                                     <label id="PanelMembers" class="labelEmployeeInfoForDisplayValue">
+                                                         &nbsp;
+                                                     </label>
+                                                 </td>
+                                             </tr>
+                                             <tr>
+                                                 <td align="left" class="employeeInfoFieldLabel">Remarks
+                                                 </td>
+                                                 <td align="left">
+                                                     <label id="Remarks" class="labelEmployeeInfoForDisplayValue">
+                                                         &nbsp;
+                                                     </label>
+                                                 </td>
+                                             </tr>
+                                         </table>
+                                     </td>
+                                 </tr>
+                             </table>
+                         </fieldset>
+                     </td>
+                 </tr>
+                 @* End Interview Status tab *@
+             </table>
+
+);
+
+          tabstrip.Add()
+          .Text("Photograph")
+          .Content(@<table cellpadding="0" cellspacing="0" border="0" width="100%">
+              @* Start Photograph  tab *@
+              <tr>
+                  <td>
+                      <fieldset>
+                          <legend>Photograph</legend>
+                          <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                              <tr>
+                                  <td>
+                                      <div class="employeeInfoPhotograph">
+                                          <img id="employeeImage" src="@Model.EmployeeImagePath"
+                                              alt="No Image" />
+                                      </div>
+                                      <fieldset>
+                                          <legend>Employee Image</legend>
+                                          @(Html.Telerik().Upload()
+                                                .Name("uploadEmployeeImage")
+                                                .Multiple(false)
+                                                .Async(async => async
+                                                .Save("AddEmployeeImage", "Employee", new { employeeId = Model.EmployeeID })
+                                                .AutoUpload(false)
+                                                )
+                                                .ClientEvents(events => events
+                                                .OnLoad("onLoad")
+                                                .OnSelect("onSelect")
+                                                .OnUpload("onUpload")
+                                                .OnSuccess("onSuccess")
+                                                )
+                                            )
+                                          <p style="font-size: 10px; padding-top: 2px; margin: 0;">
+                                              <b class="RedMarks">Note:</b>&nbsp;Maximum allowed file size <b>100KB</b>. Image
+                                              dimension should be maximum <b>200X250 pixel</b>. Image extension must be <b>jpg</b>.
+                                          </p>
+                                      </fieldset>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td style="margin-top: 30px;">
+                                      <div class="employeeInfoSignature">
+                                          <img id="employeeSignature" src="@Model.EmployeeSignaturePath"
+                                              alt="No Signature" />
+                                      </div>
+                                      <fieldset>
+                                          <legend>Employee Signature</legend>
+                                          @(Html.Telerik().Upload()
+                                                .Name("uploadEmployeeSignature")
+                                                .Multiple(false)
+                                                .Async(async => async
+                                                .Save("AddEmployeeSignature", "Employee", new { employeeId = Model.EmployeeID })
+                                                .AutoUpload(false)
+                                                )
+                                                .ClientEvents(events => events
+                                                .OnLoad("onLoad")
+                                                .OnSelect("onSelect")
+                                                .OnUpload("onUploadSignature")
+                                                .OnSuccess("onSuccessSignature")
+                                                )
+                                            )
+                                          <p style="font-size: 10px; padding-top: 2px; margin: 0;">
+                                              <b class="RedMarks">Note:</b>&nbsp;Maximum allowed file size <b>100KB</b>. Signature
+                                              dimension should be maximum <b>350X100 pixel</b>. Signature extension must be <b>jpg</b>.
+                                          </p>
+                                      </fieldset>
+                                  </td>
+                              </tr>
+                          </table>
+                          <p style="font-size: 9px; padding-top: 10px; margin: 0;">
+                              <b class="RedMarks">**Note:</b>&nbsp;If an employee image/signature already have
+                              uploaded and you upload again an image/signature then the existing image/signature
+                              is deleted and new image/signature will saved.
+                          </p>
+                      </fieldset>
+                  </td>
+              </tr>
+              @* End Photograph tab *@
+          </table>
+
+);
+      })
+      .SelectedIndex(0)
+      .Render();
+}
+<br />
+<script type="text/javascript">
+
+    var imageWidthHeight = 1, imageSignatureWidthHeight = 1;
+
+    $(document).ready(function () {
+
+        var _URL = window.URL || window.webkitURL;
+
+        $("#uploadEmployeeImage").change(function (e) {
+
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    //Helper.AlertMessage("", this.width + " --- " + this.height);
+
+                    if (this.width > 0 && this.width <= 200) {
+                        imageWidthHeight = 1;
+                    }
+                    else {
+                        imageWidthHeight = 0;
+                    }
+
+                    if (this.height > 0 && this.height <= 250) {
+                        imageWidthHeight = 1;
+                    }
+                    else {
+                        imageWidthHeight = 0;
+                    }
+
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+
+        $("#uploadEmployeeSignature").change(function (e) {
+
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    //Helper.AlertMessage("", this.width + " --- " + this.height);
+
+                    if (this.width > 0 && this.width <= 350) {
+                        imageSignatureWidthHeight = 1;
+                    }
+                    else {
+                        imageSignatureWidthHeight = 0;
+                    }
+
+                    if (this.height > 0 && this.height <= 100) {
+                        imageSignatureWidthHeight = 1;
+                    }
+                    else {
+                        imageSignatureWidthHeight = 0;
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+
+    });
+
+    function CloseDialogWindowEmployeeLocation() {
+
+        var locationCode = "";
+        var locationText = "";
+        var regionLocationCode = "";
+
+
+        if ($('#ddlLocationType').val() == "ho") {
+            locationText = "[9000] Head Office";
+            locationCode = "9000";
+        }
+        else if ($('#ddlLocationType').val() == "zone") {
+            locationText = "[" + $('#ddlZone').val() + "] " + $('#ddlZone').find('option:selected').text();
+            locationCode = $('#ddlZone').val();
+        }
+        else if ($('#ddlLocationType').val() == "unit") {
+            locationText = "[" + $('#ddlUnit').val() + "] " + $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+            regionLocationCode = $('#ddlRegion').val();
+        }
+
+        $('#hfCurrentLocation').val(locationCode);
+        $('#hfRegionLocation').val(regionLocationCode);
+        $('#txtCurrentLocation').val(locationText);
+
+        $('#hfSearchLocationCode').val(locationCode);
+        $('#txtSearchLocationCode').val(locationText);
+
+        var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+        detailWindow.center().close();
+
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+
+        return false;
+    }
+
+    function CloseDialogEmployeeLocationSelection(e) {
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+    }
+
+
+    function LoadEmployeeSearchWindow() {
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("__LoadEmployeeSearchWindow", "../HRMS/EmployeeRegister")',
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#LoadEmployeeSelection').html(data);
+            },
+            error: function () {
+                Helper.AlertMessage("", "Connection Failed. Please Try Again");
+            }
+        });
+
+        var detailWindow = $("#dialogEmployeeSelection").data("tWindow");
+        detailWindow.center().open();
+
+    }
+
+    function CloseDialogEmployeeSelection() {
+    }
+
+    function OkCommandEmployeeSelectionWindow(employeeId, employeeName) {
+
+        var detailWindow = $("#dialogEmployeeSelection").data("tWindow");
+        detailWindow.center().close();
+
+        $('#txtSearchEmployeeId').val(employeeName + ' [' + employeeId + ']');
+        $('#hfSearchEmployeeId').val(employeeId);
+
+        return false;
+    }
+
+    $('#txtSearchEmployeeId').click(function () {
+        LoadEmployeeSearchWindow();
+    });
+
+    //------------------------------------------------------------------------------
+
+    function onUpload(e) {
+
+        if (imageWidthHeight == 0) {
+            Helper.AlertMessage("", "Image Width Must Be <=200 pixel And Height <=250 pixel");
+            imageWidthHeight = 0;
+            return false;
+        }
+    }
+
+    function onSuccess(e) {
+
+        if (e.response.data[0].messageCode = "success") {
+            Helper.AlertMessage("", e.response.data[0].message);
+            $("#employeeImage").attr("src", e.response.data[0].id);
+        }
+        else {
+            Helper.AlertMessage("", e.response.data[0].message);
+        }
+    }
+
+    function onLoad(e) {
+        $(this).find("input").attr("accept", "image\/jpeg,image\/jpg,image\/png");
+    }
+
+    function onSelect(e) {
+
+        if (e.files[0].size > 102400) {
+            Helper.AlertMessage("", 'Maximum File Size Should be 100KB');
+            e.preventDefault();
+            return false;
+        }
+
+        var ext = e.files[0].extension.toLowerCase();
+
+        if ($.inArray(ext, ['.gif', '.jpeg', '.jpg', '.png']) == -1) {
+            Helper.AlertMessage("", 'Only jpg File Are Allowed To Upload');
+            e.preventDefault();
+            return false;
+        }
+        return true;
+    }
+
+    function onUploadSignature(e) {
+
+        if (imageSignatureWidthHeight == 0) {
+            Helper.AlertMessage("", "Signature Width Must Be <=350 pixel And Height <=100 pixel");
+            return false;
+        }
+    }
+
+    function onSuccessSignature(e) {
+
+        if (e.response.data[0].messageCode = "success") {
+            Helper.AlertMessage("", e.response.data[0].message);
+            $("#employeeSignature").attr("src", e.response.data[0].id);
+        }
+        else {
+            Helper.AlertMessage("", e.response.data[0].message);
+        }
+    }
+
+    //------------------------------------------------------------------------------
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

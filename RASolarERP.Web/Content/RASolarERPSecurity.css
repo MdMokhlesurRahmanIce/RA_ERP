@@ -1,0 +1,434 @@
+﻿
+.LoginTitle {
+    width: 140px;
+    font-size: 15px;
+}
+
+.LogInTextBox {
+    width: 150px;
+    font-size: 12px;
+    font-family: "Arial";
+}
+
+.LoginDropDown {
+    font-family: "Arial";
+    font-size: 12px;
+    width: 250px;
+}
+
+.DropDown {
+    width: 120px;
+}
+
+.HorizontalDivider {
+    height: 3px;
+    border-bottom: 1px solid #a4d3db;
+    padding-bottom: 2px;
+}
+
+.HorizontalDividerBig {
+    height: 10px;
+    background-color: #8A9CC9;
+    padding-bottom: 2px;
+}
+
+.HorizontalDividerBIGWithoutBG {
+    height: 10px;
+}
+
+#loginBox {
+    font-family: "Times New Roman";
+    width: 250px;
+    height: 92px;
+    margin: 0 auto;
+    border: solid 1px #d1d1d1;
+    text-align: left;
+}
+
+.datetimeBox {
+    width: 100px;
+}
+
+.PageTitle {
+    /*padding-right: 10px;     padding-top: 45px;*/
+    margin: 0px;
+    text-align: right;
+    font-weight: bold;
+    font-size: 15px;
+    color: #000000;
+    height: 44px;
+}
+
+
+.MenuTitle {
+    font-family: "Times New Roman";
+    padding-top: 15px;
+    padding-bottom: 5px;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: left;
+    padding-left: 5px;
+}
+
+#MenuStyle a {
+    font-family: "Times New Roman";
+    font-size: 17px;
+    color: #2aa6c5;
+    text-decoration: none;
+    padding-left: 20px;
+}
+
+    #MenuStyle a:hover {
+        color: #f97c7c;
+    }
+
+#MenuStyle td {
+    padding-bottom: 3px;
+    text-align: left;
+}
+
+/*
+#ReportViewerRSFReports_fixedTable
+{
+    overflow:hidden;    
+}*/
+
+#datagrid {
+    width: 1000px;
+    height: 390px;
+    overflow: scroll;
+}
+
+#datagridNoFooter {
+    width: 1000px;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+#datagridForSmall {
+    width: 1000px;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.DataGridXScrollHeight200 {
+    width: 995px;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.DataGridXScroll {
+    width: 1000px;
+    overflow-x: scroll;
+    text-align: left;
+}
+
+.DataGridXYScroll {
+    width: 1000px;
+    height: 300px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    text-align: left;
+}
+
+#grvSalesSummary {
+    width: 3000px;
+}
+
+#datagridNoHeight {
+    width: 1000px;
+    overflow-x: scroll;
+}
+
+#grvInventoryAuditAdjustment {
+    width: 1525px;
+    height: auto;
+}
+
+#gvGeneralLedger {
+    width: 979px;
+}
+
+#grvSalesAdjustment {
+    width: 2250px;
+}
+
+#grvOverdueCollectionVsAchievement {
+    width: 1060px;
+}
+
+#gvWarrantyItemsDetails {
+    width: 998px;
+}
+
+#gvStockInTransitAtGlance {
+    width: 950px;
+}
+
+#gvCashMemoBookAllocationStatus {
+    width: 800px;
+    height: 400px;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+#grvCollectionEfficiencySummary {
+    width: 3389px;
+}
+
+#gvCashMemoAllocationToEmployee {
+    width: 996px;
+}
+
+#grvInventoryDataEntryStatus {
+    width: 996px;
+}
+
+#grvAccountSummary {
+    width: 1730px;
+}
+
+#gvInventorySummaryReport {
+    width: 990px;
+}
+
+#gvSalesDetailView {
+    width: 1175px;
+}
+
+#gvItemLocationWise {
+    width: 990px;
+}
+
+#gvUnitWiseCustomerRegisterReport {
+    width: 995px;
+}
+
+#gvInventoryDetailsView {
+    width: 800px;
+}
+
+#grvDailyProgressReviewDataEntryStatus {
+    width: 1640px;
+}
+
+#gvMrrInformationGlance {
+    width: 900px;
+}
+
+#gvChallanInformationGlance {
+    width: 995px;
+}
+
+#grvLocationAndEmployeeWiseWeeklySalesAndCollectionEntry {
+    width: 1960px;
+}
+
+#grvWeeklyCollectionEntryStatus {
+    width: 1200px;
+}
+
+#gvCustomerCollectionEfficiency {
+    width: 2150px;
+}
+
+#gvLocationNEmployeeWiseDailySalesNCollectionTarget {
+    width: 1800px;
+}
+
+#gvMaterialReceivingDetails {
+    width: 999px;
+}
+
+#gvSalesRecoveryCommitmentReview {
+    width: 2110px;
+}
+
+#gvODRecoveryStatusMonitoring {
+    width: 1620px;
+}
+
+#gvSalesRecoveryStatusMonitoring {
+    width: 2100px;
+}
+
+.GridColumnLeftAlign {
+    text-align: left;
+}
+
+.GridColumnRightAlign {
+    text-align: right;
+}
+
+.GridTextBox {
+    width: 50px;
+}
+
+.GridTextBoxRightAlign {
+    width: 50px;
+    text-align: right;
+}
+
+.GridTextBoxComments {
+    width: 50px;
+}
+
+.date {
+    width: 100px;
+}
+
+#selectionPageLink {
+    text-decoration: none;
+    font-size: 15px;
+    color: #33CCCC;
+    font-weight: bold;
+}
+
+.TitleHeader {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #519dcf;
+    color: #ffffff;
+}
+
+.TitleSubHeader {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #519dcf;
+    color: #ffffff;
+}
+
+.TitleSubHeaderStarting {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    background-color: #519dcf;
+    color: #ffffff;
+}
+
+.Caption {
+    width: 70px;
+    height: 25px;
+    padding-right: 2px;
+    padding-left: 2px;
+    text-align: left;
+}
+
+
+/* Sales Monitoring Style*/
+
+.salmonitoringHead1 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    background: url(Images/header_01.png) no-repeat;
+    height: 25px;
+}
+
+.salmonitoringHead2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    background: url(Images/header_02.png) no-repeat;
+    height: 25px;
+}
+
+.hh1 {
+    background: url(Images/bg_c.png) repeat-x;
+    border-bottom: 1px solid #66CCFF;
+    border-left: 1px solid #66CCFF;
+}
+
+.hh12 {
+    background: url(Images/bg_c2.png) repeat-x;
+    border-bottom: 1px solid #66CCFF;
+    border-left: 1px solid #66CCFF;
+}
+
+#hhh1 td {
+    border-left: 1px solid #66CCFF;
+}
+
+#hhh3 {
+    border-left: 1px solid #66CCFF;
+}
+
+#hh4 td {
+    border-left: 1px solid #66CCFF;
+}
+
+#hhh2 td {
+    border-left: 1px solid #66CCFF;
+}
+
+/* IDCOL Report style */
+
+.IDCOLHeader {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    background: #CEEDFD;
+    height: 25px;
+}
+
+
+.IDCOLTable tr td {
+    border: 1px solid #B0DFF8;
+}
+
+.TableRowTableData tr td {
+    border: 1px solid #B0DFF8;
+}
+
+.TableHeader {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    height: 25px;
+}
+
+.Table tr td {
+    border: 1px solid #B0DFF8;
+}
+
+/*OD Customer Grading */
+
+.ODCustomerGradingLabel {
+    width: 150px;
+}
+
+.GridColumnMiddleAlign {
+    text-align: center;
+}
+
+.TaDaInfoFieldLabel {
+    width: 115px;
+}
+
+.DataGridXScrollForAccordion {
+    width: 985px;
+    overflow-x: scroll;
+    text-align: left;
+}
+
+#gvDailyPerformanceMonitoringForCollection {
+    width: 1500px;
+}
+
+#gvDailyBusinessPerformanceMonitoringOtherStatus {
+    width: 1500px;
+}
+
+#gvDailyPerformanceMonitoringIncreaseOrDecreaseComperison {
+    width: 990px;
+}
+
+#gvDailyBusinessPerformanceMonitoringSystemReturnVsResaleNDRFCollectionStatus {
+    width: 1200px;
+}
+
+#gvSubLedgerHeadDetails {
+    width:480px;
+}

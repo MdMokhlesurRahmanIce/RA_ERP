@@ -1,0 +1,231 @@
+﻿@model IEnumerable<RASolarERP.DomainModel.SalesModel.LocationAndEmployeeWiseWeeklySalesAndCollectionReport>
+@{
+    ViewBag.Title = "Weekly Overdue Collection Report";
+
+
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfIsAuthenticForSave" type="hidden" value="@ViewBag.IsAuthenticForSave" />
+<input id="hfRemarksEntruShowOrNot" type="hidden" value="@ViewBag.RemarksEntryShowHide" />
+<input id="hfRemarksCOlumnShowOrNot" type="hidden" value="@ViewBag.RemarksColumnShowHide" />
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td align="left">
+            <fieldset style="padding-left: 5px;">
+                <legend style="padding: 5px;">Current YearWeek </legend>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td>Year Week: @ViewBag.YearWeek
+                        </td>
+                        <td>Start Date: @ViewBag.WeekStartDate
+                        </td>
+                        <td>End Date: @ViewBag.WeekEndDate
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="HorizontalDivider"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+    </tr>
+    <tr id="searchWeeklyOverdueCollection">
+        <td align="left">
+            @using (Html.BeginForm("LocationNEmployeeWiseWeeklySalesNCollectionReport", "SalesMonitoring", FormMethod.Post, null))
+            {
+                @Html.Hidden("hfOpenYearWeek", (string)@ViewBag.OpenYearWeek);
+                   
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td align="left">Reporting Year-Week&nbsp;&nbsp;@Html.DropDownList("ddlYearWeek", new SelectList(@ViewBag.YearWeekFormat, "YearWeekValue", "YearWeekName", TempData["SelectYearWeek"].ToString()))
+                        </td>
+                        <td align="left">
+                            <input id="btnSubmitYearWeek" type="submit" value="Search" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-top: 5px;">
+            @if(Model.Count()>0)
+            {
+
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid(Model)
+              .Name("grvLocationAndEmployeeWiseWeeklySalesAndCollectionEntry")
+              .DataKeys(keys => keys.Add(k => k.LocationCode))
+              .Columns(column =>
+              {
+                  column.Bound(w => w.LocationCode).Title("Location Code").Width(100);
+                  column.Bound(w => w.LocationName).Title("Location Name").Width(180).FooterTemplate(@<b>Total:</b>);
+
+                  column.Bound(w => w.WeeklyTarget).Title("Target").Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                    .Aggregate(aggreages => aggreages.Sum())
+                   .Format("{0:00}")
+                   .FooterTemplate(@<b> @item.Sum.Format("{0:0}") </b>)
+                   .GroupFooterTemplate(@<b>@item.Sum.Format("{0:0}")</b>);
+
+                  column.Bound(w => w.WeeklyAchievement).Title("Actual").Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                      .Aggregate(aggreages => aggreages.Sum())
+                   .Format("{0:0}")
+                   .FooterTemplate(@<b> @item.Sum.Format("{0:0}") </b>)
+                   .GroupFooterTemplate(@<b>@item.Sum.Format("{0:0}")</b>);
+
+                  column.Bound(w => w.VarianceInAmount).Title("Variance (Tk.)").Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                      .Aggregate(aggreages => aggreages.Sum())
+                   .Format("{0:0}")
+                   .FooterTemplate(@<b> @item.Sum.Format("{0:0}") </b>)
+                   .GroupFooterTemplate(@<b>@item.Sum.Format("{0:0}")</b>);
+
+                  column.Bound(w => w.VarianceInPercentage).Title("Variance (%)").Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                      .FooterTemplate(@<b id="varianceInPercentage">0</b>);
+
+                  column.Bound(w => w.CumulativeTarget).Title("Cum Target").Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                      .Aggregate(aggreages => aggreages.Sum())
+                   .Format("{0:0}")
+                   .FooterTemplate(@<b> @item.Sum.Format("{0:0}") </b>)
+                   .GroupFooterTemplate(@<b>@item.Sum.Format("{0:0}")</b>);
+
+                  column.Bound(w => w.CumulativeAchievement).Title("Cum Actual").Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                      .Aggregate(aggreages => aggreages.Sum())
+                   .Format("{0:0}")
+                   .FooterTemplate(@<b> @item.Sum.Format("{0:0}") </b>)
+                   .GroupFooterTemplate(@<b>@item.Sum.Format("{0:0}")</b>);
+
+                  column.Bound(w => w.CumVarianceInAmount).Title("Cum Variance (Tk.)").Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                      .Aggregate(aggreages => aggreages.Sum())
+                   .Format("{0:0}")
+                   .FooterTemplate(@<b> @item.Sum.Format("{0:0}") </b>)
+                   .GroupFooterTemplate(@<b>@item.Sum.Format("{0:0}")</b>);
+
+                  column.Bound(w => w.CumVarianceInPercentage).Title("Cum Variance (%)").Width(200).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                      .FooterTemplate(@<b id="cumVarianceInPercentage">0</b>);
+                  column.Bound(w => w.Remarks).Width(700).Hidden((bool)@ViewBag.RemarksColumnShowHide);
+
+              })
+
+           )
+            </div>
+            }
+            else
+            {
+                <label style="color:red; font-size:20px; font-weight:bold;">No Data Found. Please Chaeck Database/ Sp</label>
+            }
+        </td>
+    </tr>
+    <tr id="collectionRemarksEntry">
+        <td align="left" style="padding: 5px;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td colspan="2" style="font-size: 13px; color: #fd6b00; margin-top: 5px;" align="left">[Note: 10% Or More Negative Deviation In Current Month/Cumulative Variance Require
+                        Explanation and Actions.]
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80%; padding-top: 3px;">Remarks&nbsp;&nbsp;<input id="txtRemarks" type="text" style="width: 700px" value="@(TempData["Reamrks"].ToString())" maxlength="150" />
+                    </td>
+                    <td align="left" style="width: 20%; padding-left: 10px;">
+                        <input type="submit" value="Save" onclick="return SaveRemarks();" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    if ($('#hfRemarksEntruShowOrNot').val() == "False") {
+        $('#collectionRemarksEntry').css("display", "none");
+    }
+    else {
+        $('#collectionRemarksEntry').css("display", "");
+    }
+
+    if ($('#hfRemarksCOlumnShowOrNot').val() == "True") {
+        $('#searchWeeklyOverdueCollection').css("display", "none");
+    }
+    else {
+        $('#searchWeeklyOverdueCollection').css("display", "");
+    }
+
+    function SaveRemarks() {
+
+        var remarks = $('#txtRemarks').val();
+
+        if ($('#hfIsAuthenticForSave').val() == "False") {
+            alert("You Are Not an Authentic Approver for This Location");
+            return false;
+        }
+
+        if (remarks == "") {
+            alert("Please Give Remarks");
+            return false;
+        }
+
+        var openYearWeek = $('#hfOpenYearWeek').val();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveZoneWiseLocationNEmployeeWiseWeeklySalesNCollectionReportReamrks", "SalesMonitoring")',
+            data: "{'remarks':'" + remarks + "','openYearWeek':'" + openYearWeek + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                if (data != "") {
+                    alert(data.toString());
+                }
+            },
+            error: function () {
+                alert("Failed To Load Connection");
+            }
+        });
+
+        return false;
+    }
+
+    var tr = $("#grvLocationAndEmployeeWiseWeeklySalesAndCollectionEntry tfoot tr");
+
+    var targetAmount = parseFloat($(tr).find('td:eq(2)').text());
+    var varianceAmount = parseFloat($(tr).find('td:eq(4)').text());
+
+    var cumTargetAmount = parseFloat($(tr).find('td:eq(6)').text());
+    var cumVarianceAmount = parseFloat($(tr).find('td:eq(8)').text());
+
+    var variancePrcentage = ((varianceAmount * 100) / targetAmount).toFixed(2);
+    var cumVariancePrcentage = ((cumVarianceAmount * 100) / cumTargetAmount).toFixed(2);
+
+    $("#varianceInPercentage").text(variancePrcentage);
+    $("#cumVarianceInPercentage").text(cumVariancePrcentage);
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

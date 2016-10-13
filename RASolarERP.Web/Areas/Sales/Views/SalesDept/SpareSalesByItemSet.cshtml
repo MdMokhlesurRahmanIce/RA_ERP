@@ -1,0 +1,593 @@
+﻿<script type="text/javascript">
+
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime == true) {
+            e.preventDefault();
+            firstTime = false;
+        }
+    }
+
+    function OnError(e) {
+        e.preventDefault();
+    } 
+
+</script>
+@using RASolarERP.Model;
+@{
+    ViewBag.Title = "Spare Parts Sales (by Item Set)";
+    Layout = "~/Areas/Sales/Views/Shared/_SalesLayout.cshtml";
+
+    if (false)
+    {
+    <script type="text/javascript" src="../../../../Scripts/jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/RASolarCustomFunction.js"></script>
+    }
+}
+@section TopMenu
+{
+    @Html.Partial((string)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenDayForTransaction
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfOpenDay" type="hidden"  value="@ViewBag.OpenDay"/>
+<input id="hfOpenBackDay" type="hidden"  value="@ViewBag.OpenBackDay"/>
+<input id="hfToLocation" type="hidden" value="0" />
+<input id="hfIsInventoryImplemented" type="hidden" value="@ViewBag.IsInventoryImplemented" />
+<input id="hfIsChallanLocationNeeded" type="hidden" value="0" />
+@{
+    bool InventoryStockUpdateFinishClosed = (bool)ViewBag.InventoryStockUpdateFinishClosed;
+}
+@using (Html.BeginForm("SpareSalesByItemSet", "SalesDept", FormMethod.Post, null))
+{
+    @Html.Hidden("hfSpareSetItems", "0");
+                                        if (InventoryStockUpdateFinishClosed == true)
+                                        {
+    
+       
+    <table cellpadding="0" cellspacing="2" border="0" width="100%">
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td align="left" style="width: 33%;">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left" class="IRCaptionLeftColumn">
+                                        Item Type
+                                    </td>
+                                    <td align="left">
+                                        @Html.DropDownList("ddlItemType", new SelectList(ViewBag.ItemType, "ItemTypeID", "Description"), "--Select--", new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">
+                                        Issue Type
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlIssueType", Enumerable.Empty<SelectListItem>(), "--Select--",
+                                        new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionLeftColumn">
+                                        Item Set
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlItemSet", new SelectList(@ViewBag.ItemSets, "ItemSetCode", "Description"), "--Select--", new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="IRCaptionMiddleColumn">
+                                        Sales Person
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("ddlEmployee", new SelectList(@ViewBag.Employee, "EmployeeID", "EmployeeName"), "--Select--", new { @class = "IRDropDown" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="left" style="width: 33%;" valign="top">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left" class="IRCaptionMiddleColumn">
+                                        Challan Date
+                                    </td>
+                                    <td align="left">
+                                        @(Html.Telerik().DatePicker().Name("dtpChallanDate").Format("dd-MMM-yyyy").Value(DateTime.Now.Date).Max(new DateTime(2099, 12, 31)).Value(ViewBag.OpenDay))
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IRCaptionMiddleColumn">
+                                        Sequence No.
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtSequenceNumber", (string)ViewBag.spareSalesSequenceNumber, new { @class = "IRControl", @readonly = true })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IRCaptionMiddleColumn">
+                                        Memo Number
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("txtMemoNumber", "", new { @class = "IRControl" })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="left" style="width: 33%;" valign="top">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                                <tr>
+                                    <td align="left" class="IRCaptionRightColumn">
+                                        Sales/Sets Quantity
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtSalesQuantity", "", new { @onblur = "CalculateSetsPrice(this.value)", @class = "IRControl", @maxlength = 2 })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IRCaptionRightColumn">
+                                        Unit Price
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtUnitPrice", "", new { @readonly = true, @class = "IRControl", @maxlength = 5 })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" class="IRCaptionRightColumn">
+                                        Total Price
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBox("txtTotalPrice", "", new { @readonly = true, @class = "IRControl", @maxlength = 5 })
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="width: 33%;">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                            </table>
+                        </td>
+                        <td align="left" style="width: 33%;">
+                            <table cellpadding="0" cellspacing="2" border="0" width="100%">
+                            </table>
+                        </td>
+                        <td align="left" style="width: 33%;">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @(Html.Telerik().Grid<SparePartSetDetils>()
+                    .Name("gvSpareSetItemsDetails")
+                    .DataKeys(keys => keys.Add(k => k.ItemCategory))
+                    .Columns(column =>
+                    {
+                        column.Bound(s => s.ItemCategory);
+                        column.Bound(s => s.ItemCapacityID).ClientTemplate("<#if(ItemCapacityID != '0     '){#> <#=ItemCapacity#> <#}else{#>" +
+                        "<#if(IsItemCapacityAvailable == 1){#> " +
+                          " <select style=\"width:200px;\"> <option id='ddlCapacity<#=ItemCategoryID#>' value='0'>--Select--</option> </select> <#} else{#>" +
+                          " &nbsp; <#}}#>"
+                          ).Title("Item Capacity");
+                        column.Bound(s => s.ItemModelID).ClientTemplate("<#if(ItemModelID !='0     '){ #> <#=ItemModel#> <#} else { #>" +
+                        "<#if(IsItemModelAvailable == 1){#> " +
+                        "<select style=\"width:200px;\"> <option id='ddlModel<#=ItemCategoryID#>' value='0'>--Select--</option> </select> <#} else{#>" +
+                        "&nbsp; <#}}#>").Title("Item Model");
+                        column.Bound(c => c.ItemCategoryID).ClientTemplate("<select id='stockLocation<#=ItemCategoryID#>'> <option value='1'>New</option> <option value='2'>Old</option> </select>").Title("Store Location");
+                        column.Bound(s => s.FixedQuantity).Title("Item Quantity");
+                        column.Bound(s => s.ItemCategoryID).Hidden(true);
+                        column.Bound(s => s.ItemCapacityID).Hidden(true);
+                        column.Bound(s => s.ItemModelID).Hidden(true);
+                        column.Bound(s => s.FixedQuantity).Hidden(true);
+                    })
+                    .Selectable()
+                    .DataBinding(dbBinding => dbBinding.Ajax().Select("__SparePartsSalesSets", "SalesDept"))
+                    .ClientEvents(events =>
+                    {
+                        events.OnDataBinding("onDataBinding");
+                        events.OnDataBound("onDataBound");
+                        events.OnError("OnError");
+                    })
+                    .Footer(false)
+                )
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <input type="submit" id="btnSubmit" value="Save Spare Sets Sale" />
+            </td>
+        </tr>
+    </table>
+
+                                        }
+
+
+                                        else
+                                        {
+    <p style="background: #ffff99; font-size: 15px; font-weight: bold;">
+        Pleae Update Store Position Before Challan
+    </p>
+                                        }
+}
+<script type="text/javascript">
+
+    var initialLoad = true;
+    function onDataBound(e) {
+        if (initialLoad) {
+            e.preventDefault();
+            initialLoad = false;
+        }
+        ItemModel();
+        ItemCapacity();
+    }
+
+    $(document).ready(function () {
+
+        $('#ddlItemType').change(function () {
+
+            if (this.value == "")
+                return false;
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("IssueTypeListForItemSet", "SalesDept")',
+                data: { itemTypeId: this.value },
+                cache: false,
+                success: function (data) {
+                    $('#ddlIssueType').get(0).options.length = 0;
+                    $('#ddlIssueType').get(0).options[0] = new Option("--Select--", "");
+
+                    var selectedValue = "";
+
+                    $.map(data, function (item) {
+                        $('#ddlIssueType').get(0).options[$('#ddlIssueType').get(0).options.length] = new Option(item.Display, item.Value);
+                        selectedValue = item.Value;
+                    });
+
+                    $('#ddlIssueType').val(selectedValue)
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+
+        $('#ddlItemSet').change(function () {
+
+            if (this.value == "")
+                return false;
+
+            var params = {
+                itemSetCode: $('#ddlItemSet').val()
+            };
+
+            var grid = $('#gvSpareSetItemsDetails').data('tGrid');
+            grid.dataSource._data = [];
+            grid.ajaxRequest(params);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetItemSetPrice", "SalesDept")',
+                data: { itemSetCode: this.value },
+                cache: false,
+                success: function (data) {
+                    $('#txtUnitPrice').val(data.toString());
+                },
+                error: function () {
+                    alert("Server Error. Please Try Again.");
+                }
+            });
+        });
+
+        $('form').submit(function () {
+
+            if (parseInt($('#hfIsInventoryImplemented').val()) == 0) {
+                alert("You Are Not Authorized For Sales");
+                return false;
+            }
+
+            var issueType = $('#ddlIssueType').val();
+            var salesQuantity = $('#txtSalesQuantity').val();
+            var totalRows = $('#gvSpareSetItemsDetails tbody tr').length;
+            var sparseSequenceNumber = $('#txtSequenceNumber').val();
+
+            var challanDate = $('#dtpChallanDate').val();
+            var startDate = Helper.DateCange($('#hfOpenBackDay').val());
+            var endDate = Helper.DateCange($('#hfOpenDay').val());
+            var selectedDate = Helper.DateCange(challanDate);
+            var salesPersons = $('#ddlEmployee').val();
+
+            if (totalRows <= 0) {
+                alert("No Item Found For Issue/Sales");
+                return false;
+            }
+
+            if (challanDate == "") {
+                alert("Please Give Issue Date");
+                return false;
+            }
+            else if (selectedDate < startDate || selectedDate > endDate) {
+                alert("Challan Date Should be in Current Month/Period");
+                return false;
+            }
+            else if (issueType == "") {
+                alert("Please Give Issue Type");
+                return false;
+            }
+            else if (salesQuantity == "") {
+                alert("Please Give Sales/Sets Quantity");
+                return false;
+            }
+            else if (Helper.IsInt(salesQuantity) == false) {
+                alert("Delivar Quantity Cannot Be Negative/Character");
+                return false;
+            }
+            else if (salesPersons == "") {
+                alert("Please Select Sales Person");
+                return false;
+            }
+
+            if (issueType == "ISSFSPSALE") {
+                if ($.trim($('#txtMemoNumber').val()) == "") {
+                    alert("Please Give Memo Number");
+                    return false;
+                }
+            }
+
+            var spareItemSets = "", capacityId = "", categoryId = "";
+            var modelId = "", storeLocation = "", itemQuantity = "";
+            var rowCount = 0;
+
+            for (rowCount = 0; rowCount < totalRows; rowCount++) {
+
+                var tr = $("#gvSpareSetItemsDetails tbody tr:eq(" + rowCount + ")");
+                categoryId = $(tr).find('td:eq(5)').text();
+                var itemCapacity = $(tr).find('td:eq(1)');
+                var itemModel = $(tr).find("td:eq(2)");
+                itemQuantity = $(tr).find("td:eq(4)").text();
+                storeLocation = $(tr).find("td:eq(3)").find("select").val();
+
+                if (itemCapacity.find("option").length > 0) {
+                    capacityId = itemCapacity.find('option:selected').val();
+
+                    if (capacityId == "0")
+                        break;
+                }
+                else {
+                    capacityId = $(tr).find('td:eq(6)').text();
+                }
+
+                if (itemModel.find("option").length > 0) {
+                    modelId = itemModel.find('option:selected').val();
+
+                    if (modelId == "0")
+                        break;
+                }
+                else {
+                    modelId = $(tr).find('td:eq(7)').text();
+                }
+
+                if (spareItemSets != "") {
+                    spareItemSets = spareItemSets + "#" + categoryId + "," + capacityId + "," + modelId + "," + itemQuantity + "," + storeLocation;
+                }
+                else {
+                    spareItemSets = spareItemSets + categoryId + "," + capacityId + "," + modelId + "," + itemQuantity + "," + storeLocation;
+                }
+            }
+
+            if (rowCount != totalRows) {
+                alert("Please Select Capacity/Model");
+                return false;
+            }
+
+            $('#hfSpareSetItems').val(spareItemSets);
+
+            $.ajax({
+                type: this.method,
+                url: this.action,
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data[0].messageCode == "success") {
+                        alert(data[0].message);
+                        ClearAllControl();
+                        $('#txtSequenceNumber').val(data[0].id);
+                    }
+                    else {
+                        alert(data[0].message);
+                    }
+
+                    return false;
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again.");
+                }
+            });
+
+            return false;
+        });
+
+    });
+
+    function ItemModel() {
+
+        var rowsCount = $('#gvSpareSetItemsDetails').data('tGrid').data.length;
+        var itemCategoryIds = "";
+        var itemCapacityIds = "";
+
+        if (rowsCount > 0) {
+
+            for (var i = 0; i < rowsCount; i++) {
+
+                var tr = $("#gvSpareSetItemsDetails tbody tr:eq(" + i + ")");
+                var categoryId = $(tr).find('td:eq(5)').text();
+                var capacityId = $(tr).find('td:eq(6)').text();
+
+                if (i != 0) {
+                    itemCategoryIds = itemCategoryIds + "#" + categoryId
+                    itemCapacityIds = itemCapacityIds + "#" + capacityId;
+                }
+                else {
+                    itemCategoryIds = itemCategoryIds + categoryId;
+                    itemCapacityIds = itemCapacityIds + capacityId;
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ItemModelList", "SalesDept")',
+                data: "{'itemCategoryId':'" + itemCategoryIds + "','itemCapacityId':'" + itemCapacityIds + "'}",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                    var modelCounter = 0;
+                    var modelSelected = "";
+
+                    for (var i = 0; i < rowsCount; i++) {
+
+                        var tr = $("#gvSpareSetItemsDetails tbody tr:eq(" + i + ")");
+                        var categoryId = $(tr).find('td:eq(5)').text();
+                        var isSelectOrNot = $(tr).find('td:eq(2)').find('select');
+
+                        if (isSelectOrNot.is('select')) {
+
+                            $.map(data, function (item) {
+                                if (categoryId == item.ItemCategory) {
+                                    isSelectOrNot.get(0).options[isSelectOrNot.get(0).options.length] = new Option(item.Description, item.ItemModelID);
+                                    modelCounter = modelCounter + 1;
+                                    modelSelected = item.ItemModelID;
+                                }
+                            });
+
+                            if (modelCounter == 1) {
+                                isSelectOrNot.val(modelSelected);
+                            }
+
+                            modelCounter = 0;
+                            modelSelected = "";
+                        }
+                    }
+                },
+                error: function () { alert("Connection Failed. Please Try Again"); }
+            });
+
+        }
+    }
+
+    function ItemCapacity() {
+
+        var rowsCount = $('#gvSpareSetItemsDetails').data('tGrid').data.length;
+        var itemCategoryIds = "";
+
+        if (rowsCount > 0) {
+
+            for (var i = 0; i < rowsCount; i++) {
+
+                var tr = $("#gvSpareSetItemsDetails tbody tr:eq(" + i + ")");
+                var categoryId = $(tr).find('td:eq(5)').text();
+                var capacitySelector = $(tr).find('td:eq(1)').find('select');
+
+                if (capacitySelector.is('select')) {
+                    if (i != 0) {
+                        itemCategoryIds = itemCategoryIds + "#" + categoryId
+                    }
+                    else {
+                        itemCategoryIds = itemCategoryIds + categoryId;
+                    }
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ItemCapacityList", "SalesDept")',
+                data: { 'itemCategoryId': itemCategoryIds },
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                    var capacityCounter = 0;
+                    var capacitySelected = "";
+
+                    for (var i = 0; i < rowsCount; i++) {
+
+                        var tr = $("#gvSpareSetItemsDetails tbody tr:eq(" + i + ")");
+                        var categoryId = $(tr).find('td:eq(5)').text();
+                        var isSelectOrNot = $(tr).find('td:eq(1)').find('select');
+
+                        if (isSelectOrNot.is('select')) {
+
+                            $.map(data, function (item) {
+                                if (categoryId == item.ItemCategoryID) {
+                                    isSelectOrNot.get(0).options[isSelectOrNot.get(0).options.length] = new Option(item.CapacityDescription, item.ItemCapacityID);
+                                    capacityCounter = capacityCounter + 1;
+                                    capacitySelected = item.ItemCapacityID;
+                                }
+                            });
+
+                            if (capacityCounter == 1) {
+                                isSelectOrNot.val(capacitySelected);
+                            }
+
+                            capacityCounter = 0;
+                            capacitySelected = "";
+                        }
+                    }
+                },
+                error: function () { alert("Connection Failed. Please Try Again"); }
+            });
+        }
+    }
+
+    function CalculateSetsPrice(setsQuantity) {
+        if (setsQuantity == "") {
+            return false;
+        }
+        else if (Helper.IsInt(setsQuantity) == false) {
+            alert("Sales/Sets Quantity Cannot Be Character/Negative");
+            return false;
+        }
+        var unitPrice = parseInt($('#txtUnitPrice').val(), 10);
+        var salesQuantity = parseInt($('#txtSalesQuantity').val(), 10);
+        var totalPrice = unitPrice * salesQuantity;
+        $('#txtTotalPrice').val(totalPrice);
+
+        $('#gvSpareSetItemsDetails tbody tr').each(function () {
+            var totalItem = salesQuantity * parseInt($(this).find('td:eq(8)').text(), 10);
+            $(this).find('td:eq(4)').text(totalItem);
+        });
+    }
+
+    function ClearAllControl() {
+
+        $('form')[0].reset();
+        $('#gvSpareSetItemsDetails').data().tGrid.total = 0;
+        $('#gvSpareSetItemsDetails').data().tGrid.dataBind([]);
+    }
+    
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script>

@@ -1,0 +1,41 @@
+﻿<input type="button" id="btnSubLedger" value="Sub Ledger Head" class="t-button" />
+
+@(Html.Telerik().Window().Name("dialogOtherAccountSubLedgerHead")
+                                              .Title("Sub Ledger Head")
+                                              .ClientEvents(events => events.OnClose("ClosingOtherAccountSubledgerDilaogNCalculateSum"))
+                                              .Draggable(false)
+                                              .Resizable(resizing => resizing.Enabled(false)
+                                                                           .MinHeight(500)
+                                                                           .MinWidth(490)
+                                                                           .MaxHeight(500)
+                                                                           .MaxWidth(490)
+                                                                            )
+                                              .Modal(true)
+                                              .Buttons(b => b.Close())
+                                              .Content(@<div id="LoadSubledgerDetails" style="height: 465px; width: 483px; padding: 0; margin: 0;">
+
+                                                  @(Html.Telerik().Grid<RASolarERP.DomainModel.AMSModel.SubLedgerHeadDetails>()
+                                                        .Name("gvOtherAccountSubLedgerHeadDetails")
+                                                        .DataKeys(keys => keys.Add(k => k.DimensionValueID))
+                                                        .Columns(column =>
+                                                        {
+                                                            column.Bound(s => s.DimensionValueID).Hidden(true);
+                                                            column.Bound(s => s.DimensionValueDesc).Width(250);
+                                                            column.Bound(s => s.DimensionValueID).ClientTemplate("<input type=\"text\" id=\"dimensionValue<#=DimensionValueID#>\" style=\"width:115px;\" onblur=\"CheckAmount(this.value)\" />").Width(125).Title("Amount")
+                                                                  .ClientFooterTemplate("<b id=\"TotalDimensionAmount\"></b>");
+                                                        })
+                                                        .DataBinding(dbBindings => dbBindings.Ajax().Select("SubLedgerHeadDetailsLoad", "AccountVoucher"))
+                                                        .ClientEvents(cevents =>
+                                                        {
+                                                            cevents.OnDataBinding("onDataBindingSubLedger");
+                                                            cevents.OnError("onErrorSubLedger");
+                                                        })
+                                                        .Scrollable(scroll => scroll.Height(350))
+                                                        .Footer(true)
+                                                  )
+                                                  <div style="text-align: right; padding-top: 3px;">
+                                                      <input id="btnOkSubLedger" type="button" value="Ok" class="t-button" onclick="return CloseOtherAccountSubLedgerWindow();" />
+                                                  </div>
+                                              </div>)
+                                            .Visible(false)
+                                        )

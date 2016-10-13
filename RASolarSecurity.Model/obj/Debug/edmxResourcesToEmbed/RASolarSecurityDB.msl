@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RASolarERP_SecurityAdminModelStoreContainer" CdmEntityContainer="RASolarERP_SecurityAdminEntities">
+    <EntitySetMapping Name="ListOfRASolarERPPages">
+      <EntityTypeMapping TypeName="RASolarERP_SecurityAdminModel.ListOfRASolarERPPages">
+        <MappingFragment StoreEntitySet="ListOfRASolarERPPages">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="PageNameToLink" ColumnName="PageNameToLink" />
+          <ScalarProperty Name="PageName" ColumnName="PageName" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MessageToShow" ColumnName="MessageToShow" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocationInformation">
+      <EntityTypeMapping TypeName="RASolarERP_SecurityAdminModel.LocationInformation">
+        <MappingFragment StoreEntitySet="LocationInformation">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="LocationType" ColumnName="LocationType" />
+          <ScalarProperty Name="ParentLocation" ColumnName="ParentLocation" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sys_StatusInfo">
+      <EntityTypeMapping TypeName="RASolarERP_SecurityAdminModel.Sys_StatusInfo">
+        <MappingFragment StoreEntitySet="Sys_StatusInfo">
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInformation">
+      <EntityTypeMapping TypeName="RASolarERP_SecurityAdminModel.UserInformation">
+        <MappingFragment StoreEntitySet="UserInformation">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserRoleOrGroupID" ColumnName="UserRoleOrGroupID" />
+          <ScalarProperty Name="IsLocationDependent" ColumnName="IsLocationDependent" />
+          <ScalarProperty Name="OnlyForLocation" ColumnName="OnlyForLocation" />
+          <ScalarProperty Name="IsAuthenticApproverForThisLocation" ColumnName="IsAuthenticApproverForThisLocation" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLocationMapping">
+      <EntityTypeMapping TypeName="RASolarERP_SecurityAdminModel.UserLocationMapping">
+        <MappingFragment StoreEntitySet="UserLocationMapping">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EntryUserID" ColumnName="EntryUserID" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoleOrGroupInformation">
+      <EntityTypeMapping TypeName="RASolarERP_SecurityAdminModel.UserRoleOrGroupInformation">
+        <MappingFragment StoreEntitySet="UserRoleOrGroupInformation">
+          <ScalarProperty Name="RoleOrGroupID" ColumnName="RoleOrGroupID" />
+          <ScalarProperty Name="RoleOrGroupName" ColumnName="RoleOrGroupName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoleOrGroupWisePermission">
+      <EntityTypeMapping TypeName="RASolarERP_SecurityAdminModel.UserRoleOrGroupWisePermission">
+        <MappingFragment StoreEntitySet="UserRoleOrGroupWisePermission">
+          <ScalarProperty Name="RoleOrGroupID" ColumnName="RoleOrGroupID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="IsGrantedForSelect" ColumnName="IsGrantedForSelect" />
+          <ScalarProperty Name="IsGrantedForInsert" ColumnName="IsGrantedForInsert" />
+          <ScalarProperty Name="IsGrantedForUpdate" ColumnName="IsGrantedForUpdate" />
+          <ScalarProperty Name="IsGrantedForDelete" ColumnName="IsGrantedForDelete" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ListOfPagesWithAccessRightsForThisUser" FunctionName="RASolarERP_SecurityAdminModel.Store.REP_GetListOfPagesWithAccessRightsForThisUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RASolarERP_SecurityAdminModel.ListOfPagesWithAccessRightsForThisUser">
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="PageName" ColumnName="PageName" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="IsAccessibleForThisUser" ColumnName="IsAccessibleForThisUser" />
+          <ScalarProperty Name="MessageToShow" ColumnName="MessageToShow" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

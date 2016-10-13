@@ -1,0 +1,288 @@
+﻿@using RASolarERP.DomainModel.AMSModel;
+@{
+    ViewBag.Title = "General Ledger Report";
+    Layout = "~/Areas/Financial/Views/Shared/_AccountingLayout.cshtml";
+}
+<script type="text/javascript">
+    var firstTime = true;
+    function onDataBinding(e) {
+        if (firstTime == true) {
+            e.preventDefault();
+            firstTime = false;
+        }
+        else {
+            e.data = {
+
+                fromDate: $('#txtStartDate').val(),
+                todate: $('#txtEndDate').val(),
+                projectCode: $('#ddlProject').val(),
+                accountNo: $('#ddlAccount').val(),
+                allLocation: $('#chkAllLocation').is(':checked')
+            }
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    } 
+
+</script>
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+<input id="hfUnitCode" type="hidden" value="@ViewBag.UnitCode" />
+<input id="hfDrAmount" type="hidden" value="" />
+<input id="hfCrAmount" type="hidden" value="" />
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td align="left" width="25%">
+            Starting Date
+        </td>
+        <td align="left" width="25%">
+            @(Html.Telerik().DatePicker()
+                .Name("txtStartDate")
+                .Max(new DateTime(2999, 12, 31))
+                .Value(@ViewBag.FirstDayOfTheMonth)
+                .Format("dd-MMM-yyyy")
+                )
+        </td>
+        <td align="left" width="25%">
+            End Date
+        </td>
+        <td align="left" width="25%">
+            @(Html.Telerik().DatePicker()
+                .Name("txtEndDate")
+                .Max(new DateTime(2999, 12, 31))
+                .Value(@ViewBag.ToDate)
+                .Format("dd-MMM-yyyy")
+            )
+        </td>
+    </tr>
+    <tr>
+        <td align="left" width="25%">
+            Project
+        </td>
+        <td align="left" width="25%">
+            @Html.DropDownList("ddlProject", new SelectList((List<ProjectInfo>)TempData["Projects"], "ProjectCode", "ProjectName", @ViewBag.SelectedProject), "--Select--")
+        </td>
+        <td colspan="2" align="left" width="50%">
+        </td>
+    </tr>
+    <tr>
+        <td align="left" width="25%">
+            Account
+        </td>
+        <td align="left" width="25%">
+            @Html.DropDownList("ddlAccount", new SelectList((List<ChartOfAccounts>)TempData["ChartOfAccounts"], "AccountNo", "AccountName", @ViewBag.SelectedAccounts), "--Select--")
+        </td>
+       @* <td align="left" width="5%">
+        </td>*@
+        <td align="Center" width="3%">
+            @if(ViewBag.Location==RASolarHelper.Helper.HeadOffice)
+            {
+             <label>All Location</label>  <input id="chkAllLocation" type="checkbox" value="false" name="chkAllLocation" />
+            }
+        </td>
+        <td align="left" width="45%">
+            <input type="submit" id="btnShowGeneralLedger" value="Show General Ledger" onclick="return LedgerShow();" />
+        </td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <div class="DataGridXScroll">
+                @(Html.Telerik().Grid<GeneralLedger>()
+                .Name("gvGeneralLedger")
+                .DataKeys(keys => keys.Add(k => k.RecordOrd))
+                .Columns(column =>
+                {
+                    column.Bound(c => c.TransNo).Title("Trans No")
+                    .ClientTemplate("<a id=\"trn<#=TransNo#>\" href='#' onclick=\"ShowTransactionDetails('<#=TransNo#>')\"><#=TransNo#></a>").Width(100);
+
+                    column.Bound(c => c.TransDate).Width(100).Format("{0:dd-MMM-yyyy}").Title("Trans Date");
+                    column.Bound(c => c.Particulars).Title("Particulars").Width(349);
+
+                    column.Bound(c => c.DrAmount).Format("{0:0,0}").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Title("Dr.Amount")
+                        .ClientFooterTemplate("<b id='drAmountTotal'></b>").Width(150);
+
+                    column.Bound(c => c.CrAmount).Format("{0:0,0}").HtmlAttributes(new { @class = "A. GridColumnRightAlign" }).Title("Cr.Amount")
+                        .ClientFooterTemplate("<b id='crAmountTotal'></b>").Width(140);
+
+                    column.Bound(c => c.Balance).Format("{0:0,0}").HtmlAttributes(new { @class = "GridColumnRightAlign" }).Title("Balance").Width(100);
+                })
+                .DataBinding(bindings => bindings.Ajax().Select("_GeneralLedgerShow", "AccountingReport"))
+                .Selectable()
+                .Pageable(pages => pages.PageSize(100))
+                .Scrollable(scroll => scroll.Height(350))
+                .ClientEvents(events =>
+                 {
+                     events.OnDataBinding("onDataBinding");
+                     events.OnError("onError");
+                     events.OnRowDataBound("onRowDataBoundLadgerAmount");
+                     events.OnDataBound("onDataBoundGeneralLager");
+                 })
+                .ToolBar(commands =>
+                {
+                    commands.Custom().HtmlAttributes(new { id = "exportToPdf", onclick = "return SetParamaterForPdfGeneration()" }).Text("Export To PDF").Action("ExportToPdfGeneralLedger", "AccountingReport", new { page = 1, groupby = "~", orderby = "~", filter = "~", datefrom = "~", dateTo = "~", projectCode = "~", accountNo = "~" });
+                    commands.Custom().HtmlAttributes(new { id = "exportToCsv", onclick = "return SetParamaterForCsvGeneration()" }).Text("Export To Excel").Action("ExportToCsvGeneralLedger", "AccountingReport", new { page = 1, groupby = "~", orderby = "~", filter = "~", datefrom = "~", dateTo = "~", projectCode = "~", accountNo = "~" });                    
+                })
+                )
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @(Html.Telerik().Window().Name("dialogTransactionDetailListByTransactionNo")
+                                          .Title("Tnsaction Details")
+                                          .Draggable(false)
+                                          .Resizable(resizing => resizing.Enabled(false)
+                                                                         .MinHeight(112)
+                                                                         .MinWidth(950)
+                                                                         .MaxHeight(800)
+                                                                         .MaxWidth(950)
+                                                                         )
+                                          .Modal(true)
+                                          .Buttons(b => b.Close())
+                                          .Content(@<p id="TransactionDetailListByTransactionNo" style="min-height: 160px; max-height: 800px;
+                                              width: 950px; padding: 0; margin: 0;">
+                                          </p>
+                                          )
+                                          .Visible(false)
+                                     )
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var totalDrAmount = 0;
+    var totalCrAmount = 0;
+
+    function onRowDataBoundLadgerAmount(e) {
+        var row = e.row;
+        var dataItem = e.dataItem;
+        var DrAmount = dataItem.DrAmount;
+        var CrAmount = dataItem.CrAmount;
+
+        totalDrAmount = totalDrAmount + DrAmount;
+        totalCrAmount = totalCrAmount + CrAmount;
+
+        $("#hfDrAmount").val(Math.round(totalDrAmount));
+        $("#hfCrAmount").val(Math.round(totalCrAmount));
+    }
+
+    function onDataBoundGeneralLager(e) {
+        $("#drAmountTotal").text($.telerik.formatString('{0:0,0}', parseInt($("#hfDrAmount").val(), 10)));
+        $("#crAmountTotal").text($.telerik.formatString('{0:0,0}', parseInt($("#hfCrAmount").val(), 10)));
+        totalDrAmount = 0;
+        totalCrAmount = 0;
+
+    }
+
+
+    function LedgerShow() {
+
+        var allLocation = $('#chkAllLocation').is(':checked');
+        var fromDate = $('#txtStartDate').val();
+        var todate = $('#txtEndDate').val();
+        var projectCode = $('#ddlProject').val();
+        var accountNo = $('#ddlAccount').val();
+
+        var params = {
+            fromDate: fromDate,
+            todate: todate,
+            projectCode: projectCode,
+            accountNo: accountNo,
+            allLocation: allLocation
+        };
+
+        var grid = $('#gvGeneralLedger').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+    }
+
+    function ShowTransactionDetails(transactionNumber) {
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("TransactionDetailListByTransactionNo", "AccountingReport")',
+            data: { transactionNumber: transactionNumber, unitCode: $('#hfUnitCode').val() },
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#TransactionDetailListByTransactionNo').html("");
+                $('#TransactionDetailListByTransactionNo').html(data);
+                var detailWindow = $("#dialogTransactionDetailListByTransactionNo").data("tWindow");
+                detailWindow.center().open();
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+    }
+
+    function SetParamaterForCsvGeneration() {
+
+        var grid = $("#gvGeneralLedger").data("tGrid");
+        var $exportToCsv = $('#exportToCsv');
+        var href = $exportToCsv.attr("href");
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'groupby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+
+        href = href.replace(/datefrom=([^&]*)/, 'datefrom=' + $('#txtStartDate').val());
+        href = href.replace(/dateTo=([^&]*)/, 'dateTo=' + $('#txtEndDate').val());
+        href = href.replace(/projectCode=([^&]*)/, 'projectCode=' + $('#ddlProject').val());
+        href = href.replace(/accountNo=([^&]*)/, 'accountNo=' + $('#ddlAccount').val());
+
+        $exportToCsv.attr("href", href);
+
+        return true;
+    }
+
+    function SetParamaterForPdfGeneration() {
+
+        var grid = $("#gvGeneralLedger").data("tGrid");
+        var $exportToPdf = $('#exportToPdf');
+        var href = $exportToPdf.attr("href");
+
+        href = href.replace(/page=([^&]*)/, 'page=' + grid.currentPage);
+        href = href.replace(/groupby=([^&]*)/, 'groupby=' + (grid.groupBy || '~'));
+        href = href.replace(/orderby=([^&]*)/, 'groupby=' + (grid.orderBy || '~'));
+        href = href.replace(/filter=([^&]*)/, 'filter=' + (grid.filterBy || '~'));
+
+        href = href.replace(/datefrom=([^&]*)/, 'datefrom=' + $('#txtStartDate').val());
+        href = href.replace(/dateTo=([^&]*)/, 'dateTo=' + $('#txtEndDate').val());
+        href = href.replace(/projectCode=([^&]*)/, 'projectCode=' + $('#ddlProject').val());
+        href = href.replace(/accountNo=([^&]*)/, 'accountNo=' + $('#ddlAccount').val());
+
+        $exportToPdf.attr("href", href);
+        return true;
+    }
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    } 
+</script>

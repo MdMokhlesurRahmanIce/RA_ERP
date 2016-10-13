@@ -1,0 +1,59 @@
+﻿@{
+    Html.Telerik().Menu()
+        .Name("HorizontalMenu")
+        .Orientation(MenuOrientation.Horizontal)
+        .Items(menu =>
+        {
+
+            menu.Add()
+                .Text("HR Admin")
+                .ImageUrl("~/Content/Images/HRAdmin.png")
+                .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-EmployeeTransfer');">Employee Register</a>
+        </li>
+
+        @*<li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-EmployeeTransfer');">Employee Register</a>
+        </li>*@
+
+        <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-SalaryAdviceForBank');">Salary Advice For Bank</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-EmployeeDetails');">Employee Details</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-AddEditEmployee');">Add/Edit Employee</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-EmployeeCV');">Employee CV</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-EmployeeAcceptReject');">Accept Transferred Employee</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-DailyTADAEntry');">Daily TA/DA Entry</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/HRAdmin.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-EmployeeSearch');">Employee Search</a>
+        </li>
+    </ul>
+    </text>
+
+);
+
+        }).Render();
+}

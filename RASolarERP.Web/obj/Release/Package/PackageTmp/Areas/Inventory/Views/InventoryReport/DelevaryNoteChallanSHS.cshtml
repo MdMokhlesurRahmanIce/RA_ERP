@@ -1,0 +1,883 @@
+﻿
+<script type="text/javascript">
+    var firstTime = true;
+
+    function onDataBinding(e) {
+        if (firstTime) {
+            e.preventDefault();
+            firstTime = false;
+        }
+        else {
+            e.data = {
+
+                //locationCode: $("#ddlLocationCode").val(),
+                //deliveryNoteNo: $("#ddlRREDeliveryNoteNo").val(),
+                //mrrSequenceNumber: $('#ddlMrrNO').val()
+            };
+        }
+    }
+
+    function onError(e) {
+        e.preventDefault();
+    }
+
+</script>
+@using RASolarERP.DomainModel.InventoryModel;
+@{
+    ViewBag.Title = "Delivery Note/Challan(SHS) Report";
+    Layout = "~/Areas/Inventory/Views/Shared/_InventoryLayout.cshtml";
+}
+@section TopMenu
+{
+    @Html.Partial((String)ViewBag.TopMenu)
+}
+@section LoginInfo
+{
+    <table cellpadding="0" cellspacing="0" border="0" style="text-align: right;" width="100%">
+        <tr>
+            <td style="width: 20%" align="left">
+                @ViewBag.ZoneTitle&nbsp; @ViewBag.ZoneName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.RegionTitle&nbsp; @ViewBag.RegionName
+            </td>
+            <td style="width: 20%" align="left">
+                @ViewBag.UnitTitle&nbsp; @ViewBag.UnitName
+            </td>
+            <td style="width: 40%" align="left">
+                @ViewBag.OpenMonthYear
+            </td>
+        </tr>
+    </table>
+}
+@{
+    List<DeliveryNoteSummary> lstDeliveryNoteSummary = new List<DeliveryNoteSummary>();
+}
+@{
+    List<DeliveryItemNoteReportSummary> lstDeliveryItemNoteReportSummary = new List<DeliveryItemNoteReportSummary>();
+}
+@{
+    List<DeliveryPackageNoteReportSummary> lstDeliveryPackageNoteReportSummary = new List<DeliveryPackageNoteReportSummary>();
+ }
+@{
+    List<DeliveryNoteSummary> lstMonthlyDeliveryNoteSummary = new List<DeliveryNoteSummary>();
+}
+@{
+    List<DeliveryItemNoteReportSummary> lstMonthlyDeliveryItemNoteReportSummary = new List<DeliveryItemNoteReportSummary>();
+}
+@{
+    List<DeliveryPackageNoteReportSummary> lstMonthlyDeliveryPackageNoteReportSummary = new List<DeliveryPackageNoteReportSummary>();
+ }
+
+@{
+    List<DeliveryNoteSummary> lstDateWiseDeliveryNoteSummary = new List<DeliveryNoteSummary>();
+}
+@{
+    List<DeliveryItemNoteReportSummary> lstDateWiseDeliveryItemNoteReportSummary = new List<DeliveryItemNoteReportSummary>();
+}
+@{
+    List<DeliveryPackageNoteReportSummary> lstDateWiseDeliveryPackageNoteReportSummary = new List<DeliveryPackageNoteReportSummary>();
+ }
+
+
+@{
+    string ss = (Convert.ToDateTime(ViewBag.CurrentDay)).ToString("yyyyMM");   
+}
+<input id = "hfReportUrl" type = "hidden" value = "@ViewData["reportUrl"]"/>
+<input id="hfCurrentLocation" type="hidden" />
+<input id="hfRegionLocation" type="hidden" />
+<input id="hfMonthYear" type="hidden" value="@ViewBag.YearMonth" /> 
+
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        
+                    <td>Distribution Schedule No
+                    @Html.TextBox("txtDistributionScheduleNo", "")
+                    </td>
+                  
+                    <td>
+                        From Date
+                   
+                        @(Html.Telerik().DatePicker().Name("dtpFromDate").Format("yyyy-MM-dd").Value(DateTime.Now.Date).Max(new DateTime(2099, 12, 31)).Value(DateTime.Now).Enable(true))
+                        
+                    
+
+                        To date
+                      @(Html.Telerik().DatePicker().Name("dtpToDate").Format("yyyy-MM-dd").Value(DateTime.Now.Date).Max(new DateTime(2099, 12, 31)).Value(DateTime.Now).Enable(true))
+                    </td>
+      
+    </tr>
+      <tr>
+        <td>
+            <br />
+        </td>
+    </tr>
+      <tr>
+        <td>
+            <br />
+        </td>
+    </tr>
+ <tr>
+        <td width="50%">
+            <input id="btnViewDelayNoteChallan" type="button" class="button" value="View Delivery Note/Challan(SHS)"
+                onclick="return ReportValidationCheck('ViewDeliveryNoteChallanSHSReport');" />
+        <input id="btnDeliveryNoteSummary" type="button" class="button" value="Delivery Note Summary"
+                onclick="return btnDeliveryNoteSummaryShowing();" />
+
+        </td>  
+        <td width="50%">
+           <table>
+               <tr> 
+                   <td align="left">
+            <input id="btnDateWiseDeliveryNoteSummary" type="button" class="button" value="Date Wise Delivery Note Summary"
+                onclick="return btnDateWiseDeliveryNoteSummaryShowing();" />
+                  </td>
+                <td width="110px"></td>
+                   <td align="right">
+
+         <input id="btnMonthlyDeliveryNoteSummary" type="button" class="button" value="Monthly Delivery Note Summary"
+                onclick="return btnMonthlyDeliveryNoteSummaryShowing();" />
+                       </td>
+                   </tr>
+               </table>
+     </td> 
+    </tr>
+    <tr>
+        <td>
+            <br />
+        </td>
+    </tr>
+    
+    <tr>
+        <td colspan="2" style="height: 10px;"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div style="margin: 0 auto; width: 980px; padding: 5px; border: 1px solid #D1D1D1; overflow-x: scroll;" id="ifrmhide">
+                <iframe id="ifrmReportViewer" name="ifrmReportViewer" frameborder="0" width="980" style="height:1200px"  scrolling="yes"></iframe>
+            </div>
+            <div id="DeliveryNoteSummaryButton" style="display:none">
+
+            @(Html.Telerik().Grid(lstDeliveryNoteSummary)
+                .Name("gvDeliveryNoteSummary")
+                .DataKeys(keys => keys.Add(k => k.DistribScheduleNo))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.DistribScheduleNo).Title("Distribution Schedule No").Width(30);
+                    column.Bound(s => s.DeliveryChallanDate).Width(40).Format("{0:dd/MM/yyyy}");
+                    column.Bound(s => s.RouteNo).Width(20);
+                    column.Bound(s => s.RouteName).Width(260);
+                    column.Bound(s => s.VendorChallanNoForPackage).Width(50);
+                    column.Bound(s => s.VendorChallanNoForSpareParts).Width(50);
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+                })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(300))
+                    .Scrollable(scroll => scroll.Height(200))
+                    .Footer(true)
+                    .DataBinding(dbBindings => dbBindings.Ajax().Select("DeliveryNoteSummaryGrid", "InventoryDept"))
+                    .ClientEvents(events => events
+                   
+                    .OnDataBinding("onDataBinding")
+                    .OnError("onError")
+                    )
+            )
+                <br />
+                <br />
+                <br />
+             
+                 @(Html.Telerik().Grid(lstDeliveryPackageNoteReportSummary)
+                .Name("gvDeliveryPackageNoteReportSummary")
+                .DataKeys(keys => keys.Add(k => k.PackageCode))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.SLNo).Width(10);
+                    column.Bound(s => s.PackageCode).Width(20);
+                    column.Bound(s => s.PackageName).Width(50);
+                    column.Bound(s => s.Rate).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.QtyPcs).Title("Quantity (Pcs)").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                         // for qnttys sum
+                    // column.Bound(s => s.WeeklyVarianceInAmount).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" })
+                    // .Aggregate(aggreages => aggreages.Sum())
+                    //    .Format("{0:N}")
+                     //   .FooterTemplate(@<text> @item.Sum.Format("{0:N}") </text>)
+                     // .GroupFooterTemplate(@<text>@item.Sum.Format("{0:N}")</text>);
+
+                    // for qnttys sum
+                    column.Bound(s => s.QtyPcs).Title("Quantity (Pcs)").Width(20).Format("{0}").HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                        //.Aggregate(aggreages => aggreages.Sum())
+                        // .FooterTemplate(result => (result.Sum == null ? "0" : result.Sum.Format("{0:0}")));
+                    
+                    
+                    column.Bound(s => s.Amount).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+
+                })
+                           .Selectable()
+                           .Pageable(pages => pages.PageSize(100))
+                           .Scrollable(scroll => scroll.Height(200))
+                           .Groupable(g=>g.Visible(false))
+                           .Footer(true)
+                           .DataBinding(dbBindings => dbBindings.Ajax().Select("DeliveryPackageNoteReportSummaryGrid", "InventoryDept"))
+                           .ClientEvents(events => events
+
+                           .OnDataBinding("onDataBinding")
+                           .OnError("onError")
+                           )
+                           // .Scrollable(scroll => scroll.Height(300))
+                             //      .Pageable(pages => pages.PageSize(100))
+                              //     .Groupable(g => g.Visible(false))
+                             //      .Selectable()
+                              //     .Footer(true)
+                   )
+             
+
+                
+
+                <br />
+                <br />
+                <br />
+                 @(Html.Telerik().Grid(lstDeliveryItemNoteReportSummary)
+                .Name("gvDeliveryItemNoteReportSummary")
+                .DataKeys(keys => keys.Add(k => k.ItemCode))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.SLNo).Width(10);
+                    column.Bound(s => s.ItemCode).Width(20);
+                    column.Bound(s => s.SHSFullaccessoriesKit).Width(50);
+                    column.Bound(s => s.Rate).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.QtyPcs).Title("Quantity (Pcs)").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.Amount).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+                })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(100))
+                    .Scrollable(scroll => scroll.Height(200))
+                    .Footer(true)
+                    .DataBinding(dbBindings => dbBindings.Ajax().Select("DeliveryItemNoteReportSummaryGrid", "InventoryDept"))
+                    .ClientEvents(events => events
+
+                    .OnDataBinding("onDataBinding")
+                    .OnError("onError")
+                    )
+            )
+             
+       
+            </div>
+             <div id="MonthlyDeliveryNoteSummaryButton" style="display:none">
+
+            @(Html.Telerik().Grid(lstMonthlyDeliveryNoteSummary)
+                .Name("gvMonthlyDeliveryNoteSummary")
+                .DataKeys(keys => keys.Add(k => k.DistribScheduleNo))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.DistribScheduleNo).Title("Distribution Schedule No").Width(30);
+                    column.Bound(s => s.DeliveryChallanDate).Width(40).Format("{0:dd/MM/yyyy}");
+                    column.Bound(s => s.RouteNo).Width(20);
+                    column.Bound(s => s.RouteName).Width(260);
+                    column.Bound(s => s.VendorChallanNoForPackage).Width(50);
+                    column.Bound(s => s.VendorChallanNoForSpareParts).Width(50);
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+                })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(300))
+                    .Scrollable(scroll => scroll.Height(200))
+                    .Footer(true)
+                    .DataBinding(dbBindings => dbBindings.Ajax().Select("MonthlyDeliveryNoteSummaryGrid", "InventoryDept"))
+                    .ClientEvents(events => events
+
+                    .OnDataBinding("onDataBinding")
+                    .OnError("onError")
+                    )
+            )
+                <br />
+                <br />
+                <br />
+                 @(Html.Telerik().Grid(lstMonthlyDeliveryPackageNoteReportSummary)
+                .Name("gvMonthlyDeliveryPackageNoteReportSummary")
+                .DataKeys(keys => keys.Add(k => k.PackageCode))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.SLNo).Width(10);
+                    column.Bound(s => s.PackageCode).Width(20);
+                    column.Bound(s => s.PackageName).Width(50);
+                    column.Bound(s => s.Rate).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.QtyPcs).Title("Quantity (Pcs)").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.Amount).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+                })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(100))
+                    .Scrollable(scroll => scroll.Height(200))
+                    .Footer(true)
+                    .DataBinding(dbBindings => dbBindings.Ajax().Select("MonthlyDeliveryPackageNoteReportSummaryGrid", "InventoryDept"))
+                    .ClientEvents(events => events
+
+                    .OnDataBinding("onDataBinding")
+                    .OnError("onError")
+                    )
+            )
+                <br />
+                <br />
+                <br />
+                 @(Html.Telerik().Grid(lstMonthlyDeliveryItemNoteReportSummary)
+                .Name("gvMonthlyDeliveryItemNoteReportSummary")
+                .DataKeys(keys => keys.Add(k => k.ItemCode))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.SLNo).Width(10);
+                    column.Bound(s => s.ItemCode).Width(20);
+                    column.Bound(s => s.SHSFullaccessoriesKit).Width(50);
+                    column.Bound(s => s.Rate).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.QtyPcs).Title("Quantity (Pcs)").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.Amount).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+                })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(100))
+                    .Scrollable(scroll => scroll.Height(200))
+                    .Footer(true)
+                    .DataBinding(dbBindings => dbBindings.Ajax().Select("MonthlyDeliveryItemNoteReportSummaryGrid", "InventoryDept"))
+                    .ClientEvents(events => events
+
+                    .OnDataBinding("onDataBinding")
+                    .OnError("onError")
+                    )
+            )
+             
+       
+            </div>
+             <div id="DateWiseDeliveryNoteSummaryButton" style="display:none">
+
+            @(Html.Telerik().Grid(lstDateWiseDeliveryNoteSummary)
+                .Name("gvDateWiseDeliveryNoteSummary")
+                .DataKeys(keys => keys.Add(k => k.DistribScheduleNo))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.DistribScheduleNo).Title("Distribution Schedule No").Width(30);
+                    column.Bound(s => s.DeliveryChallanDate).Width(40).Format("{0:dd/MM/yyyy}");
+                    column.Bound(s => s.RouteNo).Width(20);
+                    column.Bound(s => s.RouteName).Width(260);
+                    column.Bound(s => s.VendorChallanNoForPackage).Width(50);
+                    column.Bound(s => s.VendorChallanNoForSpareParts).Width(50);
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+                })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(300))
+                    .Scrollable(scroll => scroll.Height(200))
+                    .Footer(true)
+                    .DataBinding(dbBindings => dbBindings.Ajax().Select("DateWiseDeliveryNoteSummaryGrid", "InventoryDept"))
+                    .ClientEvents(events => events
+
+                    .OnDataBinding("onDataBinding")
+                    .OnError("onError")
+                    )
+            )
+                <br />
+                <br />
+                <br />
+                 @(Html.Telerik().Grid(lstDateWiseDeliveryPackageNoteReportSummary)
+                .Name("gvDateWiseDeliveryPackageNoteReportSummary")
+                .DataKeys(keys => keys.Add(k => k.PackageCode))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.SLNo).Width(10);
+                    column.Bound(s => s.PackageCode).Width(20);
+                    column.Bound(s => s.PackageName).Width(50);
+                    column.Bound(s => s.Rate).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.QtyPcs).Title("Quantity (Pcs)").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.Amount).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+                })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(100))
+                    .Scrollable(scroll => scroll.Height(200))
+                    .Footer(true)
+                    .DataBinding(dbBindings => dbBindings.Ajax().Select("DateWiseDeliveryPackageNoteReportSummaryGrid", "InventoryDept"))
+                    .ClientEvents(events => events
+
+                    .OnDataBinding("onDataBinding")
+                    .OnError("onError")
+                    )
+            )
+                <br />
+                <br />
+                <br />
+                 @(Html.Telerik().Grid(lstDateWiseDeliveryItemNoteReportSummary)
+                .Name("gvDateWiseDeliveryItemNoteReportSummary")
+                .DataKeys(keys => keys.Add(k => k.ItemCode))
+                .Columns(column =>
+                {
+                    column.Bound(s => s.SLNo).Width(10);
+                    column.Bound(s => s.ItemCode).Width(20);
+                    column.Bound(s => s.SHSFullaccessoriesKit).Width(50);
+                    column.Bound(s => s.Rate).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.QtyPcs).Title("Quantity (Pcs)").Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    column.Bound(s => s.Amount).Width(20).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.Difference).Width(100).HtmlAttributes(new { @class = "GridColumnRightAlign" });
+                    //column.Bound(s => s.VendorDeliveryValue).Hidden(true);
+                    //column.Bound(s => s.ReceiveValue).Hidden(true);
+                })
+                    .Selectable()
+                    .Pageable(pages => pages.PageSize(100))
+                    .Scrollable(scroll => scroll.Height(200))
+                    .Footer(true)
+                    .DataBinding(dbBindings => dbBindings.Ajax().Select("DateWiseDeliveryItemNoteReportSummaryGrid", "InventoryDept"))
+                    .ClientEvents(events => events
+
+                    .OnDataBinding("onDataBinding")
+                    .OnError("onError")
+                    )
+            )
+             
+       
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="height: 5px;"></td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    function btnDeliveryNoteSummaryShowing() {
+        document.getElementById('DeliveryNoteSummaryButton').style.display = "block";
+        $('#DeliveryNoteSummaryButton').show();
+        $('#ifrmhide').hide();
+        document.getElementById('MonthlyDeliveryNoteSummaryButton').style.display = "none";
+        $('#MonthlyDeliveryNoteSummaryButton').hide();
+        document.getElementById('DateWiseDeliveryNoteSummaryButton').style.display = "none";
+        $('#DateWiseDeliveryNoteSummaryButton').hide();
+        var txtDistributionScheduleNo = $('#txtDistributionScheduleNo').val();
+       
+
+        if (txtDistributionScheduleNo == '') {
+            alert("DistributionScheduleNo cannot be empty.");
+            return false;
+        }
+       
+
+        var params = {
+            distributionScheduleNo: txtDistributionScheduleNo
+        };
+        var grid = $('#gvDeliveryNoteSummary').data('tGrid'); 
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        // start for package grid
+        var params = {
+            distributionScheduleNo: txtDistributionScheduleNo
+        };
+        var grid = $('#gvDeliveryPackageNoteReportSummary').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        //end for package grid
+
+        var params = {
+            distributionScheduleNo: txtDistributionScheduleNo
+        };
+        var grid = $('#gvDeliveryItemNoteReportSummary').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+    }
+
+    function btnMonthlyDeliveryNoteSummaryShowing() {
+        document.getElementById('DeliveryNoteSummaryButton').style.display = "none";
+        $('#DeliveryNoteSummaryButton').hide();
+        $('#ifrmhide').hide();
+        document.getElementById('DateWiseDeliveryNoteSummaryButton').style.display = "none";
+        $('#DateWiseDeliveryNoteSummaryButton').hide();
+
+        document.getElementById('MonthlyDeliveryNoteSummaryButton').style.display = "block";
+        $('#MonthlyDeliveryNoteSummaryButton').show();
+
+
+        var txtMonthYear1 = $('#txtDistributionScheduleNo').val();
+
+        var txtMonthYear = "";
+        if (txtMonthYear1 !='')
+        {
+            txtMonthYear = "20" + txtMonthYear1.substr(0, 4).toString();
+        }
+        else if (txtMonthYear1 == '') {
+            txtMonthYear = $('#hfMonthYear').val();
+        }
+
+       // var txtMonthYear = $('#hfMonthYear').val();
+       // alert(txtMonthYear);
+
+        //if (txtMonthYear == '') {
+        //    alert("OpenMonthYear cannot be empty.");
+        //    return false;
+        //}
+
+
+        var params = {
+            monthYear: txtMonthYear
+        };
+        var grid = $('#gvMonthlyDeliveryNoteSummary').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        // start for package grid
+        var params = {
+            monthYear: txtMonthYear
+        };
+        var grid = $('#gvMonthlyDeliveryPackageNoteReportSummary').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        //end for package grid
+
+        var params = {
+            monthYear: txtMonthYear
+        };
+        var grid = $('#gvMonthlyDeliveryItemNoteReportSummary').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+    }
+
+    function btnDateWiseDeliveryNoteSummaryShowing() {
+        document.getElementById('DeliveryNoteSummaryButton').style.display = "none";
+        $('#DeliveryNoteSummaryButton').hide();
+        $('#ifrmhide').hide();
+        document.getElementById('MonthlyDeliveryNoteSummaryButton').style.display = "none";
+        $('#MonthlyDeliveryNoteSummaryButton').hide();
+
+        document.getElementById('DateWiseDeliveryNoteSummaryButton').style.display = "block";
+        $('#DateWiseDeliveryNoteSummaryButton').show();
+
+        //var txtMonthYear1 = $('#txtDistributionScheduleNo').val();
+
+        //var txtMonthYear = "";
+        //if (txtMonthYear1 != '') {
+        //    txtMonthYear = "20" + txtMonthYear1.substr(0, 4).toString();
+        //}
+        //else if (txtMonthYear1 == '') {
+        //    txtMonthYear = $('#hfMonthYear').val();
+        //}
+
+        // var txtMonthYear = $('#hfMonthYear').val();
+        // alert(txtMonthYear);
+
+        //if (txtMonthYear == '') {
+        //    alert("OpenMonthYear cannot be empty.");
+        //    return false;
+        //}
+        var dtpFromDate = $('#dtpFromDate').val();
+        var dtpToDate = $('#dtpToDate').val();
+
+        var params = {
+            fromDate: dtpFromDate,
+            toDate: dtpToDate
+        };
+        var grid = $('#gvDateWiseDeliveryNoteSummary').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        // start for package grid
+        var params = {
+            fromDate: dtpFromDate,
+            toDate: dtpToDate
+        };
+        var grid = $('#gvDateWiseDeliveryPackageNoteReportSummary').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+
+        //end for package grid
+
+        var params = {
+            fromDate: dtpFromDate,
+            toDate: dtpToDate
+        };
+        var grid = $('#gvDateWiseDeliveryItemNoteReportSummary').data('tGrid');
+        grid.dataSource._data = [];
+        grid.ajaxRequest(params);
+    }
+
+    function ss() {
+        var iframeid = "ifrmReportViewer";
+        var iframename = "ifrmReportViewer";
+        var iframefield = "hfAdviceLetterReferenceEndSeqNo";
+
+        var mmspobj = document.getElementById(iframeid);
+        if (mmspobj.tagName == 'IFRAME') {
+            myval = window.frames[iframeid].document.getElementById(iframefield).value;
+        }
+        document.getElementById("txtEndLetterSequenceNo").value = myval;
+    }
+
+   
+
+    function CloseDialogWindowEmployeeLocation() {
+
+        var locationCode = "";
+        var locationText = "";
+        var regionLocationCode = "";
+
+
+        if ($('#ddlLocationType').val() == "ho") {
+            locationText = "[9000] Head Office";
+            locationCode = "9000";
+        }
+        else if ($('#ddlLocationType').val() == "zone") {
+            locationText = $('#ddlZone').find('option:selected').text();
+            locationCode = $('#ddlZone').val();
+        }
+        else if ($('#ddlLocationType').val() == "unit") {
+            locationText = $('#ddlUnit').find('option:selected').text();
+            locationCode = $('#ddlUnit').val();
+            regionLocationCode = $('#ddlRegion').val();
+        }
+
+        $('#txtBankAdviceLocation').val(locationText);
+
+        $('#hfCurrentLocation').val(locationCode);
+        $('#hfRegionLocation').val(regionLocationCode);
+
+        var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+        detailWindow.center().close();
+
+        GetLocationWiseBankAccount($('#hfCurrentLocation').val());
+
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+
+        return false;
+    }
+
+
+    function GetLocationWiseBankAccount(locationCode) {
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetLocationWiseBankAccountForSalaryBoucher", "HrmReport")',
+            data: { locationCode: locationCode },
+            cache: false,
+            success: function (data) {
+                $('#ddlBankAdviceAccount').get(0).options.length = 0;
+                $('#ddlBankAdviceAccount').get(0).options[0] = new Option('--Select--', '');
+
+                $.map(data, function (item) {
+                    $('#ddlBankAdviceAccount').get(0).options[$('#ddlBankAdviceAccount').get(0).options.length] = new Option(item.BankName, item.BankID);
+                });
+
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+    }
+
+
+    function GenerateBankAdvice() {
+
+        var forMonth = $('#ddlSalaryAdviseMonth').val(), reportType = $('#ddlGenerateBankAdvice').val(), generateType = $('#ddlGenerateBankAdviceVersion').val();
+        var startLetterSequenceNo = $('#txtStartLetterSequenceNo').val();
+        var location = $('#txtBankAdviceLocation').val();
+        var bankAccount = $('#ddlBankAdviceAccount').val();
+        var locationCode = $('#hfCurrentLocation').val();
+
+        if (forMonth == "") {
+            alert("Please Select A Month");
+            return false;
+        }
+        else if (reportType == "") {
+            alert("Please Select Report Type");
+            return false;
+        }
+        else if (reportType == "FORASINGLELOCATION") {
+            if (location == '') {
+                alert("Please insert location.");
+                return false;
+            }
+            //            else if (bankAccount == '') {
+            //                alert("Please select bank account.");
+            //                return false;
+            //            }
+        }
+        else if (startLetterSequenceNo == "") {
+            alert("Please Give Start Letter Sequence No");
+            return false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GenerateSalaryAdviceForBank", "HrmReport")',
+            data: { forMonth: forMonth, reportType: reportType, generateType: generateType, startLetterSequenceNo: startLetterSequenceNo, locationCode: locationCode, bankAccount: bankAccount },
+            cache: false,
+            success: function (data) {
+                if (data[0].messageCode == "success") {
+                    alert(data[0].message);
+                }
+                else {
+                    alert(data[0].message);
+                }
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+
+        var iframe_element = window.frames['ifrmReportViewer'];
+        iframe_element.document.open();
+        iframe_element.document.close();
+    }
+
+    function BankAdviceLcoation() {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("BankAdviceLcoation", "HrmReport")',
+            data: {},
+            cache: false,
+            success: function (data) {
+
+            },
+            error: function (req, status, error) {
+                alert(req.status);
+                alert(error);
+            }
+        });
+    }
+
+    function ReportValidationCheck(reportType) {
+
+
+        $('#DeliveryNoteSummaryButton').hide();
+
+        $('#ifrmhide').show();
+
+        var distributionScheduleNo = $('#txtDistributionScheduleNo').val();
+
+
+        if (distributionScheduleNo == "") {
+            alert("Please input Distribution Schedule No.");
+            return false;
+        }
+
+        var stockInTransit = "";
+
+        if (stockInTransit == "") {
+            stockInTransit = 0;
+        }
+
+
+        if (reportType == 'ViewDeliveryNoteChallanSHSReport') {
+
+            url = "../../Areas/Inventory/Reports/ReportView.aspx?rptmode=local&reportname=ViewDeliveryNoteChallanSHSReport&parameters=dpSpYearMonth=" + distributionScheduleNo + ",rpYearMonth=" + distributionScheduleNo + ",rpStockInTransit=" + stockInTransit;
+        }
+
+
+        $("#txtEndLetterSequenceNo").val("");
+
+        var myframe = document.getElementById("ifrmReportViewer");
+        if (myframe !== null) {
+            if (myframe.src) {
+                myframe.src = url;
+            }
+            else if (myframe.contentWindow !== null && myframe.contentWindow.location !== null) {
+                myframe.contentWindow.location = url;
+            }
+            else { myframe.setAttribute('src', url); }
+        }
+
+        setTimeout(GetCookie, 5000);
+
+        return false;
+    }
+
+    function GetCookie() {
+        var iBody = $("#ifrmReportViewer").contents().find("body");
+        var myContent = iBody.find("#EndLetterSequenceNoToShow").text();
+        $("#txtEndLetterSequenceNo").val(myContent);
+    }
+
+    $(document).ready(function () {
+        $('#txtBankAdviceLocation').attr('disabled', true);
+        $('#ddlBankAdviceAccount').attr('disabled', true);
+    });
+
+    $('#ddlGenerateBankAdvice').change(function () {
+
+        if ($(this).val() == 'FORASINGLELOCATION') {
+
+            $('#txtBankAdviceLocation').attr('disabled', false);
+            $('#ddlBankAdviceAccount').attr('disabled', false);
+        }
+        else if ($(this).val() == 'FORAONLINEBANK') {
+
+            $('#txtBankAdviceLocation').attr('disabled', true);
+            $('#ddlBankAdviceAccount').attr('disabled', false);
+
+            $('#txtBankAdviceLocation').val("");
+            $('#ddlBankAdviceAccount').val("");
+            $('#hfCurrentLocation').val("");
+
+            GetLocationWiseBankAccount("");
+        }
+        else {
+
+            $('#txtBankAdviceLocation').val("");
+            $('#ddlBankAdviceAccount').val("");
+            $('#hfCurrentLocation').val("");
+
+            $('#txtBankAdviceLocation').attr('disabled', true);
+            $('#ddlBankAdviceAccount').attr('disabled', true);
+        }
+
+    });
+
+    $('#txtBankAdviceLocation').click(function () {
+        LoadLocationDialog();
+    });
+
+    function LoadLocationDialog() {
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("EmployeeLocationSelectionTransferPartial", "EmployeeRegister")',
+            dataType: 'html',
+            cache: false,
+            success: function (data) {
+                $('#LoadEmployeeLocationSelectionWindow').html(data);
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+
+        var detailWindow = $("#dialogEmployeeLocationSelection").data("tWindow");
+        detailWindow.center().open();
+    }
+
+
+    function CloseDialogEmployeeLocationSelection(e) {
+        $('#LoadEmployeeLocationSelectionWindow').html('');
+    }
+
+
+    function RSFMenu(goFor) {
+        window.location.replace(Helper.Menu("../../", goFor));
+        return false;
+    }
+
+</script> 
+

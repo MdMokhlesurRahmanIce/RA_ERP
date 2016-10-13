@@ -1,0 +1,418 @@
+﻿
+
+body {
+    font-size: 12px;
+    font-family: "Segoe UI", Arial, Verdana, Helvetica, Sans-Serif;
+    color: #000000;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border: 0;
+    margin: 0;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+}
+
+.BodyBackGround {
+    background: url(Images/RASolarBodyBG.png) repeat-x scroll 0 0 #FFFFFF;
+}
+
+.FooterBackGround {
+    background: url(Images/RASolarFooterBG.png) repeat-x scroll 0 0 #4B4B4B;
+}
+
+.HeaderBackGround {
+    height: 85px;
+    background: url(Images/RASolarHeaderBG.png) repeat-x scroll 0 0 #FFFFFF;
+}
+
+.ModuleTitle {
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.DisplayFalse {
+    display: none;
+}
+
+/*Dialog Window Style*/
+
+.OkButton {
+    width: 45px;
+    height: 30px;
+}
+
+.LocationSelectionBox {
+    width: 325px;
+    height: 100px;
+}
+
+.LocationSelectionBoxWithRegionUnit {
+    width: 325px;
+    height: 160px;
+}
+
+.LocationTitle {
+    width: 50px;
+}
+
+/* Marks Style */
+
+.RedMarks {
+    font-size: 11px;
+    font-family: Tahoma;
+    color: Red;
+}
+
+
+/* ------------------------------Top Menu Style----------------------------------------------------*/
+#HorizontalMenu .t-content {
+    background-color: #edf9fe;
+    color: #333;
+    text-align: left;
+}
+
+#HorizontalMenu .t-group {
+    background-color: #edf9fe;
+    color: #333;
+    text-align: left;
+}
+
+.t-widget, .t-widget button, .t-widget input, .t-widget select, .t-button, .t-formatted-value {
+    text-align: left;
+}
+
+.t-group-footer {
+    text-align: right;
+}
+
+.t-footer-template {
+    text-align: right;
+}
+
+    .t-footer-template td {
+        padding-right: 6px;
+    }
+
+/*.t-grid-header
+{
+    position:fixed;    
+}*/
+
+.MenuListVertical {
+    margin: 0;
+    line-height: 18px;
+    text-decoration: none;
+    list-style-type: none;
+    list-style: none;
+    padding: 5px;
+    text-align: left;
+}
+
+    .MenuListVertical a {
+        text-decoration: none;
+        color: #000000;
+    }
+
+        .MenuListVertical a:hover {
+            color: #2e8d11;
+        }
+
+.RSFTopMenu {
+    height: 25px;
+}
+
+.LoginInfo {
+    height: 10px;
+}
+
+/* ------------------------------Grid Style----------------------------------------------------*/
+
+.t-grid {
+    position: static;
+    overflow: hidden;
+}
+
+.t-grid-content {
+    overflow-x: hidden;
+    position: static;
+    width: 100%;
+}
+
+.t-grid-header-wrap {
+    position: static;
+}
+
+.t-grid-content {
+    overflow-x: hidden;
+}
+
+DIV.t-grid-header {
+    padding-right: 0px;
+}
+
+.t-grid .t-group-col {
+    width: 0;
+}
+
+.t-grid .t-grid-header .t-header .t-link {
+    height: auto;
+    margin: 0;
+    padding: 3px 5px 3px 5px;
+}
+
+.t-grid .t-grid-header .t-header, .t-grid .t-grid-header .t-last-header {
+    white-space: normal;
+    margin: 0; /*padding: 0.3em 1.4em 0.3em 0.6em;*/
+    padding: 3px 0px 3px 0px;
+    text-align: center;
+}
+
+.t-grid-header .t-header .t-link {
+    margin: 0;
+    padding: 3px 5px 3px 5px;
+}
+
+.t-widget, .t-widget button, .t-widget input, .t-widget select, .t-button, .t-formatted-value {
+    font-family: "Segoe UI",Arial,sans-serif;
+    font-size: 12px;
+}
+
+.t-grid-footer-wrap {
+    position: static;
+}
+
+.AccessDeniedMessage {
+    text-align: left;
+    font-size: 25px;
+    color: Red;
+}
+
+.HighlightTr {
+    background-color: #D5F3ED;
+}
+
+
+.LabelForDisplayData {
+    display: block;
+    background-color: #fafafa;
+    line-height: 20px;
+    width: 95%;
+}
+
+#dialogTransactionDetailListByTransactionNo .t-window-content {
+    min-height: 85px;
+    max-height: 800px;
+}
+
+
+select option {
+    width: auto !important;
+}
+
+.LabelForEmployeeTransfer {
+    display: block;
+    background-color: #fafafa;
+    line-height: 20px;
+    width: 100%;
+}
+
+.button {
+    margin-right: 5px;
+}
+
+
+/* ----------------------------- Tab Strip Style ----------------------------------*/
+
+.t-state-active {
+    background-color: #F1F3F8;
+}
+
+.t-tabstrip .t-content, .t-panelbar .t-tabstrip .t-content {
+    padding: 5px 4px;
+}
+
+/*----------------------Satrt css for employee information--------------------- */
+
+.labelEmployeeInfoForDisplayValue {
+    display: block;
+    background-color: #FBFBFE;
+    line-height: 20px;
+    width: 310px;
+    padding-left: 3px;
+    padding-right: 2px;
+}
+
+.labelEmployeeInfoForDisplayValueBig {
+    display: block;
+    background-color: #FBFBFE;
+    line-height: 20px;
+    width: 797px;
+    padding-left: 3px;
+    padding-right: 2px;
+}
+
+.employeeInfoFieldLabel {
+    width: 150px;
+    display: block;
+    line-height: 20px;
+}
+
+.employeeInfoTitle {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.employeeInfoFieldLabelBig {
+    width: 200px;
+    display: block;
+    line-height: 20px;
+}
+
+.employeeInfoBankFieldLabel {
+    width: 240px;
+    line-height: 20px;
+}
+
+.labelEmployeeInfoForDisplayValueSmall {
+    display: block;
+    background-color: #FBFBFE;
+    line-height: 20px;
+    width: 258px;
+    padding-left: 3px;
+    padding-right: 2px;
+}
+
+.employeeInfoPhotograph {
+    width: 200px;
+    height: 250px;
+    display: block;
+    text-align: center;
+    margin-left: 400px;
+}
+
+.ImageClassForCV {
+    width: 220px;
+    height: 260px;
+    text-align: center;
+    border: 5px solid #ccc;
+    border-style: dotted;
+    padding-top: 10px;
+}
+
+.employeeInfoSignature {
+    display: block;
+    text-align: center;
+    margin-left: 318px;
+    width: 350px;
+    height: 100px;
+    margin-top: 30px;
+}
+
+.employeeInfoSignatureForCV {
+    display: block;
+    text-align: center;
+    margin-left: 629px;
+    width: 350px;
+    height: 100px;
+    margin-top: 5px;
+    float: right;
+}
+
+.EmployeeInfoTextBoxBig {
+    width: 308px;
+}
+
+.EmployeeInfoTextBoxSmall {
+    width: 257px;
+}
+
+.TaDaTextFieldSmall {
+    width: 157px;
+}
+
+.TaDaDropDownFieldSmall {
+    width: 215px;
+}
+
+.EmployeeInfoBankTextBoxBig {
+    width: 308px;
+    margin-left: 0px;
+}
+
+.EmployeeInfoDropdownBig {
+    width: 314px;
+}
+
+
+table.TblEducationForEmployeeCV {
+    font-family: verdana,arial,sans-serif;
+    font-size: 11px;
+    color: #333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    table.TblEducationForEmployeeCV th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+
+    table.TblEducationForEmployeeCV td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #ffffff;
+    }
+
+.EmployeeCVFieldSetClass legend {
+    padding: 5px;
+    margin-left: 30px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/*----------------------End css for employee information--------------------- */
+
+
+.EmployeeInfoNextButton {
+    width: 60px;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    padding: 2px 6px;
+    border-width: 1px;
+    border-color: #A7BAC5;
+    color: #333333;
+    cursor: pointer;
+    background: url(Images/next.png) right no-repeat;
+}
+
+    .EmployeeInfoNextButton:hover {
+        background-color: #E3F4FC;
+    }
+
+/*-----------------------Jquery UI Custom CSS--------------------------------*/
+
+.ui-accordion .ui-accordion-content {
+    padding: 1em;
+}
+
+.ui-front {
+    z-index: 11011;
+}
+
+/*-----------------------Jquery UI Custom CSS End------------------------------*/

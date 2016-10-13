@@ -1,0 +1,84 @@
+﻿<script type="text/javascript">
+
+    function OnRowSelect_OtherAccount(e) {
+
+        var dataItem = $('#gvOtherAccounts').data('tGrid').dataItem(e.row);
+        $('#hfAccountNumber').val(e.row.cells[0].innerHTML);
+        $('#hfAccountName').val(e.row.cells[1].innerHTML);
+        $('#hfAccountDimensionValues').val(e.row.cells[2].innerHTML);
+
+        var detailWindow = $("#dialogOtherAccountSelection").data("tWindow");
+        detailWindow.center().close();
+    }
+
+</script>
+@model IEnumerable<RASolarERP.DomainModel.AMSModel.ChartOfAccounts>
+<input id="hfAccountNumber" type="hidden" value="" />
+<input id="hfAccountName" type="hidden" value="" />
+<input id="hfAccountDimensionValues" type="hidden" value="" />
+
+<table cellpadding="0" cellspacing="6" width="100%">
+    <tr>
+        <td>Find
+        </td>
+        <td>
+            @Html.TextBox("txtFilterGridDataByAccountName", "")
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @(Html.Telerik().Grid(Model)
+                        .Name("gvOtherAccounts")
+                        .DataKeys(keys => keys.Add(k => k.AccountNo))
+                        .Columns(column =>
+                        {
+                            column.Bound(c => c.AccountNo).Width(100);
+                            column.Bound(c => c.AccountName).Width(300);
+                            column.Bound(c => c.DimensionCode).Hidden(true);
+                        })
+                        .Selectable()
+                        .Scrollable(scroll => scroll.Height(300))
+                        .ClientEvents(events => events.OnRowSelect("OnRowSelect_OtherAccount"))
+                        .Footer(false)
+
+              )
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    // For Jquery 1.8 & + Version
+    //    $.expr[":"].contains = $.expr.createPseudo(function (arg) {
+    //        return function (elem) {
+    //            return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+    //        };
+    //    });
+
+    $.extend($.expr[':'], {
+        'containsi': function (elem, i, match, array) {
+            return (elem.textContent || elem.innerText || '').toLowerCase()
+    .indexOf((match[3] || "").toLowerCase()) >= 0;
+        }
+    });
+
+    $("#txtFilterGridDataByAccountName").focus();
+
+    $(document).ready(function () {
+
+        $('#txtFilterGridDataByAccountName').keyup(function () {
+
+            var filterText = $.trim($(this).val());
+
+            $("#gvOtherAccounts .t-grid-content > table tbody tr").each(function () {
+
+                if ($(this).find("td:eq(1):containsi('" + filterText + "')").length > 0) {
+                    $(this).show();
+                }
+                else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+
+</script>

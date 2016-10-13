@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3274e9d4a6ab4cfb8608b9433a4ac715" Name="Diagram1">
+        <EntityTypeShape EntityType="RASolarHRAModel.Aud_AuditingDetailsForAuditors" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Aud_AuditingMaster" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Common_DistrictInfo" Width="1.5" PointX="5.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Common_LocationInfo" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Common_UpazillaInfo" Width="1.5" PointX="5.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_BankAdviceForSalaryMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_BloodGroupInfo" Width="1.5" PointX="5.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_DepartmentInfo" Width="1.5" PointX="5.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EducationInfo" Width="1.5" PointX="5.75" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EmployeeInfo" Width="1.5" PointX="8" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EmployeeTransfer" Width="1.5" PointX="10.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EmployeeTransferAdditionalInfo" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EmploymentTypeInfo" Width="1.5" PointX="5.75" PointY="34.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_HierarchicalDesignation" Width="1.5" PointX="5.75" PointY="37.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_HierarchicalDesignationVsOperationalRole" Width="1.5" PointX="5.75" PointY="40.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_LocationWiseEmployee" Width="1.5" PointX="13.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_MajorSubject" Width="1.5" PointX="5.75" PointY="44" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_MaritalStatusInfo" Width="1.5" PointX="5.75" PointY="46.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_OperationalRole" Width="1.5" PointX="3.5" PointY="41.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_ReligionInfo" Width="1.5" PointX="5.75" PointY="49.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_SubDepartmentOrSection" Width="1.5" PointX="5.75" PointY="52.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" Width="1.5" PointX="10.25" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Sal_LocationWiseSalespersonForHOnZO" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Aud_AuditingDetailsForAuditors_Aud_AuditingMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Aud_AuditingMaster_Aud_AuditingMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Aud_AuditingMaster_Common_LocationInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District1" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_District2" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_tbl_upazilla_tbl_district" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_LocationInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Common_LocationInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_LocationInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_LocationInfo1" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_LocationWiseEmployee_LocationInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_Upazilla" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_tbl_Upazilla1" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_BloodGroupInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_DepartmentInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_SubDepartmentOrSection_Hrm_DepartmentInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EducationInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EmploymentTypeInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignation" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_HierarchicalDesignationVsOperationalRole" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_LocationWiseEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_MajorSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_MaritalStatusInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_ReligionInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_SubDepartmentOrSection" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_EmployeeInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_LocationWiseEmployee_Hrm_EmployeeInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType_Hrm_EmployeeInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_LocationWiseEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_HierarchicalDesignation" ManuallyRouted="false" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_HierarchicalDesignationVsOperationalRole_Hrm_OperationalRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EmployeeWiseBankAccount" Width="1.5" PointX="10.25" PointY="22.125" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeWiseBankAccount_Hrm_EmployeeInfo" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureDetails" Width="1.5" PointX="14.75" PointY="26.25" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EmployeeWiseSalaryStructureMaster" Width="1.5" PointX="12.5" PointY="26.125" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" Width="1.5" PointX="12.5" PointY="20.75" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_EmployeeWiseSalaryStructureMaster" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureDetails_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_EmploymentTypeInfo" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_HierarchicalDesignation" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeWiseSalaryStructureMaster_Hrm_Validation_EmployeeWiseDesignationVsEmploymentType" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_EmploymentTypeInfo" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_HierarchicalDesignationNEmploymentTypeWisePayBandStructure_Hrm_HierarchicalDesignation" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeInfo_Hrm_EmployeeWiseSalaryStructureMaster" />
+        <EntityTypeShape EntityType="RASolarHRAModel.Hrm_EmployeeNDateWiseTADAEntry" Width="1.5" PointX="15.5" PointY="13.25" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeNDateWiseTADAEntry_Hrm_LocationWiseEmployee" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeTransferAdditionalInfo_Hrm_EmployeeInfo" />
+        <AssociationConnector Association="RASolarHRAModel.FK_Hrm_EmployeeTransfer_Hrm_EmployeeTransferAdditionalInfo" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

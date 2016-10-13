@@ -1,0 +1,32 @@
+﻿@{
+    Html.Telerik().Menu()
+        .Name("HorizontalMenu")
+        .Orientation(MenuOrientation.Horizontal)
+        .Items(menu =>
+        {
+
+
+            menu.Add()
+                .Text("Inventory")
+                .ImageUrl("~/Content/Images/Inventory.png")
+                .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+       @* <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-SHSDistributionPlan');">SHS Distribution Plan</a></li>*@
+
+         <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-DelevaryNoteChallanSHS');">Delivery Note/Challan(SHS) Report</a>
+
+        </li>
+   
+    </ul>
+    </text>
+);
+
+           
+        }).Render();
+}

@@ -1,0 +1,147 @@
+﻿@{
+    Html.Telerik().Menu()
+        .Name("HorizontalMenu")
+        .Orientation(MenuOrientation.Horizontal)
+        .Items(menu =>
+        {
+
+            menu.Add()
+                .Text("Progress Review")
+                .ImageUrl("~/Content/Images/Inventory.png")
+                .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-DailyProgressReviewDataEntryStatus');">Daily
+                Progress Review Data Entry Status</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('HRM-DailyTADAEntry');">Daily TA/DA Entry</a>
+        </li>
+        @*<li>
+            <img src="@Url.Content("../../Content/images/ProgressReview.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SummaryForTheDayClosing');">Day Open/Close</a>
+        </li>*@
+    </ul>
+    </text>
+
+);
+
+            menu.Add()
+                .Text("Inventory")
+                .ImageUrl("~/Content/Images/Inventory.png")
+                .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventoryDataEntryStatusReport');">Inventory
+                Data Entry Status</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ReportViewer');">Closing Inventory Report</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventorySummaryToDetailView');">Inventory
+                Summary To Detail View</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-StockPositionViewNUpdate')">Stock Position
+                View and Update</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemReceiveWithChallan')">MRR (With Challan)</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemReceiveWithoutChallan')">MRR (Without Challan)</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemIssue')">Challan</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ChallanWithMultipleLocation')">Challan (With
+                Multiple Location)</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventoryLedger')">Item Ledger Report</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png")" alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventoryInTransitReport')">Stock In-Transit
+                Report</a> </li>
+
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-StockInTransitAtGlance');">Stock In Transit
+                At A Glance</a> </li>
+
+         <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-FixedAssetRegister');">Fixed Asset Register</a> </li>
+
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ItemSummary');">Item Summary Report</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-VendorChallanVMrrVerification');">Vendor Challan
+                Vs MRR Verification</a></li>
+
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-SHSDistributionPlan');">SHS Distribution Plan</a></li>
+
+         <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-EditSHSDistributionPlan');">Edit SHSDistribution Plan</a>
+
+         </li>
+
+         <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-SHSDistributionScheduleOrRouteTransfer');">SHS Distribution Schedule Or Route Transfer</a>
+
+         </li>
+
+         <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-DelevaryNoteChallanSHS');">Delivery Note/Challan(SHS) Report</a>
+
+        </li>
+
+        @* <li>
+            <img src="@Url.Content("../../Content/Images/Inventory.png")" alt="" />
+            <a href="../InventoryDailyTransaction/InventoryTransaction" target="_blank">Inventory
+                Transaction</a> </li>
+        <li>
+            <img src="@Url.Content("../../Content/Images/Inventory.png") " alt="" />
+            <a href="http://172.25.40.50/MonthlyEntryInventory/InvTransactionPrintingAndStationaryItem.aspx?lc=9000090990&ud=store">
+                Inventory Transaction For Store Item</a></li>*@
+    </ul>
+    </text>
+);
+
+            menu.Add()
+     .Text("Sales and Collection")
+     .ImageUrl("~/Content/Images/SalesIcon.png")
+     .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SpareSales')">Spare Parts Sales</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SpareSalesByItemSet')">Spare Parts Sales (by
+                Item Set)</a> </li>
+    </ul>
+    </text>);
+
+
+        }).Render();
+}

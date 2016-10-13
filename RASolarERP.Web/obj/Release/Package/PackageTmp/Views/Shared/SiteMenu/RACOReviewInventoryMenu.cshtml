@@ -1,0 +1,86 @@
+﻿@{
+    Html.Telerik().Menu()
+        .Name("HorizontalMenu")
+        .Orientation(MenuOrientation.Horizontal)
+        .Items(menu =>
+        {
+
+            menu.Add()
+         .Text("Overdue Collection Tracker")
+         .ImageUrl("~/Content/Images/SalesIcon.png")
+         .Content(
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-LocationNEmployeeWiseWeeklySalesNCollectionReport');">Weekly Overdue Collection Report</a></li>
+    </ul>
+    </text>
+
+
+);
+
+            menu.Add()
+                  .Text("Sales")
+                  .ImageUrl("~/Content/Images/SalesIcon.png")
+                  .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/SalesIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('SAL-SalesSummaryDetailView');">Sales Summary Detail View</a></li>
+    </ul>
+    </text>
+
+);
+
+
+            menu.Add()
+                .Text("Inventory")
+                .ImageUrl("~/Content/Images/Inventory.png")
+                .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-ReportViewer');">Monthly Closing Inventory</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('INV-InventorySummaryToDetailView');">Inventory Summary To Detail
+                View</a> </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="http://172.25.40.50/MonthlyEntryInventory/InventoryReports.aspx" target="_blank">Inventory Summary</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/Inventory.png") " alt="" />
+            <a href="http://172.25.40.50/MonthlyEntryInventory/InventoryReportsForVendor.aspx"
+                target="_blank">Inventory Summary Report For Vendor</a></li>
+    </ul>
+    </text>
+);
+
+            menu.Add()
+           .Text("Accounts")
+           .ImageUrl("~/Content/Images/AccountingIcon.png")
+           .Content(
+
+    @<text>
+    <ul class="MenuListVertical">
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-TrialBalance');">Trial Balance Report</a>
+        </li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-ReportViewerAccountFinance');">Statement of Financial Position</a></li>
+        <li>
+            <img src="@Url.Content("~/Content/Images/AccountingIcon.png") " alt="" />
+            <a href="#" onclick="return RSFMenu('ACC-ReportIncomeStatement');">Income Statement</a></li>
+    </ul>
+    </text>
+);
+
+        }).Render();
+}

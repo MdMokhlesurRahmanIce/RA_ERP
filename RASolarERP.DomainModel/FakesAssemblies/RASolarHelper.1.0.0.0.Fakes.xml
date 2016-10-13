@@ -1,0 +1,2567 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RASolarHelper.1.0.0.0.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:RASolarHelper.Fakes.ShimExceptionHelper">
+            <summary>Shim type of RASolarHelper.ExceptionHelper</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimExceptionHelper.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimExceptionHelper.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimExceptionHelper.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.EntityDBUpdateExceptionProcessException">
+            <summary>Sets the shim of ExceptionHelper.EntityDBUpdateExceptionProcess(Exception ex)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.EntityValidationErrorProcessException">
+            <summary>Sets the shim of ExceptionHelper.EntityValidationErrorProcess(Exception ex)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.ExceptionCustomErrorMessageString">
+            <summary>Sets the shim of ExceptionHelper.ExceptionCustomErrorMessage(String ex)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.ExceptionMessageException">
+            <summary>Sets the shim of ExceptionHelper.ExceptionMessage(Exception ex)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.ExceptionMessageExceptionString">
+            <summary>Sets the shim of ExceptionHelper.ExceptionMessage(Exception ex, String errorMessage)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.ExceptionMessageOnlyException">
+            <summary>Sets the shim of ExceptionHelper.ExceptionMessageOnly(Exception ex)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.ExceptionMessageString">
+            <summary>Sets the shim of ExceptionHelper.ExceptionMessage(String ex)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.ExceptionMessageStringString">
+            <summary>Sets the shim of ExceptionHelper.ExceptionMessage(String ex, String id)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimExceptionHelper.ExceptionMessageStringStringString">
+            <summary>Sets the shim of ExceptionHelper.ExceptionMessage(String ex, String messageCode, String id)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimHelper">
+            <summary>Shim type of RASolarHelper.Helper</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimHelper.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimHelper.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimHelper.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.AccountSequenceNumberGenerationArrayListLoginHelper">
+            <summary>Sets the shim of Helper.AccountSequenceNumberGeneration(ArrayList accountTransactionNumberMax, LoginHelper objLoginHelper)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.AccountSequenceNumberGenerationString">
+            <summary>Sets the shim of Helper.AccountSequenceNumberGeneration(String accountTransactionnumberMax)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.CalculateDateDifferanceYearMonthDayDateTimeDateTime">
+            <summary>Sets the shim of Helper.CalculateDateDifferanceYearMonthDay(DateTime dateForm, DateTime dateTo)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.ChallanCequenceNumberGenerationString">
+            <summary>Sets the shim of Helper.ChallanCequenceNumberGeneration(String challanNumberMax)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.ChallanCequenceNumberGenerationStringLoginHelper">
+            <summary>Sets the shim of Helper.ChallanCequenceNumberGeneration(String challanNumberMax, LoginHelper objLoginHelper)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.ChallanSequenceNumberDuplicationCheckStringString">
+            <summary>Sets the shim of Helper.ChallanSequenceNumberDuplicationCheck(String currentSequenceNumber, String dbSequenceNumber)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.ClientIPAddress">
+            <summary>Sets the shim of Helper.ClientIPAddress()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.ConvertDateToYearMonthDateTime">
+            <summary>Sets the shim of Helper.ConvertDateToYearMonth(DateTime date)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.CurrentWeekOfYearDateTime">
+            <summary>Sets the shim of Helper.CurrentWeekOfYear(DateTime dates)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateFormatDDMMMYYYYString">
+            <summary>Sets the shim of Helper.DateFormatDDMMMYYYY(String dates)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateFormatDateTime">
+            <summary>Sets the shim of Helper.DateFormat(DateTime dates)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateFormatMMDDYYYYDateTime">
+            <summary>Sets the shim of Helper.DateFormatMMDDYYYY(DateTime dates)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateFormatMMDDYYYYString">
+            <summary>Sets the shim of Helper.DateFormatMMDDYYYY(String dates)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateFormatMMDDYYYYToDateString">
+            <summary>Sets the shim of Helper.DateFormatMMDDYYYYToDate(String dates)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateFormatString">
+            <summary>Sets the shim of Helper.DateFormat(String dateText)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateFromDayAndYearMonthInt32String">
+            <summary>Sets the shim of Helper.DateFromDayAndYearMonth(Int32 date, String yearMonth)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateFromString">
+            <summary>Sets the shim of Helper.DateFrom(String yearMonth)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.DateToString">
+            <summary>Sets the shim of Helper.DateTo(String yearMonth)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.EmployeeIdNewString">
+            <summary>Sets the shim of Helper.EmployeeIdNew(String employeeIdMax)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.EmployeeIdProcessString">
+            <summary>Sets the shim of Helper.EmployeeIdProcess(String employeeIdInNumberOnly)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.EmployeeIdValidationString">
+            <summary>Sets the shim of Helper.EmployeeIdValidation(String employeeId)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.EmployeeImagePathString">
+            <summary>Sets the shim of Helper.EmployeeImagePath(String employeeId)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.EmployeeSignaturePathString">
+            <summary>Sets the shim of Helper.EmployeeSignaturePath(String employeeId)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.EmployeeWiseSalaryStructureSeqenceNumberGenerationByte">
+            <summary>Sets the shim of Helper.EmployeeWiseSalaryStructureSeqenceNumberGeneration(Byte sequenceNumber)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.FirstDateOfCurrentWeekDateTime">
+            <summary>Sets the shim of Helper.FirstDateOfCurrentWeek(DateTime date)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.InvalidDate">
+            <summary>Sets the shim of Helper.InvalidDate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.LastDateOfCurrentWeekDateTime">
+            <summary>Sets the shim of Helper.LastDateOfCurrentWeek(DateTime date)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.LocationCodeLoginHelper">
+            <summary>Sets the shim of Helper.LocationCode(LoginHelper objLoginHelper)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.LocationLoginHelper">
+            <summary>Sets the shim of Helper.Location(LoginHelper objLoginHelper)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.LocationNameLoginHelper">
+            <summary>Sets the shim of Helper.LocationName(LoginHelper objLoginHelper)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MRRItemsConditionByteByte">
+            <summary>Sets the shim of Helper.MRRItemsCondition(Byte mrrType, Byte itemCondition)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MonthDigitToNameInt32">
+            <summary>Sets the shim of Helper.MonthDigitToName(Int32 month)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MonthEndDateDateTime">
+            <summary>Sets the shim of Helper.MonthEndDate(DateTime date)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MonthEndDateFromMonthNumberInt32DateTime">
+            <summary>Sets the shim of Helper.MonthEndDateFromMonthNumber(Int32 month, DateTime date)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MonthEndDateString">
+            <summary>Sets the shim of Helper.MonthEndDate(String yearMonth)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MonthNumberToEndDaysInt32">
+            <summary>Sets the shim of Helper.MonthNumberToEndDays(Int32 monthNumber)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MonthStartDateDateTime">
+            <summary>Sets the shim of Helper.MonthStartDate(DateTime date)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MonthStartDateFromMonthNumberInt32DateTime">
+            <summary>Sets the shim of Helper.MonthStartDateFromMonthNumber(Int32 month, DateTime date)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MonthStartDateString">
+            <summary>Sets the shim of Helper.MonthStartDate(String yearMonth)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MrrTypeString">
+            <summary>Sets the shim of Helper.MrrType(String issueType)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.MrrTypeStringString">
+            <summary>Sets the shim of Helper.MrrType(String issueType, String locationType)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.NumberOfCharacterString">
+            <summary>Sets the shim of Helper.NumberOfCharacter(String rsfString)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.OpenEntryMonthString">
+            <summary>Sets the shim of Helper.OpenEntryMonth(String yearMonth)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.PaymentModeString">
+            <summary>Sets the shim of Helper.PaymentMode(String paymentModeId)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.StaticConstructor">
+            <summary>Sets the shim of Helper.Helper()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.StockLocationSelectionByte">
+            <summary>Sets the shim of Helper.StockLocationSelection(Byte stockLocation)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.URLLoginHelper">
+            <summary>Sets the shim of Helper.URL(LoginHelper objLoginHelper)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.UserLocationTypeNameByte">
+            <summary>Sets the shim of Helper.UserLocationTypeName(Byte locationTypeId)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.UserLocationTypeString">
+            <summary>Sets the shim of Helper.UserLocationType(String locationType)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.VoucherSelectionBoolean">
+            <summary>Sets the shim of Helper.VoucherSelection(Boolean voucher)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.VoucherSelectionString">
+            <summary>Sets the shim of Helper.VoucherSelection(String voucherType)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.VoucherTypeSelectionString">
+            <summary>Sets the shim of Helper.VoucherTypeSelection(String voucherType)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.YearMonthCurrent">
+            <summary>Sets the shim of Helper.YearMonthCurrent()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.YearMonthNumberToYearMonthTextString">
+            <summary>Sets the shim of Helper.YearMonthNumberToYearMonthText(String yearMonth)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.YearMonthPreviousInt32">
+            <summary>Sets the shim of Helper.YearMonthPrevious(Int32 howMuchPrevious)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.YearMonthPreviousStringInt32">
+            <summary>Sets the shim of Helper.YearMonthPrevious(String yearMonth, Int32 howMuchPrevious)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.YearMonthString">
+            <summary>Sets the shim of Helper.YearMonth(String yearMonth)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.YearWeekDateTime">
+            <summary>Sets the shim of Helper.YearWeek(DateTime date)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.YearWeekToEndDateString">
+            <summary>Sets the shim of Helper.YearWeekToEndDate(String yearWeek)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimHelper.YearWeekToStartDateString">
+            <summary>Sets the shim of Helper.YearWeekToStartDate(String yearWeek)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimIPNetworking">
+            <summary>Shim type of RASolarHelper.IPNetworking</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimIPNetworking.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimIPNetworking.#ctor(RASolarHelper.IPNetworking)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimIPNetworking.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimIPNetworking.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimIPNetworking.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimIPNetworking.Constructor">
+            <summary>Sets the shim of IPNetworking.IPNetworking()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimIPNetworking.GetIP4Address">
+            <summary>Sets the shim of IPNetworking.GetIP4Address()</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimIPNetworking.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimLocationInfo">
+            <summary>Shim type of RASolarHelper.LocationInfo</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimLocationInfo.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimLocationInfo.#ctor(RASolarHelper.LocationInfo)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimLocationInfo.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimLocationInfo.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.BackDayAllowedForTransactionGet">
+            <summary>Sets the shim of LocationInfo.get_BackDayAllowedForTransaction()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.BackDayAllowedForTransactionSetNullableOfByte">
+            <summary>Sets the shim of LocationInfo.set_BackDayAllowedForTransaction(Nullable`1&lt;Byte&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.Constructor">
+            <summary>Sets the shim of LocationInfo.LocationInfo()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.CustomerCodePrefixGet">
+            <summary>Sets the shim of LocationInfo.get_CustomerCodePrefix()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.CustomerCodePrefixSetString">
+            <summary>Sets the shim of LocationInfo.set_CustomerCodePrefix(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.LocationCodeGet">
+            <summary>Sets the shim of LocationInfo.get_LocationCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.LocationCodeSetString">
+            <summary>Sets the shim of LocationInfo.set_LocationCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.LocationNameGet">
+            <summary>Sets the shim of LocationInfo.get_LocationName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.LocationNameSetString">
+            <summary>Sets the shim of LocationInfo.set_LocationName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.LocationTypeGet">
+            <summary>Sets the shim of LocationInfo.get_LocationType()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.LocationTypeSetByte">
+            <summary>Sets the shim of LocationInfo.set_LocationType(Byte value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.ParentLocationCodeGet">
+            <summary>Sets the shim of LocationInfo.get_ParentLocationCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.ParentLocationCodeSetString">
+            <summary>Sets the shim of LocationInfo.set_ParentLocationCode(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimLocationInfo.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.BackDayAllowedForTransactionGet">
+            <summary>Sets the shim of LocationInfo.get_BackDayAllowedForTransaction()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.BackDayAllowedForTransactionSetNullableOfByte">
+            <summary>Sets the shim of LocationInfo.set_BackDayAllowedForTransaction(Nullable`1&lt;Byte&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.CustomerCodePrefixGet">
+            <summary>Sets the shim of LocationInfo.get_CustomerCodePrefix()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.CustomerCodePrefixSetString">
+            <summary>Sets the shim of LocationInfo.set_CustomerCodePrefix(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.LocationCodeGet">
+            <summary>Sets the shim of LocationInfo.get_LocationCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.LocationCodeSetString">
+            <summary>Sets the shim of LocationInfo.set_LocationCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.LocationNameGet">
+            <summary>Sets the shim of LocationInfo.get_LocationName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.LocationNameSetString">
+            <summary>Sets the shim of LocationInfo.set_LocationName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.LocationTypeGet">
+            <summary>Sets the shim of LocationInfo.get_LocationType()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.LocationTypeSetByte">
+            <summary>Sets the shim of LocationInfo.set_LocationType(Byte value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.ParentLocationCodeGet">
+            <summary>Sets the shim of LocationInfo.get_ParentLocationCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLocationInfo.AllInstances.ParentLocationCodeSetString">
+            <summary>Sets the shim of LocationInfo.set_ParentLocationCode(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimLoginHelper">
+            <summary>Shim type of RASolarHelper.LoginHelper</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimLoginHelper.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimLoginHelper.#ctor(RASolarHelper.LoginHelper)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimLoginHelper.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimLoginHelper.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AuditorYearMonthGet">
+            <summary>Sets the shim of LoginHelper.get_AuditorYearMonth()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AuditorYearMonthSetString">
+            <summary>Sets the shim of LoginHelper.set_AuditorYearMonth(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.Constructor">
+            <summary>Sets the shim of LoginHelper.LoginHelper()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.CurrentDateGet">
+            <summary>Sets the shim of LoginHelper.get_CurrentDate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.CurrentDateSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_CurrentDate(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.CurrentWeekNumberGet">
+            <summary>Sets the shim of LoginHelper.get_CurrentWeekNumber()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.CurrentWeekNumberSetInt32">
+            <summary>Sets the shim of LoginHelper.set_CurrentWeekNumber(Int32 value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.CurrentYearWeekGet">
+            <summary>Sets the shim of LoginHelper.get_CurrentYearWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.CurrentYearWeekSetString">
+            <summary>Sets the shim of LoginHelper.set_CurrentYearWeek(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.CustomerPrefixGet">
+            <summary>Sets the shim of LoginHelper.get_CustomerPrefix()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.CustomerPrefixSetString">
+            <summary>Sets the shim of LoginHelper.set_CustomerPrefix(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.FirstDateOfCurrentWeekGet">
+            <summary>Sets the shim of LoginHelper.get_FirstDateOfCurrentWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.FirstDateOfCurrentWeekSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_FirstDateOfCurrentWeek(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.FirstDateOfOpenWeekGet">
+            <summary>Sets the shim of LoginHelper.get_FirstDateOfOpenWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.FirstDateOfOpenWeekSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_FirstDateOfOpenWeek(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.HomeLocationGet">
+            <summary>Sets the shim of LoginHelper.get_HomeLocation()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.HomeLocationSetString">
+            <summary>Sets the shim of LoginHelper.set_HomeLocation(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.HomeURLGet">
+            <summary>Sets the shim of LoginHelper.get_HomeURL()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.HomeURLSetString">
+            <summary>Sets the shim of LoginHelper.set_HomeURL(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.IsAuthenticApproverForThisLocationGet">
+            <summary>Sets the shim of LoginHelper.get_IsAuthenticApproverForThisLocation()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.IsAuthenticApproverForThisLocationSetBoolean">
+            <summary>Sets the shim of LoginHelper.set_IsAuthenticApproverForThisLocation(Boolean value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.IsInventoryImplementedGet">
+            <summary>Sets the shim of LoginHelper.get_IsInventoryImplemented()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.IsInventoryImplementedSetByte">
+            <summary>Sets the shim of LoginHelper.set_IsInventoryImplemented(Byte value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LastDateOfCurrentWeekGet">
+            <summary>Sets the shim of LoginHelper.get_LastDateOfCurrentWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LastDateOfCurrentWeekSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_LastDateOfCurrentWeek(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LastDateOfOpenWeekGet">
+            <summary>Sets the shim of LoginHelper.get_LastDateOfOpenWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LastDateOfOpenWeekSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_LastDateOfOpenWeek(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LocationCodeGet">
+            <summary>Sets the shim of LoginHelper.get_LocationCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LocationCodeSetString">
+            <summary>Sets the shim of LoginHelper.set_LocationCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LocationGet">
+            <summary>Sets the shim of LoginHelper.get_Location()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LocationNameGet">
+            <summary>Sets the shim of LoginHelper.get_LocationName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LocationNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LocationName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LocationSetString">
+            <summary>Sets the shim of LoginHelper.set_Location(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LocationTitleGet">
+            <summary>Sets the shim of LoginHelper.get_LocationTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LocationTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_LocationTitle(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForRegionCodeGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForRegionCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForRegionCodeSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForRegionCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForRegionNameGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForRegionName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForRegionNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForRegionName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForUnitCodeGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForUnitCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForUnitCodeSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForUnitCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForUnitNameGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForUnitName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForUnitNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForUnitName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForZoneCodeGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForZoneCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForZoneCodeSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForZoneCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForZoneNameGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForZoneName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInForZoneNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForZoneName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInIDGet">
+            <summary>Sets the shim of LoginHelper.get_LogInID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInIDSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInPasswordGet">
+            <summary>Sets the shim of LoginHelper.get_LogInPassword()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInPasswordSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInPassword(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInUserNameGet">
+            <summary>Sets the shim of LoginHelper.get_LogInUserName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.LogInUserNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInUserName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.ModluleTitleGet">
+            <summary>Sets the shim of LoginHelper.get_ModluleTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.ModluleTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_ModluleTitle(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForAccountingGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForAccounting()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForAccountingSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForAccounting(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForDailyProgressReviewGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForDailyProgressReview()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForDailyProgressReviewSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForDailyProgressReview(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForHRMSGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForHRMS()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForHRMSSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForHRMS(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForInventoryGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForInventory()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForInventorySetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForInventory(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForSalesGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForSales()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.MonthOpenForSalesSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForSales(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.OfficeModuleGet">
+            <summary>Sets the shim of LoginHelper.get_OfficeModule()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.OfficeModuleSetInt32">
+            <summary>Sets the shim of LoginHelper.set_OfficeModule(Int32 value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.OpenWeekNumberGet">
+            <summary>Sets the shim of LoginHelper.get_OpenWeekNumber()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.OpenWeekNumberSetInt32">
+            <summary>Sets the shim of LoginHelper.set_OpenWeekNumber(Int32 value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.OpenYearMonthGet">
+            <summary>Sets the shim of LoginHelper.get_OpenYearMonth()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.OpenYearMonthSetString">
+            <summary>Sets the shim of LoginHelper.set_OpenYearMonth(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.OpenYearWeekGet">
+            <summary>Sets the shim of LoginHelper.get_OpenYearWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.OpenYearWeekSetString">
+            <summary>Sets the shim of LoginHelper.set_OpenYearWeek(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.RegionTitleGet">
+            <summary>Sets the shim of LoginHelper.get_RegionTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.RegionTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_RegionTitle(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.ReportTypeGet">
+            <summary>Sets the shim of LoginHelper.get_ReportType()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.ReportTypeSetString">
+            <summary>Sets the shim of LoginHelper.set_ReportType(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.TopMenuGet">
+            <summary>Sets the shim of LoginHelper.get_TopMenu()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.TopMenuSetString">
+            <summary>Sets the shim of LoginHelper.set_TopMenu(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.TransactionBackDateGet">
+            <summary>Sets the shim of LoginHelper.get_TransactionBackDate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.TransactionBackDateSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_TransactionBackDate(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.TransactionOpenDateGet">
+            <summary>Sets the shim of LoginHelper.get_TransactionOpenDate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.TransactionOpenDateSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_TransactionOpenDate(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.URLGet">
+            <summary>Sets the shim of LoginHelper.get_URL()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.URLSelectionLocationGet">
+            <summary>Sets the shim of LoginHelper.get_URLSelectionLocation()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.URLSelectionLocationSetString">
+            <summary>Sets the shim of LoginHelper.set_URLSelectionLocation(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.URLSetString">
+            <summary>Sets the shim of LoginHelper.set_URL(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.UerRoleOrGroupIDGet">
+            <summary>Sets the shim of LoginHelper.get_UerRoleOrGroupID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.UerRoleOrGroupIDSetString">
+            <summary>Sets the shim of LoginHelper.set_UerRoleOrGroupID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.UnitTitleGet">
+            <summary>Sets the shim of LoginHelper.get_UnitTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.UnitTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_UnitTitle(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.UserOperationalRoleOrGroupIDGet">
+            <summary>Sets the shim of LoginHelper.get_UserOperationalRoleOrGroupID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.UserOperationalRoleOrGroupIDSetString">
+            <summary>Sets the shim of LoginHelper.set_UserOperationalRoleOrGroupID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.WeekOpenForWeeklyOverdueCollectionGet">
+            <summary>Sets the shim of LoginHelper.get_WeekOpenForWeeklyOverdueCollection()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.WeekOpenForWeeklyOverdueCollectionSetString">
+            <summary>Sets the shim of LoginHelper.set_WeekOpenForWeeklyOverdueCollection(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.YearMonthCurrentGet">
+            <summary>Sets the shim of LoginHelper.get_YearMonthCurrent()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.YearMonthCurrentSetString">
+            <summary>Sets the shim of LoginHelper.set_YearMonthCurrent(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.ZoneTitleGet">
+            <summary>Sets the shim of LoginHelper.get_ZoneTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.ZoneTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_ZoneTitle(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimLoginHelper.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.AuditorYearMonthGet">
+            <summary>Sets the shim of LoginHelper.get_AuditorYearMonth()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.AuditorYearMonthSetString">
+            <summary>Sets the shim of LoginHelper.set_AuditorYearMonth(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.CurrentDateGet">
+            <summary>Sets the shim of LoginHelper.get_CurrentDate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.CurrentDateSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_CurrentDate(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.CurrentWeekNumberGet">
+            <summary>Sets the shim of LoginHelper.get_CurrentWeekNumber()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.CurrentWeekNumberSetInt32">
+            <summary>Sets the shim of LoginHelper.set_CurrentWeekNumber(Int32 value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.CurrentYearWeekGet">
+            <summary>Sets the shim of LoginHelper.get_CurrentYearWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.CurrentYearWeekSetString">
+            <summary>Sets the shim of LoginHelper.set_CurrentYearWeek(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.CustomerPrefixGet">
+            <summary>Sets the shim of LoginHelper.get_CustomerPrefix()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.CustomerPrefixSetString">
+            <summary>Sets the shim of LoginHelper.set_CustomerPrefix(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.FirstDateOfCurrentWeekGet">
+            <summary>Sets the shim of LoginHelper.get_FirstDateOfCurrentWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.FirstDateOfCurrentWeekSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_FirstDateOfCurrentWeek(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.FirstDateOfOpenWeekGet">
+            <summary>Sets the shim of LoginHelper.get_FirstDateOfOpenWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.FirstDateOfOpenWeekSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_FirstDateOfOpenWeek(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.HomeLocationGet">
+            <summary>Sets the shim of LoginHelper.get_HomeLocation()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.HomeLocationSetString">
+            <summary>Sets the shim of LoginHelper.set_HomeLocation(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.HomeURLGet">
+            <summary>Sets the shim of LoginHelper.get_HomeURL()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.HomeURLSetString">
+            <summary>Sets the shim of LoginHelper.set_HomeURL(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.IsAuthenticApproverForThisLocationGet">
+            <summary>Sets the shim of LoginHelper.get_IsAuthenticApproverForThisLocation()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.IsAuthenticApproverForThisLocationSetBoolean">
+            <summary>Sets the shim of LoginHelper.set_IsAuthenticApproverForThisLocation(Boolean value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.IsInventoryImplementedGet">
+            <summary>Sets the shim of LoginHelper.get_IsInventoryImplemented()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.IsInventoryImplementedSetByte">
+            <summary>Sets the shim of LoginHelper.set_IsInventoryImplemented(Byte value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LastDateOfCurrentWeekGet">
+            <summary>Sets the shim of LoginHelper.get_LastDateOfCurrentWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LastDateOfCurrentWeekSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_LastDateOfCurrentWeek(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LastDateOfOpenWeekGet">
+            <summary>Sets the shim of LoginHelper.get_LastDateOfOpenWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LastDateOfOpenWeekSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_LastDateOfOpenWeek(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LocationCodeGet">
+            <summary>Sets the shim of LoginHelper.get_LocationCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LocationCodeSetString">
+            <summary>Sets the shim of LoginHelper.set_LocationCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LocationGet">
+            <summary>Sets the shim of LoginHelper.get_Location()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LocationNameGet">
+            <summary>Sets the shim of LoginHelper.get_LocationName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LocationNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LocationName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LocationSetString">
+            <summary>Sets the shim of LoginHelper.set_Location(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LocationTitleGet">
+            <summary>Sets the shim of LoginHelper.get_LocationTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LocationTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_LocationTitle(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForRegionCodeGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForRegionCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForRegionCodeSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForRegionCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForRegionNameGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForRegionName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForRegionNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForRegionName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForUnitCodeGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForUnitCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForUnitCodeSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForUnitCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForUnitNameGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForUnitName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForUnitNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForUnitName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForZoneCodeGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForZoneCode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForZoneCodeSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForZoneCode(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForZoneNameGet">
+            <summary>Sets the shim of LoginHelper.get_LogInForZoneName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInForZoneNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInForZoneName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInIDGet">
+            <summary>Sets the shim of LoginHelper.get_LogInID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInIDSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInPasswordGet">
+            <summary>Sets the shim of LoginHelper.get_LogInPassword()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInPasswordSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInPassword(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInUserNameGet">
+            <summary>Sets the shim of LoginHelper.get_LogInUserName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.LogInUserNameSetString">
+            <summary>Sets the shim of LoginHelper.set_LogInUserName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.ModluleTitleGet">
+            <summary>Sets the shim of LoginHelper.get_ModluleTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.ModluleTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_ModluleTitle(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForAccountingGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForAccounting()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForAccountingSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForAccounting(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForDailyProgressReviewGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForDailyProgressReview()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForDailyProgressReviewSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForDailyProgressReview(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForHRMSGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForHRMS()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForHRMSSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForHRMS(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForInventoryGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForInventory()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForInventorySetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForInventory(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForSalesGet">
+            <summary>Sets the shim of LoginHelper.get_MonthOpenForSales()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.MonthOpenForSalesSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_MonthOpenForSales(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.OfficeModuleGet">
+            <summary>Sets the shim of LoginHelper.get_OfficeModule()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.OfficeModuleSetInt32">
+            <summary>Sets the shim of LoginHelper.set_OfficeModule(Int32 value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.OpenWeekNumberGet">
+            <summary>Sets the shim of LoginHelper.get_OpenWeekNumber()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.OpenWeekNumberSetInt32">
+            <summary>Sets the shim of LoginHelper.set_OpenWeekNumber(Int32 value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.OpenYearMonthGet">
+            <summary>Sets the shim of LoginHelper.get_OpenYearMonth()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.OpenYearMonthSetString">
+            <summary>Sets the shim of LoginHelper.set_OpenYearMonth(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.OpenYearWeekGet">
+            <summary>Sets the shim of LoginHelper.get_OpenYearWeek()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.OpenYearWeekSetString">
+            <summary>Sets the shim of LoginHelper.set_OpenYearWeek(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.RegionTitleGet">
+            <summary>Sets the shim of LoginHelper.get_RegionTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.RegionTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_RegionTitle(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.ReportTypeGet">
+            <summary>Sets the shim of LoginHelper.get_ReportType()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.ReportTypeSetString">
+            <summary>Sets the shim of LoginHelper.set_ReportType(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.TopMenuGet">
+            <summary>Sets the shim of LoginHelper.get_TopMenu()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.TopMenuSetString">
+            <summary>Sets the shim of LoginHelper.set_TopMenu(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.TransactionBackDateGet">
+            <summary>Sets the shim of LoginHelper.get_TransactionBackDate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.TransactionBackDateSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_TransactionBackDate(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.TransactionOpenDateGet">
+            <summary>Sets the shim of LoginHelper.get_TransactionOpenDate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.TransactionOpenDateSetDateTime">
+            <summary>Sets the shim of LoginHelper.set_TransactionOpenDate(DateTime value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.URLGet">
+            <summary>Sets the shim of LoginHelper.get_URL()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.URLSelectionLocationGet">
+            <summary>Sets the shim of LoginHelper.get_URLSelectionLocation()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.URLSelectionLocationSetString">
+            <summary>Sets the shim of LoginHelper.set_URLSelectionLocation(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.URLSetString">
+            <summary>Sets the shim of LoginHelper.set_URL(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.UerRoleOrGroupIDGet">
+            <summary>Sets the shim of LoginHelper.get_UerRoleOrGroupID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.UerRoleOrGroupIDSetString">
+            <summary>Sets the shim of LoginHelper.set_UerRoleOrGroupID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.UnitTitleGet">
+            <summary>Sets the shim of LoginHelper.get_UnitTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.UnitTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_UnitTitle(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.UserOperationalRoleOrGroupIDGet">
+            <summary>Sets the shim of LoginHelper.get_UserOperationalRoleOrGroupID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.UserOperationalRoleOrGroupIDSetString">
+            <summary>Sets the shim of LoginHelper.set_UserOperationalRoleOrGroupID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.WeekOpenForWeeklyOverdueCollectionGet">
+            <summary>Sets the shim of LoginHelper.get_WeekOpenForWeeklyOverdueCollection()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.WeekOpenForWeeklyOverdueCollectionSetString">
+            <summary>Sets the shim of LoginHelper.set_WeekOpenForWeeklyOverdueCollection(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.YearMonthCurrentGet">
+            <summary>Sets the shim of LoginHelper.get_YearMonthCurrent()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.YearMonthCurrentSetString">
+            <summary>Sets the shim of LoginHelper.set_YearMonthCurrent(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.ZoneTitleGet">
+            <summary>Sets the shim of LoginHelper.get_ZoneTitle()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimLoginHelper.AllInstances.ZoneTitleSetString">
+            <summary>Sets the shim of LoginHelper.set_ZoneTitle(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimNetworkUtility">
+            <summary>Shim type of RASolarHelper.NetworkUtility</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimNetworkUtility.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimNetworkUtility.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimNetworkUtility.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimNetworkUtility.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimNetworkUtility.GetMacAddressIPAddress">
+            <summary>Sets the shim of NetworkUtility.GetMacAddress(IPAddress ipAddress)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimNetworkUtility.GetMacAddressPhysicalAddress">
+            <summary>Sets the shim of NetworkUtility.GetMacAddress(PhysicalAddress physicalAddress)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimNetworkUtility.GetMacAddressString">
+            <summary>Sets the shim of NetworkUtility.GetMacAddress(String ipAddress)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimPageAccessRightHelper">
+            <summary>Shim type of RASolarHelper.PageAccessRightHelper</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimPageAccessRightHelper.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimPageAccessRightHelper.#ctor(RASolarHelper.PageAccessRightHelper)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimPageAccessRightHelper.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimPageAccessRightHelper.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AccessStatusGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_AccessStatus()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AccessStatusSetByte">
+            <summary>Sets the shim of PageAccessRightHelper.set_AccessStatus(Byte value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.Constructor">
+            <summary>Sets the shim of PageAccessRightHelper.PageAccessRightHelper()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.IsGrantedForDeleteGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_IsGrantedForDelete()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.IsGrantedForDeleteSetNullableOfBoolean">
+            <summary>Sets the shim of PageAccessRightHelper.set_IsGrantedForDelete(Nullable`1&lt;Boolean&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.IsGrantedForInsertGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_IsGrantedForInsert()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.IsGrantedForInsertSetNullableOfBoolean">
+            <summary>Sets the shim of PageAccessRightHelper.set_IsGrantedForInsert(Nullable`1&lt;Boolean&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.IsGrantedForSelectGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_IsGrantedForSelect()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.IsGrantedForSelectSetNullableOfBoolean">
+            <summary>Sets the shim of PageAccessRightHelper.set_IsGrantedForSelect(Nullable`1&lt;Boolean&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.IsGrantedForUpdateGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_IsGrantedForUpdate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.IsGrantedForUpdateSetNullableOfBoolean">
+            <summary>Sets the shim of PageAccessRightHelper.set_IsGrantedForUpdate(Nullable`1&lt;Boolean&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.MessageToShowGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_MessageToShow()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.MessageToShowSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_MessageToShow(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.ModuleIDGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_ModuleID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.ModuleIDSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_ModuleID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.PageIDGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_PageID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.PageIDSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_PageID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.PageNameToLinkGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_PageNameToLink()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.PageNameToLinkSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_PageNameToLink(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.RoleOrGroupIDGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_RoleOrGroupID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.RoleOrGroupIDSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_RoleOrGroupID(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.AccessStatusGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_AccessStatus()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.AccessStatusSetByte">
+            <summary>Sets the shim of PageAccessRightHelper.set_AccessStatus(Byte value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.IsGrantedForDeleteGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_IsGrantedForDelete()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.IsGrantedForDeleteSetNullableOfBoolean">
+            <summary>Sets the shim of PageAccessRightHelper.set_IsGrantedForDelete(Nullable`1&lt;Boolean&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.IsGrantedForInsertGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_IsGrantedForInsert()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.IsGrantedForInsertSetNullableOfBoolean">
+            <summary>Sets the shim of PageAccessRightHelper.set_IsGrantedForInsert(Nullable`1&lt;Boolean&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.IsGrantedForSelectGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_IsGrantedForSelect()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.IsGrantedForSelectSetNullableOfBoolean">
+            <summary>Sets the shim of PageAccessRightHelper.set_IsGrantedForSelect(Nullable`1&lt;Boolean&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.IsGrantedForUpdateGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_IsGrantedForUpdate()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.IsGrantedForUpdateSetNullableOfBoolean">
+            <summary>Sets the shim of PageAccessRightHelper.set_IsGrantedForUpdate(Nullable`1&lt;Boolean&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.MessageToShowGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_MessageToShow()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.MessageToShowSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_MessageToShow(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.ModuleIDGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_ModuleID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.ModuleIDSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_ModuleID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.PageIDGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_PageID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.PageIDSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_PageID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.PageNameToLinkGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_PageNameToLink()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.PageNameToLinkSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_PageNameToLink(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.RoleOrGroupIDGet">
+            <summary>Sets the shim of PageAccessRightHelper.get_RoleOrGroupID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPageAccessRightHelper.AllInstances.RoleOrGroupIDSetString">
+            <summary>Sets the shim of PageAccessRightHelper.set_RoleOrGroupID(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimParameter">
+            <summary>Shim type of RASolarHelper.Parameter</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimParameter.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimParameter.#ctor(RASolarHelper.Parameter)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimParameter.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimParameter.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.Constructor">
+            <summary>Sets the shim of Parameter.Parameter()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.ParameterNameGet">
+            <summary>Sets the shim of Parameter.get_ParameterName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.ParameterNameSetString">
+            <summary>Sets the shim of Parameter.set_ParameterName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.ValueGet">
+            <summary>Sets the shim of Parameter.get_Value()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.ValueSetString">
+            <summary>Sets the shim of Parameter.set_Value(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimParameter.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.AllInstances.ParameterNameGet">
+            <summary>Sets the shim of Parameter.get_ParameterName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.AllInstances.ParameterNameSetString">
+            <summary>Sets the shim of Parameter.set_ParameterName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.AllInstances.ValueGet">
+            <summary>Sets the shim of Parameter.get_Value()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimParameter.AllInstances.ValueSetString">
+            <summary>Sets the shim of Parameter.set_Value(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimPeriodDurationInMonth">
+            <summary>Shim type of RASolarHelper.PeriodDurationInMonth</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimPeriodDurationInMonth.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimPeriodDurationInMonth.#ctor(RASolarHelper.PeriodDurationInMonth)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimPeriodDurationInMonth.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimPeriodDurationInMonth.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.Constructor">
+            <summary>Sets the shim of PeriodDurationInMonth.PeriodDurationInMonth()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.MonthDurationNameGet">
+            <summary>Sets the shim of PeriodDurationInMonth.get_MonthDurationName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.MonthDurationNameSetString">
+            <summary>Sets the shim of PeriodDurationInMonth.set_MonthDurationName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.MonthDurationValueGet">
+            <summary>Sets the shim of PeriodDurationInMonth.get_MonthDurationValue()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.MonthDurationValueSetInt32">
+            <summary>Sets the shim of PeriodDurationInMonth.set_MonthDurationValue(Int32 value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.PeriodDurationInMonthList">
+            <summary>Sets the shim of PeriodDurationInMonth.PeriodDurationInMonthList()</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimPeriodDurationInMonth.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.AllInstances.MonthDurationNameGet">
+            <summary>Sets the shim of PeriodDurationInMonth.get_MonthDurationName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.AllInstances.MonthDurationNameSetString">
+            <summary>Sets the shim of PeriodDurationInMonth.set_MonthDurationName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.AllInstances.MonthDurationValueGet">
+            <summary>Sets the shim of PeriodDurationInMonth.get_MonthDurationValue()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.AllInstances.MonthDurationValueSetInt32">
+            <summary>Sets the shim of PeriodDurationInMonth.set_MonthDurationValue(Int32 value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimPeriodDurationInMonth.AllInstances.PeriodDurationInMonthList">
+            <summary>Sets the shim of PeriodDurationInMonth.PeriodDurationInMonthList()</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimRASolarERPModule">
+            <summary>Shim type of RASolarHelper.RASolarERPModule</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimRASolarERPModule.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimRASolarERPModule.#ctor(RASolarHelper.RASolarERPModule)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimRASolarERPModule.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimRASolarERPModule.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.Constructor">
+            <summary>Sets the shim of RASolarERPModule.RASolarERPModule()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.ModuleTypeNameGet">
+            <summary>Sets the shim of RASolarERPModule.get_ModuleTypeName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.ModuleTypeNameSetString">
+            <summary>Sets the shim of RASolarERPModule.set_ModuleTypeName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.ModuleTypeValueGet">
+            <summary>Sets the shim of RASolarERPModule.get_ModuleTypeValue()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.ModuleTypeValueSetString">
+            <summary>Sets the shim of RASolarERPModule.set_ModuleTypeValue(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.RSFERPModuleSelection">
+            <summary>Sets the shim of RASolarERPModule.RSFERPModuleSelection()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.RSFERPReportSelection">
+            <summary>Sets the shim of RASolarERPModule.RSFERPReportSelection()</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimRASolarERPModule.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.AllInstances.ModuleTypeNameGet">
+            <summary>Sets the shim of RASolarERPModule.get_ModuleTypeName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.AllInstances.ModuleTypeNameSetString">
+            <summary>Sets the shim of RASolarERPModule.set_ModuleTypeName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.AllInstances.ModuleTypeValueGet">
+            <summary>Sets the shim of RASolarERPModule.get_ModuleTypeValue()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.AllInstances.ModuleTypeValueSetString">
+            <summary>Sets the shim of RASolarERPModule.set_ModuleTypeValue(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.AllInstances.RSFERPModuleSelection">
+            <summary>Sets the shim of RASolarERPModule.RSFERPModuleSelection()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimRASolarERPModule.AllInstances.RSFERPReportSelection">
+            <summary>Sets the shim of RASolarERPModule.RSFERPReportSelection()</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimReportBasePage">
+            <summary>Shim type of RASolarHelper.ReportBasePage</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.#ctor(RASolarHelper.ReportBasePage)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.ComponentModel.IComponent)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.IHttpHandler)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.UI.IControlBuilderAccessor)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.UI.IControlDesignerAccessor)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.UI.IDataBindingsAccessor)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.UI.IExpressionsAccessor)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.UI.IFilterResolutionService)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.UI.INamingContainer)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.UI.IParserAccessor)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.Web.UI.IUrlResolutionService)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportBasePage.Bind(System.IDisposable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.CaptureRouteDataHttpRequest">
+            <summary>Sets the shim of ReportBasePage.CaptureRouteData(HttpRequest request)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.Constructor">
+            <summary>Sets the shim of ReportBasePage.ReportBasePage()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.OnInitEventArgs">
+            <summary>Sets the shim of ReportBasePage.OnInit(EventArgs e)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.ReportDataObjGet">
+            <summary>Sets the shim of ReportBasePage.get_ReportDataObj()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.ReportDataObjSetReportData">
+            <summary>Sets the shim of ReportBasePage.set_ReportDataObj(ReportData value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimReportBasePage.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.AllInstances.CaptureRouteDataHttpRequest">
+            <summary>Sets the shim of ReportBasePage.CaptureRouteData(HttpRequest request)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.AllInstances.OnInitEventArgs">
+            <summary>Sets the shim of ReportBasePage.OnInit(EventArgs e)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.AllInstances.ReportDataObjGet">
+            <summary>Sets the shim of ReportBasePage.get_ReportDataObj()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportBasePage.AllInstances.ReportDataObjSetReportData">
+            <summary>Sets the shim of ReportBasePage.set_ReportDataObj(ReportData value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimReportData">
+            <summary>Shim type of RASolarHelper.ReportData</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportData.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportData.#ctor(RASolarHelper.ReportData)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportData.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimReportData.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.Constructor">
+            <summary>Sets the shim of ReportData.ReportData()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.DataParametersGet">
+            <summary>Sets the shim of ReportData.get_DataParameters()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.DataParametersSetListOfParameter">
+            <summary>Sets the shim of ReportData.set_DataParameters(List`1&lt;Parameter&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.IsLocalGet">
+            <summary>Sets the shim of ReportData.get_IsLocal()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.IsLocalSetBoolean">
+            <summary>Sets the shim of ReportData.set_IsLocal(Boolean value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.ReportNameGet">
+            <summary>Sets the shim of ReportData.get_ReportName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.ReportNameSetString">
+            <summary>Sets the shim of ReportData.set_ReportName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.ReportParametersGet">
+            <summary>Sets the shim of ReportData.get_ReportParameters()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.ReportParametersSetListOfParameter">
+            <summary>Sets the shim of ReportData.set_ReportParameters(List`1&lt;Parameter&gt; value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimReportData.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.AllInstances.DataParametersGet">
+            <summary>Sets the shim of ReportData.get_DataParameters()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.AllInstances.DataParametersSetListOfParameter">
+            <summary>Sets the shim of ReportData.set_DataParameters(List`1&lt;Parameter&gt; value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.AllInstances.IsLocalGet">
+            <summary>Sets the shim of ReportData.get_IsLocal()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.AllInstances.IsLocalSetBoolean">
+            <summary>Sets the shim of ReportData.set_IsLocal(Boolean value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.AllInstances.ReportNameGet">
+            <summary>Sets the shim of ReportData.get_ReportName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.AllInstances.ReportNameSetString">
+            <summary>Sets the shim of ReportData.set_ReportName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.AllInstances.ReportParametersGet">
+            <summary>Sets the shim of ReportData.get_ReportParameters()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimReportData.AllInstances.ReportParametersSetListOfParameter">
+            <summary>Sets the shim of ReportData.set_ReportParameters(List`1&lt;Parameter&gt; value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimUserGroup">
+            <summary>Shim type of RASolarHelper.UserGroup</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimUserGroup.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimUserGroup.#ctor(RASolarHelper.UserGroup)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimUserGroup.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimUserGroup.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserGroup.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserGroup.Constructor">
+            <summary>Sets the shim of UserGroup.UserGroup()</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimUserGroup.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimUserLocationType">
+            <summary>Shim type of RASolarHelper.UserLocationType</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimUserLocationType.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimUserLocationType.#ctor(RASolarHelper.UserLocationType)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimUserLocationType.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimUserLocationType.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.Constructor">
+            <summary>Sets the shim of UserLocationType.UserLocationType()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.LocationTypeIDGet">
+            <summary>Sets the shim of UserLocationType.get_LocationTypeID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.LocationTypeIDSetString">
+            <summary>Sets the shim of UserLocationType.set_LocationTypeID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.LocationTypeTextGet">
+            <summary>Sets the shim of UserLocationType.get_LocationTypeText()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.LocationTypeTextSetString">
+            <summary>Sets the shim of UserLocationType.set_LocationTypeText(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.UserLocationTypeFormat">
+            <summary>Sets the shim of UserLocationType.UserLocationTypeFormat()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.UserLocationTypeFormatChallanString">
+            <summary>Sets the shim of UserLocationType.UserLocationTypeFormatChallan(String issueTypeId)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimUserLocationType.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.AllInstances.LocationTypeIDGet">
+            <summary>Sets the shim of UserLocationType.get_LocationTypeID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.AllInstances.LocationTypeIDSetString">
+            <summary>Sets the shim of UserLocationType.set_LocationTypeID(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.AllInstances.LocationTypeTextGet">
+            <summary>Sets the shim of UserLocationType.get_LocationTypeText()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.AllInstances.LocationTypeTextSetString">
+            <summary>Sets the shim of UserLocationType.set_LocationTypeText(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.AllInstances.UserLocationTypeFormat">
+            <summary>Sets the shim of UserLocationType.UserLocationTypeFormat()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimUserLocationType.AllInstances.UserLocationTypeFormatChallanString">
+            <summary>Sets the shim of UserLocationType.UserLocationTypeFormatChallan(String issueTypeId)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimVoucherWiseChartOfAccount">
+            <summary>Shim type of RASolarHelper.VoucherWiseChartOfAccount</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimVoucherWiseChartOfAccount.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimVoucherWiseChartOfAccount.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimVoucherWiseChartOfAccount.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimVoucherWiseChartOfAccount.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimVoucherWiseChartOfAccount.CashInHand">
+            <summary>Sets the shim of VoucherWiseChartOfAccount.CashInHand()</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimYearMonthFormat">
+            <summary>Shim type of RASolarHelper.YearMonthFormat</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimYearMonthFormat.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimYearMonthFormat.#ctor(RASolarHelper.YearMonthFormat)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimYearMonthFormat.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimYearMonthFormat.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.Constructor">
+            <summary>Sets the shim of YearMonthFormat.YearMonthFormat()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.MonthFormat">
+            <summary>Sets the shim of YearMonthFormat.MonthFormat()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.MonthList">
+            <summary>Sets the shim of YearMonthFormat.MonthList()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.YearMonthNameGet">
+            <summary>Sets the shim of YearMonthFormat.get_YearMonthName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.YearMonthNameSetString">
+            <summary>Sets the shim of YearMonthFormat.set_YearMonthName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.YearMonthValueGet">
+            <summary>Sets the shim of YearMonthFormat.get_YearMonthValue()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.YearMonthValueSetString">
+            <summary>Sets the shim of YearMonthFormat.set_YearMonthValue(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimYearMonthFormat.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.AllInstances.MonthFormat">
+            <summary>Sets the shim of YearMonthFormat.MonthFormat()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.AllInstances.MonthList">
+            <summary>Sets the shim of YearMonthFormat.MonthList()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.AllInstances.YearMonthNameGet">
+            <summary>Sets the shim of YearMonthFormat.get_YearMonthName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.AllInstances.YearMonthNameSetString">
+            <summary>Sets the shim of YearMonthFormat.set_YearMonthName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.AllInstances.YearMonthValueGet">
+            <summary>Sets the shim of YearMonthFormat.get_YearMonthValue()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearMonthFormat.AllInstances.YearMonthValueSetString">
+            <summary>Sets the shim of YearMonthFormat.set_YearMonthValue(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimYearWeekFormat">
+            <summary>Shim type of RASolarHelper.YearWeekFormat</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimYearWeekFormat.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimYearWeekFormat.#ctor(RASolarHelper.YearWeekFormat)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimYearWeekFormat.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.ShimYearWeekFormat.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.Constructor">
+            <summary>Sets the shim of YearWeekFormat.YearWeekFormat()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.WeekFormat">
+            <summary>Sets the shim of YearWeekFormat.WeekFormat()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.YearWeekNameGet">
+            <summary>Sets the shim of YearWeekFormat.get_YearWeekName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.YearWeekNameSetString">
+            <summary>Sets the shim of YearWeekFormat.set_YearWeekName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.YearWeekValueGet">
+            <summary>Sets the shim of YearWeekFormat.get_YearWeekValue()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.YearWeekValueSetString">
+            <summary>Sets the shim of YearWeekFormat.set_YearWeekValue(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.ShimYearWeekFormat.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.AllInstances.WeekFormat">
+            <summary>Sets the shim of YearWeekFormat.WeekFormat()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.AllInstances.YearWeekNameGet">
+            <summary>Sets the shim of YearWeekFormat.get_YearWeekName()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.AllInstances.YearWeekNameSetString">
+            <summary>Sets the shim of YearWeekFormat.set_YearWeekName(String value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.AllInstances.YearWeekValueGet">
+            <summary>Sets the shim of YearWeekFormat.get_YearWeekValue()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.ShimYearWeekFormat.AllInstances.YearWeekValueSetString">
+            <summary>Sets the shim of YearWeekFormat.set_YearWeekValue(String value)</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubIPNetworking">
+            <summary>Stub type of RASolarHelper.IPNetworking</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubIPNetworking.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubIPNetworking.InitializeStub">
+            <summary>Initializes a new instance of type StubIPNetworking</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubIPNetworking.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubIPNetworking.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubIPNetworking.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubLocationInfo">
+            <summary>Stub type of RASolarHelper.LocationInfo</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubLocationInfo.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubLocationInfo.InitializeStub">
+            <summary>Initializes a new instance of type StubLocationInfo</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubLocationInfo.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubLocationInfo.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubLocationInfo.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubLoginHelper">
+            <summary>Stub type of RASolarHelper.LoginHelper</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubLoginHelper.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubLoginHelper.InitializeStub">
+            <summary>Initializes a new instance of type StubLoginHelper</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubLoginHelper.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubLoginHelper.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubLoginHelper.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubPageAccessRightHelper">
+            <summary>Stub type of RASolarHelper.PageAccessRightHelper</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubPageAccessRightHelper.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubPageAccessRightHelper.InitializeStub">
+            <summary>Initializes a new instance of type StubPageAccessRightHelper</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubPageAccessRightHelper.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubPageAccessRightHelper.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubPageAccessRightHelper.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubParameter">
+            <summary>Stub type of RASolarHelper.Parameter</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubParameter.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubParameter.InitializeStub">
+            <summary>Initializes a new instance of type StubParameter</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubParameter.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubParameter.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubParameter.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubPeriodDurationInMonth">
+            <summary>Stub type of RASolarHelper.PeriodDurationInMonth</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubPeriodDurationInMonth.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubPeriodDurationInMonth.InitializeStub">
+            <summary>Initializes a new instance of type StubPeriodDurationInMonth</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubPeriodDurationInMonth.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubPeriodDurationInMonth.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubPeriodDurationInMonth.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubRASolarERPModule">
+            <summary>Stub type of RASolarHelper.RASolarERPModule</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubRASolarERPModule.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubRASolarERPModule.InitializeStub">
+            <summary>Initializes a new instance of type StubRASolarERPModule</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubRASolarERPModule.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubRASolarERPModule.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubRASolarERPModule.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubReportBasePage">
+            <summary>Stub type of RASolarHelper.ReportBasePage</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AddParsedSubObject(System.Object)">
+            <summary>Sets the stub of Control.AddParsedSubObject(Object obj)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.AddParsedSubObjectObject">
+            <summary>Sets the stub of Control.AddParsedSubObject(Object obj)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AddedControl(System.Web.UI.Control,System.Int32)">
+            <summary>Sets the stub of Control.AddedControl(Control control, Int32 index)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.AddedControlControlInt32">
+            <summary>Sets the stub of Control.AddedControl(Control control, Int32 index)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.ApplyStyleSheetSkin(System.Web.UI.Page)">
+            <summary>Sets the stub of Control.ApplyStyleSheetSkin(Page page)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ApplyStyleSheetSkinPage">
+            <summary>Sets the stub of Control.ApplyStyleSheetSkin(Page page)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToAutoHandlers">
+            <summary>Attaches delegates to emulate StubReportBasePage.AutoHandlers as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToClientIDMode">
+            <summary>Attaches delegates to emulate StubReportBasePage.ClientIDMode as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToEnableEventValidation">
+            <summary>Attaches delegates to emulate StubReportBasePage.EnableEventValidation as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToEnableTheming">
+            <summary>Attaches delegates to emulate StubReportBasePage.EnableTheming as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToEnableViewState">
+            <summary>Attaches delegates to emulate StubReportBasePage.EnableViewState as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToID">
+            <summary>Attaches delegates to emulate StubReportBasePage.ID as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToMasterPageFile">
+            <summary>Attaches delegates to emulate StubReportBasePage.MasterPageFile as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToRenderingCompatibility">
+            <summary>Attaches delegates to emulate StubReportBasePage.RenderingCompatibility as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToSkinID">
+            <summary>Attaches delegates to emulate StubReportBasePage.SkinID as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToStyleSheetTheme">
+            <summary>Attaches delegates to emulate StubReportBasePage.StyleSheetTheme as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToTheme">
+            <summary>Attaches delegates to emulate StubReportBasePage.Theme as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToValidateRequestMode">
+            <summary>Attaches delegates to emulate StubReportBasePage.ValidateRequestMode as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToViewStateMode">
+            <summary>Attaches delegates to emulate StubReportBasePage.ViewStateMode as a property with a backing field.</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.AttachBackingFieldToVisible">
+            <summary>Attaches delegates to emulate StubReportBasePage.Visible as a property with a backing field.</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.AutoHandlersGet">
+            <summary>Sets the stub of TemplateControl.get_AutoHandlers()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.AutoHandlersSetInt32">
+            <summary>Sets the stub of TemplateControl.set_AutoHandlers(Int32 value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ClientIDGet">
+            <summary>Sets the stub of Control.get_ClientID()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ClientIDModeGet">
+            <summary>Sets the stub of Control.get_ClientIDMode()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ClientIDModeSetClientIDMode">
+            <summary>Sets the stub of Control.set_ClientIDMode(ClientIDMode value)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.Construct">
+            <summary>Sets the stub of TemplateControl.Construct()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.Construct01">
+            <summary>Sets the stub of TemplateControl.Construct()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ContextGet">
+            <summary>Sets the stub of Page.get_Context()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ControlsGet">
+            <summary>Sets the stub of Control.get_Controls()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.CreateChildControls">
+            <summary>Sets the stub of Control.CreateChildControls()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.CreateChildControls01">
+            <summary>Sets the stub of Control.CreateChildControls()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.CreateControlCollection">
+            <summary>Sets the stub of Control.CreateControlCollection()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.CreateControlCollection01">
+            <summary>Sets the stub of Control.CreateControlCollection()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.CreateHtmlTextWriter(System.IO.TextWriter)">
+            <summary>Sets the stub of Page.CreateHtmlTextWriter(TextWriter tw)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.CreateHtmlTextWriterTextWriter">
+            <summary>Sets the stub of Page.CreateHtmlTextWriter(TextWriter tw)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.DataBind">
+            <summary>Sets the stub of Control.DataBind()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.DataBind(System.Boolean)">
+            <summary>Sets the stub of Control.DataBind(Boolean raiseOnDataBinding)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.DataBind01">
+            <summary>Sets the stub of Control.DataBind()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.DataBindBoolean">
+            <summary>Sets the stub of Control.DataBind(Boolean raiseOnDataBinding)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.DataBindChildren">
+            <summary>Sets the stub of Control.DataBindChildren()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.DataBindChildren01">
+            <summary>Sets the stub of Control.DataBindChildren()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.DeterminePostBackMode">
+            <summary>Sets the stub of Page.DeterminePostBackMode()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.DeterminePostBackMode01">
+            <summary>Sets the stub of Page.DeterminePostBackMode()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.DeterminePostBackModeUnvalidated">
+            <summary>Sets the stub of Page.DeterminePostBackModeUnvalidated()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.DeterminePostBackModeUnvalidated01">
+            <summary>Sets the stub of Page.DeterminePostBackModeUnvalidated()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.Dispose">
+            <summary>Sets the stub of Control.Dispose()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.Dispose01">
+            <summary>Sets the stub of Control.Dispose()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.EnableEventValidationGet">
+            <summary>Sets the stub of Page.get_EnableEventValidation()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.EnableEventValidationSetBoolean">
+            <summary>Sets the stub of Page.set_EnableEventValidation(Boolean value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.EnableThemingGet">
+            <summary>Sets the stub of TemplateControl.get_EnableTheming()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.EnableThemingSetBoolean">
+            <summary>Sets the stub of TemplateControl.set_EnableTheming(Boolean value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.EnableViewStateGet">
+            <summary>Sets the stub of Page.get_EnableViewState()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.EnableViewStateSetBoolean">
+            <summary>Sets the stub of Page.set_EnableViewState(Boolean value)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.EnsureChildControls">
+            <summary>Sets the stub of Control.EnsureChildControls()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.EnsureChildControls01">
+            <summary>Sets the stub of Control.EnsureChildControls()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.FindControl(System.String)">
+            <summary>Sets the stub of Page.FindControl(String id)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.FindControl(System.String,System.Int32)">
+            <summary>Sets the stub of Control.FindControl(String id, Int32 pathOffset)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.FindControlString">
+            <summary>Sets the stub of Page.FindControl(String id)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.FindControlStringInt32">
+            <summary>Sets the stub of Control.FindControl(String id, Int32 pathOffset)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.Focus">
+            <summary>Sets the stub of Control.Focus()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.Focus01">
+            <summary>Sets the stub of Control.Focus()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.FrameworkInitialize">
+            <summary>Sets the stub of Page.FrameworkInitialize()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.FrameworkInitialize01">
+            <summary>Sets the stub of Page.FrameworkInitialize()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.GetDesignModeState">
+            <summary>Sets the stub of Control.GetDesignModeState()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.GetDesignModeState01">
+            <summary>Sets the stub of Control.GetDesignModeState()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.GetTypeHashCode">
+            <summary>Sets the stub of Page.GetTypeHashCode()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.GetTypeHashCode01">
+            <summary>Sets the stub of Page.GetTypeHashCode()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.HasControls">
+            <summary>Sets the stub of Control.HasControls()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.HasControls01">
+            <summary>Sets the stub of Control.HasControls()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.IDGet">
+            <summary>Sets the stub of Page.get_ID()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.IDSetString">
+            <summary>Sets the stub of Page.set_ID(String value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.IdSeparatorGet">
+            <summary>Sets the stub of Page.get_IdSeparator()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.InitOutputCache(System.Web.UI.OutputCacheParameters)">
+            <summary>Sets the stub of Page.InitOutputCache(OutputCacheParameters cacheSettings)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.InitOutputCache(System.Int32,System.String,System.String,System.Web.UI.OutputCacheLocation,System.String)">
+            <summary>Sets the stub of Page.InitOutputCache(Int32 duration, String varyByHeader, String varyByCustom, OutputCacheLocation location, String varyByParam)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.InitOutputCache(System.Int32,System.String,System.String,System.String,System.Web.UI.OutputCacheLocation,System.String)">
+            <summary>Sets the stub of Page.InitOutputCache(Int32 duration, String varyByContentEncoding, String varyByHeader, String varyByCustom, OutputCacheLocation location, String varyByParam)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.InitOutputCacheInt32StringStringOutputCacheLocationString">
+            <summary>Sets the stub of Page.InitOutputCache(Int32 duration, String varyByHeader, String varyByCustom, OutputCacheLocation location, String varyByParam)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.InitOutputCacheInt32StringStringStringOutputCacheLocationString">
+            <summary>Sets the stub of Page.InitOutputCache(Int32 duration, String varyByContentEncoding, String varyByHeader, String varyByCustom, OutputCacheLocation location, String varyByParam)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.InitOutputCacheOutputCacheParameters">
+            <summary>Sets the stub of Page.InitOutputCache(OutputCacheParameters cacheSettings)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.InitializeCulture">
+            <summary>Sets the stub of Page.InitializeCulture()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.InitializeCulture01">
+            <summary>Sets the stub of Page.InitializeCulture()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.InitializeStub">
+            <summary>Initializes a new instance of type StubReportBasePage</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.LoadControlState(System.Object)">
+            <summary>Sets the stub of Control.LoadControlState(Object savedState)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.LoadControlStateObject">
+            <summary>Sets the stub of Control.LoadControlState(Object savedState)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.LoadPageStateFromPersistenceMedium">
+            <summary>Sets the stub of Page.LoadPageStateFromPersistenceMedium()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.LoadPageStateFromPersistenceMedium01">
+            <summary>Sets the stub of Page.LoadPageStateFromPersistenceMedium()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.LoadViewState(System.Object)">
+            <summary>Sets the stub of Control.LoadViewState(Object savedState)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.LoadViewStateObject">
+            <summary>Sets the stub of Control.LoadViewState(Object savedState)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.MasterPageFileGet">
+            <summary>Sets the stub of Page.get_MasterPageFile()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.MasterPageFileSetString">
+            <summary>Sets the stub of Page.set_MasterPageFile(String value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.NamingContainerGet">
+            <summary>Sets the stub of Control.get_NamingContainer()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnAbortTransaction(System.EventArgs)">
+            <summary>Sets the stub of TemplateControl.OnAbortTransaction(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnAbortTransactionEventArgs">
+            <summary>Sets the stub of TemplateControl.OnAbortTransaction(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnBubbleEvent(System.Object,System.EventArgs)">
+            <summary>Sets the stub of Control.OnBubbleEvent(Object source, EventArgs args)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnBubbleEventObjectEventArgs">
+            <summary>Sets the stub of Control.OnBubbleEvent(Object source, EventArgs args)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnCommitTransaction(System.EventArgs)">
+            <summary>Sets the stub of TemplateControl.OnCommitTransaction(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnCommitTransactionEventArgs">
+            <summary>Sets the stub of TemplateControl.OnCommitTransaction(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnDataBinding(System.EventArgs)">
+            <summary>Sets the stub of Control.OnDataBinding(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnDataBindingEventArgs">
+            <summary>Sets the stub of Control.OnDataBinding(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnError(System.EventArgs)">
+            <summary>Sets the stub of TemplateControl.OnError(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnErrorEventArgs">
+            <summary>Sets the stub of TemplateControl.OnError(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnInit(System.EventArgs)">
+            <summary>Sets the stub of ReportBasePage.OnInit(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnInitComplete(System.EventArgs)">
+            <summary>Sets the stub of Page.OnInitComplete(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnInitCompleteEventArgs">
+            <summary>Sets the stub of Page.OnInitComplete(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnInitEventArgs">
+            <summary>Sets the stub of ReportBasePage.OnInit(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnLoad(System.EventArgs)">
+            <summary>Sets the stub of Control.OnLoad(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnLoadComplete(System.EventArgs)">
+            <summary>Sets the stub of Page.OnLoadComplete(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnLoadCompleteEventArgs">
+            <summary>Sets the stub of Page.OnLoadComplete(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnLoadEventArgs">
+            <summary>Sets the stub of Control.OnLoad(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnPreInit(System.EventArgs)">
+            <summary>Sets the stub of Page.OnPreInit(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnPreInitEventArgs">
+            <summary>Sets the stub of Page.OnPreInit(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnPreLoad(System.EventArgs)">
+            <summary>Sets the stub of Page.OnPreLoad(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnPreLoadEventArgs">
+            <summary>Sets the stub of Page.OnPreLoad(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnPreRender(System.EventArgs)">
+            <summary>Sets the stub of Control.OnPreRender(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnPreRenderComplete(System.EventArgs)">
+            <summary>Sets the stub of Page.OnPreRenderComplete(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnPreRenderCompleteEventArgs">
+            <summary>Sets the stub of Page.OnPreRenderComplete(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnPreRenderEventArgs">
+            <summary>Sets the stub of Control.OnPreRender(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnSaveStateComplete(System.EventArgs)">
+            <summary>Sets the stub of Page.OnSaveStateComplete(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnSaveStateCompleteEventArgs">
+            <summary>Sets the stub of Page.OnSaveStateComplete(EventArgs e)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.OnUnload(System.EventArgs)">
+            <summary>Sets the stub of Control.OnUnload(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.OnUnloadEventArgs">
+            <summary>Sets the stub of Control.OnUnload(EventArgs e)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.PageStatePersisterGet">
+            <summary>Sets the stub of Page.get_PageStatePersister()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ParentGet">
+            <summary>Sets the stub of Control.get_Parent()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.ProcessRequest(System.Web.HttpContext)">
+            <summary>Sets the stub of Page.ProcessRequest(HttpContext context)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ProcessRequestHttpContext">
+            <summary>Sets the stub of Page.ProcessRequest(HttpContext context)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.RaisePostBackEvent(System.Web.UI.IPostBackEventHandler,System.String)">
+            <summary>Sets the stub of Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RaisePostBackEventIPostBackEventHandlerString">
+            <summary>Sets the stub of Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.RegisterClientScriptBlock(System.String,System.String)">
+            <summary>Sets the stub of Page.RegisterClientScriptBlock(String key, String script)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RegisterClientScriptBlockStringString">
+            <summary>Sets the stub of Page.RegisterClientScriptBlock(String key, String script)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.RegisterHiddenField(System.String,System.String)">
+            <summary>Sets the stub of Page.RegisterHiddenField(String hiddenFieldName, String hiddenFieldInitialValue)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RegisterHiddenFieldStringString">
+            <summary>Sets the stub of Page.RegisterHiddenField(String hiddenFieldName, String hiddenFieldInitialValue)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.RegisterRequiresRaiseEvent(System.Web.UI.IPostBackEventHandler)">
+            <summary>Sets the stub of Page.RegisterRequiresRaiseEvent(IPostBackEventHandler control)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RegisterRequiresRaiseEventIPostBackEventHandler">
+            <summary>Sets the stub of Page.RegisterRequiresRaiseEvent(IPostBackEventHandler control)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.RegisterStartupScript(System.String,System.String)">
+            <summary>Sets the stub of Page.RegisterStartupScript(String key, String script)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RegisterStartupScriptStringString">
+            <summary>Sets the stub of Page.RegisterStartupScript(String key, String script)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.RemovedControl(System.Web.UI.Control)">
+            <summary>Sets the stub of Control.RemovedControl(Control control)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RemovedControlControl">
+            <summary>Sets the stub of Control.RemovedControl(Control control)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>Sets the stub of Page.Render(HtmlTextWriter writer)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.RenderChildren(System.Web.UI.HtmlTextWriter)">
+            <summary>Sets the stub of Control.RenderChildren(HtmlTextWriter writer)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RenderChildrenHtmlTextWriter">
+            <summary>Sets the stub of Control.RenderChildren(HtmlTextWriter writer)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.RenderControl(System.Web.UI.HtmlTextWriter)">
+            <summary>Sets the stub of Control.RenderControl(HtmlTextWriter writer)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RenderControlHtmlTextWriter">
+            <summary>Sets the stub of Control.RenderControl(HtmlTextWriter writer)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RenderHtmlTextWriter">
+            <summary>Sets the stub of Page.Render(HtmlTextWriter writer)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RenderingCompatibilityGet">
+            <summary>Sets the stub of Control.get_RenderingCompatibility()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.RenderingCompatibilitySetVersion">
+            <summary>Sets the stub of Control.set_RenderingCompatibility(Version value)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.ResolveAdapter">
+            <summary>Sets the stub of Control.ResolveAdapter()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ResolveAdapter01">
+            <summary>Sets the stub of Control.ResolveAdapter()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.SaveControlState">
+            <summary>Sets the stub of Control.SaveControlState()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.SaveControlState01">
+            <summary>Sets the stub of Control.SaveControlState()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.SavePageStateToPersistenceMedium(System.Object)">
+            <summary>Sets the stub of Page.SavePageStateToPersistenceMedium(Object state)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.SavePageStateToPersistenceMediumObject">
+            <summary>Sets the stub of Page.SavePageStateToPersistenceMedium(Object state)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.SaveViewState">
+            <summary>Sets the stub of Control.SaveViewState()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.SaveViewState01">
+            <summary>Sets the stub of Control.SaveViewState()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.SessionGet">
+            <summary>Sets the stub of Page.get_Session()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.SetDesignModeState(System.Collections.IDictionary)">
+            <summary>Sets the stub of Control.SetDesignModeState(IDictionary data)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.SetDesignModeStateIDictionary">
+            <summary>Sets the stub of Control.SetDesignModeState(IDictionary data)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.SkinIDGet">
+            <summary>Sets the stub of Control.get_SkinID()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.SkinIDSetString">
+            <summary>Sets the stub of Control.set_SkinID(String value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.StyleSheetThemeGet">
+            <summary>Sets the stub of Page.get_StyleSheetTheme()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.StyleSheetThemeSetString">
+            <summary>Sets the stub of Page.set_StyleSheetTheme(String value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.SupportAutoEventsGet">
+            <summary>Sets the stub of TemplateControl.get_SupportAutoEvents()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.TemplateSourceDirectoryGet">
+            <summary>Sets the stub of Control.get_TemplateSourceDirectory()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.TestDeviceFilter(System.String)">
+            <summary>Sets the stub of TemplateControl.TestDeviceFilter(String filterName)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.TestDeviceFilterString">
+            <summary>Sets the stub of TemplateControl.TestDeviceFilter(String filterName)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ThemeGet">
+            <summary>Sets the stub of Page.get_Theme()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ThemeSetString">
+            <summary>Sets the stub of Page.set_Theme(String value)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.TrackViewState">
+            <summary>Sets the stub of Control.TrackViewState()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.TrackViewState01">
+            <summary>Sets the stub of Control.TrackViewState()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.TryUpdateModel``1(``0)">
+            <summary>Sets the stub of Page.TryUpdateModel(!!0 model)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.TryUpdateModel``1(``0,System.Web.ModelBinding.IValueProvider)">
+            <summary>Sets the stub of Page.TryUpdateModel(!!0 model, IValueProvider valueProvider)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.TryUpdateModelOf1M0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{``0,System.Boolean})">
+            <summary>Sets stubs of TryUpdateModel(!!0 model)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.TryUpdateModelOf1M0IValueProvider``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Func{``0,System.Web.ModelBinding.IValueProvider,System.Boolean})">
+            <summary>Sets stubs of TryUpdateModel(!!0 model, IValueProvider valueProvider)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.UniqueFilePathSuffixGet">
+            <summary>Sets the stub of Page.get_UniqueFilePathSuffix()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.UniqueIDGet">
+            <summary>Sets the stub of Control.get_UniqueID()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.UpdateModel``1(``0)">
+            <summary>Sets the stub of Page.UpdateModel(!!0 model)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.UpdateModel``1(``0,System.Web.ModelBinding.IValueProvider)">
+            <summary>Sets the stub of Page.UpdateModel(!!0 model, IValueProvider valueProvider)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.UpdateModelOf1M0``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{``0})">
+            <summary>Sets stubs of UpdateModel(!!0 model)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.UpdateModelOf1M0IValueProvider``1(Microsoft.QualityTools.Testing.Fakes.FakesDelegates.Action{``0,System.Web.ModelBinding.IValueProvider})">
+            <summary>Sets stubs of UpdateModel(!!0 model, IValueProvider valueProvider)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.Validate">
+            <summary>Sets the stub of Page.Validate()</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.Validate(System.String)">
+            <summary>Sets the stub of Page.Validate(String validationGroup)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.Validate01">
+            <summary>Sets the stub of Page.Validate()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ValidateRequestModeGet">
+            <summary>Sets the stub of Page.get_ValidateRequestMode()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ValidateRequestModeSetValidateRequestMode">
+            <summary>Sets the stub of Page.set_ValidateRequestMode(ValidateRequestMode value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ValidateString">
+            <summary>Sets the stub of Page.Validate(String validationGroup)</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportBasePage.VerifyRenderingInServerForm(System.Web.UI.Control)">
+            <summary>Sets the stub of Page.VerifyRenderingInServerForm(Control control)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.VerifyRenderingInServerFormControl">
+            <summary>Sets the stub of Page.VerifyRenderingInServerForm(Control control)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ViewStateGet">
+            <summary>Sets the stub of Control.get_ViewState()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ViewStateIgnoresCaseGet">
+            <summary>Sets the stub of Control.get_ViewStateIgnoresCase()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ViewStateModeGet">
+            <summary>Sets the stub of Control.get_ViewStateMode()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.ViewStateModeSetViewStateMode">
+            <summary>Sets the stub of Control.set_ViewStateMode(ViewStateMode value)</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.VisibleGet">
+            <summary>Sets the stub of Page.get_Visible()</summary>
+        </member>
+        <member name="F:RASolarHelper.Fakes.StubReportBasePage.VisibleSetBoolean">
+            <summary>Sets the stub of Page.set_Visible(Boolean value)</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.AutoHandlers">
+            <summary>Sets the stub of TemplateControl.get_AutoHandlers()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.ClientID">
+            <summary>Sets the stub of Control.get_ClientID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.ClientIDMode">
+            <summary>Sets the stub of Control.get_ClientIDMode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.Context">
+            <summary>Sets the stub of Page.get_Context()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.Controls">
+            <summary>Sets the stub of Control.get_Controls()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.EnableEventValidation">
+            <summary>Sets the stub of Page.get_EnableEventValidation()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.EnableTheming">
+            <summary>Sets the stub of TemplateControl.get_EnableTheming()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.EnableViewState">
+            <summary>Sets the stub of Page.get_EnableViewState()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.ID">
+            <summary>Sets the stub of Page.get_ID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.IdSeparator">
+            <summary>Sets the stub of Page.get_IdSeparator()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.MasterPageFile">
+            <summary>Sets the stub of Page.get_MasterPageFile()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.NamingContainer">
+            <summary>Sets the stub of Control.get_NamingContainer()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.PageStatePersister">
+            <summary>Sets the stub of Page.get_PageStatePersister()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.Parent">
+            <summary>Sets the stub of Control.get_Parent()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.RenderingCompatibility">
+            <summary>Sets the stub of Control.get_RenderingCompatibility()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.Session">
+            <summary>Sets the stub of Page.get_Session()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.SkinID">
+            <summary>Sets the stub of Control.get_SkinID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.StyleSheetTheme">
+            <summary>Sets the stub of Page.get_StyleSheetTheme()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.SupportAutoEvents">
+            <summary>Sets the stub of TemplateControl.get_SupportAutoEvents()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.TemplateSourceDirectory">
+            <summary>Sets the stub of Control.get_TemplateSourceDirectory()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.Theme">
+            <summary>Sets the stub of Page.get_Theme()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.UniqueFilePathSuffix">
+            <summary>Sets the stub of Page.get_UniqueFilePathSuffix()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.UniqueID">
+            <summary>Sets the stub of Control.get_UniqueID()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.ValidateRequestMode">
+            <summary>Sets the stub of Page.get_ValidateRequestMode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.ViewState">
+            <summary>Sets the stub of Control.get_ViewState()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.ViewStateIgnoresCase">
+            <summary>Sets the stub of Control.get_ViewStateIgnoresCase()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.ViewStateMode">
+            <summary>Sets the stub of Control.get_ViewStateMode()</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportBasePage.Visible">
+            <summary>Sets the stub of Page.get_Visible()</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubReportData">
+            <summary>Stub type of RASolarHelper.ReportData</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportData.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubReportData.InitializeStub">
+            <summary>Initializes a new instance of type StubReportData</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportData.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportData.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubReportData.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubUserGroup">
+            <summary>Stub type of RASolarHelper.UserGroup</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubUserGroup.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubUserGroup.InitializeStub">
+            <summary>Initializes a new instance of type StubUserGroup</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubUserGroup.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubUserGroup.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubUserGroup.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubUserLocationType">
+            <summary>Stub type of RASolarHelper.UserLocationType</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubUserLocationType.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubUserLocationType.InitializeStub">
+            <summary>Initializes a new instance of type StubUserLocationType</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubUserLocationType.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubUserLocationType.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubUserLocationType.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubYearMonthFormat">
+            <summary>Stub type of RASolarHelper.YearMonthFormat</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubYearMonthFormat.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubYearMonthFormat.InitializeStub">
+            <summary>Initializes a new instance of type StubYearMonthFormat</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubYearMonthFormat.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubYearMonthFormat.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubYearMonthFormat.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:RASolarHelper.Fakes.StubYearWeekFormat">
+            <summary>Stub type of RASolarHelper.YearWeekFormat</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubYearWeekFormat.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:RASolarHelper.Fakes.StubYearWeekFormat.InitializeStub">
+            <summary>Initializes a new instance of type StubYearWeekFormat</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubYearWeekFormat.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubYearWeekFormat.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:RASolarHelper.Fakes.StubYearWeekFormat.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+    </members>
+</doc>
